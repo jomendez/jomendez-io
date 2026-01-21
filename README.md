@@ -213,31 +213,69 @@ onAuthChange((user) => {
 
 ### Firebase Hosting
 
-Para desplegar en Firebase Hosting:
+#### Configuración Inicial
 
-1. **Instalar Firebase CLI** (si no lo tienes):
+1. **Actualizar el proyecto Firebase en `.firebaserc`**:
+   - Abre el archivo `.firebaserc`
+   - Reemplaza `"your-project-id"` con tu ID de proyecto Firebase real
+
+2. **Instalar Firebase CLI** (si no lo tienes):
    ```bash
    npm install -g firebase-tools
    ```
 
-2. **Iniciar sesión**:
+3. **Iniciar sesión**:
    ```bash
    firebase login
    ```
 
-3. **Inicializar Firebase Hosting**:
-   ```bash
-   firebase init hosting
-   ```
-   - Selecciona tu proyecto Firebase
-   - Establece `dist` como directorio público
-   - Configura como SPA (Single Page Application)
+#### Despliegue Manual
 
-4. **Desplegar**:
-   ```bash
-   npm run build
-   firebase deploy
-   ```
+Para desplegar manualmente:
+
+```bash
+npm run deploy
+```
+
+O si ya has construido el proyecto:
+
+```bash
+npm run deploy:only
+```
+
+#### Despliegue Automático con GitHub Actions
+
+El proyecto está configurado para desplegar automáticamente a Firebase Hosting cuando haces push a la rama `main`.
+
+**Configuración de GitHub Secrets:**
+
+1. Ve a tu repositorio en GitHub → **Settings** → **Secrets and variables** → **Actions**
+
+2. Agrega los siguientes secrets:
+
+   - **`VITE_FIREBASE_API_KEY`**: Tu API Key de Firebase
+   - **`VITE_FIREBASE_AUTH_DOMAIN`**: Tu Auth Domain (ej: `your-project.firebaseapp.com`)
+   - **`VITE_FIREBASE_PROJECT_ID`**: Tu Project ID
+   - **`VITE_FIREBASE_STORAGE_BUCKET`**: Tu Storage Bucket (ej: `your-project.appspot.com`)
+   - **`VITE_FIREBASE_MESSAGING_SENDER_ID`**: Tu Messaging Sender ID
+   - **`VITE_FIREBASE_APP_ID`**: Tu App ID
+
+3. **Obtener Firebase Service Account** (para GitHub Actions):
+   - Ve a [Firebase Console](https://console.firebase.google.com/)
+   - Selecciona tu proyecto → **Configuración del proyecto** → **Cuentas de servicio**
+   - Haz clic en **Generar nueva clave privada**
+   - Copia el contenido del JSON generado
+   - En GitHub Secrets, agrega:
+     - **`FIREBASE_SERVICE_ACCOUNT`**: Pega todo el contenido del JSON
+
+**Cómo funciona:**
+
+- Cada vez que hagas `git push` a la rama `main`, GitHub Actions automáticamente:
+  1. Construye tu proyecto
+  2. Despliega a Firebase Hosting
+  3. Tu sitio estará disponible en `https://your-project-id.web.app`
+
+Puedes ver el estado del despliegue en la pestaña **Actions** de tu repositorio en GitHub.
 
 ## ➕ Agregar Nuevas Presentaciones
 
