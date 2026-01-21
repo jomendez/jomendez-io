@@ -260,13 +260,12 @@ El proyecto está configurado para desplegar automáticamente a Firebase Hosting
    - **`VITE_FIREBASE_MESSAGING_SENDER_ID`**: Tu Messaging Sender ID
    - **`VITE_FIREBASE_APP_ID`**: Tu App ID
 
-3. **Obtener Firebase Service Account** (para GitHub Actions):
-   - Ve a [Firebase Console](https://console.firebase.google.com/)
-   - Selecciona tu proyecto → **Configuración del proyecto** → **Cuentas de servicio**
-   - Haz clic en **Generar nueva clave privada**
-   - Copia el contenido del JSON generado
+3. **Obtener Firebase Token** (para GitHub Actions):
+   - Instala Firebase CLI localmente: `npm install -g firebase-tools`
+   - Inicia sesión: `firebase login:ci`
+   - Esto generará un token que debes copiar
    - En GitHub Secrets, agrega:
-     - **`FIREBASE_SERVICE_ACCOUNT`**: Pega todo el contenido del JSON
+     - **`FIREBASE_TOKEN`**: Pega el token generado
 
 **Cómo funciona:**
 
