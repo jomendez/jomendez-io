@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { PromptAlchemy } from '../components/PromptAlchemy';
 
 const Prompts101 = () => {
   const navigate = useNavigate();
@@ -2334,21 +2335,7 @@ const Prompts101 = () => {
                   overflow: 'hidden',
                   boxShadow: '0 20px 60px rgba(0,0,0,0.4)'
                 }}>
-                  <iframe
-                    src="https://prompt-alchemy-1082542892494.us-west1.run.app/"
-                    title="Google AI Studio Playground"
-                    style={{
-                      width: '100%',
-                      height: '70vh',
-                      minHeight: '600px',
-                      border: 'none',
-                      borderRadius: '16px',
-                      background: '#1a1a2e'
-                    }}
-                    sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-popups-to-escape-sandbox allow-storage-access-by-user-activation"
-                    loading="lazy"
-                    allow="clipboard-write"
-                  />
+                  <PromptAlchemy />
                 </div>
 
                 {/* Tips for using */}
