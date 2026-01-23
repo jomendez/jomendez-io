@@ -735,11 +735,64 @@ const Prompts101 = () => {
           fontSize: '24px',
           color: 'rgba(255,255,255,0.8)',
           maxWidth: '800px',
-          margin: '0 0 40px 0',
+          margin: '0 0 32px 0',
           lineHeight: 1.6
         }}>
           Por qué la mayoría escribe prompts como búsquedas de Google (y por qué eso no funciona)
         </p>
+        
+        {/* Badges de Complejidad y Tiempo */}
+        <div style={{
+          display: 'flex',
+          gap: '12px',
+          justifyContent: 'center',
+          marginBottom: '40px',
+          flexWrap: 'wrap'
+        }}>
+          {/* Badge de Complejidad */}
+          <div style={{
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: '8px',
+            background: 'rgba(34,197,94,0.15)',
+            padding: '8px 16px',
+            borderRadius: '20px',
+            border: '1px solid rgba(34,197,94,0.3)',
+            backdropFilter: 'blur(10px)'
+          }}>
+            <span style={{ fontSize: '16px' }}>🌱</span>
+            <span style={{
+              fontSize: '13px',
+              fontWeight: 600,
+              color: 'rgba(255,255,255,0.9)',
+              fontFamily: "'Inter', sans-serif"
+            }}>
+              Nivel: <span style={{ color: '#22C55E' }}>Básico</span>
+            </span>
+          </div>
+          
+          {/* Badge de Tiempo */}
+          <div style={{
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: '8px',
+            background: 'rgba(59,130,246,0.15)',
+            padding: '8px 16px',
+            borderRadius: '20px',
+            border: '1px solid rgba(59,130,246,0.3)',
+            backdropFilter: 'blur(10px)'
+          }}>
+            <span style={{ fontSize: '16px' }}>⏱️</span>
+            <span style={{
+              fontSize: '13px',
+              fontWeight: 600,
+              color: 'rgba(255,255,255,0.9)',
+              fontFamily: "'Inter', sans-serif"
+            }}>
+              Duración: <span style={{ color: '#3B82F6' }}>15-20 min</span>
+            </span>
+          </div>
+        </div>
         
         {/* Hooks de Introducción */}
         <div style={{
@@ -2321,7 +2374,7 @@ const Prompts101 = () => {
                       color: 'rgba(255,255,255,0.8)',
                       lineHeight: 1.6
                     }}>
-                      Usa Google AI Studio con Gemini para probar los prompts que aprendiste
+                      Usa Gemini para probar los prompts que aprendiste
                     </p>
                   </div>
                 </div>

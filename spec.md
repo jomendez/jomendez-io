@@ -19,7 +19,8 @@
 7. [Estructura de Secciones](#estructura-de-secciones)
 8. [Demos Interactivos](#demos-interactivos)
 9. [Sistema de Navegación](#sistema-de-navegación)
-10. [Guía para Crear Nueva Presentación](#guía-para-crear-nueva-presentación)
+10. [Badges de Información](#badges-de-información)
+11. [Guía para Crear Nueva Presentación](#guía-para-crear-nueva-presentación)
 
 ---
 
@@ -659,6 +660,59 @@ onMouseLeave={(e) => {
     Descripción breve de la presentación
   </p>
   
+  {/* Badges de Complejidad y Tiempo */}
+  <div style={{
+    display: 'flex',
+    gap: '12px',
+    justifyContent: 'center',
+    marginBottom: '40px',
+    flexWrap: 'wrap'
+  }}>
+    {/* Badge de Complejidad - Ajustar color según nivel */}
+    <div style={{
+      display: 'inline-flex',
+      alignItems: 'center',
+      gap: '8px',
+      background: 'rgba(34,197,94,0.15)', // Verde para Básico
+      padding: '8px 16px',
+      borderRadius: '20px',
+      border: '1px solid rgba(34,197,94,0.3)',
+      backdropFilter: 'blur(10px)'
+    }}>
+      <span style={{ fontSize: '16px' }}>🌱</span>
+      <span style={{
+        fontSize: '13px',
+        fontWeight: 600,
+        color: 'rgba(255,255,255,0.9)',
+        fontFamily: "'Inter', sans-serif"
+      }}>
+        Nivel: <span style={{ color: '#22C55E' }}>Básico</span>
+      </span>
+    </div>
+    
+    {/* Badge de Tiempo */}
+    <div style={{
+      display: 'inline-flex',
+      alignItems: 'center',
+      gap: '8px',
+      background: 'rgba(59,130,246,0.15)',
+      padding: '8px 16px',
+      borderRadius: '20px',
+      border: '1px solid rgba(59,130,246,0.3)',
+      backdropFilter: 'blur(10px)'
+    }}>
+      <span style={{ fontSize: '16px' }}>⏱️</span>
+      <span style={{
+        fontSize: '13px',
+        fontWeight: 600,
+        color: 'rgba(255,255,255,0.9)',
+        fontFamily: "'Inter', sans-serif"
+      }}>
+        Duración: <span style={{ color: '#3B82F6' }}>15-20 min</span>
+      </span>
+    </div>
+  </div>
+  
   {/* CTA */}
   <Button variant="primary" size="large">
     Comenzar →
@@ -1028,6 +1082,187 @@ useEffect(() => {
 
 ---
 
+## 🏷️ Badges de Información
+
+### Badges de Complejidad y Tiempo
+
+Cada presentación debe incluir badges que informen al usuario sobre:
+1. **Nivel de complejidad** del material
+2. **Tiempo estimado** de lectura e interacción
+
+Estos badges se ubican en la sección **header**, después del subtítulo y antes de los hooks de introducción.
+
+### Niveles de Complejidad
+
+#### Básico 🌱
+Para contenido introductorio que no requiere conocimientos previos.
+
+```javascript
+const basicBadge = {
+  emoji: '🌱',
+  label: 'Básico',
+  color: '#22C55E',
+  background: 'rgba(34,197,94,0.15)',
+  border: 'rgba(34,197,94,0.3)'
+};
+```
+
+**Características:**
+- No requiere conocimientos técnicos previos
+- Conceptos explicados desde cero
+- Lenguaje simple y accesible
+- Ejemplos básicos y claros
+
+**Ejemplo:** Prompts 101
+
+#### Intermedio 📊
+Para contenido que requiere familiaridad básica con el tema.
+
+```javascript
+const intermediateBadge = {
+  emoji: '📊',
+  label: 'Intermedio',
+  color: '#F59E0B',
+  background: 'rgba(139,92,246,0.15)',
+  border: 'rgba(139,92,246,0.3)'
+};
+```
+
+**Características:**
+- Asume conocimiento básico del tema
+- Profundiza en conceptos específicos
+- Incluye comparaciones y análisis
+- Demos más complejos
+
+**Ejemplo:** AIPanorama
+
+#### Avanzado 🚀
+Para contenido técnico profundo que requiere experiencia.
+
+```javascript
+const advancedBadge = {
+  emoji: '🚀',
+  label: 'Avanzado',
+  color: '#EF4444',
+  background: 'rgba(239,68,68,0.15)',
+  border: 'rgba(239,68,68,0.3)'
+};
+```
+
+**Características:**
+- Requiere conocimientos técnicos sólidos
+- Conceptos avanzados y especializados
+- Implementaciones técnicas detalladas
+- Casos de uso complejos
+
+### Estimación de Tiempo
+
+El tiempo estimado debe considerar:
+- **Lectura** de todo el contenido textual
+- **Interacción** con todos los demos
+- **Navegación** entre secciones
+- **Comprensión** de conceptos clave
+
+#### Guía de Estimación
+
+```javascript
+// Por sección típica (expandida y explorada completamente)
+const timePerSection = {
+  intro: '2-3 min',      // Sección introductoria
+  content: '3-5 min',    // Sección de contenido con demos
+  complex: '5-8 min'     // Sección con demos complejos o mucho contenido
+};
+
+// Ejemplos de tiempo total
+const timeEstimates = {
+  short: '10-15 min',    // 3-4 secciones ligeras
+  medium: '15-20 min',   // 5-6 secciones con demos
+  long: '20-30 min',     // 7+ secciones con demos complejos
+  veryLong: '30+ min'    // Presentaciones extensas o muy interactivas
+};
+```
+
+### Implementación Completa
+
+```jsx
+{/* Badges de Complejidad y Tiempo */}
+<div style={{
+  display: 'flex',
+  gap: '12px',
+  justifyContent: 'center',
+  marginBottom: '40px',
+  flexWrap: 'wrap'
+}}>
+  {/* Badge de Complejidad */}
+  <div style={{
+    display: 'inline-flex',
+    alignItems: 'center',
+    gap: '8px',
+    background: 'rgba(34,197,94,0.15)', // Cambiar según nivel
+    padding: '8px 16px',
+    borderRadius: '20px',
+    border: '1px solid rgba(34,197,94,0.3)', // Cambiar según nivel
+    backdropFilter: 'blur(10px)'
+  }}>
+    <span style={{ fontSize: '16px' }}>🌱</span> {/* Emoji según nivel */}
+    <span style={{
+      fontSize: '13px',
+      fontWeight: 600,
+      color: 'rgba(255,255,255,0.9)',
+      fontFamily: "'Inter', sans-serif"
+    }}>
+      Nivel: <span style={{ color: '#22C55E' }}>Básico</span> {/* Color según nivel */}
+    </span>
+  </div>
+  
+  {/* Badge de Tiempo */}
+  <div style={{
+    display: 'inline-flex',
+    alignItems: 'center',
+    gap: '8px',
+    background: 'rgba(59,130,246,0.15)',
+    padding: '8px 16px',
+    borderRadius: '20px',
+    border: '1px solid rgba(59,130,246,0.3)',
+    backdropFilter: 'blur(10px)'
+  }}>
+    <span style={{ fontSize: '16px' }}>⏱️</span>
+    <span style={{
+      fontSize: '13px',
+      fontWeight: 600,
+      color: 'rgba(255,255,255,0.9)',
+      fontFamily: "'Inter', sans-serif"
+    }}>
+      Duración: <span style={{ color: '#3B82F6' }}>15-20 min</span>
+    </span>
+  </div>
+</div>
+```
+
+### Mejores Prácticas
+
+1. **Sé Realista con el Tiempo**
+   - Prueba tu presentación completa
+   - Considera diferentes velocidades de lectura
+   - Incluye tiempo para experimentar con demos
+
+2. **Evalúa la Complejidad Honestamente**
+   - No subestimes el nivel requerido
+   - Considera la audiencia objetivo
+   - Ten en cuenta prerequisitos
+
+3. **Consistencia Visual**
+   - Mantén los colores estándar por nivel
+   - Usa los emojis recomendados
+   - Respeta el espaciado y tamaño
+
+4. **Ubicación**
+   - Siempre después del subtítulo
+   - Antes de los hooks o contenido principal
+   - Centrado horizontalmente
+
+---
+
 ## 🚀 Guía para Crear Nueva Presentación
 
 ### Paso 1: Estructura Base
@@ -1077,7 +1312,9 @@ const MiNuevaPresentacion = () => {
       
       {/* Header Section */}
       <section id="header" style={{ /* full-screen */ }}>
-        {/* Hero content */}
+        {/* Hero content: título, subtítulo */}
+        {/* IMPORTANTE: Agregar badges de complejidad y tiempo aquí */}
+        {/* Ver sección "Badges de Información" en este spec */}
       </section>
       
       {/* Demás secciones */}
@@ -1098,9 +1335,11 @@ export default MiNuevaPresentacion;
 ### Paso 2: Definir el Contenido
 
 1. **Tema y Objetivo**: ¿Qué estás enseñando/presentando?
-2. **Secciones Principales**: 5-8 secciones típicamente
-3. **Narrativa**: Cómo fluye de una sección a otra
-4. **Demos**: ¿Qué conceptos necesitan demostración visual?
+2. **Nivel de Complejidad**: ¿Es Básico, Intermedio o Avanzado?
+3. **Tiempo Estimado**: Calcula cuánto tomará leer e interactuar con todo
+4. **Secciones Principales**: 5-8 secciones típicamente
+5. **Narrativa**: Cómo fluye de una sección a otra
+6. **Demos**: ¿Qué conceptos necesitan demostración visual?
 
 ### Paso 3: Crear Componentes Específicos
 
@@ -1166,6 +1405,9 @@ Antes de considerar completa una presentación, verifica:
 - [ ] Cada sección ocupa full-screen
 - [ ] Información bien estructurada
 - [ ] Emojis apropiados como iconos
+- [ ] Badge de complejidad apropiado (Básico/Intermedio/Avanzado)
+- [ ] Badge de tiempo estimado realista
+- [ ] Badges ubicados después del subtítulo en header
 
 ### UX
 - [ ] Loading states en demos
@@ -1218,6 +1460,12 @@ Antes de considerar completa una presentación, verifica:
 ---
 
 ## 🔄 Versionado
+
+**v1.1** - Enero 2026
+- Agregado sistema de badges de información (complejidad y tiempo)
+- Documentación de niveles: Básico, Intermedio, Avanzado
+- Guías de estimación de tiempo
+- Actualizado checklist de calidad
 
 **v1.0** - Enero 2026
 - Especificación inicial basada en AIPanorama.jsx

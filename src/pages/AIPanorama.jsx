@@ -2804,6 +2804,59 @@ const AIPanorama = () => {
             Explora, compara e interactúa con el contenido
           </p>
           
+          {/* Badges de Complejidad y Tiempo */}
+          <div style={{
+            display: 'flex',
+            gap: '12px',
+            justifyContent: 'center',
+            marginBottom: '32px',
+            flexWrap: 'wrap'
+          }}>
+            {/* Badge de Complejidad */}
+            <div style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '8px',
+              background: 'rgba(139,92,246,0.15)',
+              padding: '8px 16px',
+              borderRadius: '20px',
+              border: '1px solid rgba(139,92,246,0.3)',
+              backdropFilter: 'blur(10px)'
+            }}>
+              <span style={{ fontSize: '16px' }}>📊</span>
+              <span style={{
+                fontSize: '13px',
+                fontWeight: 600,
+                color: 'rgba(255,255,255,0.9)',
+                fontFamily: "'Inter', sans-serif"
+              }}>
+                Nivel: <span style={{ color: '#22C55E' }}>Básico</span>
+              </span>
+            </div>
+            
+            {/* Badge de Tiempo */}
+            <div style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '8px',
+              background: 'rgba(59,130,246,0.15)',
+              padding: '8px 16px',
+              borderRadius: '20px',
+              border: '1px solid rgba(59,130,246,0.3)',
+              backdropFilter: 'blur(10px)'
+            }}>
+              <span style={{ fontSize: '16px' }}>⏱️</span>
+              <span style={{
+                fontSize: '13px',
+                fontWeight: 600,
+                color: 'rgba(255,255,255,0.9)',
+                fontFamily: "'Inter', sans-serif"
+              }}>
+                Duración: <span style={{ color: '#3B82F6' }}>20-25 min</span>
+              </span>
+            </div>
+          </div>
+          
           {/* Hooks de Introducción */}
           <div style={{
             maxWidth: '900px',
