@@ -19,8 +19,16 @@ const Home = () => {
       color: 'linear-gradient(135deg, #EC4899 0%, #8B5CF6 100%)',
       tags: ['Prompts', 'Educativo', 'Práctico', 'Guía'],
       path: '/prompts-101'
+    },
+    {
+      id: 'custom-instructions',
+      title: 'Custom Instructions',
+      description: 'Aprende a configurar tu IA para que realmente entienda tu negocio. GPTs, Projects y cómo elegir la herramienta correcta.',
+      icon: '🧠',
+      color: 'linear-gradient(135deg, #10B981 0%, #3B82F6 100%)',
+      tags: ['GPTs', 'Projects', 'Productividad', 'Negocio'],
+      path: '/custom-instructions'
     }
-    // Aquí se pueden agregar más presentaciones en el futuro
   ];
 
   return (
