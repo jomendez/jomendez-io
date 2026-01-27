@@ -131,11 +131,11 @@ const Prompts101 = () => {
   ];
   
   const goodPrompt = {
-    rol: "Eres un consultor de marketing digital especializado en e-commerce de moda",
-    contexto: "Tengo una tienda online de ropa streetwear dirigida a hombres de 18-30 años en México. Actualmente tengo 5,000 seguidores en Instagram pero bajo engagement (1.5%). Mi competencia principal tiene 50k seguidores con 8% de engagement.",
-    tarea: "Crea 5 ideas específicas de contenido para Instagram que aumenten mi engagement y atraigan a mi audiencia objetivo",
-    formato: "Lista numerada. Para cada idea incluye: 1) Tipo de post, 2) Copy sugerido (máx 50 palabras), 3) Por qué funcionará",
-    restricciones: "No sugieras colaboraciones con influencers (no tengo presupuesto). Enfócate en contenido orgánico que pueda crear yo mismo. Mantén el tono casual y urbano acorde a mi marca."
+    rol: "Eres un consultor experto en hospitalidad y optimización de propiedades de alquiler vacacional",
+    contexto: "Soy host de Airbnb con 3 propiedades en Miami Beach. Tengo calificación de 4.2 estrellas y ocupación del 45%. Mis reviews mencionan que el check-in es confuso y que falta información sobre la zona. Mi competencia directa tiene 4.9 estrellas y 85% de ocupación.",
+    tarea: "Crea un plan de acción para mejorar mi calificación a 4.8+ estrellas y aumentar mi ocupación al 70% en los próximos 3 meses",
+    formato: "Lista priorizada con: 1) Acción específica, 2) Costo estimado (bajo/medio/alto), 3) Impacto esperado en reviews",
+    restricciones: "Presupuesto máximo de $500 USD por propiedad. No puedo hacer renovaciones mayores. Enfócate en mejoras de experiencia del huésped que pueda implementar esta semana."
   };
   
   // Funciones de navegación
@@ -1719,7 +1719,7 @@ const Prompts101 = () => {
                         color: 'rgba(255,255,255,0.95)',
                         lineHeight: 1.6
                       }}>
-                        "Dame ideas de contenido para Instagram"
+                        "¿Cómo puedo mejorar mis reviews en Airbnb?"
                       </p>
                     </div>
 
@@ -1741,13 +1741,13 @@ const Prompts101 = () => {
                       color: 'rgba(255,255,255,0.8)',
                       lineHeight: 1.7
                     }}>
-                      <p style={{ margin: '0 0 8px 0' }}>"Aquí hay algunas ideas para Instagram:</p>
+                      <p style={{ margin: '0 0 8px 0' }}>"Aquí hay algunos consejos para mejorar tus reviews:</p>
                       <ol style={{ margin: '0 0 0 20px', padding: 0 }}>
-                        <li>Publica fotos de productos</li>
-                        <li>Comparte testimonios</li>
-                        <li>Usa stories</li>
-                        <li>Haz sorteos</li>
-                        <li>Publica memes relacionados..."</li>
+                        <li>Mantén tu propiedad limpia</li>
+                        <li>Responde rápido a los mensajes</li>
+                        <li>Ofrece amenidades extras</li>
+                        <li>Sé amable con los huéspedes</li>
+                        <li>Pide reviews al final de la estadía..."</li>
                       </ol>
                     </div>
 
@@ -1759,7 +1759,7 @@ const Prompts101 = () => {
                       fontSize: '13px',
                       color: 'rgba(255,255,255,0.9)'
                     }}>
-                      😕 Genérico. Podría ser para cualquier negocio.
+                      😕 Genérico. Podría ser para cualquier host en cualquier lugar.
                     </div>
                   </div>
 
@@ -1835,18 +1835,18 @@ const Prompts101 = () => {
                       maxHeight: '250px',
                       overflowY: 'auto'
                     }}>
-                      <p style={{ margin: '0 0 8px 0', fontWeight: 600 }}>Ideas específicas para tu tienda streetwear:</p>
+                      <p style={{ margin: '0 0 8px 0', fontWeight: 600 }}>Plan de acción para tus propiedades en Miami Beach:</p>
                       <p style={{ margin: '8px 0', padding: '8px', background: 'rgba(16,185,129,0.1)', borderRadius: '6px' }}>
-                        <strong>1. "Outfit of the Week" Challenge</strong><br />
-                        <span style={{ fontSize: '13px' }}>Copy: "¿Cómo combinarías estas piezas? 🔥 Comenta tu fit favorito 👇"</span><br />
-                        <span style={{ fontSize: '12px', color: 'rgba(255,255,255,0.7)' }}>Por qué: Genera conversación, muestra productos en acción, tu audiencia ama participar</span>
+                        <strong>1. Guía digital de check-in con video</strong><br />
+                        <span style={{ fontSize: '13px' }}>Crea un video de 2 min mostrando cómo llegar desde MIA, usar la cerradura digital y ubicar parking/amenidades. Envíalo 24h antes.</span><br />
+                        <span style={{ fontSize: '12px', color: 'rgba(255,255,255,0.7)' }}>Costo: Bajo ($0) | Impacto: Elimina reviews negativos sobre check-in confuso (+0.3 estrellas)</span>
                       </p>
                       <p style={{ margin: '8px 0', padding: '8px', background: 'rgba(16,185,129,0.1)', borderRadius: '6px' }}>
-                        <strong>2. "Behind the Drop" Stories</strong><br />
-                        <span style={{ fontSize: '13px' }}>Copy: "Así llegaron las nuevas piezas desde el warehouse 📦 ¿Cuál quieres ver primero?"</span><br />
-                        <span style={{ fontSize: '12px', color: 'rgba(255,255,255,0.7)' }}>Por qué: Crea anticipación, humaniza tu marca, genera hype para lanzamientos</span>
+                        <strong>2. "Mapa del insider" de South Beach</strong><br />
+                        <span style={{ fontSize: '13px' }}>PDF con los 10 mejores spots locales, playas menos turísticas, parking gratuito y mejores happy hours. Incluye códigos QR a Uber.</span><br />
+                        <span style={{ fontSize: '12px', color: 'rgba(255,255,255,0.7)' }}>Costo: Bajo ($50 diseño) | Impacto: Convierte queja en diferenciador (+0.4 estrellas)</span>
                       </p>
-                      <p style={{ fontSize: '13px', fontStyle: 'italic', marginTop: '8px' }}>...+ 3 ideas más específicas</p>
+                      <p style={{ fontSize: '13px', fontStyle: 'italic', marginTop: '8px' }}>...+ 4 acciones más con timeline de implementación</p>
                     </div>
 
                     <div style={{
@@ -1857,7 +1857,7 @@ const Prompts101 = () => {
                       fontSize: '13px',
                       color: 'rgba(255,255,255,0.9)'
                     }}>
-                      🎯 Específico, accionable, y perfecto para TU negocio.
+                      🎯 Específico, accionable, y perfecto para TUS propiedades.
                     </div>
                   </div>
                 </div>
@@ -2028,7 +2028,7 @@ const Prompts101 = () => {
                       <textarea
                         value={practicePrompt}
                         onChange={(e) => setPracticePrompt(e.target.value)}
-                        placeholder="Escribe tu prompt aquí... Por ejemplo: 'Eres un experto en marketing digital. Tengo una tienda online de ropa. Crea 5 ideas de posts para Instagram. En formato de lista numerada. No uses jerga técnica.'"
+                        placeholder="Escribe tu prompt aquí... Por ejemplo: 'Eres un estratega de contenido especializado en YouTube. Tengo un canal de finanzas personales con 8,000 subs pero bajo engagement (2%). Crea una estrategia de 5 videos para aumentar retención y CTR. En formato tabla con título, hook y duración ideal. Enfócate en audiencia latina de 25-40 años.'"
                         style={{
                           width: '100%',
                           minHeight: '250px',
@@ -2100,7 +2100,7 @@ const Prompts101 = () => {
                       </p>
                       <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
                         <button
-                          onClick={() => setPracticePrompt('Hazme un resumen')}
+                          onClick={() => setPracticePrompt('Dame ideas para vender más')}
                           style={{
                             background: 'rgba(236,72,153,0.2)',
                             border: '1px solid rgba(236,72,153,0.3)',
@@ -2115,7 +2115,7 @@ const Prompts101 = () => {
                           ❌ Prompt malo
                         </button>
                         <button
-                          onClick={() => setPracticePrompt('Eres un consultor de marketing digital especializado en e-commerce de moda para millennials.\n\nTengo una tienda online de ropa streetwear dirigida a hombres jóvenes en México. Actualmente tengo 5,000 seguidores en Instagram pero mi engagement está bajo.\n\nNecesito que me generes 5 ideas de contenido para Instagram que ayuden a mejorar mi engagement con mi audiencia target.\n\nResponde en formato de lista numerada con máximo 3 secciones por idea. Incluye el tipo de post y un ejemplo de copy.\n\nEvita sugerir colaboraciones pagadas. No uses jerga muy técnica. Mantén un tono casual y urbano acorde a la marca streetwear.')}
+                          onClick={() => setPracticePrompt('Eres un agente de bienes raíces con 15 años de experiencia en el mercado de lujo de Miami.\n\nTengo una propiedad en Brickell: penthouse de 2,500 sq ft, 3 bed/3 bath, vista al mar, precio $1.2M. Ha estado en el mercado 45 días sin ofertas. Propiedades similares se venden en 30 días.\n\nCrea una estrategia de marketing de 30 días para vender esta propiedad. Incluye: canales específicos, messaging clave y timeline de acciones.\n\nFormato: Tabla con 4 columnas (Semana | Acción | Canal | Inversión estimada).\n\nPresupuesto de marketing: $5,000. Enfócate en compradores internacionales (LATAM) y locales de alto poder adquisitivo. No incluyas open houses físicos (prefiero virtuales).')}
                           style={{
                             background: 'rgba(16,185,129,0.2)',
                             border: '1px solid rgba(16,185,129,0.3)',
@@ -2130,7 +2130,7 @@ const Prompts101 = () => {
                           ✅ Prompt completo
                         </button>
                         <button
-                          onClick={() => setPracticePrompt('Tengo una tienda de ropa online y mi audiencia son jóvenes de 20-30 años.\n\nCrea 5 ideas de posts para Instagram que generen más engagement.\n\nResponde en formato de lista con bullet points.')}
+                          onClick={() => setPracticePrompt('Tengo $50,000 para invertir y quiero buenos retornos.\n\nDame una estrategia de inversión diversificada para el próximo año.\n\nResponde en formato de lista con porcentajes.')}
                           style={{
                             background: 'rgba(249,115,22,0.2)',
                             border: '1px solid rgba(249,115,22,0.3)',
