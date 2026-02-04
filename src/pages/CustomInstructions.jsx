@@ -821,7 +821,7 @@ ${problemasPrincipales}
               color: 'rgba(255,255,255,0.9)',
               fontFamily: "'Inter', sans-serif"
             }}>
-              Nivel: <span style={{ color: '#F59E0B' }}>Intermedio</span>
+                Nivel: <span style={{ color: '#22C55E' }}>Básico</span>
             </span>
           </div>
           
