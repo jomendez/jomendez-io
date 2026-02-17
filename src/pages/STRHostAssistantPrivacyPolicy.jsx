@@ -13,201 +13,224 @@ const STRHostAssistantPrivacyPolicy = () => {
             STR Host Assistant
           </p>
           <p className="text-slate-400 mt-2">
-            Last Updated: December 1, 2025
+            Last Updated: February 16, 2026
           </p>
         </header>
 
         {/* Content */}
         <div className="bg-slate-800/50 backdrop-blur-sm rounded-2xl border border-slate-700 p-8 md:p-12 shadow-xl">
-          
+
           {/* Overview */}
           <Section title="Overview">
             <p>
-              STR Host Assistant ("the Extension") is a browser extension designed to help short-term rental hosts manage their guest communications more effectively. This privacy policy explains how the Extension handles your data.
-            </p>
-          </Section>
-
-          {/* Our Commitment */}
-          <Section title="Our Commitment">
-            <div className="bg-green-900/30 border border-green-700 rounded-lg p-4 mb-4">
-              <p className="text-green-300 font-semibold">
-                We do not collect, transmit, store, or sell any of your personal data.
-              </p>
-            </div>
-            <p>
-              The Extension operates entirely locally in your browser and only sends data to third-party AI services that YOU choose and configure.
+              STR Host Assistant ("the Extension") is a browser extension designed to help short-term rental hosts manage their guest communications more effectively. This privacy policy explains what data the Extension accesses, what is stored locally, what is sent to our servers, and how third-party services are involved.
             </p>
           </Section>
 
           {/* What Data Does the Extension Access */}
           <Section title="What Data Does the Extension Access?">
             <p className="mb-4">
-              The Extension accesses the following data solely within your browser:
+              The Extension accesses the following data within your browser:
             </p>
             <ol className="list-decimal list-inside space-y-2 text-slate-300">
               <li>
-                <strong className="text-white">Message Content:</strong> Text from your conversations with guests on short-term rental platforms
+                <strong className="text-white">Message Content:</strong> Text from your conversations with guests on Airbnb
               </li>
               <li>
-                <strong className="text-white">Guest Information:</strong> Names, booking details, and reservation information visible on the platform
+                <strong className="text-white">Guest and Booking Information:</strong> Names, booking details, and reservation information visible on the platform
               </li>
               <li>
-                <strong className="text-white">API Keys:</strong> Your personal API keys for AI services (OpenAI or Anthropic Claude)
+                <strong className="text-white">Calendar Data:</strong> Pricing and availability information visible on the Airbnb multi-calendar page (Premium feature)
               </li>
             </ol>
           </Section>
 
+          {/* Authentication */}
+          <Section title="Authentication">
+            <p className="mb-4">
+              The Extension requires you to sign in with a Google account before use. When you sign in:
+            </p>
+            <ul className="list-disc list-inside space-y-2 text-slate-300">
+              <li>Your Google email address, display name, and a unique user ID are stored on our server (Firebase Firestore) to manage your account</li>
+              <li>Authentication tokens are stored locally in your browser and used to verify your identity on each server request</li>
+              <li>We use Google OAuth through Chrome's <code className="bg-slate-700 px-2 py-0.5 rounded text-blue-300">chrome.identity</code> API; we never see or store your Google password</li>
+            </ul>
+          </Section>
+
           {/* How Is Your Data Used */}
           <Section title="How Is Your Data Used?">
-            <SubSection title="Local Storage Only">
+            <SubSection title="Local Storage (Your Browser)">
               <ul className="list-disc list-inside space-y-2 text-slate-300">
                 <li>
-                  <strong className="text-white">Conversation Analysis:</strong> Saved analysis results are stored locally in your browser using Chrome's storage API
+                  <strong className="text-white">Extension Settings:</strong> Preferences such as language, tone style, and plan type are stored in <code className="bg-slate-700 px-2 py-0.5 rounded text-blue-300">chrome.storage.sync</code>
                 </li>
                 <li>
-                  <strong className="text-white">Extension Settings:</strong> Your preferences (AI provider, model selection, language settings) are stored locally
+                  <strong className="text-white">API Keys:</strong> Your personal OpenAI API key (free plan only) is stored in <code className="bg-slate-700 px-2 py-0.5 rounded text-blue-300">chrome.storage.sync</code> and never sent to our servers
                 </li>
                 <li>
-                  <strong className="text-white">API Keys:</strong> Stored securely in your browser's local storage; never transmitted to our servers
+                  <strong className="text-white">Conversation State:</strong> Recent analysis results and generated responses are cached locally in <code className="bg-slate-700 px-2 py-0.5 rounded text-blue-300">chrome.storage.local</code> so you can navigate away and return without re-analyzing
+                </li>
+                <li>
+                  <strong className="text-white">Subscription Cache:</strong> Your subscription status is cached locally for up to 5 minutes to reduce server requests
                 </li>
               </ul>
             </SubSection>
 
-            <SubSection title="Third-Party API Calls">
-              <p className="mb-4">When you use AI analysis features, the Extension sends message content to:</p>
-              <ul className="list-disc list-inside space-y-2 text-slate-300 mb-4">
-                <li><strong className="text-white">OpenAI</strong> (if you select OpenAI as your provider)</li>
-                <li><strong className="text-white">Anthropic</strong> (if you select Claude as your provider)</li>
+            <SubSection title="Server-Side Storage (Firebase Firestore)">
+              <p className="mb-4">When you use the Extension, the following data is stored on our servers:</p>
+              <ul className="list-disc list-inside space-y-2 text-slate-300">
+                <li>
+                  <strong className="text-white">User Profile:</strong> Email address, display name, account creation date, last login date, and subscription tier
+                </li>
+                <li>
+                  <strong className="text-white">Usage Counters:</strong> A count of how many AI interactions you have used (free tier: lifetime total; premium tier: monthly total). We store the count only, not the content of your conversations
+                </li>
+                <li>
+                  <strong className="text-white">Device Fingerprint:</strong> A hashed identifier derived from non-identifying browser characteristics (screen resolution, language, timezone, hardware specs). This is used solely to enforce per-device usage limits and prevent abuse. The fingerprint is a one-way hash — it cannot be reversed to identify you or your device
+                </li>
+                <li>
+                  <strong className="text-white">Subscription Data:</strong> Your Stripe customer ID, subscription status, and billing period dates
+                </li>
               </ul>
-              
+            </SubSection>
+
+            <SubSection title="AI Processing">
+              <p className="mb-4">
+                When you click "Read Conversation" or "Propose Response," conversation text and reservation details are sent to OpenAI for AI processing:
+              </p>
+              <ul className="list-disc list-inside space-y-2 text-slate-300 mb-4">
+                <li>
+                  <strong className="text-white">Free plan:</strong> API calls go directly from your browser to OpenAI using your own API key. Our servers are not involved in the AI processing.
+                </li>
+                <li>
+                  <strong className="text-white">Premium plan:</strong> API calls are routed through our server (Firebase Cloud Functions) to OpenAI using a server-managed API key. Your conversation data passes through our server but is not logged, stored, or retained. It is forwarded to OpenAI and discarded.
+                </li>
+              </ul>
               <div className="bg-amber-900/30 border border-amber-700 rounded-lg p-4">
-                <p className="text-amber-300 font-semibold mb-2">Important Notes:</p>
-                <ul className="list-disc list-inside space-y-1 text-amber-200/80 text-sm">
-                  <li>These API calls are made directly from your browser using YOUR API keys</li>
-                  <li>We do not intercept, store, or access this data</li>
-                  <li>The data handling is subject to the respective AI provider's privacy policy:
-                    <ul className="ml-6 mt-1 space-y-1">
-                      <li>
-                        <a href="https://openai.com/policies/privacy-policy" target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:text-blue-300 underline">
-                          OpenAI Privacy Policy
-                        </a>
-                      </li>
-                      <li>
-                        <a href="https://www.anthropic.com/privacy" target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:text-blue-300 underline">
-                          Anthropic Privacy Policy
-                        </a>
-                      </li>
-                    </ul>
-                  </li>
-                </ul>
+                <p className="text-amber-300 text-sm">
+                  In both cases, the data handling by OpenAI is subject to their privacy policy:{' '}
+                  <a href="https://openai.com/policies/privacy-policy" target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:text-blue-300 underline">
+                    https://openai.com/policies/privacy-policy
+                  </a>
+                </p>
+              </div>
+            </SubSection>
+
+            <SubSection title="Analytics">
+              <p className="mb-4">
+                The Extension collects anonymous usage analytics to improve the product. Analytics events include:
+              </p>
+              <ul className="list-disc list-inside space-y-2 text-slate-300 mb-4">
+                <li>Button clicks and feature usage (e.g., "conversation analyzed," "response generated")</li>
+                <li>Error events (e.g., API failures, selector errors)</li>
+                <li>Non-identifying metadata (e.g., duration of analysis, guest tone detected)</li>
+              </ul>
+              <div className="bg-green-900/30 border border-green-700 rounded-lg p-4">
+                <p className="text-green-300 font-semibold">
+                  Analytics events never include conversation content, guest names, booking details, or any personally identifying information. Analytics are sent to Google Analytics via the Chrome runtime messaging API.
+                </p>
               </div>
             </SubSection>
           </Section>
 
-          {/* What Data Do We Collect */}
-          <Section title="What Data Do We Collect?">
-            <div className="bg-green-900/30 border border-green-700 rounded-lg p-4 mb-4">
-              <p className="text-green-300 font-semibold">None.</p>
-            </div>
-            <p className="mb-4">
-              We do not have any servers, databases, or analytics that collect your data. The Extension:
-            </p>
+          {/* What Data Do We NOT Collect */}
+          <Section title="What Data Do We NOT Collect?">
             <ul className="list-disc list-inside space-y-2 text-slate-300">
-              <li>Does not track your usage</li>
-              <li>Does not collect analytics</li>
-              <li>Does not send data to our servers (we don't have any)</li>
-              <li>Does not use cookies or tracking mechanisms</li>
+              <li>We do <strong className="text-white">not</strong> store your conversation text or guest messages on our servers</li>
+              <li>We do <strong className="text-white">not</strong> store AI-generated responses on our servers</li>
+              <li>We do <strong className="text-white">not</strong> store your OpenAI API key (free plan) on our servers</li>
+              <li>We do <strong className="text-white">not</strong> sell, share, or monetize any of your data</li>
+              <li>We do <strong className="text-white">not</strong> use cookies or web tracking mechanisms</li>
+              <li>We do <strong className="text-white">not</strong> access any Airbnb data beyond what is already visible to you on the page</li>
             </ul>
           </Section>
 
-          {/* Data Storage Location */}
-          <Section title="Data Storage Location">
-            <p className="mb-4">All data remains in your browser:</p>
-            <ul className="list-disc list-inside space-y-2 text-slate-300">
-              <li>
-                <strong className="text-white">Chrome Local Storage:</strong> Settings, API keys, and saved conversation analyses
-              </li>
-              <li>
-                <strong className="text-white">Clipboard:</strong> Temporarily when you copy conversation text
-              </li>
-              <li>
-                <strong className="text-white">No Cloud Sync:</strong> Data is not synchronized across devices
-              </li>
-            </ul>
+          {/* Payment Processing */}
+          <Section title="Payment Processing">
+            <p className="mb-4">
+              If you upgrade to Premium, payment is processed by Stripe. We do not handle or store your credit card information. Stripe processes your payment and notifies our server of your subscription status via secure webhooks. We store only your Stripe customer ID and subscription status, not payment details.
+            </p>
+            <p className="text-slate-400 text-sm">
+              Stripe's privacy policy:{' '}
+              <a href="https://stripe.com/privacy" target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:text-blue-300 underline">
+                https://stripe.com/privacy
+              </a>
+            </p>
           </Section>
 
           {/* Third-Party Services */}
           <Section title="Third-Party Services">
-            <p className="mb-4">The Extension interfaces with the following third-party services at your discretion:</p>
-            
-            <SubSection title="AI Providers (User-Configured)">
-              <div className="space-y-4">
-                <div className="bg-slate-700/50 rounded-lg p-4">
-                  <h4 className="text-white font-semibold mb-2">1. OpenAI</h4>
-                  <ul className="list-disc list-inside space-y-1 text-slate-300 text-sm">
-                    <li>Used when you select OpenAI as your AI provider</li>
-                    <li>Requires your personal API key</li>
-                    <li>Data handling: Subject to OpenAI's terms and privacy policy</li>
-                  </ul>
-                </div>
-                <div className="bg-slate-700/50 rounded-lg p-4">
-                  <h4 className="text-white font-semibold mb-2">2. Anthropic (Claude)</h4>
-                  <ul className="list-disc list-inside space-y-1 text-slate-300 text-sm">
-                    <li>Used when you select Anthropic Claude as your AI provider</li>
-                    <li>Requires your personal API key</li>
-                    <li>Data handling: Subject to Anthropic's terms and privacy policy</li>
-                  </ul>
-                </div>
-              </div>
-            </SubSection>
-
-            <SubSection title="Short-Term Rental Platforms">
-              <p className="mb-4">The Extension operates on short-term rental platform websites (such as hosting dashboards) to:</p>
-              <ul className="list-disc list-inside space-y-2 text-slate-300 mb-4">
-                <li>Read message content that is already displayed on your screen</li>
-                <li>Extract booking and guest information visible in the interface</li>
-                <li>Insert AI-generated responses into message input fields</li>
-              </ul>
-              <div className="bg-slate-700/50 rounded-lg p-4">
-                <p className="text-white font-semibold mb-2">We do not:</p>
-                <ul className="list-disc list-inside space-y-1 text-slate-300 text-sm">
-                  <li>Log into these platforms on your behalf</li>
-                  <li>Access data not already visible to you</li>
-                  <li>Store or transmit platform credentials</li>
-                </ul>
-              </div>
-            </SubSection>
+            <p className="mb-4">The Extension interfaces with the following third-party services:</p>
+            <div className="overflow-x-auto">
+              <table className="w-full text-sm text-left">
+                <thead>
+                  <tr className="border-b border-slate-600">
+                    <th className="py-3 pr-4 text-white font-semibold">Service</th>
+                    <th className="py-3 pr-4 text-white font-semibold">Purpose</th>
+                    <th className="py-3 text-white font-semibold">Data Shared</th>
+                  </tr>
+                </thead>
+                <tbody className="text-slate-300">
+                  <tr className="border-b border-slate-700">
+                    <td className="py-3 pr-4 font-semibold text-white">OpenAI</td>
+                    <td className="py-3 pr-4">AI conversation analysis and response generation</td>
+                    <td className="py-3">Conversation text, reservation details (only when you click Analyze or Generate)</td>
+                  </tr>
+                  <tr className="border-b border-slate-700">
+                    <td className="py-3 pr-4 font-semibold text-white">Google (Firebase Auth)</td>
+                    <td className="py-3 pr-4">User authentication</td>
+                    <td className="py-3">Email, display name, user ID</td>
+                  </tr>
+                  <tr className="border-b border-slate-700">
+                    <td className="py-3 pr-4 font-semibold text-white">Google (Firebase Firestore)</td>
+                    <td className="py-3 pr-4">Usage tracking and account management</td>
+                    <td className="py-3">Usage counts, subscription status, device fingerprint hash</td>
+                  </tr>
+                  <tr className="border-b border-slate-700">
+                    <td className="py-3 pr-4 font-semibold text-white">Google Analytics</td>
+                    <td className="py-3 pr-4">Anonymous product analytics</td>
+                    <td className="py-3">Non-identifying usage events</td>
+                  </tr>
+                  <tr className="border-b border-slate-700">
+                    <td className="py-3 pr-4 font-semibold text-white">Stripe</td>
+                    <td className="py-3 pr-4">Payment processing (Premium only)</td>
+                    <td className="py-3">Handled by Stripe directly; we receive only subscription status</td>
+                  </tr>
+                  <tr>
+                    <td className="py-3 pr-4 font-semibold text-white">Airbnb</td>
+                    <td className="py-3 pr-4">Host platform (read-only access to visible page content)</td>
+                    <td className="py-3">No data sent to Airbnb by the Extension</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
           </Section>
 
           {/* Your Control Over Data */}
           <Section title="Your Control Over Data">
-            <p className="mb-4">You have complete control over your data:</p>
-            
             <SubSection title="What You Can Do">
               <ul className="list-disc list-inside space-y-2 text-slate-300">
-                <li><strong className="text-white">Delete Saved Analyses:</strong> Clear individual conversation analyses from the extension panel</li>
-                <li><strong className="text-white">Clear All Data:</strong> Remove all stored data via Chrome's extension settings</li>
-                <li><strong className="text-white">Disable AI Features:</strong> Use only the conversation reading features without AI</li>
-                <li><strong className="text-white">Remove the Extension:</strong> Uninstalling removes all locally stored data</li>
-                <li><strong className="text-white">Manage API Keys:</strong> Change or remove API keys at any time</li>
+                <li><strong className="text-white">Sign Out:</strong> Sign out from the extension panel at any time. This clears your local authentication tokens.</li>
+                <li><strong className="text-white">Clear Local Data:</strong> Remove all locally stored data via Chrome's extension settings or by uninstalling.</li>
+                <li><strong className="text-white">Remove API Key:</strong> Change or remove your OpenAI API key at any time in the extension options.</li>
+                <li><strong className="text-white">Cancel Premium:</strong> Manage or cancel your subscription through the Stripe billing portal, accessible from the extension panel.</li>
+                <li><strong className="text-white">Uninstall:</strong> Removing the extension deletes all locally stored data.</li>
               </ul>
             </SubSection>
 
             <SubSection title="How to Delete Your Data">
               <ol className="list-decimal list-inside space-y-3 text-slate-300">
                 <li>
-                  <strong className="text-white">Individual Conversations:</strong> Clear analysis by switching conversations or clicking clear buttons in the panel
+                  <strong className="text-white">Local Data:</strong> Uninstall the extension from <code className="bg-slate-700 px-2 py-0.5 rounded text-blue-300">chrome://extensions/</code> — this removes all local storage.
                 </li>
                 <li>
-                  <strong className="text-white">All Extension Data:</strong>
-                  <ul className="ml-6 mt-2 list-disc list-inside space-y-1 text-sm">
-                    <li>Open Chrome: <code className="bg-slate-700 px-2 py-0.5 rounded text-blue-300">chrome://extensions/</code></li>
-                    <li>Find "STR Host Assistant"</li>
-                    <li>Click "Remove" to delete the extension and all its data</li>
-                  </ul>
+                  <strong className="text-white">Server Data:</strong> To request deletion of your server-side data (user profile, usage counts, device fingerprint), contact us at the email below. We will delete your data within 30 days.
                 </li>
                 <li>
-                  <strong className="text-white">API Keys Only:</strong> Open extension options and clear the API key fields
+                  <strong className="text-white">Stripe Data:</strong> Manage your payment data through the Stripe billing portal or contact Stripe directly.
+                </li>
+                <li>
+                  <strong className="text-white">OpenAI Data:</strong> Data sent to OpenAI is subject to their retention policy. Contact OpenAI for data deletion requests.
                 </li>
               </ol>
             </SubSection>
@@ -217,19 +240,53 @@ const STRHostAssistantPrivacyPolicy = () => {
           <Section title="Data Security">
             <SubSection title="Security Measures">
               <ul className="list-disc list-inside space-y-2 text-slate-300">
-                <li>API keys are stored in Chrome's secure local storage</li>
-                <li>No data transmission to third parties except your chosen AI provider</li>
-                <li>All API calls use HTTPS encryption</li>
-                <li>No authentication or server-side storage means no data breach risk</li>
+                <li>All server communication uses HTTPS encryption</li>
+                <li>Firebase Authentication verifies user identity on every server request</li>
+                <li>API keys (free plan) are stored in Chrome's encrypted <code className="bg-slate-700 px-2 py-0.5 rounded text-blue-300">chrome.storage.sync</code> and never leave your browser</li>
+                <li>Server-side OpenAI API keys (premium plan) are stored in Firebase Functions config, not in client code</li>
+                <li>Device fingerprints are one-way hashed (SHA-256) before transmission</li>
+                <li>Firestore security rules restrict users to reading only their own data</li>
+                <li>Stripe webhook signatures are verified to prevent spoofing</li>
               </ul>
             </SubSection>
 
             <SubSection title="Your Responsibility">
               <ul className="list-disc list-inside space-y-2 text-slate-300">
-                <li>Keep your API keys confidential</li>
-                <li>Use strong API key management practices</li>
-                <li>Review and understand your AI provider's security policies</li>
-                <li>Regularly rotate your API keys per provider recommendations</li>
+                <li>Keep your OpenAI API key confidential (free plan)</li>
+                <li>Use a strong Google account password</li>
+                <li>Sign out of the extension on shared computers</li>
+                <li>Review and understand OpenAI's and Stripe's security policies</li>
+              </ul>
+            </SubSection>
+          </Section>
+
+          {/* Data Retention */}
+          <Section title="Data Retention">
+            <SubSection title="Local Data">
+              <ul className="list-disc list-inside space-y-2 text-slate-300">
+                <li>Conversation analyses and settings: Retained until you clear them or uninstall</li>
+                <li>Authentication tokens: Retained until you sign out or they expire</li>
+                <li>No automatic expiration — you have full control</li>
+              </ul>
+            </SubSection>
+
+            <SubSection title="Server-Side Data">
+              <ul className="list-disc list-inside space-y-2 text-slate-300">
+                <li><strong className="text-white">User profile:</strong> Retained as long as your account exists</li>
+                <li><strong className="text-white">Usage counters:</strong> Retained as long as your account exists. Premium monthly counters reset on the 1st of each month.</li>
+                <li><strong className="text-white">Device fingerprint:</strong> Retained as long as the associated account exists</li>
+                <li><strong className="text-white">Subscription data:</strong> Retained as long as your Stripe subscription record exists</li>
+              </ul>
+              <p className="mt-4 text-slate-400 text-sm">
+                To request deletion of server-side data, contact us (see Contact Information below).
+              </p>
+            </SubSection>
+
+            <SubSection title="Third-Party Data">
+              <ul className="list-disc list-inside space-y-2 text-slate-300">
+                <li><strong className="text-white">OpenAI:</strong> Subject to OpenAI's data retention policy</li>
+                <li><strong className="text-white">Stripe:</strong> Subject to Stripe's data retention policy</li>
+                <li><strong className="text-white">Google Analytics:</strong> Subject to Google's data retention settings (configured for automatic expiration)</li>
               </ul>
             </SubSection>
           </Section>
@@ -241,40 +298,15 @@ const STRHostAssistantPrivacyPolicy = () => {
             </p>
           </Section>
 
-          {/* Changes to This Policy */}
-          <Section title="Changes to This Policy">
-            <p>
-              We may update this privacy policy to reflect changes in the Extension's functionality or legal requirements. Updates will be posted with a new "Last Updated" date. Continued use of the Extension after changes indicates acceptance of the updated policy.
-            </p>
-          </Section>
-
-          {/* Data Retention */}
-          <Section title="Data Retention">
-            <SubSection title="Local Data">
-              <ul className="list-disc list-inside space-y-2 text-slate-300">
-                <li>Conversation analyses: Retained until you manually clear them or uninstall the extension</li>
-                <li>Settings and API keys: Retained until you change or remove them</li>
-                <li>No automatic expiration or cleanup (you have full control)</li>
-              </ul>
-            </SubSection>
-
-            <SubSection title="Third-Party Data">
-              <p className="mb-2">Data sent to AI providers is subject to their retention policies:</p>
-              <ul className="list-disc list-inside space-y-1 text-slate-300">
-                <li>OpenAI: Refer to their data retention policy</li>
-                <li>Anthropic: Refer to their data retention policy</li>
-              </ul>
-            </SubSection>
-          </Section>
-
           {/* Legal Basis for Processing (GDPR) */}
           <Section title="Legal Basis for Processing (GDPR Compliance)">
             <p className="mb-4">For users in the European Economic Area (EEA):</p>
             <ul className="list-disc list-inside space-y-2 text-slate-300">
-              <li><strong className="text-white">Legal Basis:</strong> Consent and legitimate interests</li>
+              <li><strong className="text-white">Legal Basis:</strong> Consent (you choose to sign in and use AI features) and legitimate interests (usage tracking to prevent abuse)</li>
               <li><strong className="text-white">Your Rights:</strong> Access, rectification, erasure, restriction, portability, and objection</li>
-              <li><strong className="text-white">Data Controller:</strong> You are the controller of your data; we are not a data processor</li>
-              <li><strong className="text-white">Contact:</strong> Since we don't collect data, you control all data via the extension interface</li>
+              <li><strong className="text-white">Data Controller:</strong> Jose Mendez is the data controller for server-side data</li>
+              <li><strong className="text-white">Data Processors:</strong> Google (Firebase), OpenAI, and Stripe process data on our behalf</li>
+              <li><strong className="text-white">Contact:</strong> See Contact Information below</li>
             </ul>
           </Section>
 
@@ -283,50 +315,62 @@ const STRHostAssistantPrivacyPolicy = () => {
             <p className="mb-4">For California residents:</p>
             <ul className="list-disc list-inside space-y-2 text-slate-300">
               <li>We do not sell personal information</li>
-              <li>We do not collect personal information beyond what's stored locally in your browser</li>
-              <li>You have the right to delete local data at any time via browser controls</li>
+              <li>You have the right to know what data we collect (described in this policy)</li>
+              <li>You have the right to request deletion of your server-side data</li>
+              <li>You have the right to opt out — you may uninstall the extension at any time</li>
             </ul>
           </Section>
 
           {/* International Data Transfers */}
           <Section title="International Data Transfers">
-            <p className="mb-4">When you use AI features, your data may be transferred to:</p>
+            <p className="mb-4">Your data may be transferred to and processed in:</p>
             <ul className="list-disc list-inside space-y-2 text-slate-300">
-              <li>OpenAI (United States)</li>
-              <li>Anthropic (United States)</li>
+              <li><strong className="text-white">United States:</strong> OpenAI (AI processing), Stripe (payment processing), Google Cloud / Firebase (authentication, storage, analytics)</li>
             </ul>
             <p className="mt-4 text-slate-400 text-sm">
-              These transfers occur only when YOU initiate AI analysis and are subject to the respective provider's international data transfer policies.
+              These transfers occur under the service providers' standard data processing agreements and are subject to their respective international data transfer policies.
+            </p>
+          </Section>
+
+          {/* Changes to This Policy */}
+          <Section title="Changes to This Policy">
+            <p>
+              We may update this privacy policy to reflect changes in the Extension's functionality or legal requirements. Updates will be posted with a new "Last Updated" date. Continued use of the Extension after changes indicates acceptance of the updated policy.
             </p>
           </Section>
 
           {/* Contact Information */}
           <Section title="Contact Information">
-            <p className="mb-4">Since this Extension does not collect or transmit data to us, and operates entirely locally:</p>
             <ul className="list-disc list-inside space-y-2 text-slate-300">
-              <li><strong className="text-white">For technical support:</strong> Create an issue on the GitHub repository</li>
-              <li><strong className="text-white">For privacy concerns about AI providers:</strong> Contact OpenAI or Anthropic directly</li>
-              <li><strong className="text-white">For general questions:</strong> Use the support channels provided with the extension</li>
+              <li>
+                <strong className="text-white">For technical support or privacy concerns:</strong> Create an issue at{' '}
+                <a href="https://github.com/anthropics/str-host-assistant/issues" target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:text-blue-300 underline">
+                  https://github.com/anthropics/str-host-assistant/issues
+                </a>
+              </li>
+              <li>
+                <strong className="text-white">For data deletion requests:</strong>{' '}
+                <a href="mailto:strcopilot@gmail.com" className="text-blue-400 hover:text-blue-300 underline">
+                  strcopilot@gmail.com
+                </a>
+              </li>
+              <li><strong className="text-white">For privacy concerns about third-party services:</strong> Contact OpenAI, Google, or Stripe directly</li>
             </ul>
-          </Section>
-
-          {/* Third-Party Links and Services */}
-          <Section title="Third-Party Links and Services">
-            <p>
-              This privacy policy applies only to the Extension itself. When you use third-party services (AI providers, rental platforms), their respective privacy policies apply to data you share with them.
-            </p>
           </Section>
 
           {/* Consent */}
           <Section title="Consent">
             <p className="mb-4">By installing and using STR Host Assistant, you consent to:</p>
             <ol className="list-decimal list-inside space-y-2 text-slate-300">
-              <li>The Extension accessing message and booking data visible on rental platform pages</li>
-              <li>Your chosen AI provider receiving message content when you use AI features (subject to your configuration)</li>
-              <li>Local storage of settings and analysis results in your browser</li>
+              <li>The Extension accessing message and booking data visible on Airbnb pages</li>
+              <li>Creating an account with your Google credentials on our Firebase server</li>
+              <li>Server-side tracking of your usage count and device fingerprint for abuse prevention</li>
+              <li>OpenAI receiving conversation content when you use AI features (via your own key or our premium server)</li>
+              <li>Anonymous analytics collection to improve the product</li>
+              <li>Local storage of settings, analysis results, and authentication data in your browser</li>
             </ol>
             <p className="mt-4 text-slate-400">
-              You can withdraw consent at any time by uninstalling the Extension.
+              You can withdraw consent at any time by signing out and uninstalling the Extension. To delete server-side data, contact us using the information above.
             </p>
           </Section>
 
@@ -335,8 +379,8 @@ const STRHostAssistantPrivacyPolicy = () => {
             <div className="bg-slate-700/50 rounded-lg p-4">
               <p className="mb-4">The Extension is provided "as is" without warranties. We are not responsible for:</p>
               <ul className="list-disc list-inside space-y-2 text-slate-300">
-                <li>How third-party AI providers handle your data</li>
-                <li>Changes to rental platform interfaces that may affect functionality</li>
+                <li>How OpenAI, Google, or Stripe handle your data</li>
+                <li>Changes to Airbnb's interface that may affect functionality</li>
                 <li>Accuracy of AI-generated analysis or responses</li>
                 <li>Any decisions you make based on the Extension's suggestions</li>
               </ul>
@@ -348,10 +392,7 @@ const STRHostAssistantPrivacyPolicy = () => {
             <div className="bg-blue-900/30 border border-blue-700 rounded-lg p-6">
               <h2 className="text-xl font-bold text-blue-300 mb-3">Summary</h2>
               <p className="text-slate-300">
-                STR Host Assistant is designed with privacy in mind. We don't collect your data because we don't have servers or analytics. Everything happens locally in your browser, and you control when data is sent to AI providers using your own API keys.
-              </p>
-              <p className="text-slate-400 mt-4 text-sm">
-                For questions or concerns, please contact us via the support channels provided with the extension.
+                STR Host Assistant stores your extension settings and API keys locally in your browser. Server-side, we store your user profile, usage counts, and device fingerprint for account management and abuse prevention. When you use AI features, conversation text is sent to OpenAI for processing (directly on the free plan, through our server on the premium plan) but is never stored on our servers. Anonymous analytics help us improve the product. You can delete all local data by uninstalling and request server-side data deletion by contacting us.
               </p>
             </div>
           </div>
@@ -360,7 +401,7 @@ const STRHostAssistantPrivacyPolicy = () => {
 
         {/* Footer */}
         <footer className="mt-12 text-center text-slate-500 text-sm">
-          <p>© {new Date().getFullYear()} STR Host Assistant. All rights reserved.</p>
+          <p>&copy; {new Date().getFullYear()} STR Host Assistant. All rights reserved.</p>
         </footer>
       </div>
     </div>
