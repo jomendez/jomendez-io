@@ -344,8 +344,8 @@ const STRHostAssistantPrivacyPolicy = () => {
             <ul className="list-disc list-inside space-y-2 text-slate-300">
               <li>
                 <strong className="text-white">For technical support or privacy concerns:</strong> Create an issue at{' '}
-                <a href="https://github.com/anthropics/str-host-assistant/issues" target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:text-blue-300 underline">
-                  https://github.com/anthropics/str-host-assistant/issues
+                <a href="https://github.com/jomendez/str-host-assistant/issues" target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:text-blue-300 underline">
+                  https://github.com/jomendez/str-host-assistant/issues
                 </a>
               </li>
               <li>
