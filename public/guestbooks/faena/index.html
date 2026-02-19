@@ -1,0 +1,885 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Welcome Book — Faena</title>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Display&family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&family=Manrope:wght@300;400;500;600;700&family=Gwendolyn:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --forest: #1C3A2A;
+    --emerald: #2D5E3F;
+    --sage: #5C8A6B;
+    --sage-light: #8DB89E;
+    --mint: #C8E0D0;
+    --mint-pale: #E8F2EC;
+    --cream: #FAF6F0;
+    --cream-warm: #F3EDE3;
+    --linen: #EDE7DB;
+    --amber: #C67A35;
+    --amber-light: #E4A862;
+    --honey: #D4A24E;
+    --terracotta: #C2694C;
+    --terracotta-soft: #DCA08A;
+    --charcoal: #252525;
+    --text: #3A3A3A;
+    --text-mid: #6E6E6E;
+    --text-light: #999;
+    --white: #FFFFFF;
+    --shadow-sm: 0 2px 16px rgba(28,58,42,0.05);
+    --shadow-md: 0 8px 32px rgba(28,58,42,0.08);
+    --shadow-lg: 0 16px 48px rgba(28,58,42,0.12);
+    --r: 14px;
+    --r-lg: 22px;
+    --r-xl: 32px;
+    --r-full: 9999px;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:'Manrope',sans-serif;
+    background:var(--cream);color:var(--text);
+    line-height:1.7;font-weight:400;overflow-x:hidden;
+  }
+
+  /* ---- NAV ---- */
+  nav{
+    position:fixed;top:0;left:0;right:0;z-index:1000;
+    background:rgba(250,246,240,0.82);
+    backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px);
+    border-bottom:1px solid rgba(28,58,42,0.06);transition:all .4s;
+  }
+  nav.scrolled{box-shadow:var(--shadow-sm);}
+  .nv{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:58px;padding:0 2rem;}
+  .nv-brand{font-family:'Libre Caslon Display',serif;font-size:1.15rem;color:var(--forest);letter-spacing:.04em;}
+  .nv-links{display:flex;gap:.15rem;list-style:none;overflow-x:auto;scrollbar-width:none;}
+  .nv-links::-webkit-scrollbar{display:none;}
+  .nv-links a{
+    text-decoration:none;color:var(--text-mid);font-size:.7rem;font-weight:600;
+    padding:.35rem .7rem;border-radius:var(--r-full);white-space:nowrap;
+    transition:all .3s;letter-spacing:.06em;text-transform:uppercase;
+  }
+  .nv-links a:hover{background:var(--forest);color:var(--white);}
+
+  /* ---- HERO ---- */
+  .hero{
+    position:relative;height:100vh;min-height:700px;
+    display:flex;align-items:flex-end;justify-content:center;overflow:hidden;
+  }
+  .hero-bg{
+    position:absolute;inset:0;
+    background:url('https://a0.muscache.com/im/pictures/hosting/Hosting-1605355393180347004/original/159a1085-7a1c-4b50-b192-245463d5bad9.jpeg?im_w=1200') center/cover no-repeat;
+  }
+  .hero-ov{
+    position:absolute;inset:0;
+    background:linear-gradient(180deg,
+      rgba(28,58,42,.05) 0%,
+      rgba(28,58,42,.2) 40%,
+      rgba(28,58,42,.8) 85%,
+      rgba(28,58,42,.95) 100%
+    );
+  }
+  .hero-leaf{
+    position:absolute;top:-60px;right:-80px;width:400px;height:400px;
+    border-radius:50%;background:radial-gradient(circle,rgba(196,168,76,.08),transparent 70%);
+    pointer-events:none;z-index:1;
+  }
+  .hero-c{
+    position:relative;z-index:3;text-align:center;
+    padding:3rem 2rem 5rem;max-width:820px;
+    animation:hIn 1.1s ease-out;
+  }
+  @keyframes hIn{from{opacity:0;transform:translateY(45px);}to{opacity:1;transform:translateY(0);}}
+  .hero-pre{
+    font-family:'Gwendolyn',cursive;font-size:1.6rem;
+    color:var(--amber-light);margin-bottom:.25rem;
+  }
+  .hero h1{
+    font-family:'Libre Caslon Display',serif;
+    font-size:clamp(3rem,7vw,5.5rem);font-weight:400;
+    color:var(--white);line-height:1;margin-bottom:1rem;
+    letter-spacing:.02em;
+  }
+  .hero-sub{
+    font-size:1rem;color:rgba(255,255,255,.65);font-weight:300;
+    margin-bottom:2.5rem;letter-spacing:.03em;
+  }
+  .hero-chips{display:flex;justify-content:center;gap:.6rem;flex-wrap:wrap;}
+  .hero-chip{
+    background:rgba(255,255,255,.1);backdrop-filter:blur(10px);
+    border:1px solid rgba(255,255,255,.12);
+    padding:.55rem 1.2rem;border-radius:var(--r-full);
+    color:var(--white);font-size:.78rem;font-weight:500;
+    display:flex;align-items:center;gap:.35rem;
+  }
+  .hero-chip span{font-size:.95rem;}
+
+  /* ---- SECTIONS ---- */
+  section{padding:5rem 2rem;}
+  .si{max-width:1100px;margin:0 auto;}
+  .slbl{
+    font-family:'Gwendolyn',cursive;font-size:1.4rem;
+    color:var(--emerald);margin-bottom:.15rem;
+  }
+  .stl{
+    font-family:'Libre Caslon Display',serif;
+    font-size:clamp(1.8rem,3.5vw,2.7rem);font-weight:400;
+    color:var(--forest);line-height:1.15;margin-bottom:1rem;
+    letter-spacing:.01em;
+  }
+  .sdsc{font-size:.95rem;color:var(--text-mid);max-width:620px;line-height:1.85;margin-bottom:2.5rem;}
+
+  /* ---- WELCOME ---- */
+  .welcome{background:var(--forest);color:var(--white);position:relative;overflow:hidden;}
+  .welcome::before{
+    content:'';position:absolute;top:-200px;right:-150px;
+    width:600px;height:600px;border-radius:50%;
+    background:radial-gradient(circle,rgba(93,138,107,.25),transparent 70%);
+  }
+  .welcome::after{
+    content:'';position:absolute;bottom:-200px;left:-100px;
+    width:500px;height:500px;border-radius:50%;
+    background:radial-gradient(circle,rgba(198,122,53,.1),transparent 70%);
+  }
+  .wg{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;position:relative;z-index:1;}
+  .welcome .slbl{color:var(--amber-light);}
+  .welcome .stl{color:var(--white);}
+  .welcome .sdsc{color:rgba(255,255,255,.6);}
+  .w-sig .name{font-family:'Gwendolyn',cursive;font-size:2.2rem;color:var(--amber-light);}
+  .w-sig .role{font-size:.72rem;text-transform:uppercase;letter-spacing:.2em;color:rgba(255,255,255,.35);margin-top:.1rem;}
+  .w-img{border-radius:var(--r-xl);overflow:hidden;aspect-ratio:4/3;box-shadow:0 20px 50px rgba(0,0,0,.3);}
+  .w-img img{width:100%;height:100%;object-fit:cover;}
+  .w-badge{
+    position:absolute;top:1rem;right:1rem;
+    background:rgba(255,255,255,.12);backdrop-filter:blur(14px);
+    border:1px solid rgba(255,255,255,.18);border-radius:var(--r);
+    padding:.5rem 1rem;color:var(--white);font-size:.8rem;font-weight:600;
+    display:flex;align-items:center;gap:.3rem;
+  }
+
+  /* ---- CHECK-IN ---- */
+  .chk-grid{display:grid;grid-template-columns:1fr 1fr;gap:2rem;}
+  .chk{
+    background:var(--white);border-radius:var(--r-xl);padding:2.5rem;
+    position:relative;overflow:hidden;box-shadow:var(--shadow-sm);
+  }
+  .chk::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;}
+  .chk.ci::before{background:linear-gradient(90deg,var(--emerald),var(--sage-light));}
+  .chk.co::before{background:linear-gradient(90deg,var(--terracotta),var(--terracotta-soft));}
+  .chk .ico{
+    width:50px;height:50px;border-radius:14px;
+    display:flex;align-items:center;justify-content:center;
+    font-size:1.3rem;margin-bottom:1.2rem;
+  }
+  .ci .ico{background:rgba(45,94,63,.07);}
+  .co .ico{background:rgba(194,105,76,.07);}
+  .chk h3{font-family:'Libre Caslon Text',serif;font-size:1.1rem;color:var(--forest);margin-bottom:.1rem;}
+  .chk-time{
+    font-family:'Libre Caslon Display',serif;font-size:2.5rem;
+    letter-spacing:-.02em;margin-bottom:.75rem;
+  }
+  .ci .chk-time{color:var(--emerald);}
+  .co .chk-time{color:var(--terracotta);}
+  .chk p{color:var(--text-mid);font-size:.88rem;line-height:1.75;}
+  .chk-tag{
+    display:inline-flex;align-items:center;gap:.4rem;
+    background:var(--cream);padding:.45rem 1rem;border-radius:var(--r-full);
+    font-size:.76rem;font-weight:600;color:var(--forest);margin-top:1rem;
+  }
+
+  /* ---- GALLERY ---- */
+  .gal{
+    display:grid;grid-template-columns:repeat(12,1fr);
+    grid-template-rows:270px 270px;gap:.75rem;margin-top:2.5rem;
+  }
+  .gi{border-radius:var(--r);overflow:hidden;position:relative;cursor:pointer;}
+  .gi img{width:100%;height:100%;object-fit:cover;transition:transform .6s;}
+  .gi:hover img{transform:scale(1.05);}
+  .gi:nth-child(1){grid-column:1/6;grid-row:1/3;}
+  .gi:nth-child(2){grid-column:6/9;}
+  .gi:nth-child(3){grid-column:9/13;}
+  .gi:nth-child(4){grid-column:6/9;}
+  .gi:nth-child(5){grid-column:9/13;}
+  .gl{
+    position:absolute;bottom:.8rem;left:.8rem;
+    background:rgba(28,58,42,.7);backdrop-filter:blur(8px);
+    color:var(--white);padding:.3rem .8rem;border-radius:var(--r-full);
+    font-size:.66rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;
+  }
+
+  /* ---- SLEEPING ---- */
+  .slp-section{background:var(--mint-pale);}
+  .slp-grid{
+    display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));
+    gap:1.25rem;margin-top:2rem;
+  }
+  .slp-card{
+    background:var(--white);border-radius:var(--r);overflow:hidden;
+    box-shadow:var(--shadow-sm);transition:transform .3s,box-shadow .3s;
+  }
+  .slp-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-md);}
+  .slp-img{height:165px;overflow:hidden;}
+  .slp-img img{width:100%;height:100%;object-fit:cover;}
+  .slp-body{padding:1.2rem;}
+  .slp-body h4{font-family:'Libre Caslon Text',serif;font-size:.95rem;color:var(--forest);margin-bottom:.25rem;}
+  .slp-body p{font-size:.78rem;color:var(--text-mid);}
+
+  /* ---- WIFI ---- */
+  .wifi{
+    background:linear-gradient(135deg,var(--forest),var(--emerald));
+    color:var(--white);text-align:center;padding:5rem 2rem;
+    position:relative;overflow:hidden;
+  }
+  .wifi::before{
+    content:'';position:absolute;inset:0;opacity:.04;
+    background:url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M20 20.5V18H0v-2h20v-2l2 3.25L20 20.5z' fill='%23fff' fill-opacity='1' fill-rule='evenodd'/%3E%3C/svg%3E");
+  }
+  .wifi-ic{font-size:3rem;margin-bottom:.5rem;position:relative;}
+  .wifi h2{font-family:'Libre Caslon Display',serif;font-size:1.8rem;margin-bottom:1.5rem;position:relative;}
+  .wifi-bx{
+    display:inline-flex;flex-direction:column;gap:.75rem;
+    background:rgba(255,255,255,.08);backdrop-filter:blur(18px);
+    border:1px solid rgba(255,255,255,.1);border-radius:var(--r-xl);
+    padding:2rem 3.5rem;position:relative;
+  }
+  .wifi-r{display:flex;align-items:center;gap:1rem;}
+  .wifi-l{font-size:.62rem;text-transform:uppercase;letter-spacing:.25em;color:var(--amber-light);font-weight:700;min-width:85px;text-align:right;}
+  .wifi-v{
+    font-size:1.2rem;font-weight:600;letter-spacing:.1em;
+    background:rgba(255,255,255,.06);padding:.4rem 1.2rem;border-radius:var(--r);
+  }
+  .wifi-n{font-size:.76rem;color:rgba(255,255,255,.4);margin-top:.75rem;font-style:italic;position:relative;}
+
+  /* ---- AMENITIES ---- */
+  .am-grid{
+    display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+    gap:1.25rem;margin-top:2rem;
+  }
+  .am-cat{background:var(--white);border-radius:var(--r);padding:1.7rem;box-shadow:var(--shadow-sm);}
+  .am-ct{
+    font-family:'Libre Caslon Text',serif;font-size:.95rem;
+    color:var(--forest);margin-bottom:.75rem;
+    display:flex;align-items:center;gap:.6rem;
+  }
+  .am-ci{
+    width:32px;height:32px;border-radius:9px;
+    display:flex;align-items:center;justify-content:center;
+    font-size:.95rem;flex-shrink:0;
+  }
+  .am-tags{list-style:none;display:flex;flex-wrap:wrap;gap:.3rem;}
+  .am-tags li{
+    font-size:.73rem;color:var(--text-mid);background:var(--cream-warm);
+    padding:.28rem .75rem;border-radius:var(--r-full);
+  }
+
+  /* ---- ENTERTAINMENT GARAGE ---- */
+  .ent-section{background:var(--charcoal);color:var(--white);overflow:hidden;position:relative;}
+  .ent-section::before{
+    content:'';position:absolute;inset:0;
+    background:radial-gradient(ellipse at 80% 50%,rgba(198,122,53,.1),transparent 60%);
+  }
+  .ent-section .slbl{color:var(--amber-light);}
+  .ent-section .stl{color:var(--white);}
+  .ent-section .sdsc{color:rgba(255,255,255,.55);}
+  .ent-grid{
+    display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
+    gap:1.25rem;margin-top:2rem;position:relative;z-index:1;
+  }
+  .ent-card{
+    background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.07);
+    border-radius:var(--r);padding:1.8rem 1.2rem;text-align:center;
+    transition:background .3s;
+  }
+  .ent-card:hover{background:rgba(255,255,255,.08);}
+  .ent-card .em{font-size:2.2rem;margin-bottom:.75rem;}
+  .ent-card h4{font-size:.88rem;font-weight:600;margin-bottom:.15rem;}
+  .ent-card p{font-size:.72rem;color:rgba(255,255,255,.4);}
+
+  /* ---- SPORTS COURT ---- */
+  .sport-banner{
+    position:relative;min-height:420px;
+    display:flex;align-items:center;padding:0;overflow:hidden;
+  }
+  .sport-bg{
+    position:absolute;inset:0;
+    background:url('https://a0.muscache.com/im/pictures/hosting/Hosting-1605355393180347004/original/2b256d62-52eb-4746-aa98-a9e5bca58c35.jpeg?im_w=1200') center/cover no-repeat;
+  }
+  .sport-ov{
+    position:absolute;inset:0;
+    background:linear-gradient(90deg,rgba(28,58,42,.92),rgba(28,58,42,.55) 55%,transparent);
+  }
+  .sport-c{
+    position:relative;z-index:2;padding:4rem 2rem;max-width:500px;margin-left:5%;color:var(--white);
+  }
+  .sport-c .slbl{color:var(--amber-light);}
+  .sport-c .stl{color:var(--white);font-size:2rem;}
+  .sport-list{list-style:none;margin-top:1.5rem;display:flex;flex-wrap:wrap;gap:.5rem;}
+  .sport-list li{
+    background:rgba(255,255,255,.1);backdrop-filter:blur(8px);
+    border:1px solid rgba(255,255,255,.12);
+    padding:.5rem 1.1rem;border-radius:var(--r-full);
+    font-size:.82rem;font-weight:500;display:flex;align-items:center;gap:.3rem;
+  }
+  .sport-list li span{font-size:1rem;}
+
+  /* ---- POOL ---- */
+  .pool-split{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:center;}
+  .pool-img{border-radius:var(--r-xl);overflow:hidden;aspect-ratio:4/3;box-shadow:var(--shadow-md);}
+  .pool-img img{width:100%;height:100%;object-fit:cover;}
+  .pool-note{
+    background:rgba(194,105,76,.08);border:1px solid rgba(194,105,76,.15);
+    border-radius:var(--r);padding:1rem 1.2rem;margin-top:1.5rem;
+    font-size:.82rem;color:var(--text-mid);line-height:1.7;
+  }
+  .pool-note strong{color:var(--terracotta);}
+  .pool-rules{list-style:none;margin-top:1.2rem;}
+  .pool-rules li{
+    display:flex;align-items:flex-start;gap:.6rem;
+    padding:.5rem 0;border-bottom:1px solid rgba(0,0,0,.04);
+    font-size:.85rem;color:var(--text-mid);
+  }
+  .pool-rules li span{font-size:1rem;flex-shrink:0;}
+
+  /* ---- HOUSE RULES ---- */
+  .rules-section{background:var(--cream-warm);}
+  .rules-grid{
+    display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+    gap:1.25rem;margin-top:2rem;
+  }
+  .rule{
+    background:var(--white);border-radius:var(--r);padding:1.4rem;
+    display:flex;gap:1rem;align-items:flex-start;box-shadow:var(--shadow-sm);
+  }
+  .rule-ic{
+    width:40px;height:40px;min-width:40px;border-radius:11px;
+    display:flex;align-items:center;justify-content:center;
+    font-size:1.05rem;background:var(--cream);
+  }
+  .rule h4{font-size:.88rem;font-weight:600;color:var(--forest);margin-bottom:.15rem;}
+  .rule p{font-size:.8rem;color:var(--text-mid);line-height:1.6;}
+  .rule.alert{border-left:3px solid var(--terracotta);}
+
+  /* ---- THINGS TO KNOW ---- */
+  .know-grid{
+    display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+    gap:1.25rem;margin-top:2rem;
+  }
+  .kn{background:var(--white);border-radius:var(--r);padding:1.6rem;box-shadow:var(--shadow-sm);}
+  .kn .ki{font-size:1.5rem;margin-bottom:.6rem;}
+  .kn h4{font-size:.88rem;font-weight:600;color:var(--forest);margin-bottom:.25rem;}
+  .kn p{font-size:.8rem;color:var(--text-mid);line-height:1.7;}
+
+  /* ---- SAFETY ---- */
+  .safety{background:var(--forest);color:var(--white);}
+  .safety .slbl{color:var(--amber-light);}
+  .safety .stl{color:var(--white);}
+  .sf-grid{
+    display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+    gap:1.25rem;margin-top:2rem;
+  }
+  .sf{
+    background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.07);
+    border-radius:var(--r);padding:1.3rem;text-align:center;
+  }
+  .sf .si{font-size:1.8rem;margin-bottom:.4rem;}
+  .sf h4{font-size:.82rem;font-weight:600;}
+  .sf p{font-size:.7rem;color:rgba(255,255,255,.4);margin-top:.15rem;}
+  .em-box{
+    margin-top:2.5rem;background:rgba(194,105,76,.1);
+    border:1px solid rgba(194,105,76,.2);border-radius:var(--r);
+    padding:2rem;text-align:center;
+  }
+  .em-box h3{font-family:'Libre Caslon Text',serif;font-size:1.1rem;color:var(--terracotta-soft);}
+  .em-box .num{font-family:'Libre Caslon Display',serif;font-size:2.5rem;color:var(--white);margin:.4rem 0;letter-spacing:.05em;}
+  .em-box p{font-size:.85rem;color:rgba(255,255,255,.55);}
+
+  /* ---- CHECKLIST ---- */
+  .cl-section{background:var(--mint-pale);}
+  .cl-list{max-width:620px;margin:2rem auto 0;}
+  .cl-i{
+    display:flex;align-items:flex-start;gap:1rem;
+    padding:1rem 0;border-bottom:1px solid rgba(28,58,42,.06);
+  }
+  .cl-bx{
+    width:26px;height:26px;min-width:26px;
+    border:2px solid var(--sage);border-radius:7px;
+    display:flex;align-items:center;justify-content:center;
+    cursor:pointer;transition:all .2s;margin-top:2px;
+    font-size:.78rem;color:var(--white);
+  }
+  .cl-bx:hover{background:var(--sage);}
+  .cl-i p{font-size:.9rem;color:var(--text);line-height:1.6;}
+
+  /* ---- REVIEW ---- */
+  .rev{background:var(--white);text-align:center;}
+  .stars{font-size:2rem;letter-spacing:.5rem;color:var(--amber);margin:1rem 0;}
+  .rev-text{
+    font-family:'Libre Caslon Text',serif;font-size:1.05rem;
+    color:var(--text-mid);max-width:550px;margin:0 auto;
+    line-height:1.8;font-style:italic;
+  }
+
+  /* ---- FOOTER ---- */
+  .footer{
+    background:var(--charcoal);color:var(--white);
+    text-align:center;padding:5rem 2rem;position:relative;overflow:hidden;
+  }
+  .footer::before{
+    content:'';position:absolute;bottom:-120px;left:50%;transform:translateX(-50%);
+    width:500px;height:500px;border-radius:50%;
+    background:radial-gradient(circle,rgba(93,138,107,.08),transparent 70%);
+  }
+  .footer h2{
+    font-family:'Libre Caslon Display',serif;
+    font-size:clamp(1.8rem,3.5vw,2.8rem);margin-bottom:.75rem;position:relative;
+  }
+  .footer-msg{
+    font-size:.95rem;color:rgba(255,255,255,.45);max-width:500px;
+    margin:0 auto 2rem;line-height:1.7;font-weight:300;position:relative;
+  }
+  .footer-contact{display:flex;justify-content:center;gap:1.5rem;flex-wrap:wrap;position:relative;}
+  .footer-ci{font-size:.8rem;color:rgba(255,255,255,.4);display:flex;align-items:center;gap:.4rem;}
+  .footer-ci span{font-size:.95rem;}
+  .footer-div{width:50px;height:2px;background:var(--sage);margin:2rem auto;position:relative;}
+  .footer-br{
+    font-family:'Libre Caslon Display',serif;font-size:.8rem;
+    color:rgba(255,255,255,.2);letter-spacing:.08em;position:relative;
+  }
+
+  /* ---- RESPONSIVE ---- */
+  @media(max-width:900px){
+    .wg,.kitchen-split,.pool-split,.chk-grid{grid-template-columns:1fr;}
+    .gal{grid-template-columns:1fr 1fr;grid-template-rows:200px 200px 200px;}
+    .gi:nth-child(1){grid-column:1/3;grid-row:auto;}
+    .gi:nth-child(2),.gi:nth-child(3),.gi:nth-child(4),.gi:nth-child(5){grid-column:auto;}
+    .nv-links{display:none;}
+    .sport-ov{background:linear-gradient(0deg,rgba(28,58,42,.92),rgba(28,58,42,.6));}
+    .sport-c{margin-left:0;max-width:100%;}
+    .ent-grid{grid-template-columns:repeat(auto-fit,minmax(140px,1fr));}
+  }
+  @media(max-width:600px){
+    section{padding:3.5rem 1.25rem;}
+    .gal{grid-template-columns:1fr;grid-template-rows:repeat(5,180px);}
+    .gi:nth-child(1){grid-column:auto;}
+    .wifi-bx{padding:1.5rem 1.2rem;}
+    .wifi-r{flex-direction:column;gap:.2rem;}
+    .wifi-l{text-align:center;}
+    .ent-grid{grid-template-columns:repeat(2,1fr);}
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="mainNav">
+  <div class="nv">
+    <div class="nv-brand">Faena</div>
+    <ul class="nv-links">
+      <li><a href="#welcome">Welcome</a></li>
+      <li><a href="#checkin">Check-in</a></li>
+      <li><a href="#house">The Villa</a></li>
+      <li><a href="#rooms">Rooms</a></li>
+      <li><a href="#wifi">WiFi</a></li>
+      <li><a href="#amenities">Amenities</a></li>
+      <li><a href="#entertainment">Entertainment</a></li>
+      <li><a href="#sports">Sports</a></li>
+      <li><a href="#pool">Pool</a></li>
+      <li><a href="#rules">Rules</a></li>
+      <li><a href="#safety">Safety</a></li>
+      <li><a href="#checkout">Checkout</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-ov"></div>
+  <div class="hero-leaf"></div>
+  <div class="hero-c">
+    <div class="hero-pre">Your Welcome Book</div>
+    <h1>Faena</h1>
+    <p class="hero-sub">Resort-Style Living · Multi-Sport · Heated Pool · Cinema · Homestead, FL</p>
+    <div class="hero-chips">
+      <div class="hero-chip"><span>👥</span> 16 Guests</div>
+      <div class="hero-chip"><span>🛏️</span> 5 Bedrooms</div>
+      <div class="hero-chip"><span>🛌</span> 7 Beds</div>
+      <div class="hero-chip"><span>🚿</span> 3 Baths</div>
+      <div class="hero-chip"><span>⭐</span> 5.0 · Superhost</div>
+    </div>
+  </div>
+</section>
+
+<!-- WELCOME -->
+<section class="welcome" id="welcome">
+  <div class="si">
+    <div class="wg">
+      <div>
+        <div class="slbl">Welcome to Paradise</div>
+        <h2 class="stl">We truly put our hearts into this home.</h2>
+        <p class="sdsc">Welcome to Faena — a resort-style retreat perfect for families and groups. Set in the peaceful Redlands area of Homestead, surrounded by fruit trees and lush greenery, this home is designed to help you disconnect, relax, and create unforgettable memories.</p>
+        <p class="sdsc" style="margin-bottom:0;">From the multi-sport court and cinema to the heated pool and playground, every space has been thoughtfully designed for quality family time with comfort and entertainment for all ages. We're always available to help — enjoy!</p>
+        <div class="w-sig" style="margin-top:2rem;">
+          <div class="name">Lisandra</div>
+          <div class="role">Your Superhost · 3 Years Hosting · Available 24/7</div>
+        </div>
+      </div>
+      <div class="w-img" style="position:relative;">
+        <img src="https://a0.muscache.com/im/pictures/hosting/Hosting-1605355393180347004/original/cd9e807b-42a5-47a3-a4bb-0e6b9ea3f8c8.jpeg?im_w=1200" alt="Faena pool area" loading="lazy">
+        <div class="w-badge">⭐ 5.0 · Superhost</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CHECK-IN/OUT -->
+<section id="checkin">
+  <div class="si">
+    <div class="slbl">Arrivals & Departures</div>
+    <h2 class="stl">Check-in & Check-out</h2>
+    <div class="chk-grid">
+      <div class="chk ci">
+        <div class="ico">🔑</div>
+        <h3>Check-in</h3>
+        <div class="chk-time">4:00 PM</div>
+        <p>Check in anytime after 4:00 PM — you'll have a pin code to get in. Basic instructions are provided upon booking, and the door code is sent on check-in day. Early check-in depends on cleaning availability — ask the day before and we'll confirm.</p>
+        <div class="chk-tag">🔢 Self check-in via smart lock</div>
+      </div>
+      <div class="chk co">
+        <div class="ico">🚪</div>
+        <h3>Check-out</h3>
+        <div class="chk-time">11:00 AM</div>
+        <p>Self check-out with instructions provided in the welcome message. Please follow all instructions carefully. No late check-out as the home needs to be prepared for next guests.</p>
+        <div class="chk-tag">📋 See checkout checklist below</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT THE HOUSE + GALLERY -->
+<section id="house">
+  <div class="si">
+    <div class="slbl">Your Private Resort</div>
+    <h2 class="stl">About Faena</h2>
+    <p class="sdsc">A spacious 5-bedroom, 3-bathroom villa with an entertainment garage, multi-sport court, heated pool, playground, and BBQ area — all set in the peaceful Redlands surrounded by tropical greenery.</p>
+    <div class="gal">
+      <div class="gi">
+        <img src="https://a0.muscache.com/im/pictures/hosting/Hosting-1605355393180347004/original/159a1085-7a1c-4b50-b192-245463d5bad9.jpeg?im_w=1200" alt="Faena exterior" loading="lazy">
+        <div class="gl">Property View</div>
+      </div>
+      <div class="gi">
+        <img src="https://a0.muscache.com/im/pictures/hosting/Hosting-1605355393180347004/original/72439f67-d2df-4208-9c45-ca263109aa98.jpeg?im_w=1200" alt="Master bedroom" loading="lazy">
+        <div class="gl">Master Suite</div>
+      </div>
+      <div class="gi">
+        <img src="https://a0.muscache.com/im/pictures/hosting/Hosting-1605355393180347004/original/cd9e807b-42a5-47a3-a4bb-0e6b9ea3f8c8.jpeg?im_w=1200" alt="Living area" loading="lazy">
+        <div class="gl">Living Area</div>
+      </div>
+      <div class="gi">
+        <img src="https://a0.muscache.com/im/pictures/hosting/Hosting-1605355393180347004/original/476f2e35-dc71-47b9-86a8-d19219ebb6a9.jpeg?im_w=1200" alt="Aerial view" loading="lazy">
+        <div class="gl">Aerial View</div>
+      </div>
+      <div class="gi">
+        <img src="https://a0.muscache.com/im/pictures/hosting/Hosting-1605355393180347004/original/2b256d62-52eb-4746-aa98-a9e5bca58c35.jpeg?im_w=1200" alt="Entertainment garage" loading="lazy">
+        <div class="gl">Entertainment Garage</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SLEEPING -->
+<section class="slp-section" id="rooms">
+  <div class="si">
+    <div class="slbl">Rest & Recharge</div>
+    <h2 class="stl">Sleeping Arrangements</h2>
+    <p class="sdsc">Five bedrooms plus a living room sofa bed — comfortably hosting up to 16 guests.</p>
+    <div class="slp-grid">
+      <div class="slp-card">
+        <div class="slp-img"><img src="https://a0.muscache.com/im/pictures/hosting/Hosting-1605355393180347004/original/72439f67-d2df-4208-9c45-ca263109aa98.jpeg?im_w=720" alt="Master" loading="lazy"></div>
+        <div class="slp-body">
+          <h4>Master Suite</h4>
+          <p>King bed · Crib · Walk-in closet · Private bath with tub + shower</p>
+        </div>
+      </div>
+      <div class="slp-card">
+        <div class="slp-img"><img src="https://a0.muscache.com/im/pictures/hosting/Hosting-1605355393180347004/original/138c343a-4b7d-434b-ace3-72a50bc20c62.jpeg?im_w=720" alt="Bedroom 2" loading="lazy"></div>
+        <div class="slp-body">
+          <h4>Bedroom 2</h4>
+          <p>2 Full/Double beds · Shared bath</p>
+        </div>
+      </div>
+      <div class="slp-card">
+        <div class="slp-img"><img src="https://a0.muscache.com/im/pictures/hosting/Hosting-1605355393180347004/original/db8045fc-35c2-48e1-8bca-3d53d78926bb.jpeg?im_w=720" alt="Bedroom 3" loading="lazy"></div>
+        <div class="slp-body">
+          <h4>Bedroom 3</h4>
+          <p>Queen bed · Walk-in closet · Bath with dual access (bedroom + patio)</p>
+        </div>
+      </div>
+      <div class="slp-card">
+        <div class="slp-img"><img src="https://a0.muscache.com/im/pictures/hosting/Hosting-1605355393180347004/original/ec68502d-6a8d-4e8c-a12e-afedae3fec49.jpeg?im_w=720" alt="Bedroom 4" loading="lazy"></div>
+        <div class="slp-body">
+          <h4>Bedroom 4 — Kids</h4>
+          <p>2 Twin beds · Walk-in closet · Shared bath</p>
+        </div>
+      </div>
+      <div class="slp-card">
+        <div class="slp-img"><img src="https://a0.muscache.com/im/pictures/hosting/Hosting-1605355393180347004/original/c12c9132-d573-424a-acd9-4184a5bce8a2.jpeg?im_w=720" alt="Bedroom 5" loading="lazy"></div>
+        <div class="slp-body">
+          <h4>Bedroom 5</h4>
+          <p>Queen bed · Walk-in closet · Shared bath with Bedroom 4</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WIFI -->
+<section class="wifi" id="wifi">
+  <div class="wifi-ic">📶</div>
+  <h2>Stay Connected</h2>
+  <div class="wifi-bx">
+    <div class="wifi-r"><span class="wifi-l">Network</span><span class="wifi-v">Provided at check-in</span></div>
+    <div class="wifi-r"><span class="wifi-l">Password</span><span class="wifi-v">Provided at check-in</span></div>
+  </div>
+  <p class="wifi-n">WiFi details included in your check-in instructions · Dedicated workspace available</p>
+</section>
+
+<!-- AMENITIES -->
+<section id="amenities">
+  <div class="si">
+    <div class="slbl">Everything You Need</div>
+    <h2 class="stl">Amenities</h2>
+    <p class="sdsc">87 amenities designed for the ultimate resort-style experience.</p>
+    <div class="am-grid">
+      <div class="am-cat">
+        <div class="am-ct"><div class="am-ci" style="background:rgba(45,94,63,.06)">🍳</div>Kitchen & Dining</div>
+        <ul class="am-tags">
+          <li>Full Kitchen</li><li>Espresso Machine</li><li>Drip Coffee Maker</li>
+          <li>Refrigerator</li><li>Stove & Oven</li><li>Microwave</li><li>Dishwasher</li>
+          <li>Pots & Pans</li><li>Dishes & Silverware</li><li>Dining for 8</li><li>4 Bar Seats</li>
+        </ul>
+      </div>
+      <div class="am-cat">
+        <div class="am-ct"><div class="am-ci" style="background:rgba(198,122,53,.06)">🏊</div>Pool & Outdoor</div>
+        <ul class="am-tags">
+          <li>Heated Pool</li><li>BBQ Area</li><li>Kids Playground</li><li>Swings</li>
+          <li>Outdoor Furniture</li><li>Private Patio</li><li>Fenced Backyard</li>
+        </ul>
+      </div>
+      <div class="am-cat">
+        <div class="am-ct"><div class="am-ci" style="background:rgba(194,105,76,.06)">🏀</div>Sports & Recreation</div>
+        <ul class="am-tags">
+          <li>Basketball Court</li><li>Pickleball</li><li>Volleyball</li><li>Soccer Field</li>
+          <li>Ping Pong Table</li><li>Bicycles</li>
+        </ul>
+      </div>
+      <div class="am-cat">
+        <div class="am-ct"><div class="am-ci" style="background:rgba(28,58,42,.05)">🎬</div>Entertainment Garage</div>
+        <ul class="am-tags">
+          <li>Home Theater / Cinema</li><li>Pool Table</li><li>Poker Table</li>
+          <li>Gym / Fitness Zone</li><li>Piano</li><li>Reading Corner</li><li>Bicycles</li>
+        </ul>
+      </div>
+      <div class="am-cat">
+        <div class="am-ct"><div class="am-ci" style="background:rgba(141,184,158,.1)">🛁</div>Bathroom & Laundry</div>
+        <ul class="am-tags">
+          <li>3 Full Baths</li><li>Bathtub (Master)</li><li>Separate Shower</li>
+          <li>Fresh Towels</li><li>Toiletries</li><li>Washer & Dryer</li><li>Iron</li>
+        </ul>
+      </div>
+      <div class="am-cat">
+        <div class="am-ct"><div class="am-ci" style="background:rgba(212,162,78,.06)">👶</div>Family Friendly</div>
+        <ul class="am-tags">
+          <li>Travel Crib</li><li>High Chair</li><li>Outdoor Playground</li>
+          <li>Swings</li><li>Kids Bedroom</li><li>Fenced Yard</li><li>Pets Allowed</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ENTERTAINMENT GARAGE -->
+<section class="ent-section" id="entertainment">
+  <div class="si">
+    <div class="slbl">The Ultimate Hangout</div>
+    <h2 class="stl">Entertainment Garage</h2>
+    <p class="sdsc">The converted garage is your all-in-one entertainment hub — movie nights, games, workouts, and more.</p>
+    <div class="ent-grid">
+      <div class="ent-card"><div class="em">🎬</div><h4>Cinema</h4><p>Home theater setup</p></div>
+      <div class="ent-card"><div class="em">🎱</div><h4>Pool Table</h4><p>Full-size billiards</p></div>
+      <div class="ent-card"><div class="em">🃏</div><h4>Poker Table</h4><p>Game nights</p></div>
+      <div class="ent-card"><div class="em">🏋️</div><h4>Gym Zone</h4><p>Fitness equipment</p></div>
+      <div class="ent-card"><div class="em">🎹</div><h4>Piano</h4><p>Music corner</p></div>
+      <div class="ent-card"><div class="em">🚲</div><h4>Bicycles</h4><p>Explore the neighborhood</p></div>
+      <div class="ent-card"><div class="em">📚</div><h4>Reading Corner</h4><p>Books & relaxation</p></div>
+      <div class="ent-card"><div class="em">🏓</div><h4>Ping Pong</h4><p>Table tennis</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- SPORTS COURT -->
+<section class="sport-banner" id="sports">
+  <div class="sport-bg"></div>
+  <div class="sport-ov"></div>
+  <div class="sport-c">
+    <div class="slbl">Game On</div>
+    <h2 class="stl">Multi-Sport Court</h2>
+    <p style="color:rgba(255,255,255,.65);margin-top:.75rem;line-height:1.8;">The backyard features a full multi-sport court for the whole family. Challenge each other to a match!</p>
+    <ul class="sport-list">
+      <li><span>🏀</span> Basketball</li>
+      <li><span>🏐</span> Volleyball</li>
+      <li><span>⚽</span> Soccer</li>
+      <li><span>🏸</span> Pickleball</li>
+      <li><span>🏓</span> Ping Pong</li>
+      <li><span>🚲</span> Bicycles</li>
+    </ul>
+  </div>
+</section>
+
+<!-- POOL -->
+<section id="pool">
+  <div class="si">
+    <div class="pool-split">
+      <div class="pool-img">
+        <img src="https://a0.muscache.com/im/pictures/hosting/Hosting-1605355393180347004/original/cd9e807b-42a5-47a3-a4bb-0e6b9ea3f8c8.jpeg?im_w=1200" alt="Pool" loading="lazy">
+      </div>
+      <div>
+        <div class="slbl">Splash & Relax</div>
+        <h2 class="stl">Heated Pool</h2>
+        <p class="sdsc">Step outside to your own private heated pool — perfect for soaking up the Florida sunshine or cooling off after a game on the court.</p>
+        <div class="pool-note">
+          <strong>⚠️ Pool Heating Notice:</strong> Pool heating is available at an extra cost. Please request at least 2 days in advance so a technician can activate it. Note: the pool does not have a gate or lock — please supervise children at all times.
+        </div>
+        <ul class="pool-rules">
+          <li><span>⚠️</span> Swim at your own risk — no lifeguard</li>
+          <li><span>👶</span> Supervise children at all times (no gate/lock)</li>
+          <li><span>🚫</span> No glass near the pool</li>
+          <li><span>🔧</span> Do not touch pool equipment</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOUSE RULES -->
+<section class="rules-section" id="rules">
+  <div class="si">
+    <div class="slbl">Please Respect</div>
+    <h2 class="stl">House Rules</h2>
+    <div class="rules-grid">
+      <div class="rule"><div class="rule-ic">🚭</div><div><h4>No Smoking Indoors</h4><p>Please smoke only outside and dispose of butts responsibly.</p></div></div>
+      <div class="rule"><div class="rule-ic">🐾</div><div><h4>Pets Allowed</h4><p>Pets are welcome! Please clean up after them and keep common areas tidy.</p></div></div>
+      <div class="rule alert"><div class="rule-ic">🚗</div><div><h4>Parking — Important</h4><p>Park only in designated areas. Parking on gardens, grass, or green areas is NOT permitted — on the property or in the neighborhood.</p></div></div>
+      <div class="rule"><div class="rule-ic">🤫</div><div><h4>Quiet Neighborhood</h4><p>This is a very quiet residential area. Please respect the community and neighbors at all times.</p></div></div>
+      <div class="rule"><div class="rule-ic">🔥</div><div><h4>BBQ</h4><p>Use the BBQ freely — close the gas valve and clean the grill after each use.</p></div></div>
+      <div class="rule"><div class="rule-ic">🏡</div><div><h4>Property Boundaries</h4><p>Fenced areas are for guest use. Areas outside the fence are part of the neighborhood — please respect them.</p></div></div>
+      <div class="rule"><div class="rule-ic">👥</div><div><h4>Max 16 Guests</h4><p>Only registered guests may stay at the property.</p></div></div>
+      <div class="rule"><div class="rule-ic">🦎</div><div><h4>Natural Setting</h4><p>The Redlands area is surrounded by greenery — occasional ants, lizards, or small insects are normal. The property is regularly treated.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- THINGS TO KNOW -->
+<section>
+  <div class="si">
+    <div class="slbl">Good to Know</div>
+    <h2 class="stl">Important Notes</h2>
+    <div class="know-grid">
+      <div class="kn"><div class="ki">☕</div><h4>Coffee Station</h4><p>Espresso machine and drip coffee maker are provided. Start your mornings right!</p></div>
+      <div class="kn"><div class="ki">🛁</div><h4>Bathrooms</h4><p>The master suite has a private bath with tub and shower. Bedroom 3 has a bath with dual patio access. Bedrooms 2, 4, and 5 share the third bathroom.</p></div>
+      <div class="kn"><div class="ki">🧺</div><h4>Laundry</h4><p>Washer and dryer available. Extra sheets and towels provided depending on length of stay.</p></div>
+      <div class="kn"><div class="ki">💼</div><h4>Workspace</h4><p>Dedicated workspace available — perfect for remote work or catching up on emails.</p></div>
+      <div class="kn"><div class="ki">📹</div><h4>Security Cameras</h4><p>Exterior security cameras are installed for safety. No interior cameras.</p></div>
+      <div class="kn"><div class="ki">🌿</div><h4>Redlands Setting</h4><p>The home is in a peaceful, natural environment surrounded by fruit trees. Small insects and lizards are part of the local ecosystem — the property is regularly maintained.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- SAFETY -->
+<section class="safety" id="safety">
+  <div class="si">
+    <div class="slbl">Your Safety</div>
+    <h2 class="stl">Safety & Emergencies</h2>
+    <div class="sf-grid">
+      <div class="sf"><div class="si">🔥</div><h4>Smoke Alarm</h4><p>Installed</p></div>
+      <div class="sf"><div class="si">💨</div><h4>CO Alarm</h4><p>Carbon monoxide</p></div>
+      <div class="sf"><div class="si">📷</div><h4>Security Cameras</h4><p>Exterior only</p></div>
+      <div class="sf"><div class="si">🏊</div><h4>Pool Safety</h4><p>No gate or lock — supervise children</p></div>
+    </div>
+    <div class="em-box">
+      <h3>In Case of Emergency</h3>
+      <div class="num">Call 911</div>
+      <p>For property issues, contact Lisandra immediately via Airbnb — she responds within an hour.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CHECKOUT CHECKLIST -->
+<section class="cl-section" id="checkout">
+  <div class="si" style="text-align:center;">
+    <div class="slbl" style="display:block;text-align:center;">Before You Leave</div>
+    <h2 class="stl" style="text-align:center;">Checkout Checklist</h2>
+    <div class="cl-list">
+      <div class="cl-i"><div class="cl-bx"></div><p>Gather used towels and linens in one area</p></div>
+      <div class="cl-i"><div class="cl-bx"></div><p>Take out all trash to designated bins</p></div>
+      <div class="cl-i"><div class="cl-bx"></div><p>Leave the refrigerator empty</p></div>
+      <div class="cl-i"><div class="cl-bx"></div><p>Turn off all lights, TVs, and air conditioning</p></div>
+      <div class="cl-i"><div class="cl-bx"></div><p>Close and lock all windows and doors</p></div>
+      <div class="cl-i"><div class="cl-bx"></div><p>Check all drawers and closets for personal belongings</p></div>
+      <div class="cl-i"><div class="cl-bx"></div><p>Close the BBQ gas valve if used</p></div>
+      <div class="cl-i"><div class="cl-bx"></div><p>Return any equipment (bikes, games) to their proper places</p></div>
+      <div class="cl-i"><div class="cl-bx"></div><p>Follow all checkout instructions from the welcome message</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- REVIEW -->
+<section class="rev">
+  <div class="si" style="text-align:center;">
+    <div class="slbl" style="display:block;text-align:center;">We'd Love Your Feedback</div>
+    <h2 class="stl" style="text-align:center;">Leave a Review</h2>
+    <div class="stars">★ ★ ★ ★ ★</div>
+    <p class="rev-text">We put our hearts into making Faena special. If you enjoyed your stay, a review on our Airbnb listing would mean the world to us — it helps future families find this home.</p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <h2>Thank You!</h2>
+  <p class="footer-msg">We hope Faena gave your family unforgettable memories. Safe travels — we'd love to welcome you back!</p>
+  <div class="footer-contact">
+    <div class="footer-ci"><span>💬</span> Message via Airbnb</div>
+    <div class="footer-ci"><span>⚡</span> Response within 1 hour</div>
+    <div class="footer-ci"><span>📍</span> Homestead / Redlands, FL</div>
+  </div>
+  <div class="footer-div"></div>
+  <div class="footer-br">Faena · Hosted by Lisandra · Superhost</div>
+</footer>
+
+<script>
+  document.getElementById('mainNav').classList.toggle('scrolled',window.scrollY>50);
+  window.addEventListener('scroll',()=>{document.getElementById('mainNav').classList.toggle('scrolled',window.scrollY>50);});
+  document.querySelectorAll('.cl-bx').forEach(b=>{
+    b.addEventListener('click',function(){
+      this.classList.toggle('ck');
+      const p=this.closest('.cl-i').querySelector('p');
+      if(this.classList.contains('ck')){
+        this.textContent='✓';this.style.background='var(--sage)';this.style.borderColor='var(--sage)';
+        p.style.textDecoration='line-through';p.style.opacity='.4';
+      }else{
+        this.textContent='';this.style.background='transparent';this.style.borderColor='var(--sage)';
+        p.style.textDecoration='none';p.style.opacity='1';
+      }
+    });
+  });
+  document.querySelectorAll('.nv-links a').forEach(a=>{
+    a.addEventListener('click',e=>{
+      e.preventDefault();
+      const t=document.querySelector(a.getAttribute('href'));
+      if(t)t.scrollIntoView({behavior:'smooth',block:'start'});
+    });
+  });
+</script>
+
+</body>
+</html>

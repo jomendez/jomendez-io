@@ -1,0 +1,2002 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Welcome Book — Miami Lux Vibe</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;1,400;1,600&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --gold: #C9A84C;
+    --gold-light: #E8D5A0;
+    --gold-dark: #8B6914;
+    --deep-teal: #0A3D3D;
+    --teal: #1A6B6B;
+    --teal-light: #2A9D8F;
+    --cream: #FFF8F0;
+    --cream-dark: #F5EDE0;
+    --charcoal: #1A1A1A;
+    --warm-gray: #6B6560;
+    --coral: #E76F51;
+    --coral-soft: #F4A98B;
+    --white: #FFFFFF;
+    --shadow-soft: 0 4px 30px rgba(0,0,0,0.08);
+    --shadow-medium: 0 8px 40px rgba(0,0,0,0.12);
+    --shadow-heavy: 0 20px 60px rgba(0,0,0,0.2);
+    --radius: 16px;
+    --radius-sm: 8px;
+    --radius-xl: 24px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html {
+    scroll-behavior: smooth;
+    scroll-snap-type: y proximity;
+  }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--charcoal);
+    line-height: 1.7;
+    font-weight: 400;
+    overflow-x: hidden;
+  }
+
+  /* ============================================
+     NAVIGATION
+  ============================================ */
+  nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    background: rgba(255,248,240,0.85);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(201,168,76,0.15);
+    padding: 0 2rem;
+    transition: all 0.4s ease;
+  }
+
+  nav.scrolled {
+    box-shadow: var(--shadow-soft);
+  }
+
+  .nav-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 64px;
+  }
+
+  .nav-brand {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--deep-teal);
+    letter-spacing: -0.02em;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 0.25rem;
+    list-style: none;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+
+  .nav-links::-webkit-scrollbar { display: none; }
+
+  .nav-links a {
+    text-decoration: none;
+    color: var(--warm-gray);
+    font-size: 0.78rem;
+    font-weight: 500;
+    padding: 0.4rem 0.75rem;
+    border-radius: 100px;
+    white-space: nowrap;
+    transition: all 0.3s ease;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+  }
+
+  .nav-links a:hover {
+    background: var(--deep-teal);
+    color: var(--white);
+  }
+
+  /* ============================================
+     HERO SECTION
+  ============================================ */
+  .hero {
+    position: relative;
+    height: 100vh;
+    min-height: 700px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    overflow: hidden;
+    scroll-snap-align: start;
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background: url('https://a0.muscache.com/im/pictures/hosting/Hosting-1615432071047666472/original/1f0ed09c-cd9e-4707-aa5c-46398690825d.jpeg?im_w=1200') center/cover no-repeat;
+  }
+
+  .hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg,
+      rgba(10,61,61,0.1) 0%,
+      rgba(10,61,61,0.3) 50%,
+      rgba(10,61,61,0.85) 100%
+    );
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    padding: 3rem 2rem 4rem;
+    max-width: 800px;
+    animation: fadeUp 1.2s ease-out;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(40px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .hero-tag {
+    display: inline-block;
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.35em;
+    color: var(--gold-light);
+    border: 1px solid rgba(232,213,160,0.4);
+    padding: 0.5rem 1.5rem;
+    border-radius: 100px;
+    margin-bottom: 1.5rem;
+    backdrop-filter: blur(10px);
+  }
+
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.5rem, 6vw, 4.5rem);
+    font-weight: 800;
+    color: var(--white);
+    line-height: 1.1;
+    margin-bottom: 1rem;
+    letter-spacing: -0.03em;
+  }
+
+  .hero h1 em {
+    font-style: italic;
+    font-weight: 400;
+    color: var(--gold-light);
+  }
+
+  .hero-sub {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.3rem;
+    color: rgba(255,255,255,0.8);
+    font-weight: 300;
+    letter-spacing: 0.02em;
+    margin-bottom: 2rem;
+  }
+
+  .hero-stats {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+  }
+
+  .hero-stat {
+    text-align: center;
+    color: var(--white);
+  }
+
+  .hero-stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--gold-light);
+  }
+
+  .hero-stat-label {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    opacity: 0.7;
+    margin-top: 0.2rem;
+  }
+
+  .scroll-hint {
+    position: absolute;
+    bottom: 1.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 3;
+    animation: bounce 2s infinite;
+  }
+
+  .scroll-hint svg {
+    width: 24px;
+    height: 24px;
+    stroke: rgba(255,255,255,0.5);
+    stroke-width: 2;
+    fill: none;
+  }
+
+  @keyframes bounce {
+    0%, 100% { transform: translateX(-50%) translateY(0); }
+    50% { transform: translateX(-50%) translateY(8px); }
+  }
+
+  /* ============================================
+     SECTIONS
+  ============================================ */
+  section {
+    padding: 5rem 2rem;
+    scroll-snap-align: start;
+  }
+
+  .section-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .section-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.68rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.3em;
+    color: var(--teal);
+    margin-bottom: 1rem;
+  }
+
+  .section-label::before {
+    content: '';
+    width: 32px;
+    height: 2px;
+    background: var(--gold);
+  }
+
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 700;
+    color: var(--deep-teal);
+    line-height: 1.15;
+    margin-bottom: 1.5rem;
+    letter-spacing: -0.02em;
+  }
+
+  .section-desc {
+    font-size: 1.05rem;
+    color: var(--warm-gray);
+    max-width: 600px;
+    line-height: 1.8;
+    margin-bottom: 3rem;
+  }
+
+  /* ============================================
+     WELCOME MESSAGE
+  ============================================ */
+  .welcome {
+    background: var(--deep-teal);
+    color: var(--white);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .welcome::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -20%;
+    width: 600px;
+    height: 600px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(201,168,76,0.15), transparent 70%);
+    pointer-events: none;
+  }
+
+  .welcome-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+  }
+
+  .welcome .section-label { color: var(--gold-light); }
+  .welcome .section-title { color: var(--white); }
+  .welcome .section-desc { color: rgba(255,255,255,0.7); }
+
+  .welcome-signature {
+    margin-top: 2rem;
+  }
+
+  .welcome-signature .name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem;
+    font-style: italic;
+    color: var(--gold-light);
+  }
+
+  .welcome-signature .role {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: rgba(255,255,255,0.5);
+    margin-top: 0.25rem;
+  }
+
+  .welcome-image {
+    position: relative;
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+    aspect-ratio: 4/3;
+  }
+
+  .welcome-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .welcome-image::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border: 1px solid rgba(201,168,76,0.2);
+    border-radius: var(--radius-xl);
+    pointer-events: none;
+  }
+
+  /* ============================================
+     CHECK-IN/OUT CARDS
+  ============================================ */
+  .checkin-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+  }
+
+  .check-card {
+    background: var(--white);
+    border-radius: var(--radius-xl);
+    padding: 3rem;
+    position: relative;
+    overflow: hidden;
+    box-shadow: var(--shadow-soft);
+    border: 1px solid rgba(201,168,76,0.1);
+  }
+
+  .check-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--gold), var(--teal-light));
+  }
+
+  .check-icon {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+    font-size: 1.5rem;
+  }
+
+  .check-in-icon { background: rgba(42,157,143,0.1); color: var(--teal-light); }
+  .check-out-icon { background: rgba(231,111,81,0.1); color: var(--coral); }
+
+  .check-card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--deep-teal);
+    margin-bottom: 0.25rem;
+  }
+
+  .check-time {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.8rem;
+    font-weight: 800;
+    color: var(--gold-dark);
+    margin-bottom: 1rem;
+    letter-spacing: -0.03em;
+  }
+
+  .check-card p {
+    color: var(--warm-gray);
+    font-size: 0.92rem;
+    line-height: 1.8;
+  }
+
+  .check-method {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: var(--cream);
+    padding: 0.6rem 1.2rem;
+    border-radius: 100px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--deep-teal);
+    margin-top: 1.5rem;
+  }
+
+  /* ============================================
+     ABOUT THE HOUSE — PHOTO GRID
+  ============================================ */
+  .about-gallery {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: 280px 280px;
+    gap: 1rem;
+    margin-top: 3rem;
+  }
+
+  .about-gallery .gallery-item {
+    border-radius: var(--radius);
+    overflow: hidden;
+    position: relative;
+  }
+
+  .about-gallery .gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s ease;
+  }
+
+  .about-gallery .gallery-item:hover img {
+    transform: scale(1.05);
+  }
+
+  .about-gallery .gallery-item:first-child {
+    grid-row: 1 / 3;
+  }
+
+  .gallery-label {
+    position: absolute;
+    bottom: 1rem;
+    left: 1rem;
+    background: rgba(0,0,0,0.6);
+    backdrop-filter: blur(10px);
+    color: var(--white);
+    padding: 0.4rem 1rem;
+    border-radius: 100px;
+    font-size: 0.72rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+
+  /* ============================================
+     SLEEPING ARRANGEMENTS
+  ============================================ */
+  .sleeping-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+  }
+
+  .bed-card {
+    background: var(--white);
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: var(--shadow-soft);
+    border: 1px solid rgba(0,0,0,0.04);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .bed-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-medium);
+  }
+
+  .bed-card-img {
+    height: 180px;
+    overflow: hidden;
+  }
+
+  .bed-card-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .bed-card-body {
+    padding: 1.5rem;
+  }
+
+  .bed-card-body h4 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--deep-teal);
+    margin-bottom: 0.5rem;
+  }
+
+  .bed-card-body p {
+    font-size: 0.85rem;
+    color: var(--warm-gray);
+    line-height: 1.6;
+  }
+
+  /* ============================================
+     WIFI SECTION
+  ============================================ */
+  .wifi-section {
+    background: linear-gradient(135deg, var(--deep-teal), var(--teal));
+    color: var(--white);
+    text-align: center;
+    padding: 5rem 2rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .wifi-section::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Ccircle cx='30' cy='30' r='2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  }
+
+  .wifi-icon {
+    font-size: 3.5rem;
+    margin-bottom: 1rem;
+    opacity: 0.9;
+  }
+
+  .wifi-section h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 2rem;
+    position: relative;
+  }
+
+  .wifi-box {
+    display: inline-flex;
+    flex-direction: column;
+    gap: 1rem;
+    background: rgba(255,255,255,0.1);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: var(--radius-xl);
+    padding: 2.5rem 4rem;
+    position: relative;
+  }
+
+  .wifi-row {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    font-size: 1.1rem;
+  }
+
+  .wifi-label {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.25em;
+    color: var(--gold-light);
+    font-weight: 600;
+    min-width: 100px;
+    text-align: right;
+  }
+
+  .wifi-value {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 1.4rem;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    color: var(--white);
+    background: rgba(255,255,255,0.08);
+    padding: 0.5rem 1.5rem;
+    border-radius: var(--radius-sm);
+    user-select: all;
+  }
+
+  .wifi-note {
+    font-size: 0.8rem;
+    color: rgba(255,255,255,0.5);
+    margin-top: 1rem;
+    font-style: italic;
+    position: relative;
+  }
+
+  /* ============================================
+     AMENITIES
+  ============================================ */
+  .amenities-categories {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+  }
+
+  .amenity-cat {
+    background: var(--white);
+    border-radius: var(--radius);
+    padding: 2rem;
+    box-shadow: var(--shadow-soft);
+    border: 1px solid rgba(0,0,0,0.04);
+  }
+
+  .amenity-cat-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--deep-teal);
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .amenity-cat-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+    flex-shrink: 0;
+  }
+
+  .amenity-list {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+
+  .amenity-list li {
+    font-size: 0.8rem;
+    color: var(--warm-gray);
+    background: var(--cream);
+    padding: 0.35rem 0.9rem;
+    border-radius: 100px;
+    white-space: nowrap;
+  }
+
+  /* ============================================
+     HOUSE RULES
+  ============================================ */
+  .rules-section {
+    background: var(--cream-dark);
+  }
+
+  .rules-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+  }
+
+  .rule-card {
+    background: var(--white);
+    border-radius: var(--radius);
+    padding: 1.8rem;
+    display: flex;
+    gap: 1.2rem;
+    align-items: flex-start;
+    box-shadow: var(--shadow-soft);
+    border: 1px solid rgba(0,0,0,0.04);
+  }
+
+  .rule-icon {
+    width: 44px;
+    height: 44px;
+    min-width: 44px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    background: var(--cream);
+  }
+
+  .rule-card h4 {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--deep-teal);
+    margin-bottom: 0.3rem;
+  }
+
+  .rule-card p {
+    font-size: 0.83rem;
+    color: var(--warm-gray);
+    line-height: 1.6;
+  }
+
+  .rule-alert {
+    border-left: 3px solid var(--coral);
+  }
+
+  /* ============================================
+     POOL & OUTDOOR
+  ============================================ */
+  .pool-section {
+    position: relative;
+    padding: 0;
+    min-height: 500px;
+    display: flex;
+    align-items: center;
+  }
+
+  .pool-bg {
+    position: absolute;
+    inset: 0;
+    background: url('https://a0.muscache.com/im/pictures/hosting/Hosting-1615432071047666472/original/5e3873bc-afd2-45a4-9978-fe32c00519ae.jpeg?im_w=1200') center/cover no-repeat;
+  }
+
+  .pool-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, rgba(10,61,61,0.92) 0%, rgba(10,61,61,0.6) 50%, transparent 100%);
+  }
+
+  .pool-content {
+    position: relative;
+    z-index: 2;
+    padding: 5rem 2rem;
+    max-width: 550px;
+    margin-left: 5%;
+    color: var(--white);
+  }
+
+  .pool-content .section-label { color: var(--gold-light); }
+  .pool-content .section-title { color: var(--white); font-size: 2.2rem; }
+
+  .pool-rules {
+    list-style: none;
+    margin-top: 2rem;
+  }
+
+  .pool-rules li {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    font-size: 0.9rem;
+    color: rgba(255,255,255,0.8);
+  }
+
+  .pool-rules li span {
+    font-size: 1.1rem;
+    flex-shrink: 0;
+  }
+
+  /* ============================================
+     GAMES & ENTERTAINMENT
+  ============================================ */
+  .games-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+    margin-top: 2rem;
+  }
+
+  .game-card {
+    background: var(--white);
+    border-radius: var(--radius);
+    padding: 2rem 1.5rem;
+    text-align: center;
+    box-shadow: var(--shadow-soft);
+    border: 1px solid rgba(0,0,0,0.04);
+    transition: transform 0.3s ease;
+  }
+
+  .game-card:hover { transform: translateY(-4px); }
+
+  .game-emoji {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .game-card h4 {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--deep-teal);
+  }
+
+  .game-card p {
+    font-size: 0.78rem;
+    color: var(--warm-gray);
+    margin-top: 0.3rem;
+  }
+
+  /* ============================================
+     KITCHEN
+  ============================================ */
+  .kitchen-split {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: center;
+  }
+
+  .kitchen-img {
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+    aspect-ratio: 4/3;
+  }
+
+  .kitchen-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .kitchen-items {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 1.5rem;
+  }
+
+  .kitchen-item {
+    background: var(--cream);
+    padding: 0.5rem 1rem;
+    border-radius: 100px;
+    font-size: 0.82rem;
+    color: var(--deep-teal);
+    font-weight: 500;
+    border: 1px solid rgba(201,168,76,0.15);
+  }
+
+  /* ============================================
+     TRANSPORTATION & LOCATION
+  ============================================ */
+  .transport-cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-top: 2rem;
+  }
+
+  .transport-card {
+    background: var(--white);
+    border-radius: var(--radius);
+    padding: 2rem;
+    text-align: center;
+    box-shadow: var(--shadow-soft);
+    border: 1px solid rgba(0,0,0,0.04);
+  }
+
+  .transport-card .t-icon {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+  }
+
+  .transport-card h4 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--deep-teal);
+    margin-bottom: 0.5rem;
+  }
+
+  .transport-card p {
+    font-size: 0.85rem;
+    color: var(--warm-gray);
+    line-height: 1.6;
+  }
+
+  .proximity-badges {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    margin-top: 3rem;
+    flex-wrap: wrap;
+  }
+
+  .prox-badge {
+    background: var(--white);
+    border-radius: var(--radius);
+    padding: 1.5rem 2.5rem;
+    text-align: center;
+    box-shadow: var(--shadow-soft);
+    border: 1px solid rgba(201,168,76,0.15);
+  }
+
+  .prox-badge .time {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--gold-dark);
+  }
+
+  .prox-badge .place {
+    font-size: 0.8rem;
+    color: var(--warm-gray);
+    margin-top: 0.2rem;
+    font-weight: 500;
+  }
+
+  /* ============================================
+     THINGS TO KNOW / SPECIAL INSTRUCTIONS
+  ============================================ */
+  .know-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+  }
+
+  .know-card {
+    background: var(--white);
+    border-radius: var(--radius);
+    padding: 2rem;
+    box-shadow: var(--shadow-soft);
+    border: 1px solid rgba(0,0,0,0.04);
+  }
+
+  .know-card .k-icon {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+  }
+
+  .know-card h4 {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--deep-teal);
+    margin-bottom: 0.5rem;
+  }
+
+  .know-card p {
+    font-size: 0.85rem;
+    color: var(--warm-gray);
+    line-height: 1.7;
+  }
+
+  /* ============================================
+     SAFETY & EMERGENCY
+  ============================================ */
+  .safety-section {
+    background: var(--deep-teal);
+    color: var(--white);
+  }
+
+  .safety-section .section-label { color: var(--gold-light); }
+  .safety-section .section-title { color: var(--white); }
+  .safety-section .section-desc { color: rgba(255,255,255,0.6); }
+
+  .safety-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+  }
+
+  .safety-item {
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: var(--radius);
+    padding: 1.5rem;
+    text-align: center;
+  }
+
+  .safety-item .s-icon {
+    font-size: 2rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .safety-item h4 {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--white);
+  }
+
+  .safety-item p {
+    font-size: 0.75rem;
+    color: rgba(255,255,255,0.5);
+    margin-top: 0.3rem;
+  }
+
+  .emergency-banner {
+    margin-top: 3rem;
+    background: rgba(231,111,81,0.15);
+    border: 1px solid rgba(231,111,81,0.3);
+    border-radius: var(--radius);
+    padding: 2rem;
+    text-align: center;
+  }
+
+  .emergency-banner h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--coral-soft);
+    margin-bottom: 0.5rem;
+  }
+
+  .emergency-banner p {
+    font-size: 0.9rem;
+    color: rgba(255,255,255,0.7);
+  }
+
+  .emergency-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: var(--white);
+    margin: 0.75rem 0;
+    letter-spacing: 0.05em;
+  }
+
+  /* ============================================
+     CHECKOUT CHECKLIST
+  ============================================ */
+  .checklist-section {
+    background: var(--cream-dark);
+  }
+
+  .checklist {
+    max-width: 650px;
+    margin: 2rem auto 0;
+  }
+
+  .checklist-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    padding: 1.2rem 0;
+    border-bottom: 1px solid rgba(0,0,0,0.06);
+  }
+
+  .checklist-check {
+    width: 28px;
+    height: 28px;
+    min-width: 28px;
+    border: 2px solid var(--gold);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 2px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .checklist-check:hover {
+    background: var(--gold);
+  }
+
+  .checklist-item p {
+    font-size: 0.95rem;
+    color: var(--charcoal);
+    line-height: 1.6;
+  }
+
+  /* ============================================
+     REVIEW CTA
+  ============================================ */
+  .review-section {
+    text-align: center;
+    background: var(--white);
+  }
+
+  .stars {
+    font-size: 2.5rem;
+    letter-spacing: 0.5rem;
+    margin: 1.5rem 0;
+    color: var(--gold);
+  }
+
+  .review-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.3rem;
+    color: var(--warm-gray);
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.8;
+    font-weight: 300;
+  }
+
+  /* ============================================
+     FOOTER / THANK YOU
+  ============================================ */
+  .footer {
+    background: var(--charcoal);
+    color: var(--white);
+    text-align: center;
+    padding: 5rem 2rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .footer::before {
+    content: '';
+    position: absolute;
+    bottom: -100px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 500px;
+    height: 500px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(201,168,76,0.1), transparent 70%);
+    pointer-events: none;
+  }
+
+  .footer h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 800;
+    color: var(--white);
+    margin-bottom: 1rem;
+    letter-spacing: -0.02em;
+    position: relative;
+  }
+
+  .footer-msg {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.2rem;
+    color: rgba(255,255,255,0.6);
+    max-width: 500px;
+    margin: 0 auto 2.5rem;
+    line-height: 1.7;
+    font-weight: 300;
+    position: relative;
+  }
+
+  .footer-contact {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+    position: relative;
+  }
+
+  .footer-contact-item {
+    font-size: 0.85rem;
+    color: rgba(255,255,255,0.5);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .footer-contact-item span { font-size: 1.1rem; }
+
+  .footer-divider {
+    width: 60px;
+    height: 2px;
+    background: var(--gold);
+    margin: 2.5rem auto;
+    position: relative;
+  }
+
+  .footer-brand {
+    font-family: 'Playfair Display', serif;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: rgba(255,255,255,0.3);
+    letter-spacing: 0.1em;
+    position: relative;
+  }
+
+  /* ============================================
+     RESPONSIVE
+  ============================================ */
+  @media (max-width: 900px) {
+    .welcome-grid,
+    .kitchen-split,
+    .checkin-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .about-gallery {
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: 200px 200px 200px;
+    }
+
+    .about-gallery .gallery-item:first-child {
+      grid-column: 1 / 3;
+      grid-row: auto;
+    }
+
+    .games-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .transport-cards {
+      grid-template-columns: 1fr;
+    }
+
+    .nav-links { display: none; }
+
+    .pool-overlay {
+      background: linear-gradient(0deg, rgba(10,61,61,0.92) 0%, rgba(10,61,61,0.7) 100%);
+    }
+
+    .pool-content {
+      margin-left: 0;
+      max-width: 100%;
+    }
+  }
+
+  @media (max-width: 600px) {
+    section { padding: 3.5rem 1.25rem; }
+
+    .about-gallery {
+      grid-template-columns: 1fr;
+      grid-template-rows: repeat(4, 200px);
+    }
+
+    .about-gallery .gallery-item:first-child {
+      grid-column: auto;
+    }
+
+    .games-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .wifi-box {
+      padding: 2rem 1.5rem;
+    }
+
+    .wifi-row {
+      flex-direction: column;
+      gap: 0.3rem;
+    }
+
+    .wifi-label {
+      text-align: center;
+    }
+  }
+
+  /* ============================================
+     PRINT STYLES
+  ============================================ */
+  @media print {
+    nav { display: none; }
+    .hero { min-height: 400px; }
+    section { break-inside: avoid; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAVIGATION -->
+<nav id="mainNav">
+  <div class="nav-inner">
+    <div class="nav-brand">Miami Lux Vibe</div>
+    <ul class="nav-links">
+      <li><a href="#welcome">Welcome</a></li>
+      <li><a href="#checkin">Check-in</a></li>
+      <li><a href="#house">The House</a></li>
+      <li><a href="#wifi">WiFi</a></li>
+      <li><a href="#amenities">Amenities</a></li>
+      <li><a href="#rules">Rules</a></li>
+      <li><a href="#pool">Pool</a></li>
+      <li><a href="#location">Location</a></li>
+      <li><a href="#safety">Safety</a></li>
+      <li><a href="#checkout">Checkout</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="hero-tag">Your Welcome Book</div>
+    <h1>Miami <em>Lux</em> Vibe</h1>
+    <p class="hero-sub">Heated Pool · Games · BBQ · Miami Gardens, Florida</p>
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <div class="hero-stat-num">15</div>
+        <div class="hero-stat-label">Guests</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num">4</div>
+        <div class="hero-stat-label">Bedrooms</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num">10</div>
+        <div class="hero-stat-label">Beds</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num">4</div>
+        <div class="hero-stat-label">Baths</div>
+      </div>
+    </div>
+  </div>
+  <div class="scroll-hint">
+    <svg viewBox="0 0 24 24"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+  </div>
+</section>
+
+<!-- WELCOME -->
+<section class="welcome" id="welcome">
+  <div class="section-inner">
+    <div class="welcome-grid">
+      <div>
+        <div class="section-label">Welcome Home</div>
+        <h2 class="section-title">We're thrilled to have you here.</h2>
+        <p class="section-desc">Welcome to Miami Lux Vibe — a luxury home designed for comfort, fun, and unforgettable memories. Whether you're here for a family getaway, a celebration, or a relaxing retreat, this villa is all yours to enjoy. Inside you'll find everything you need to make the most of your stay.</p>
+        <p class="section-desc" style="margin-bottom: 0;">The villa features a heated pool & hot tub, game room, BBQ area, outdoor playground, and so much more. Sit back, relax, and let the Miami sunshine in!</p>
+        <div class="welcome-signature">
+          <div class="name">May & Nelson</div>
+          <div class="role">Your Hosts</div>
+        </div>
+      </div>
+      <div class="welcome-image">
+        <img src="https://a0.muscache.com/im/pictures/hosting/Hosting-1615432071047666472/original/58bd6f77-b932-4cc5-9032-8df7c7d33101.jpeg?im_w=1200" alt="Pool and outdoor area" loading="lazy">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CHECK-IN / CHECK-OUT -->
+<section id="checkin">
+  <div class="section-inner">
+    <div class="section-label">Arrivals & Departures</div>
+    <h2 class="section-title">Check-in & Check-out</h2>
+    <div class="checkin-grid">
+      <div class="check-card">
+        <div class="check-icon check-in-icon">🔑</div>
+        <h3>Check-in</h3>
+        <div class="check-time">4:00 PM</div>
+        <p>You can check in anytime after 4:00 PM and as late as you like. You'll receive basic instructions once you book, and the door pin code will be sent on check-in day. Early check-in depends on cleaning availability — just ask the day before!</p>
+        <div class="check-method">
+          🔢 Self check-in via keypad pin code
+        </div>
+      </div>
+      <div class="check-card">
+        <div class="check-icon check-out-icon">🚪</div>
+        <h3>Check-out</h3>
+        <div class="check-time">11:00 AM</div>
+        <p>Self check-out. Detailed instructions will be provided in the welcome message. Please note: no late check-out is available — the team needs time to prepare for the next guests. Please see the checkout checklist at the end of this guide.</p>
+        <div class="check-method">
+          📋 Self check-out — see checklist below
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT THE HOUSE -->
+<section id="house">
+  <div class="section-inner">
+    <div class="section-label">Your Private Villa</div>
+    <h2 class="section-title">About the House</h2>
+    <p class="section-desc">Miami Lux Vibe is an entire luxury villa in Miami Gardens — a quiet, family-friendly, well-maintained neighborhood. You'll have access to all spacious living areas, a fully equipped kitchen, private bedrooms, heated pool, outdoor patio, and game room. The villa is designed for comfort and total privacy.</p>
+
+    <div class="about-gallery">
+      <div class="gallery-item">
+        <img src="https://a0.muscache.com/im/pictures/hosting/Hosting-1615432071047666472/original/1f0ed09c-cd9e-4707-aa5c-46398690825d.jpeg?im_w=1200" alt="Exterior view of property" loading="lazy">
+        <div class="gallery-label">Exterior</div>
+      </div>
+      <div class="gallery-item">
+        <img src="https://a0.muscache.com/im/pictures/hosting/Hosting-1615432071047666472/original/050c7626-6d7b-46ef-a484-37c340395991.jpeg?im_w=1200" alt="Living room" loading="lazy">
+        <div class="gallery-label">Living Area</div>
+      </div>
+      <div class="gallery-item">
+        <img src="https://a0.muscache.com/im/pictures/hosting/Hosting-1615432071047666472/original/87631f61-66dc-44b3-8b9e-efc8eaf685c9.jpeg?im_w=1200" alt="Dining area" loading="lazy">
+        <div class="gallery-label">Dining</div>
+      </div>
+      <div class="gallery-item">
+        <img src="https://a0.muscache.com/im/pictures/hosting/Hosting-1615432071047666472/original/864abb4b-39c1-46bc-999d-b2ba631e6134.jpeg?im_w=1200" alt="Full kitchen" loading="lazy">
+        <div class="gallery-label">Kitchen</div>
+      </div>
+      <div class="gallery-item">
+        <img src="https://a0.muscache.com/im/pictures/hosting/Hosting-1615432071047666472/original/d38acd4c-227d-4efc-b55c-0cd7cdb50057.jpeg?im_w=1200" alt="Backyard area" loading="lazy">
+        <div class="gallery-label">Backyard</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SLEEPING ARRANGEMENTS -->
+<section style="background: var(--cream-dark);">
+  <div class="section-inner">
+    <div class="section-label">Rest & Recharge</div>
+    <h2 class="section-title">Sleeping Arrangements</h2>
+    <p class="section-desc">Four bedrooms plus a living room sofa bed — comfortably sleeping up to 15 guests.</p>
+
+    <div class="sleeping-grid">
+      <div class="bed-card">
+        <div class="bed-card-img">
+          <img src="https://a0.muscache.com/im/pictures/hosting/Hosting-1615432071047666472/original/68606c07-e03a-4521-96a9-09d5965e25da.jpeg?im_w=720" alt="Bedroom 1" loading="lazy">
+        </div>
+        <div class="bed-card-body">
+          <h4>Bedroom 1 — Master</h4>
+          <p>1 King bed · 1 Sofa bed · 1 Crib available</p>
+        </div>
+      </div>
+      <div class="bed-card">
+        <div class="bed-card-img">
+          <img src="https://a0.muscache.com/im/pictures/hosting/Hosting-1615432071047666472/original/e1e825c0-2cce-43f1-8fe1-b242793ffaa0.jpeg?im_w=720" alt="Bedroom 2" loading="lazy">
+        </div>
+        <div class="bed-card-body">
+          <h4>Bedroom 2</h4>
+          <p>2 Queen beds</p>
+        </div>
+      </div>
+      <div class="bed-card">
+        <div class="bed-card-img">
+          <img src="https://a0.muscache.com/im/pictures/hosting/Hosting-1615432071047666472/original/ff65405c-25cc-4285-bd66-89e3ab2fa87e.jpeg?im_w=720" alt="Bedroom 3" loading="lazy">
+        </div>
+        <div class="bed-card-body">
+          <h4>Bedroom 3</h4>
+          <p>2 Single beds · 1 Sofa bed</p>
+        </div>
+      </div>
+      <div class="bed-card">
+        <div class="bed-card-img">
+          <img src="https://a0.muscache.com/im/pictures/hosting/Hosting-1615432071047666472/original/2a5f9483-4f3a-4552-bca1-8ed8f9ee8c2f.jpeg?im_w=720" alt="Bedroom 4" loading="lazy">
+        </div>
+        <div class="bed-card-body">
+          <h4>Bedroom 4 — Kids Room</h4>
+          <p>1 Bunk bed</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WIFI -->
+<section class="wifi-section" id="wifi">
+  <div class="wifi-icon">📶</div>
+  <h2>Stay Connected</h2>
+  <div class="wifi-box">
+    <div class="wifi-row">
+      <span class="wifi-label">Network</span>
+      <span class="wifi-value">Provided at check-in</span>
+    </div>
+    <div class="wifi-row">
+      <span class="wifi-label">Password</span>
+      <span class="wifi-value">Provided at check-in</span>
+    </div>
+  </div>
+  <p class="wifi-note">WiFi credentials will be sent with your check-in instructions</p>
+</section>
+
+<!-- AMENITIES -->
+<section id="amenities">
+  <div class="section-inner">
+    <div class="section-label">Everything You Need</div>
+    <h2 class="section-title">Amenities</h2>
+    <p class="section-desc">84 amenities across every category — this villa has it all.</p>
+
+    <div class="amenities-categories">
+      <div class="amenity-cat">
+        <div class="amenity-cat-title">
+          <div class="amenity-cat-icon" style="background: rgba(42,157,143,0.1);">🍳</div>
+          Kitchen & Dining
+        </div>
+        <ul class="amenity-list">
+          <li>Full Kitchen</li>
+          <li>Refrigerator</li>
+          <li>Mini Fridge</li>
+          <li>Freezer</li>
+          <li>Stove</li>
+          <li>Oven</li>
+          <li>Microwave</li>
+          <li>Dishwasher</li>
+          <li>Coffee Maker</li>
+          <li>Toaster</li>
+          <li>Blender</li>
+          <li>Rice Maker</li>
+          <li>Hot Water Kettle</li>
+          <li>Pots & Pans</li>
+          <li>Dishes</li>
+          <li>Wine Glasses</li>
+          <li>Baking Sheet</li>
+          <li>Dining Table</li>
+          <li>Coffee Provided</li>
+        </ul>
+      </div>
+
+      <div class="amenity-cat">
+        <div class="amenity-cat-title">
+          <div class="amenity-cat-icon" style="background: rgba(201,168,76,0.1);">🏊</div>
+          Pool & Outdoor
+        </div>
+        <ul class="amenity-list">
+          <li>Heated Pool</li>
+          <li>Hot Tub</li>
+          <li>BBQ Grill</li>
+          <li>Outdoor Dining</li>
+          <li>Private Backyard (Fenced)</li>
+          <li>Private Patio</li>
+          <li>Hammock</li>
+          <li>Sun Loungers</li>
+          <li>Outdoor Furniture</li>
+          <li>Outdoor Shower</li>
+          <li>Beach Essentials</li>
+          <li>Kids Playground</li>
+        </ul>
+      </div>
+
+      <div class="amenity-cat">
+        <div class="amenity-cat-title">
+          <div class="amenity-cat-icon" style="background: rgba(231,111,81,0.1);">🎮</div>
+          Entertainment
+        </div>
+        <ul class="amenity-list">
+          <li>Pool Table</li>
+          <li>Ping Pong Table</li>
+          <li>Climbing Wall</li>
+          <li>Board Games</li>
+          <li>Books</li>
+          <li>Children's Playroom</li>
+          <li>Children's Toys</li>
+        </ul>
+      </div>
+
+      <div class="amenity-cat">
+        <div class="amenity-cat-title">
+          <div class="amenity-cat-icon" style="background: rgba(26,107,107,0.1);">🛁</div>
+          Bathroom
+        </div>
+        <ul class="amenity-list">
+          <li>4 Full Baths</li>
+          <li>Bathtub</li>
+          <li>Hair Dryer</li>
+          <li>Shampoo</li>
+          <li>Conditioner</li>
+          <li>Body Soap</li>
+          <li>Hot Water</li>
+        </ul>
+      </div>
+
+      <div class="amenity-cat">
+        <div class="amenity-cat-title">
+          <div class="amenity-cat-icon" style="background: rgba(139,105,20,0.1);">🛏️</div>
+          Bedroom & Laundry
+        </div>
+        <ul class="amenity-list">
+          <li>Washer</li>
+          <li>Dryer</li>
+          <li>Iron</li>
+          <li>Hangers</li>
+          <li>Extra Pillows & Blankets</li>
+          <li>Room-Darkening Shades</li>
+          <li>Clothing Storage</li>
+          <li>Drying Rack</li>
+        </ul>
+      </div>
+
+      <div class="amenity-cat">
+        <div class="amenity-cat-title">
+          <div class="amenity-cat-icon" style="background: rgba(42,157,143,0.1);">👶</div>
+          Family Friendly
+        </div>
+        <ul class="amenity-list">
+          <li>Travel Crib</li>
+          <li>High Chair</li>
+          <li>Children's Books & Toys</li>
+          <li>Indoor Playroom</li>
+          <li>Outdoor Playground</li>
+          <li>Babysitter Recommendations</li>
+          <li>Board Games</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- KITCHEN DETAIL -->
+<section style="background: var(--cream-dark);">
+  <div class="section-inner">
+    <div class="kitchen-split">
+      <div class="kitchen-img">
+        <img src="https://a0.muscache.com/im/pictures/hosting/Hosting-1615432071047666472/original/864abb4b-39c1-46bc-999d-b2ba631e6134.jpeg?im_w=1200" alt="Full kitchen" loading="lazy">
+      </div>
+      <div>
+        <div class="section-label">Cook Like Home</div>
+        <h2 class="section-title">Fully Equipped Kitchen</h2>
+        <p class="section-desc">Everything you need to prepare meals for the whole group. From morning coffee to a full dinner spread.</p>
+        <div class="kitchen-items">
+          <span class="kitchen-item">☕ Coffee Maker</span>
+          <span class="kitchen-item">🍞 Toaster</span>
+          <span class="kitchen-item">🥤 Blender</span>
+          <span class="kitchen-item">🍚 Rice Maker</span>
+          <span class="kitchen-item">🫖 Kettle</span>
+          <span class="kitchen-item">🔥 Stove & Oven</span>
+          <span class="kitchen-item">🧊 Freezer</span>
+          <span class="kitchen-item">🍷 Wine Glasses</span>
+          <span class="kitchen-item">🧽 Dishwasher</span>
+        </div>
+        <p style="font-size: 0.82rem; color: var(--warm-gray); margin-top: 1.5rem; font-style: italic;">Note: Initial supply of coffee, sugar, dishwasher tablets, dish soap, kitchen towels, and garbage bags provided (intended for first 24–48 hours).</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GAMES & ENTERTAINMENT -->
+<section>
+  <div class="section-inner">
+    <div class="section-label">Fun & Games</div>
+    <h2 class="section-title">Entertainment</h2>
+    <p class="section-desc">From competitive matchups to relaxing afternoons — there's something for everyone.</p>
+
+    <div class="games-grid">
+      <div class="game-card">
+        <div class="game-emoji">🎱</div>
+        <h4>Pool Table</h4>
+        <p>Indoor game room</p>
+      </div>
+      <div class="game-card">
+        <div class="game-emoji">🏓</div>
+        <h4>Ping Pong</h4>
+        <p>Table tennis</p>
+      </div>
+      <div class="game-card">
+        <div class="game-emoji">🧗</div>
+        <h4>Climbing Wall</h4>
+        <p>Outdoor adventure</p>
+      </div>
+      <div class="game-card">
+        <div class="game-emoji">🎲</div>
+        <h4>Board Games</h4>
+        <p>Family fun nights</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- POOL SECTION -->
+<section class="pool-section" id="pool">
+  <div class="pool-bg"></div>
+  <div class="pool-overlay"></div>
+  <div class="pool-content">
+    <div class="section-label">Dive In</div>
+    <h2 class="section-title">Heated Pool & Hot Tub</h2>
+    <p style="color: rgba(255,255,255,0.7); margin-top: 1rem; line-height: 1.8;">Your private heated pool and hot tub are available for your enjoyment throughout your stay. Please observe these safety guidelines:</p>
+    <ul class="pool-rules">
+      <li><span>⚠️</span> Swim at your own risk — no lifeguard on duty</li>
+      <li><span>👶</span> No children unsupervised in the pool area</li>
+      <li><span>🚫</span> No glass containers near the pool</li>
+      <li><span>🔧</span> Do NOT touch or adjust pool equipment</li>
+      <li><span>🌙</span> Please respect quiet hours: 10 PM weekdays, 11 PM weekends</li>
+    </ul>
+  </div>
+</section>
+
+<!-- HOUSE RULES -->
+<section class="rules-section" id="rules">
+  <div class="section-inner">
+    <div class="section-label">Please Respect</div>
+    <h2 class="section-title">House Rules</h2>
+    <p class="section-desc">Help us maintain a welcoming space for all guests. These rules ensure everyone has a great experience.</p>
+
+    <div class="rules-grid">
+      <div class="rule-card">
+        <div class="rule-icon">🚭</div>
+        <div>
+          <h4>No Smoking Indoors</h4>
+          <p>Smoking is only allowed outside on the patio. $500 penalty if smoke odor is detected inside the house.</p>
+        </div>
+      </div>
+      <div class="rule-card">
+        <div class="rule-icon">🎉</div>
+        <div>
+          <h4>No Parties or Events</h4>
+          <p>The property is for overnight guests only. No events, gatherings, or parties permitted.</p>
+        </div>
+      </div>
+      <div class="rule-card">
+        <div class="rule-icon">🤫</div>
+        <div>
+          <h4>Quiet Hours</h4>
+          <p>10:00 PM – 8:00 AM weekdays. 11:00 PM on weekends. Excessive noise can result in cancellation + $500 penalty.</p>
+        </div>
+      </div>
+      <div class="rule-card">
+        <div class="rule-icon">🐾</div>
+        <div>
+          <h4>Pets Policy</h4>
+          <p>1 dog or cat per stay (under 25 lbs), $100 fee. No pets on beds or sofas. Clean up after your pet.</p>
+        </div>
+      </div>
+      <div class="rule-card rule-alert">
+        <div class="rule-icon">🚽</div>
+        <div>
+          <h4>Important: Toilet Rules</h4>
+          <p>Do NOT flush toilet paper, tissues, baby wipes, or sanitary products. Use the trash can. Plumber charges will apply if clogged.</p>
+        </div>
+      </div>
+      <div class="rule-card">
+        <div class="rule-icon">🚗</div>
+        <div>
+          <h4>Parking</h4>
+          <p>Driveway parking for 8–10 cars. Do not park in front of neighboring homes. Free street parking also available.</p>
+        </div>
+      </div>
+      <div class="rule-card">
+        <div class="rule-icon">🔞</div>
+        <div>
+          <h4>Minimum Age</h4>
+          <p>The person making the booking must be at least 21 years old.</p>
+        </div>
+      </div>
+      <div class="rule-card">
+        <div class="rule-icon">🔥</div>
+        <div>
+          <h4>BBQ</h4>
+          <p>Feel free to use the BBQ on the back patio — just close the gas valve and clean it after each use.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TRANSPORTATION & LOCATION -->
+<section id="location">
+  <div class="section-inner">
+    <div class="section-label">Getting Around</div>
+    <h2 class="section-title">Location & Transportation</h2>
+    <p class="section-desc">The property is in a quiet residential neighborhood with easy access to major highways, shopping, and dining.</p>
+
+    <div class="transport-cards">
+      <div class="transport-card">
+        <div class="t-icon">🚗</div>
+        <h4>Car Recommended</h4>
+        <p>Quick access to major highways and main roads. Free parking at the property for 8–10 vehicles.</p>
+      </div>
+      <div class="transport-card">
+        <div class="t-icon">📱</div>
+        <h4>Ride-Sharing</h4>
+        <p>Uber and Lyft are widely available throughout the area for convenient trips.</p>
+      </div>
+      <div class="transport-card">
+        <div class="t-icon">🚌</div>
+        <h4>Public Transit</h4>
+        <p>Nearby bus routes available for those who prefer public transportation.</p>
+      </div>
+    </div>
+
+    <div class="proximity-badges">
+      <div class="prox-badge">
+        <div class="time">10 min</div>
+        <div class="place">Hard Rock Stadium</div>
+      </div>
+      <div class="prox-badge">
+        <div class="time">20 min</div>
+        <div class="place">Brickell / Downtown</div>
+      </div>
+      <div class="prox-badge">
+        <div class="time">Nearby</div>
+        <div class="place">Shopping & Groceries</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- THINGS TO KNOW -->
+<section style="background: var(--cream-dark);">
+  <div class="section-inner">
+    <div class="section-label">Good to Know</div>
+    <h2 class="section-title">Important Notes</h2>
+
+    <div class="know-grid">
+      <div class="know-card">
+        <div class="k-icon">🧺</div>
+        <h4>Laundry</h4>
+        <p>Washer and dryer are located in the living room area. Depending on the length of your stay, extra sheets and towels will be provided.</p>
+      </div>
+      <div class="know-card">
+        <div class="k-icon">🧴</div>
+        <h4>Toiletries</h4>
+        <p>Initial supply of body wash, shampoo, hand soap, toilet paper, and garbage bags provided — intended for the first 24–48 hours. Plan accordingly for longer stays.</p>
+      </div>
+      <div class="know-card">
+        <div class="k-icon">🗑️</div>
+        <h4>Trash & Recycling</h4>
+        <p>Please take out the trash before leaving and leave the refrigerator empty.</p>
+      </div>
+      <div class="know-card">
+        <div class="k-icon">❄️</div>
+        <h4>Climate Control</h4>
+        <p>Air conditioning, ceiling fans, and heating are available. Adjust to your comfort level. The home is single-level — no stairs.</p>
+      </div>
+      <div class="know-card">
+        <div class="k-icon">📹</div>
+        <h4>Security Cameras</h4>
+        <p>Exterior security cameras are located at the front porch, pool area, and kids playground. Noise decibel monitors are also on the property.</p>
+      </div>
+      <div class="know-card">
+        <div class="k-icon">🧹</div>
+        <h4>Housekeeping</h4>
+        <p>Optional housekeeping available (5 hours/day, extra cost). Ask your host for details and scheduling.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SAFETY & EMERGENCY -->
+<section class="safety-section" id="safety">
+  <div class="section-inner">
+    <div class="section-label">Your Safety Matters</div>
+    <h2 class="section-title">Safety & Emergencies</h2>
+    <p class="section-desc">The villa is equipped with essential safety features for your peace of mind.</p>
+
+    <div class="safety-grid">
+      <div class="safety-item">
+        <div class="s-icon">🔥</div>
+        <h4>Smoke Alarm</h4>
+        <p>Installed throughout</p>
+      </div>
+      <div class="safety-item">
+        <div class="s-icon">💨</div>
+        <h4>CO Alarm</h4>
+        <p>Carbon monoxide detector</p>
+      </div>
+      <div class="safety-item">
+        <div class="s-icon">🧯</div>
+        <h4>Fire Extinguisher</h4>
+        <p>Accessible location</p>
+      </div>
+      <div class="safety-item">
+        <div class="s-icon">🩹</div>
+        <h4>First Aid Kit</h4>
+        <p>Fully stocked</p>
+      </div>
+      <div class="safety-item">
+        <div class="s-icon">📷</div>
+        <h4>Security Cameras</h4>
+        <p>Exterior only</p>
+      </div>
+      <div class="safety-item">
+        <div class="s-icon">🔊</div>
+        <h4>Noise Monitors</h4>
+        <p>Decibel monitoring</p>
+      </div>
+    </div>
+
+    <div class="emergency-banner">
+      <h3>In Case of Emergency</h3>
+      <div class="emergency-num">Call 911</div>
+      <p>For any property-related emergencies, contact your hosts immediately via Airbnb messaging.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CHECKOUT CHECKLIST -->
+<section class="checklist-section" id="checkout">
+  <div class="section-inner">
+    <div style="text-align: center;">
+      <div class="section-label" style="justify-content: center;">Before You Leave</div>
+      <h2 class="section-title" style="text-align: center;">Checkout Checklist</h2>
+    </div>
+
+    <div class="checklist">
+      <div class="checklist-item">
+        <div class="checklist-check"></div>
+        <p>Gather all used towels and linens in one area</p>
+      </div>
+      <div class="checklist-item">
+        <div class="checklist-check"></div>
+        <p>Take out the trash and dispose of it in the designated bins</p>
+      </div>
+      <div class="checklist-item">
+        <div class="checklist-check"></div>
+        <p>Leave the refrigerator empty — dispose of all food items</p>
+      </div>
+      <div class="checklist-item">
+        <div class="checklist-check"></div>
+        <p>Turn off all lights, electronics, and air conditioning/heating</p>
+      </div>
+      <div class="checklist-item">
+        <div class="checklist-check"></div>
+        <p>Close and lock all windows and doors securely</p>
+      </div>
+      <div class="checklist-item">
+        <div class="checklist-check"></div>
+        <p>Check all drawers and closets for personal belongings</p>
+      </div>
+      <div class="checklist-item">
+        <div class="checklist-check"></div>
+        <p>Close the BBQ gas valve if used during your stay</p>
+      </div>
+      <div class="checklist-item">
+        <div class="checklist-check"></div>
+        <p>Leave the property in decent condition — extra cleaning fees apply if extremely unclean</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LEAVE A REVIEW -->
+<section class="review-section">
+  <div class="section-inner" style="text-align: center;">
+    <div class="section-label" style="justify-content: center;">We'd Love Your Feedback</div>
+    <h2 class="section-title" style="text-align: center;">Leave a Review</h2>
+    <div class="stars">★ ★ ★ ★ ★</div>
+    <p class="review-text">If you enjoyed your time here, we would be so grateful if you could take a moment to leave a review on our Airbnb listing. Your feedback helps us keep improving and helps future guests discover this home.</p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <h2>Thank You!</h2>
+  <p class="footer-msg">We hope you had an unforgettable stay at Miami Lux Vibe. Safe travels and we'd love to host you again!</p>
+  <div class="footer-contact">
+    <div class="footer-contact-item">
+      <span>💬</span> Message via Airbnb
+    </div>
+    <div class="footer-contact-item">
+      <span>⚡</span> Response within 1 hour
+    </div>
+    <div class="footer-contact-item">
+      <span>📍</span> Miami Gardens, FL
+    </div>
+  </div>
+  <div class="footer-divider"></div>
+  <div class="footer-brand">Miami Lux Vibe · Hosted by May & Nelson</div>
+</footer>
+
+<script>
+  // Nav scroll effect
+  const nav = document.getElementById('mainNav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 50);
+  });
+
+  // Interactive checklist
+  document.querySelectorAll('.checklist-check').forEach(check => {
+    check.addEventListener('click', function() {
+      this.classList.toggle('checked');
+      const item = this.closest('.checklist-item');
+      if (this.classList.contains('checked')) {
+        this.innerHTML = '✓';
+        this.style.background = 'var(--gold)';
+        this.style.color = 'var(--white)';
+        this.style.borderColor = 'var(--gold)';
+        item.querySelector('p').style.textDecoration = 'line-through';
+        item.querySelector('p').style.opacity = '0.5';
+      } else {
+        this.innerHTML = '';
+        this.style.background = 'transparent';
+        this.style.color = '';
+        this.style.borderColor = 'var(--gold)';
+        item.querySelector('p').style.textDecoration = 'none';
+        item.querySelector('p').style.opacity = '1';
+      }
+    });
+  });
+
+  // Smooth scroll for nav links
+  document.querySelectorAll('.nav-links a').forEach(link => {
+    link.addEventListener('click', e => {
+      e.preventDefault();
+      const target = document.querySelector(link.getAttribute('href'));
+      if (target) {
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+  });
+</script>
+
+</body>
+</html>
