@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Welcome Book — Family Hammock</title>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Shadows+Into+Light&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --sunset: #D4603A;
+    --sunset-light: #E8835F;
+    --sunset-pale: #F2B9A3;
+    --amber: #D9923B;
+    --honey: #E5B84C;
+    --sand: #F5EDE3;
+    --sand-warm: #EDE3D4;
+    --sand-dark: #C5B39E;
+    --linen: #FBF7F1;
+    --pool: #3B8FAD;
+    --pool-light: #6ABCD4;
+    --pool-pale: #C1E3ED;
+    --sky: #E6F1F5;
+    --charcoal: #2A2420;
+    --brown: #4A3E35;
+    --text: #3E3830;
+    --text-mid: #7A7168;
+    --text-lt: #A09688;
+    --white: #FFFFFF;
+    --sh-sm: 0 2px 18px rgba(42,36,32,.04);
+    --sh-md: 0 8px 32px rgba(42,36,32,.08);
+    --sh-lg: 0 16px 48px rgba(42,36,32,.12);
+    --r: 14px;
+    --r-lg: 22px;
+    --r-xl: 30px;
+    --r-full: 9999px;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{font-family:'Sora',sans-serif;background:var(--linen);color:var(--text);line-height:1.7;font-weight:400;overflow-x:hidden;}
+
+  /* NAV */
+  nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(251,247,241,.82);backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px);border-bottom:1px solid rgba(212,96,58,.06);transition:all .4s;}
+  nav.scrolled{box-shadow:var(--sh-sm);}
+  .nv{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:58px;padding:0 2rem;}
+  .nv-brand{font-family:'Lora',serif;font-size:1.05rem;font-weight:700;color:var(--brown);display:flex;align-items:center;gap:.4rem;}
+  .nv-brand::before{content:'🪢';font-size:1.1rem;}
+  .nv-links{display:flex;gap:.12rem;list-style:none;overflow-x:auto;scrollbar-width:none;}
+  .nv-links::-webkit-scrollbar{display:none;}
+  .nv-links a{text-decoration:none;color:var(--text-mid);font-size:.68rem;font-weight:600;padding:.32rem .65rem;border-radius:var(--r-full);white-space:nowrap;transition:all .3s;letter-spacing:.06em;text-transform:uppercase;}
+  .nv-links a:hover{background:var(--sunset);color:var(--white);}
+
+  /* HERO */
+  .hero{position:relative;height:100vh;min-height:700px;display:flex;align-items:flex-end;justify-content:center;overflow:hidden;}
+  .hero-bg{position:absolute;inset:0;background:url('https://a0.muscache.com/im/pictures/hosting/Hosting-1573482850214399722/original/461c339b-d3fb-4030-a0b8-d2f672f03b75.jpeg?im_w=1200') center/cover no-repeat;}
+  .hero-ov{position:absolute;inset:0;background:linear-gradient(180deg,rgba(42,36,32,.0) 0%,rgba(42,36,32,.15) 35%,rgba(42,36,32,.78) 82%,rgba(42,36,32,.95) 100%);}
+  .hero-glow{position:absolute;bottom:0;left:0;right:0;height:40%;background:linear-gradient(180deg,transparent,rgba(212,96,58,.08));pointer-events:none;z-index:1;}
+  .hero-c{position:relative;z-index:3;text-align:center;padding:3rem 2rem 5.5rem;max-width:820px;animation:hFade 1.1s ease-out;}
+  @keyframes hFade{from{opacity:0;transform:translateY(40px);}to{opacity:1;transform:translateY(0);}}
+  .hero-pre{font-family:'Shadows Into Light',cursive;font-size:1.4rem;color:var(--honey);margin-bottom:.2rem;}
+  .hero h1{font-family:'Lora',serif;font-size:clamp(2.6rem,6.5vw,4.5rem);font-weight:700;color:var(--white);line-height:1.05;margin-bottom:.5rem;}
+  .hero h1 span{color:var(--sunset-pale);font-style:italic;font-weight:400;}
+  .hero-sub{font-size:.95rem;color:rgba(255,255,255,.6);font-weight:300;margin-bottom:2.5rem;letter-spacing:.02em;}
+  .hero-chips{display:flex;justify-content:center;gap:.6rem;flex-wrap:wrap;}
+  .chip{background:rgba(255,255,255,.1);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.12);padding:.5rem 1.1rem;border-radius:var(--r-full);color:var(--white);font-size:.76rem;font-weight:500;display:flex;align-items:center;gap:.35rem;}
+  .chip em{font-size:.92rem;font-style:normal;}
+
+  /* SECTIONS */
+  section{padding:5rem 2rem;}
+  .si{max-width:1100px;margin:0 auto;}
+  .slbl{font-family:'Shadows Into Light',cursive;font-size:1.35rem;color:var(--sunset);margin-bottom:.15rem;}
+  .stl{font-family:'Lora',serif;font-size:clamp(1.8rem,3.5vw,2.6rem);font-weight:700;color:var(--brown);line-height:1.15;margin-bottom:1rem;}
+  .sdsc{font-size:.92rem;color:var(--text-mid);max-width:620px;line-height:1.85;margin-bottom:2.5rem;}
+
+  /* WELCOME */
+  .welcome{background:var(--brown);color:var(--white);position:relative;overflow:hidden;}
+  .welcome::before{content:'';position:absolute;top:-180px;right:-120px;width:550px;height:550px;border-radius:50%;background:radial-gradient(circle,rgba(212,96,58,.2),transparent 70%);}
+  .welcome::after{content:'';position:absolute;bottom:-180px;left:-80px;width:450px;height:450px;border-radius:50%;background:radial-gradient(circle,rgba(59,143,173,.08),transparent 70%);}
+  .wg{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;position:relative;z-index:1;}
+  .welcome .slbl{color:var(--honey);}
+  .welcome .stl{color:var(--white);}
+  .welcome .sdsc{color:rgba(255,255,255,.58);}
+  .w-sig .name{font-family:'Shadows Into Light',cursive;font-size:2.2rem;color:var(--honey);}
+  .w-sig .role{font-size:.7rem;text-transform:uppercase;letter-spacing:.2em;color:rgba(255,255,255,.3);margin-top:.15rem;}
+  .w-img{border-radius:var(--r-xl);overflow:hidden;aspect-ratio:4/3;box-shadow:0 20px 50px rgba(0,0,0,.3);position:relative;}
+  .w-img img{width:100%;height:100%;object-fit:cover;}
+  .w-badge{position:absolute;top:1rem;right:1rem;background:rgba(255,255,255,.12);backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,.18);border-radius:var(--r);padding:.5rem 1rem;color:var(--white);font-size:.78rem;font-weight:600;display:flex;align-items:center;gap:.3rem;}
+
+  /* CHECK-IN/OUT */
+  .chk-grid{display:grid;grid-template-columns:1fr 1fr;gap:2rem;}
+  .chk{background:var(--white);border-radius:var(--r-xl);padding:2.5rem;position:relative;overflow:hidden;box-shadow:var(--sh-sm);}
+  .chk::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;}
+  .chk.ci::before{background:linear-gradient(90deg,var(--sunset),var(--amber));}
+  .chk.co::before{background:linear-gradient(90deg,var(--pool),var(--pool-light));}
+  .chk .ico{width:48px;height:48px;border-radius:13px;display:flex;align-items:center;justify-content:center;font-size:1.2rem;margin-bottom:1.1rem;}
+  .ci .ico{background:rgba(212,96,58,.07);}
+  .co .ico{background:rgba(59,143,173,.07);}
+  .chk h3{font-family:'Lora',serif;font-size:1.05rem;color:var(--brown);margin-bottom:.1rem;}
+  .chk-time{font-family:'Lora',serif;font-size:2.5rem;font-weight:700;letter-spacing:-.02em;margin-bottom:.7rem;}
+  .ci .chk-time{color:var(--sunset);}
+  .co .chk-time{color:var(--pool);}
+  .chk p{color:var(--text-mid);font-size:.85rem;line-height:1.75;}
+  .chk-tag{display:inline-flex;align-items:center;gap:.4rem;background:var(--sand);padding:.42rem .95rem;border-radius:var(--r-full);font-size:.74rem;font-weight:600;color:var(--brown);margin-top:1rem;}
+
+  /* GALLERY */
+  .gal{display:grid;grid-template-columns:repeat(12,1fr);grid-template-rows:260px 260px;gap:.7rem;margin-top:2.5rem;}
+  .gi{border-radius:var(--r);overflow:hidden;position:relative;cursor:pointer;}
+  .gi img{width:100%;height:100%;object-fit:cover;transition:transform .6s;}
+  .gi:hover img{transform:scale(1.05);}
+  .gi:nth-child(1){grid-column:1/6;grid-row:1/3;}
+  .gi:nth-child(2){grid-column:6/9;}
+  .gi:nth-child(3){grid-column:9/13;}
+  .gi:nth-child(4){grid-column:6/9;}
+  .gi:nth-child(5){grid-column:9/13;}
+  .gl{position:absolute;bottom:.75rem;left:.75rem;background:rgba(42,36,32,.7);backdrop-filter:blur(8px);color:var(--white);padding:.28rem .75rem;border-radius:var(--r-full);font-size:.64rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;}
+
+  /* SLEEPING */
+  .slp-sec{background:var(--sky);}
+  .slp-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1.2rem;margin-top:2rem;}
+  .slp{background:var(--white);border-radius:var(--r);overflow:hidden;box-shadow:var(--sh-sm);transition:transform .3s,box-shadow .3s;}
+  .slp:hover{transform:translateY(-4px);box-shadow:var(--sh-md);}
+  .slp-img{height:160px;overflow:hidden;}
+  .slp-img img{width:100%;height:100%;object-fit:cover;}
+  .slp-body{padding:1.2rem;}
+  .slp-body h4{font-family:'Lora',serif;font-size:.92rem;color:var(--brown);margin-bottom:.2rem;}
+  .slp-body p{font-size:.76rem;color:var(--text-mid);}
+
+  /* WIFI */
+  .wifi{background:linear-gradient(135deg,var(--brown),var(--charcoal));color:var(--white);text-align:center;padding:5rem 2rem;position:relative;overflow:hidden;}
+  .wifi::before{content:'';position:absolute;inset:0;opacity:.04;background:repeating-radial-gradient(circle at 50% 50%,transparent 0,transparent 18px,rgba(255,255,255,1) 18px,rgba(255,255,255,1) 19px);}
+  .wifi-ic{font-size:2.8rem;margin-bottom:.5rem;position:relative;}
+  .wifi h2{font-family:'Lora',serif;font-size:1.7rem;margin-bottom:1.5rem;position:relative;}
+  .wifi-bx{display:inline-flex;flex-direction:column;gap:.7rem;background:rgba(255,255,255,.07);backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,.1);border-radius:var(--r-xl);padding:2rem 3.5rem;position:relative;}
+  .wifi-r{display:flex;align-items:center;gap:1rem;}
+  .wifi-l{font-size:.6rem;text-transform:uppercase;letter-spacing:.25em;color:var(--honey);font-weight:700;min-width:85px;text-align:right;}
+  .wifi-v{font-size:1.15rem;font-weight:600;letter-spacing:.1em;background:rgba(255,255,255,.06);padding:.38rem 1.1rem;border-radius:var(--r);}
+  .wifi-n{font-size:.75rem;color:rgba(255,255,255,.35);margin-top:.7rem;font-style:italic;position:relative;}
+
+  /* AMENITIES */
+  .am-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(255px,1fr));gap:1.2rem;margin-top:2rem;}
+  .am{background:var(--white);border-radius:var(--r);padding:1.6rem;box-shadow:var(--sh-sm);}
+  .am-t{font-family:'Lora',serif;font-size:.92rem;color:var(--brown);margin-bottom:.7rem;display:flex;align-items:center;gap:.6rem;}
+  .am-ic{width:32px;height:32px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:.9rem;flex-shrink:0;}
+  .am-tags{list-style:none;display:flex;flex-wrap:wrap;gap:.28rem;}
+  .am-tags li{font-size:.72rem;color:var(--text-mid);background:var(--sand);padding:.26rem .7rem;border-radius:var(--r-full);}
+
+  /* GAME ROOM BANNER */
+  .game-section{background:var(--charcoal);color:var(--white);overflow:hidden;position:relative;}
+  .game-section::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 20% 80%,rgba(212,96,58,.1),transparent 55%);}
+  .game-section .slbl{color:var(--honey);}
+  .game-section .stl{color:var(--white);}
+  .game-section .sdsc{color:rgba(255,255,255,.5);}
+  .gm-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:1.1rem;margin-top:2rem;position:relative;z-index:1;}
+  .gm{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.06);border-radius:var(--r);padding:1.6rem 1rem;text-align:center;transition:background .3s;}
+  .gm:hover{background:rgba(255,255,255,.08);}
+  .gm .em{font-size:2rem;margin-bottom:.6rem;}
+  .gm h4{font-size:.82rem;font-weight:600;margin-bottom:.1rem;}
+  .gm p{font-size:.68rem;color:rgba(255,255,255,.35);}
+
+  /* POOL SECTION */
+  .pool-banner{position:relative;min-height:440px;display:flex;align-items:center;padding:0;overflow:hidden;}
+  .pool-bg{position:absolute;inset:0;background:url('https://a0.muscache.com/im/pictures/hosting/Hosting-1573482850214399722/original/93e984e8-ef6f-41cb-977d-1a0d2bf63eff.jpeg?im_w=1200') center/cover no-repeat;}
+  .pool-ov{position:absolute;inset:0;background:linear-gradient(90deg,rgba(42,36,32,.92),rgba(42,36,32,.55) 55%,transparent);}
+  .pool-c{position:relative;z-index:2;padding:4rem 2rem;max-width:500px;margin-left:5%;color:var(--white);}
+  .pool-c .slbl{color:var(--pool-light);}
+  .pool-c .stl{color:var(--white);font-size:2rem;}
+  .pool-rules{list-style:none;margin-top:1.2rem;}
+  .pool-rules li{display:flex;align-items:flex-start;gap:.6rem;padding:.5rem 0;border-bottom:1px solid rgba(255,255,255,.07);font-size:.85rem;color:rgba(255,255,255,.7);}
+  .pool-rules li span{font-size:.95rem;flex-shrink:0;}
+  .pool-safety{background:rgba(59,143,173,.12);border:1px solid rgba(59,143,173,.2);border-radius:var(--r);padding:1rem 1.2rem;margin-top:1.5rem;font-size:.82rem;color:rgba(255,255,255,.75);line-height:1.7;}
+  .pool-safety strong{color:var(--pool-light);}
+
+  /* HOUSE RULES */
+  .rules-sec{background:var(--sand-warm);}
+  .rules-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(295px,1fr));gap:1.2rem;margin-top:2rem;}
+  .rule{background:var(--white);border-radius:var(--r);padding:1.4rem;display:flex;gap:1rem;align-items:flex-start;box-shadow:var(--sh-sm);}
+  .rule-ic{width:40px;height:40px;min-width:40px;border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:1rem;background:var(--sand);}
+  .rule h4{font-size:.85rem;font-weight:600;color:var(--brown);margin-bottom:.12rem;}
+  .rule p{font-size:.78rem;color:var(--text-mid);line-height:1.6;}
+  .rule.alert{border-left:3px solid var(--sunset);}
+
+  /* THINGS TO KNOW */
+  .know-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(255px,1fr));gap:1.2rem;margin-top:2rem;}
+  .kn{background:var(--white);border-radius:var(--r);padding:1.5rem;box-shadow:var(--sh-sm);}
+  .kn .ki{font-size:1.4rem;margin-bottom:.5rem;}
+  .kn h4{font-size:.85rem;font-weight:600;color:var(--brown);margin-bottom:.2rem;}
+  .kn p{font-size:.78rem;color:var(--text-mid);line-height:1.7;}
+
+  /* BEACHES */
+  .beach-sec{background:linear-gradient(135deg,var(--pool),#2B7A96);color:var(--white);overflow:hidden;position:relative;}
+  .beach-sec::before{content:'';position:absolute;bottom:-150px;right:-80px;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(229,184,76,.1),transparent 70%);}
+  .beach-sec .slbl{color:var(--honey);}
+  .beach-sec .stl{color:var(--white);}
+  .beach-sec .sdsc{color:rgba(255,255,255,.55);}
+  .beach-grid{display:flex;justify-content:center;gap:1.5rem;flex-wrap:wrap;margin-top:2rem;position:relative;z-index:1;}
+  .beach-card{background:rgba(255,255,255,.1);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.12);border-radius:var(--r-lg);padding:2rem 2.5rem;text-align:center;min-width:180px;}
+  .beach-card .bm{font-size:2rem;margin-bottom:.5rem;}
+  .beach-card h4{font-size:.92rem;font-weight:600;margin-bottom:.15rem;}
+  .beach-card p{font-size:.72rem;color:rgba(255,255,255,.5);}
+
+  /* SAFETY */
+  .safety{background:var(--charcoal);color:var(--white);}
+  .safety .slbl{color:var(--honey);}
+  .safety .stl{color:var(--white);}
+  .sf-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:1.2rem;margin-top:2rem;}
+  .sf{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.06);border-radius:var(--r);padding:1.2rem;text-align:center;}
+  .sf .si{font-size:1.7rem;margin-bottom:.4rem;}
+  .sf h4{font-size:.8rem;font-weight:600;}
+  .sf p{font-size:.68rem;color:rgba(255,255,255,.35);margin-top:.15rem;}
+  .em-box{margin-top:2.5rem;background:rgba(212,96,58,.1);border:1px solid rgba(212,96,58,.18);border-radius:var(--r);padding:2rem;text-align:center;}
+  .em-box h3{font-family:'Lora',serif;font-size:1.1rem;color:var(--sunset-pale);}
+  .em-box .num{font-family:'Lora',serif;font-size:2.5rem;font-weight:700;color:var(--white);margin:.4rem 0;letter-spacing:.05em;}
+  .em-box p{font-size:.82rem;color:rgba(255,255,255,.5);}
+
+  /* CHECKLIST */
+  .cl-sec{background:var(--sky);}
+  .cl-list{max-width:620px;margin:2rem auto 0;}
+  .cl-i{display:flex;align-items:flex-start;gap:1rem;padding:.9rem 0;border-bottom:1px solid rgba(42,36,32,.05);}
+  .cl-bx{width:26px;height:26px;min-width:26px;border:2px solid var(--sunset-light);border-radius:7px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .2s;margin-top:2px;font-size:.78rem;color:var(--white);}
+  .cl-bx:hover{background:var(--sunset-light);}
+  .cl-i p{font-size:.88rem;color:var(--text);line-height:1.6;}
+
+  /* REVIEW */
+  .rev{background:var(--white);text-align:center;}
+  .stars{font-size:2rem;letter-spacing:.5rem;color:var(--amber);margin:1rem 0;}
+  .rev-text{font-family:'Lora',serif;font-size:1rem;color:var(--text-mid);max-width:540px;margin:0 auto;line-height:1.8;font-style:italic;}
+
+  /* FOOTER */
+  .footer{background:var(--charcoal);color:var(--white);text-align:center;padding:5rem 2rem;position:relative;overflow:hidden;}
+  .footer::before{content:'';position:absolute;bottom:-100px;left:50%;transform:translateX(-50%);width:400px;height:400px;border-radius:50%;background:radial-gradient(circle,rgba(212,96,58,.06),transparent 70%);}
+  .footer h2{font-family:'Lora',serif;font-size:clamp(1.8rem,3.5vw,2.6rem);margin-bottom:.7rem;position:relative;}
+  .footer-msg{font-size:.92rem;color:rgba(255,255,255,.4);max-width:500px;margin:0 auto 2rem;line-height:1.7;font-weight:300;position:relative;}
+  .footer-contact{display:flex;justify-content:center;gap:1.5rem;flex-wrap:wrap;position:relative;}
+  .footer-ci{font-size:.78rem;color:rgba(255,255,255,.35);display:flex;align-items:center;gap:.4rem;}
+  .footer-ci span{font-size:.92rem;}
+  .footer-div{width:50px;height:2px;background:var(--sunset);margin:2rem auto;position:relative;}
+  .footer-br{font-family:'Lora',serif;font-size:.78rem;color:rgba(255,255,255,.18);letter-spacing:.08em;position:relative;}
+
+  /* RESPONSIVE */
+  @media(max-width:900px){
+    .wg,.chk-grid,.pool-split{grid-template-columns:1fr;}
+    .gal{grid-template-columns:1fr 1fr;grid-template-rows:200px 200px 200px;}
+    .gi:nth-child(1){grid-column:1/3;grid-row:auto;}
+    .gi:nth-child(2),.gi:nth-child(3),.gi:nth-child(4),.gi:nth-child(5){grid-column:auto;}
+    .nv-links{display:none;}
+    .pool-ov{background:linear-gradient(0deg,rgba(42,36,32,.92),rgba(42,36,32,.6));}
+    .pool-c{margin-left:0;max-width:100%;}
+  }
+  @media(max-width:600px){
+    section{padding:3.5rem 1.25rem;}
+    .gal{grid-template-columns:1fr;grid-template-rows:repeat(5,180px);}
+    .gi:nth-child(1){grid-column:auto;}
+    .wifi-bx{padding:1.5rem 1.2rem;}
+    .wifi-r{flex-direction:column;gap:.2rem;}
+    .wifi-l{text-align:center;}
+    .gm-grid{grid-template-columns:repeat(2,1fr);}
+    .beach-grid{flex-direction:column;align-items:center;}
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="mainNav">
+  <div class="nv">
+    <div class="nv-brand">Family Hammock</div>
+    <ul class="nv-links">
+      <li><a href="#welcome">Welcome</a></li>
+      <li><a href="#checkin">Check-in</a></li>
+      <li><a href="#house">The Home</a></li>
+      <li><a href="#rooms">Rooms</a></li>
+      <li><a href="#wifi">WiFi</a></li>
+      <li><a href="#amenities">Amenities</a></li>
+      <li><a href="#games">Game Room</a></li>
+      <li><a href="#pool">Pool</a></li>
+      <li><a href="#beaches">Beaches</a></li>
+      <li><a href="#rules">Rules</a></li>
+      <li><a href="#safety">Safety</a></li>
+      <li><a href="#checkout">Checkout</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-ov"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-c">
+    <div class="hero-pre">✦ Your Welcome Book ✦</div>
+    <h1>Family <span>Hammock</span></h1>
+    <p class="hero-sub">Pool · Game Room · Near FL's Best Beaches · North Port, Florida</p>
+    <div class="hero-chips">
+      <div class="chip"><em>👥</em> 10 Guests</div>
+      <div class="chip"><em>🛏️</em> 3 Bedrooms</div>
+      <div class="chip"><em>🛌</em> 5 Beds</div>
+      <div class="chip"><em>🚿</em> 2 Baths</div>
+      <div class="chip"><em>⭐</em> 4.5 Rating</div>
+    </div>
+  </div>
+</section>
+
+<!-- WELCOME -->
+<section class="welcome" id="welcome">
+  <div class="si">
+    <div class="wg">
+      <div>
+        <div class="slbl">Welcome Home</div>
+        <h2 class="stl">Make yourself at home — it's all yours!</h2>
+        <p class="sdsc">We're Pire & Darling, a young entrepreneurial couple, parents of 3 lovely children and our pet Brownie. As avid travelers, we know how important it is to feel welcomed and cared for away from home.</p>
+        <p class="sdsc" style="margin-bottom:0;">The Hammock Family is designed for comfort, fun, and relaxation. From the pool and game room to the hammocks and firepit, every corner is made for creating memories. We're here 24/7 — enjoy your stay!</p>
+        <div class="w-sig" style="margin-top:2rem;">
+          <div class="name">Pire & Darling</div>
+          <div class="role">Your Hosts · Response within 1 hour</div>
+        </div>
+      </div>
+      <div class="w-img">
+        <img src="https://a0.muscache.com/im/pictures/hosting/Hosting-1573482850214399722/original/2e836137-f915-40af-b64f-f2719b25e9d7.jpeg?im_w=1200" alt="Family Hammock interior" loading="lazy">
+        <div class="w-badge">⭐ 4.5 · 8 reviews</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CHECK-IN/OUT -->
+<section id="checkin">
+  <div class="si">
+    <div class="slbl">Arrivals & Departures</div>
+    <h2 class="stl">Check-in & Check-out</h2>
+    <div class="chk-grid">
+      <div class="chk ci">
+        <div class="ico">🔑</div>
+        <h3>Check-in</h3>
+        <div class="chk-time">3:00 PM</div>
+        <p>Check in anytime after 3:00 PM and as late as you like. The property address and door code will be sent on check-in day. Early check-in depends on cleaning — ask the day before and we'll confirm.</p>
+        <div class="chk-tag">🔢 Self check-in via smart lock</div>
+      </div>
+      <div class="chk co">
+        <div class="ico">🚪</div>
+        <h3>Check-out</h3>
+        <div class="chk-time">10:00 AM</div>
+        <p>Self check-out with instructions provided in the welcome message and again one day before departure. Please follow all instructions carefully.</p>
+        <div class="chk-tag">📋 See checkout checklist below</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT + GALLERY -->
+<section id="house">
+  <div class="si">
+    <div class="slbl">Your Vacation Home</div>
+    <h2 class="stl">About The Hammock</h2>
+    <p class="sdsc">A 3-bedroom, 2-bath family home with a pool, game room with pool table and ping pong, outdoor playground, firepit, hammocks, and a screened lanai — all in a top location near Florida's best beaches.</p>
+    <div class="gal">
+      <div class="gi">
+        <img src="https://a0.muscache.com/im/pictures/hosting/Hosting-1573482850214399722/original/461c339b-d3fb-4030-a0b8-d2f672f03b75.jpeg?im_w=1200" alt="Family Hammock" loading="lazy">
+        <div class="gl">The Hammock</div>
+      </div>
+      <div class="gi">
+        <img src="https://a0.muscache.com/im/pictures/hosting/Hosting-1573482850214399722/original/2e836137-f915-40af-b64f-f2719b25e9d7.jpeg?im_w=1200" alt="Living area" loading="lazy">
+        <div class="gl">Living Room</div>
+      </div>
+      <div class="gi">
+        <img src="https://a0.muscache.com/im/pictures/hosting/Hosting-1573482850214399722/original/7fc1a980-cf07-40b4-873c-285fa2a2e583.jpeg?im_w=1200" alt="Master bedroom" loading="lazy">
+        <div class="gl">Master Bedroom</div>
+      </div>
+      <div class="gi">
+        <img src="https://a0.muscache.com/im/pictures/hosting/Hosting-1573482850214399722/original/93e984e8-ef6f-41cb-977d-1a0d2bf63eff.jpeg?im_w=1200" alt="Game room" loading="lazy">
+        <div class="gl">Game Room</div>
+      </div>
+      <div class="gi">
+        <img src="https://a0.muscache.com/im/pictures/hosting/Hosting-1573482850214399722/original/e78b0217-f3fb-4d2d-975f-0e3bb35d10c0.jpeg?im_w=1200" alt="Backyard" loading="lazy">
+        <div class="gl">Backyard</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SLEEPING -->
+<section class="slp-sec" id="rooms">
+  <div class="si">
+    <div class="slbl">Rest & Recharge</div>
+    <h2 class="stl">Sleeping Arrangements</h2>
+    <p class="sdsc">Three bedrooms, a living room sleeper sofa, and a game room sleeper — comfortably sleeping up to 10 guests.</p>
+    <div class="slp-grid">
+      <div class="slp">
+        <div class="slp-img"><img src="https://a0.muscache.com/im/pictures/hosting/Hosting-1573482850214399722/original/7fc1a980-cf07-40b4-873c-285fa2a2e583.jpeg?im_w=720" alt="Master" loading="lazy"></div>
+        <div class="slp-body">
+          <h4>Master Bedroom</h4>
+          <p>King bed · Crib · Workspace · Safe box · Blackout curtains · Smart TV</p>
+        </div>
+      </div>
+      <div class="slp">
+        <div class="slp-img"><img src="https://a0.muscache.com/im/pictures/hosting/Hosting-1573482850214399722/original/2e836137-f915-40af-b64f-f2719b25e9d7.jpeg?im_w=720" alt="Bedroom 2" loading="lazy"></div>
+        <div class="slp-body">
+          <h4>Bedroom 2</h4>
+          <p>Queen bed · Blackout curtains · Smart TV · Ceiling fan</p>
+        </div>
+      </div>
+      <div class="slp">
+        <div class="slp-img"><img src="https://a0.muscache.com/im/pictures/hosting/Hosting-1573482850214399722/original/e78b0217-f3fb-4d2d-975f-0e3bb35d10c0.jpeg?im_w=720" alt="Bedroom 3" loading="lazy"></div>
+        <div class="slp-body">
+          <h4>Bedroom 3</h4>
+          <p>Queen/Queen bunk bed (400 lbs) + Twin trundle (250 lbs) · Smart TV with gaming</p>
+        </div>
+      </div>
+      <div class="slp">
+        <div class="slp-img"><img src="https://a0.muscache.com/im/pictures/hosting/Hosting-1573482850214399722/original/461c339b-d3fb-4030-a0b8-d2f672f03b75.jpeg?im_w=720" alt="Living room" loading="lazy"></div>
+        <div class="slp-body">
+          <h4>Living Room & Game Room</h4>
+          <p>Sleeper sofa (living room) · Sleeper sofa for 1 (game room)</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WIFI -->
+<section class="wifi" id="wifi">
+  <div class="wifi-ic">📶</div>
+  <h2>Stay Connected</h2>
+  <div class="wifi-bx">
+    <div class="wifi-r"><span class="wifi-l">Network</span><span class="wifi-v">Provided at check-in</span></div>
+    <div class="wifi-r"><span class="wifi-l">Password</span><span class="wifi-v">Provided at check-in</span></div>
+  </div>
+  <p class="wifi-n">Fast WiFi · 6 Smart TVs with streaming apps · Dedicated workspace in master bedroom</p>
+</section>
+
+<!-- AMENITIES -->
+<section id="amenities">
+  <div class="si">
+    <div class="slbl">Everything You Need</div>
+    <h2 class="stl">Amenities</h2>
+    <p class="sdsc">93 amenities — from a fully equipped kitchen to outdoor games and a screened lanai.</p>
+    <div class="am-grid">
+      <div class="am">
+        <div class="am-t"><div class="am-ic" style="background:rgba(212,96,58,.06)">🍳</div>Kitchen</div>
+        <ul class="am-tags">
+          <li>Refrigerator</li><li>Stove & Oven</li><li>Microwave</li><li>Dishwasher</li>
+          <li>Air Fryer</li><li>Pressure Cooker</li><li>Rice Cooker</li><li>Toaster</li>
+          <li>Sandwich Maker</li><li>Coffee Maker</li><li>Electric Kettle</li><li>Milk Frother</li>
+          <li>Wine Glasses</li><li>Breakfast Bar</li>
+        </ul>
+      </div>
+      <div class="am">
+        <div class="am-t"><div class="am-ic" style="background:rgba(59,143,173,.06)">🏊</div>Pool & Lanai</div>
+        <ul class="am-tags">
+          <li>Large Pool</li><li>Pool Toys</li><li>Screened Lanai</li><li>Outdoor TV</li>
+          <li>Foosball Table</li><li>3 Hammocks</li><li>Lounge Seating</li><li>Ceiling Fans</li><li>Bikes</li>
+        </ul>
+      </div>
+      <div class="am">
+        <div class="am-t"><div class="am-ic" style="background:rgba(217,146,59,.06)">🎱</div>Game Room</div>
+        <ul class="am-tags">
+          <li>Pool Table</li><li>Ping Pong</li><li>Dartboard</li><li>Bar Table + Stools</li>
+          <li>Smart TV</li><li>Dumbbell Weights</li><li>Yoga Mat & Ball</li><li>Sleeper Sofa</li>
+        </ul>
+      </div>
+      <div class="am">
+        <div class="am-t"><div class="am-ic" style="background:rgba(42,36,32,.04)">🏀</div>Outdoor</div>
+        <ul class="am-tags">
+          <li>Firepit + Chairs</li><li>Charcoal BBQ</li><li>Playground</li><li>Cornhole</li>
+          <li>Outdoor Games</li><li>Bikes</li><li>Fishing Canal Nearby</li>
+        </ul>
+      </div>
+      <div class="am">
+        <div class="am-t"><div class="am-ic" style="background:rgba(59,143,173,.06)">🛁</div>Bathrooms & Laundry</div>
+        <ul class="am-tags">
+          <li>2 Full Baths</li><li>Bathtub (Bath 2)</li><li>Hair Dryer</li><li>Shampoo & Conditioner</li>
+          <li>Body Wash</li><li>Makeup Towels</li><li>Beach Towels</li>
+          <li>Washer & Dryer</li><li>Laundry Pods</li>
+        </ul>
+      </div>
+      <div class="am">
+        <div class="am-t"><div class="am-ic" style="background:rgba(229,184,76,.06)">👶</div>Family Friendly</div>
+        <ul class="am-tags">
+          <li>Crib</li><li>High Chair</li><li>Playground</li><li>Pool Door Alarm</li>
+          <li>Pool Fence Available</li><li>Board Games</li><li>Kids Plates & Cups (by request)</li>
+          <li>Pets Welcome</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GAME ROOM -->
+<section class="game-section" id="games">
+  <div class="si">
+    <div class="slbl">Fun Never Stops</div>
+    <h2 class="stl">Game Room & Entertainment</h2>
+    <p class="sdsc">A dedicated game room plus outdoor entertainment — something for everyone.</p>
+    <div class="gm-grid">
+      <div class="gm"><div class="em">🎱</div><h4>Pool Table</h4><p>Full-size billiards</p></div>
+      <div class="gm"><div class="em">🏓</div><h4>Ping Pong</h4><p>Table tennis</p></div>
+      <div class="gm"><div class="em">🎯</div><h4>Darts</h4><p>Dartboard in game room</p></div>
+      <div class="gm"><div class="em">⚽</div><h4>Foosball</h4><p>In the lanai</p></div>
+      <div class="gm"><div class="em">🔥</div><h4>Firepit</h4><p>Outdoor with chairs</p></div>
+      <div class="gm"><div class="em">🛝</div><h4>Playground</h4><p>Kids outdoor play</p></div>
+      <div class="gm"><div class="em">🪢</div><h4>3 Hammocks</h4><p>Relax poolside</p></div>
+      <div class="gm"><div class="em">🏋️</div><h4>Mini Gym</h4><p>Weights, yoga mat & ball</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- POOL -->
+<section class="pool-banner" id="pool">
+  <div class="pool-bg"></div>
+  <div class="pool-ov"></div>
+  <div class="pool-c">
+    <div class="slbl">Splash & Relax</div>
+    <h2 class="stl">Pool & Screened Lanai</h2>
+    <p style="color:rgba(255,255,255,.65);margin-top:.7rem;line-height:1.8;">The large pool sits inside a screened lanai with lounge seating, an outdoor TV, foosball, hammocks, and ceiling fans — perfect all day and into the evening.</p>
+    <div class="pool-safety">
+      <strong>🛡️ Safety Features:</strong> Door alarms are installed on the patio door for kids and pet safety. A pool fence is stored by the house and can be installed if needed — just let us know!
+    </div>
+    <ul class="pool-rules">
+      <li><span>⚠️</span> Swim at your own risk — no lifeguard</li>
+      <li><span>👶</span> Supervise children at all times</li>
+      <li><span>🚫</span> No glass near the pool</li>
+      <li><span>🧸</span> Pool toys provided — return after use</li>
+    </ul>
+  </div>
+</section>
+
+<!-- BEACHES -->
+<section class="beach-sec" id="beaches">
+  <div class="si" style="text-align:center;">
+    <div class="slbl" style="display:block;text-align:center;">Nearby Beaches</div>
+    <h2 class="stl" style="color:var(--white);text-align:center;">Florida's Best Beaches Are Close</h2>
+    <p class="sdsc" style="text-align:center;margin:0 auto 2rem;">Top location near some of the most beautiful beaches on Florida's Gulf Coast.</p>
+    <div class="beach-grid">
+      <div class="beach-card"><div class="bm">🏖️</div><h4>Siesta Key Beach</h4><p>World-famous white sand</p></div>
+      <div class="beach-card"><div class="bm">🌴</div><h4>Gasparilla Island</h4><p>Boca Grande charm</p></div>
+      <div class="beach-card"><div class="bm">🐚</div><h4>Englewood Beach</h4><p>Relaxed Gulf Coast</p></div>
+      <div class="beach-card"><div class="bm">💦</div><h4>Water Park</h4><p>Family water fun</p></div>
+      <div class="beach-card"><div class="bm">🎣</div><h4>Fishing Canal</h4><p>Steps from the house</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- HOUSE RULES -->
+<section class="rules-sec" id="rules">
+  <div class="si">
+    <div class="slbl">Please Respect</div>
+    <h2 class="stl">House Rules</h2>
+    <div class="rules-grid">
+      <div class="rule"><div class="rule-ic">🐾</div><div><h4>Pet Friendly</h4><p>Pets are welcome! Please clean up after them and be mindful of furniture and outdoor areas.</p></div></div>
+      <div class="rule"><div class="rule-ic">🚭</div><div><h4>No Smoking Indoors</h4><p>Please smoke only in designated outdoor areas.</p></div></div>
+      <div class="rule"><div class="rule-ic">🍗</div><div><h4>BBQ</h4><p>Use the charcoal BBQ as much as you want — just close and clean it when you're done.</p></div></div>
+      <div class="rule"><div class="rule-ic">👥</div><div><h4>Max 10 Guests</h4><p>Only registered guests allowed on the property.</p></div></div>
+      <div class="rule"><div class="rule-ic">🚗</div><div><h4>Free Parking</h4><p>Park in designated areas. Do not block neighbors or driveways.</p></div></div>
+      <div class="rule alert"><div class="rule-ic">🚪</div><div><h4>Pool Door Alarms</h4><p>Door alarms on the patio door — do not disable them. They protect kids and pets from unsupervised pool access.</p></div></div>
+      <div class="rule"><div class="rule-ic">📺</div><div><h4>6 Smart TVs</h4><p>All TVs have streaming apps. Fire Stick gaming available in Bedroom 3.</p></div></div>
+      <div class="rule"><div class="rule-ic">🧺</div><div><h4>Laundry</h4><p>Washer, dryer, and laundry pods are in the laundry room. Board games and first-aid kit are in the cabinets.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- THINGS TO KNOW -->
+<section>
+  <div class="si">
+    <div class="slbl">Good to Know</div>
+    <h2 class="stl">Important Notes</h2>
+    <div class="know-grid">
+      <div class="kn"><div class="ki">☕</div><h4>Kitchen Starter Supply</h4><p>Coffee, tea, sugar, salt, pepper, oil, and vinegar included. Coffee pot filters provided. Dishwasher pods, laundry pods, dish soap, and garbage bags also supplied.</p></div>
+      <div class="kn"><div class="ki">🧴</div><h4>Toiletries & Supplies</h4><p>Initial toilet paper and paper towels provided. Shampoo, conditioner, body wash, and hand soap in all bathrooms. Missing something? Message us and we'll deliver within 24 hours.</p></div>
+      <div class="kn"><div class="ki">🚰</div><h4>Clean Water System</h4><p>This property uses its own water & sewer system — no sulfur smell common in SWFL. The tap water here is perfectly drinkable.</p></div>
+      <div class="kn"><div class="ki">👶</div><h4>For Infants</h4><p>Crib and high chair available. Baby sheets, blankets, plates, spoons, forks, and cups available by request — just ask!</p></div>
+      <div class="kn"><div class="ki">📹</div><h4>Security Cameras</h4><p>4 exterior cameras recording 24/7: front door, driveway, pool area, and inside lanai. No interior cameras.</p></div>
+      <div class="kn"><div class="ki">✈️</div><h4>Airport Access</h4><p>Conveniently close to the airport. Car recommended for getting around the area.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- SAFETY -->
+<section class="safety" id="safety">
+  <div class="si">
+    <div class="slbl">Your Safety</div>
+    <h2 class="stl">Safety & Emergencies</h2>
+    <div class="sf-grid">
+      <div class="sf"><div class="si">🔥</div><h4>Smoke Alarm</h4><p>Installed</p></div>
+      <div class="sf"><div class="si">💨</div><h4>CO Alarm</h4><p>Carbon monoxide</p></div>
+      <div class="sf"><div class="si">📷</div><h4>4 Cameras</h4><p>Exterior only, 24/7</p></div>
+      <div class="sf"><div class="si">🚪</div><h4>Pool Door Alarm</h4><p>Patio door safety</p></div>
+      <div class="sf"><div class="si">🏊</div><h4>Pool Fence</h4><p>Available on request</p></div>
+      <div class="sf"><div class="si">🩹</div><h4>First Aid Kit</h4><p>In laundry room cabinets</p></div>
+    </div>
+    <div class="em-box">
+      <h3>In Case of Emergency</h3>
+      <div class="num">Call 911</div>
+      <p>For property issues, contact Pire & Darling via Airbnb — they respond within an hour.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CHECKOUT CHECKLIST -->
+<section class="cl-sec" id="checkout">
+  <div class="si" style="text-align:center;">
+    <div class="slbl" style="display:block;text-align:center;">Before You Leave</div>
+    <h2 class="stl" style="text-align:center;">Checkout Checklist</h2>
+    <div class="cl-list">
+      <div class="cl-i"><div class="cl-bx"></div><p>Gather used towels and linens in one area</p></div>
+      <div class="cl-i"><div class="cl-bx"></div><p>Take out all trash to designated bins</p></div>
+      <div class="cl-i"><div class="cl-bx"></div><p>Leave the refrigerator empty — remove all food</p></div>
+      <div class="cl-i"><div class="cl-bx"></div><p>Turn off all lights, TVs, and air conditioning</p></div>
+      <div class="cl-i"><div class="cl-bx"></div><p>Close and lock all windows and doors</p></div>
+      <div class="cl-i"><div class="cl-bx"></div><p>Check all drawers and closets for personal belongings</p></div>
+      <div class="cl-i"><div class="cl-bx"></div><p>Close and clean the BBQ if used</p></div>
+      <div class="cl-i"><div class="cl-bx"></div><p>Return pool toys and outdoor items to their places</p></div>
+      <div class="cl-i"><div class="cl-bx"></div><p>Follow all instructions from the check-out message</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- REVIEW -->
+<section class="rev">
+  <div class="si" style="text-align:center;">
+    <div class="slbl" style="display:block;text-align:center;">We'd Love Your Feedback</div>
+    <h2 class="stl" style="text-align:center;">Leave a Review</h2>
+    <div class="stars">★ ★ ★ ★ ★</div>
+    <p class="rev-text">If your family had a wonderful time at The Hammock, a review on our Airbnb listing would mean the world to us. Your feedback helps us improve and helps other families discover this home!</p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <h2>Thank You!</h2>
+  <p class="footer-msg">We hope The Hammock Family gave you an unforgettable vacation. Safe travels — we'd love to welcome you back!</p>
+  <div class="footer-contact">
+    <div class="footer-ci"><span>💬</span> Message via Airbnb</div>
+    <div class="footer-ci"><span>⚡</span> Response within 1 hour</div>
+    <div class="footer-ci"><span>📍</span> North Port, FL</div>
+  </div>
+  <div class="footer-div"></div>
+  <div class="footer-br">Family Hammock · Hosted by Pire & Darling</div>
+</footer>
+
+<script>
+  document.getElementById('mainNav').classList.toggle('scrolled',window.scrollY>50);
+  window.addEventListener('scroll',()=>{document.getElementById('mainNav').classList.toggle('scrolled',window.scrollY>50);});
+  document.querySelectorAll('.cl-bx').forEach(b=>{
+    b.addEventListener('click',function(){
+      this.classList.toggle('ck');
+      const p=this.closest('.cl-i').querySelector('p');
+      if(this.classList.contains('ck')){
+        this.textContent='✓';this.style.background='var(--sunset-light)';this.style.borderColor='var(--sunset-light)';
+        p.style.textDecoration='line-through';p.style.opacity='.4';
+      }else{
+        this.textContent='';this.style.background='transparent';this.style.borderColor='var(--sunset-light)';
+        p.style.textDecoration='none';p.style.opacity='1';
+      }
+    });
+  });
+  document.querySelectorAll('.nv-links a').forEach(a=>{
+    a.addEventListener('click',e=>{e.preventDefault();const t=document.querySelector(a.getAttribute('href'));if(t)t.scrollIntoView({behavior:'smooth',block:'start'});});
+  });
+</script>
+
+</body>
+</html>
