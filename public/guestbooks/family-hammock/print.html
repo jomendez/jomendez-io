@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Welcome Book — Family Hammock Home (Print)</title>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Shadows+Into+Light&display=swap" rel="stylesheet">
+<style>
+  @page {
+    size: letter;
+    margin: 0.6in 0.7in;
+  }
+
+  :root {
+    --sunset: #D4603A;
+    --sunset-light: #E8835F;
+    --sunset-pale: #F2B9A3;
+    --amber: #D9923B;
+    --honey: #E5B84C;
+    --sand: #F5EDE3;
+    --sand-warm: #EDE3D4;
+    --linen: #FBF7F1;
+    --pool: #3B8FAD;
+    --pool-light: #6ABCD4;
+    --sky: #E6F1F5;
+    --charcoal: #2A2420;
+    --brown: #4A3E35;
+    --text: #3E3830;
+    --text-mid: #7A7168;
+    --white: #FFFFFF;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Sora', sans-serif; color: var(--text); line-height: 1.6; font-weight: 400; font-size: 10pt; }
+
+  .page-break { page-break-after: always; }
+  .avoid-break { page-break-inside: avoid; }
+
+  /* ---- COVER PAGE ---- */
+  .cover {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    position: relative;
+  }
+  .cover-img {
+    width: 100%;
+    max-height: 45vh;
+    object-fit: cover;
+    border-radius: 12px;
+    margin-bottom: 2rem;
+  }
+  .cover-pre { font-family: 'Shadows Into Light', cursive; font-size: 1.3rem; color: var(--honey); margin-bottom: 0.3rem; }
+  .cover h1 { font-family: 'Lora', serif; font-size: 2.8rem; font-weight: 700; color: var(--brown); line-height: 1.1; margin-bottom: 0.3rem; }
+  .cover h1 span { color: var(--sunset); font-style: italic; font-weight: 400; }
+  .cover-sub { font-size: 0.85rem; color: var(--text-mid); margin-bottom: 1.8rem; }
+  .cover-chips { display: flex; justify-content: center; gap: 0.6rem; flex-wrap: wrap; }
+  .chip { background: var(--sand); padding: 0.4rem 0.9rem; border-radius: 999px; font-size: 0.72rem; font-weight: 500; color: var(--brown); display: flex; align-items: center; gap: 0.3rem; }
+  .chip em { font-style: normal; }
+
+  /* ---- SECTION STYLES ---- */
+  .slbl { font-family: 'Shadows Into Light', cursive; font-size: 1.15rem; color: var(--sunset); margin-bottom: 0.1rem; }
+  .stl { font-family: 'Lora', serif; font-size: 1.5rem; font-weight: 700; color: var(--brown); line-height: 1.2; margin-bottom: 0.6rem; }
+  .sdsc { font-size: 0.82rem; color: var(--text-mid); max-width: 580px; line-height: 1.7; margin-bottom: 1.2rem; }
+  section { margin-bottom: 1.5rem; }
+
+  /* ---- WELCOME ---- */
+  .welcome-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    align-items: start;
+  }
+  .welcome-grid img {
+    width: 100%;
+    border-radius: 10px;
+    object-fit: cover;
+    max-height: 240px;
+  }
+  .w-sig .name { font-family: 'Shadows Into Light', cursive; font-size: 1.6rem; color: var(--sunset); }
+  .w-sig .role { font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.18em; color: var(--text-mid); margin-top: 0.1rem; }
+
+  /* ---- CHECK-IN/OUT ---- */
+  .chk-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; }
+  .chk { border: 1px solid #e0d8ce; border-radius: 10px; padding: 1.2rem; }
+  .chk-top { border-top: 3px solid var(--sunset); }
+  .chk-top-blue { border-top: 3px solid var(--pool); }
+  .chk h3 { font-family: 'Lora', serif; font-size: 0.9rem; color: var(--brown); margin-bottom: 0.05rem; }
+  .chk-time { font-family: 'Lora', serif; font-size: 1.8rem; font-weight: 700; margin-bottom: 0.4rem; }
+  .chk-time.orange { color: var(--sunset); }
+  .chk-time.blue { color: var(--pool); }
+  .chk p { color: var(--text-mid); font-size: 0.78rem; line-height: 1.65; }
+  .chk-tag { display: inline-flex; align-items: center; gap: 0.3rem; background: var(--sand); padding: 0.3rem 0.7rem; border-radius: 999px; font-size: 0.68rem; font-weight: 600; color: var(--brown); margin-top: 0.6rem; }
+
+  /* ---- GALLERY ---- */
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 0.5rem;
+    margin-top: 0.8rem;
+  }
+  .gallery-grid img {
+    width: 100%;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 6px;
+  }
+  .gallery-grid .wide {
+    grid-column: 1 / 3;
+    height: 140px;
+  }
+  .gallery-label {
+    font-size: 0.6rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--text-mid);
+    margin-top: 0.2rem;
+    text-align: center;
+    letter-spacing: 0.06em;
+  }
+
+  /* ---- SLEEPING ---- */
+  .slp-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem; margin-top: 0.8rem; }
+  .slp { border: 1px solid #e0d8ce; border-radius: 8px; overflow: hidden; }
+  .slp img { width: 100%; height: 100px; object-fit: cover; }
+  .slp-body { padding: 0.6rem 0.8rem; }
+  .slp-body h4 { font-family: 'Lora', serif; font-size: 0.82rem; color: var(--brown); margin-bottom: 0.1rem; }
+  .slp-body p { font-size: 0.7rem; color: var(--text-mid); }
+
+  /* ---- WIFI ---- */
+  .wifi-box {
+    background: var(--charcoal);
+    color: var(--white);
+    border-radius: 10px;
+    padding: 1.5rem 2rem;
+    text-align: center;
+  }
+  .wifi-box h2 { font-family: 'Lora', serif; font-size: 1.2rem; margin-bottom: 0.8rem; }
+  .wifi-row { display: flex; align-items: center; justify-content: center; gap: 0.8rem; margin-bottom: 0.4rem; }
+  .wifi-label { font-size: 0.6rem; text-transform: uppercase; letter-spacing: 0.2em; color: var(--honey); font-weight: 700; min-width: 70px; text-align: right; }
+  .wifi-val { font-size: 0.9rem; font-weight: 600; letter-spacing: 0.06em; background: rgba(255,255,255,0.08); padding: 0.3rem 0.8rem; border-radius: 6px; }
+  .wifi-note { font-size: 0.7rem; color: rgba(255,255,255,0.45); margin-top: 0.5rem; font-style: italic; }
+
+  /* ---- AMENITIES ---- */
+  .am-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem; margin-top: 0.8rem; }
+  .am { border: 1px solid #e0d8ce; border-radius: 8px; padding: 0.8rem; }
+  .am-title { font-family: 'Lora', serif; font-size: 0.82rem; color: var(--brown); margin-bottom: 0.4rem; display: flex; align-items: center; gap: 0.4rem; }
+  .am-tags { list-style: none; display: flex; flex-wrap: wrap; gap: 0.2rem; }
+  .am-tags li { font-size: 0.65rem; color: var(--text-mid); background: var(--sand); padding: 0.18rem 0.5rem; border-radius: 999px; }
+
+  /* ---- GAME ROOM ---- */
+  .gm-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.6rem; margin-top: 0.8rem; }
+  .gm { border: 1px solid #e0d8ce; border-radius: 8px; padding: 0.8rem 0.5rem; text-align: center; }
+  .gm .em { font-size: 1.5rem; margin-bottom: 0.3rem; }
+  .gm h4 { font-size: 0.72rem; font-weight: 600; color: var(--brown); }
+  .gm p { font-size: 0.6rem; color: var(--text-mid); }
+
+  /* ---- POOL ---- */
+  .pool-section img {
+    width: 100%;
+    max-height: 160px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 0.8rem;
+  }
+  .pool-safety {
+    background: var(--sky);
+    border: 1px solid var(--pool-light);
+    border-radius: 8px;
+    padding: 0.6rem 0.8rem;
+    font-size: 0.75rem;
+    color: var(--text);
+    line-height: 1.6;
+    margin-bottom: 0.6rem;
+  }
+  .pool-safety strong { color: var(--pool); }
+  .pool-rules { list-style: none; margin-top: 0.5rem; }
+  .pool-rules li { display: flex; align-items: flex-start; gap: 0.4rem; padding: 0.3rem 0; border-bottom: 1px solid #e0d8ce; font-size: 0.78rem; color: var(--text-mid); }
+  .pool-rules li span { flex-shrink: 0; }
+
+  /* ---- BEACHES ---- */
+  .beach-grid { display: flex; justify-content: center; gap: 0.8rem; flex-wrap: wrap; margin-top: 0.8rem; }
+  .beach-card {
+    background: var(--pool);
+    color: var(--white);
+    border-radius: 10px;
+    padding: 0.8rem 1.2rem;
+    text-align: center;
+    min-width: 120px;
+  }
+  .beach-card .bm { font-size: 1.3rem; margin-bottom: 0.3rem; }
+  .beach-card h4 { font-size: 0.75rem; font-weight: 600; }
+  .beach-card p { font-size: 0.6rem; opacity: 0.7; }
+
+  /* ---- HOUSE RULES ---- */
+  .rules-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.6rem; margin-top: 0.8rem; }
+  .rule { border: 1px solid #e0d8ce; border-radius: 8px; padding: 0.7rem; display: flex; gap: 0.6rem; align-items: flex-start; }
+  .rule.alert { border-left: 3px solid var(--sunset); }
+  .rule-ic { font-size: 1rem; flex-shrink: 0; margin-top: 0.1rem; }
+  .rule h4 { font-size: 0.78rem; font-weight: 600; color: var(--brown); margin-bottom: 0.05rem; }
+  .rule p { font-size: 0.7rem; color: var(--text-mid); line-height: 1.5; }
+
+  /* ---- THINGS TO KNOW ---- */
+  .know-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.6rem; margin-top: 0.8rem; }
+  .kn { border: 1px solid #e0d8ce; border-radius: 8px; padding: 0.7rem; }
+  .kn .ki { font-size: 1.1rem; margin-bottom: 0.3rem; }
+  .kn h4 { font-size: 0.78rem; font-weight: 600; color: var(--brown); margin-bottom: 0.1rem; }
+  .kn p { font-size: 0.7rem; color: var(--text-mid); line-height: 1.55; }
+
+  /* ---- SAFETY ---- */
+  .sf-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.6rem; margin-top: 0.8rem; }
+  .sf { border: 1px solid #e0d8ce; border-radius: 8px; padding: 0.7rem; text-align: center; }
+  .sf .si-icon { font-size: 1.3rem; margin-bottom: 0.2rem; }
+  .sf h4 { font-size: 0.72rem; font-weight: 600; color: var(--brown); }
+  .sf p { font-size: 0.6rem; color: var(--text-mid); margin-top: 0.1rem; }
+  .em-box {
+    background: var(--sunset);
+    border-radius: 10px;
+    padding: 1.2rem;
+    text-align: center;
+    color: var(--white);
+    margin-top: 1rem;
+  }
+  .em-box h3 { font-family: 'Lora', serif; font-size: 0.9rem; }
+  .em-box .num { font-family: 'Lora', serif; font-size: 2rem; font-weight: 700; margin: 0.2rem 0; letter-spacing: 0.04em; }
+  .em-box p { font-size: 0.72rem; opacity: 0.8; }
+
+  /* ---- CHECKLIST ---- */
+  .cl-list { max-width: 520px; margin: 0.8rem auto 0; }
+  .cl-i { display: flex; align-items: flex-start; gap: 0.6rem; padding: 0.4rem 0; border-bottom: 1px solid #e0d8ce; }
+  .cl-bx {
+    width: 16px; height: 16px; min-width: 16px;
+    border: 1.5px solid var(--sunset-light);
+    border-radius: 3px;
+    margin-top: 2px;
+  }
+  .cl-i p { font-size: 0.78rem; color: var(--text); line-height: 1.5; }
+
+  /* ---- REVIEW ---- */
+  .review-sec { text-align: center; }
+  .stars { font-size: 1.5rem; letter-spacing: 0.4rem; color: var(--amber); margin: 0.5rem 0; }
+  .rev-text { font-family: 'Lora', serif; font-size: 0.85rem; color: var(--text-mid); max-width: 460px; margin: 0 auto; line-height: 1.7; font-style: italic; }
+
+  /* ---- FOOTER ---- */
+  .footer-sec {
+    text-align: center;
+    border-top: 2px solid var(--sunset);
+    padding-top: 1.2rem;
+    margin-top: 1rem;
+  }
+  .footer-sec h2 { font-family: 'Lora', serif; font-size: 1.5rem; color: var(--brown); margin-bottom: 0.4rem; }
+  .footer-msg { font-size: 0.8rem; color: var(--text-mid); max-width: 420px; margin: 0 auto 0.8rem; line-height: 1.6; }
+  .footer-contact { display: flex; justify-content: center; gap: 1.2rem; flex-wrap: wrap; }
+  .footer-ci { font-size: 0.72rem; color: var(--text-mid); display: flex; align-items: center; gap: 0.3rem; }
+  .footer-ci span { font-size: 0.85rem; }
+  .footer-brand { font-family: 'Lora', serif; font-size: 0.7rem; color: var(--text-mid); margin-top: 0.8rem; letter-spacing: 0.06em; }
+
+  /* ---- PRINT ---- */
+  @media print {
+    body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .page-break { page-break-after: always; }
+    .avoid-break { page-break-inside: avoid; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ==================== PAGE 1: COVER ==================== -->
+<div class="cover">
+  <img class="cover-img" src="images/home-1200.jpeg" alt="Family Hammock Home">
+  <div class="cover-pre">&#10022; Your Welcome Book &#10022;</div>
+  <h1>Family <span>Hammock</span> Home</h1>
+  <p class="cover-sub">Pool &middot; Game Room &middot; Near FL's Best Beaches &middot; North Port, Florida</p>
+  <div class="cover-chips">
+    <div class="chip"><em>&#128101;</em> 10 Guests</div>
+    <div class="chip"><em>&#128716;</em> 3 Bedrooms</div>
+    <div class="chip"><em>&#128716;</em> 5 Beds</div>
+    <div class="chip"><em>&#128703;</em> 2 Baths</div>
+    <div class="chip"><em>&#11088;</em> 4.5 Rating</div>
+  </div>
+</div>
+<div class="page-break"></div>
+
+<!-- ==================== PAGE 2: WELCOME ==================== -->
+<section>
+  <div class="slbl">Welcome Home</div>
+  <h2 class="stl">Make yourself at home — it's all yours!</h2>
+  <div class="welcome-grid">
+    <div>
+      <p class="sdsc">We're Pire & Darling, a young entrepreneurial couple, parents of 3 lovely children and our pet Brownie. As avid travelers, we know how important it is to feel welcomed and cared for away from home.</p>
+      <p class="sdsc">The Family Hammock Home is designed for comfort, fun, and relaxation. From the pool and game room to the hammock and firepit, every corner is made for creating memories. We're here 24/7 — enjoy your stay!</p>
+      <div class="w-sig" style="margin-top:1rem;">
+        <div class="name">Pire & Darling</div>
+        <div class="role">Your Hosts &middot; Response within 1 hour</div>
+      </div>
+    </div>
+    <div>
+      <img src="images/interior-1200.jpeg" alt="Family Hammock interior">
+    </div>
+  </div>
+</section>
+
+<!-- CHECK-IN / CHECK-OUT -->
+<section>
+  <div class="slbl">Arrivals & Departures</div>
+  <h2 class="stl">Check-in & Check-out</h2>
+  <div class="chk-grid">
+    <div class="chk chk-top avoid-break">
+      <h3>&#128273; Check-in</h3>
+      <div class="chk-time orange">3:00 PM</div>
+      <p>Check in anytime after 3:00 PM and as late as you like. The property address and door code will be sent on check-in day. Early check-in depends on cleaning — ask the day before and we'll confirm.</p>
+      <div class="chk-tag">&#128290; Self check-in via smart lock</div>
+    </div>
+    <div class="chk chk-top-blue avoid-break">
+      <h3>&#128682; Check-out</h3>
+      <div class="chk-time blue">10:00 AM</div>
+      <p>Self check-out with instructions provided in the welcome message and again one day before departure. Please follow all instructions carefully.</p>
+      <div class="chk-tag">&#128203; See checkout checklist below</div>
+    </div>
+  </div>
+</section>
+<div class="page-break"></div>
+
+<!-- ==================== PAGE 3: THE HOME + GALLERY ==================== -->
+<section>
+  <div class="slbl">Your Vacation Home</div>
+  <h2 class="stl">About The Family Hammock Home</h2>
+  <p class="sdsc">A 3-bedroom, 2-bath family home with a pool, game room with pool table and ping pong, outdoor playground, firepit, hammock, and a screened lanai — all in a top location near Florida's best beaches.</p>
+  <div class="gallery-grid">
+    <div class="wide">
+      <img src="images/home-1200.jpeg" alt="Family Hammock" style="height:140px;">
+      <div class="gallery-label">The Family Hammock Home</div>
+    </div>
+    <div>
+      <img src="images/interior-1200.jpeg" alt="Living area">
+      <div class="gallery-label">Living Room</div>
+    </div>
+    <div>
+      <img src="images/master-1200.jpeg" alt="Master bedroom">
+      <div class="gallery-label">Master Bedroom</div>
+    </div>
+    <div>
+      <img src="images/pool-1200.jpeg" alt="Game room">
+      <div class="gallery-label">Game Room</div>
+    </div>
+    <div>
+      <img src="images/backyard-1200.jpeg" alt="Backyard">
+      <div class="gallery-label">Backyard</div>
+    </div>
+  </div>
+</section>
+
+<!-- SLEEPING ARRANGEMENTS -->
+<section style="margin-top: 1.5rem;">
+  <div class="slbl">Rest & Recharge</div>
+  <h2 class="stl">Sleeping Arrangements</h2>
+  <p class="sdsc">Three bedrooms, a living room sleeper sofa, and a game room sleeper — comfortably sleeping up to 10 guests.</p>
+  <div class="slp-grid">
+    <div class="slp avoid-break">
+      <img src="images/master-720.jpeg" alt="Master">
+      <div class="slp-body">
+        <h4>Master Bedroom</h4>
+        <p>King bed &middot; Crib &middot; Workspace &middot; Safe box &middot; Blackout curtains &middot; Smart TV</p>
+      </div>
+    </div>
+    <div class="slp avoid-break">
+      <img src="images/interior-720.jpeg" alt="Bedroom 2">
+      <div class="slp-body">
+        <h4>Bedroom 2</h4>
+        <p>Queen bed &middot; Blackout curtains &middot; Smart TV &middot; Ceiling fan</p>
+      </div>
+    </div>
+    <div class="slp avoid-break">
+      <img src="images/backyard-720.jpeg" alt="Bedroom 3">
+      <div class="slp-body">
+        <h4>Bedroom 3</h4>
+        <p>Queen/Queen bunk bed (400 lbs) + Twin trundle (250 lbs) &middot; Smart TV with gaming</p>
+      </div>
+    </div>
+    <div class="slp avoid-break">
+      <img src="images/home-720.jpeg" alt="Living room">
+      <div class="slp-body">
+        <h4>Living Room & Game Room</h4>
+        <p>Sleeper sofa (living room) &middot; Sleeper sofa for 1 (game room)</p>
+      </div>
+    </div>
+  </div>
+</section>
+<div class="page-break"></div>
+
+<!-- ==================== PAGE 4: WIFI + AMENITIES ==================== -->
+<section>
+  <div class="wifi-box avoid-break">
+    <div style="font-size:1.8rem;margin-bottom:0.3rem;">&#128246;</div>
+    <h2>Stay Connected</h2>
+    <div class="wifi-row"><span class="wifi-label">Network</span><span class="wifi-val">Provided at check-in</span></div>
+    <div class="wifi-row"><span class="wifi-label">Password</span><span class="wifi-val">Provided at check-in</span></div>
+    <p class="wifi-note">Fast WiFi &middot; 6 Smart TVs with streaming apps &middot; Dedicated workspace in master bedroom</p>
+  </div>
+</section>
+
+<section>
+  <div class="slbl">Everything You Need</div>
+  <h2 class="stl">Amenities</h2>
+  <p class="sdsc">93 amenities — from a fully equipped kitchen to outdoor games and a screened lanai.</p>
+  <div class="am-grid">
+    <div class="am avoid-break">
+      <div class="am-title">&#127859; Kitchen</div>
+      <ul class="am-tags">
+        <li>Refrigerator</li><li>Stove & Oven</li><li>Microwave</li><li>Dishwasher</li>
+        <li>Air Fryer</li><li>Pressure Cooker</li><li>Rice Cooker</li><li>Toaster</li>
+        <li>Sandwich Maker</li><li>Coffee Maker</li><li>Electric Kettle</li><li>Milk Frother</li>
+        <li>Wine Glasses</li><li>Breakfast Bar</li>
+      </ul>
+    </div>
+    <div class="am avoid-break">
+      <div class="am-title">&#127946; Pool & Lanai</div>
+      <ul class="am-tags">
+        <li>Large Pool</li><li>Pool Toys</li><li>Screened Lanai</li><li>Outdoor TV</li>
+        <li>Foosball Table</li><li>3 Hammock</li><li>Lounge Seating</li><li>Ceiling Fans</li><li>Bikes</li>
+      </ul>
+    </div>
+    <div class="am avoid-break">
+      <div class="am-title">&#127921; Game Room</div>
+      <ul class="am-tags">
+        <li>Pool Table</li><li>Ping Pong</li><li>Dartboard</li><li>Bar Table + Stools</li>
+        <li>Smart TV</li><li>Dumbbell Weights</li><li>Yoga Mat & Ball</li><li>Sleeper Sofa</li>
+      </ul>
+    </div>
+    <div class="am avoid-break">
+      <div class="am-title">&#127936; Outdoor</div>
+      <ul class="am-tags">
+        <li>Firepit + Chairs</li><li>Charcoal BBQ</li><li>Playground</li><li>Cornhole</li>
+        <li>Outdoor Games</li><li>Bikes</li><li>Fishing Canal Nearby</li>
+      </ul>
+    </div>
+    <div class="am avoid-break">
+      <div class="am-title">&#128705; Bathrooms & Laundry</div>
+      <ul class="am-tags">
+        <li>2 Full Baths</li><li>Bathtub (Bath 2)</li><li>Hair Dryer</li><li>Shampoo & Conditioner</li>
+        <li>Body Wash</li><li>Makeup Towels</li><li>Beach Towels</li>
+        <li>Washer & Dryer</li><li>Laundry Pods</li>
+      </ul>
+    </div>
+    <div class="am avoid-break">
+      <div class="am-title">&#128118; Family Friendly</div>
+      <ul class="am-tags">
+        <li>Crib</li><li>High Chair</li><li>Playground</li><li>Pool Door Alarm</li>
+        <li>Pool Fence Available</li><li>Board Games</li><li>Kids Plates & Cups (by request)</li>
+        <li>Pets Welcome</li>
+      </ul>
+    </div>
+  </div>
+</section>
+<div class="page-break"></div>
+
+<!-- ==================== PAGE 5: GAME ROOM + POOL + BEACHES ==================== -->
+<section>
+  <div class="slbl">Fun Never Stops</div>
+  <h2 class="stl">Game Room & Entertainment</h2>
+  <p class="sdsc">A dedicated game room plus outdoor entertainment — something for everyone.</p>
+  <div class="gm-grid">
+    <div class="gm avoid-break"><div class="em">&#127921;</div><h4>Pool Table</h4><p>Full-size billiards</p></div>
+    <div class="gm avoid-break"><div class="em">&#127955;</div><h4>Ping Pong</h4><p>Table tennis</p></div>
+    <div class="gm avoid-break"><div class="em">&#127919;</div><h4>Darts</h4><p>Dartboard in game room</p></div>
+    <div class="gm avoid-break"><div class="em">&#9917;</div><h4>Foosball</h4><p>In the lanai</p></div>
+    <div class="gm avoid-break"><div class="em">&#128293;</div><h4>Firepit</h4><p>Outdoor with chairs</p></div>
+    <div class="gm avoid-break"><div class="em">&#128733;</div><h4>Playground</h4><p>Kids outdoor play</p></div>
+    <div class="gm avoid-break"><div class="em">&#129442;</div><h4>3 Hammock</h4><p>Relax poolside</p></div>
+    <div class="gm avoid-break"><div class="em">&#127947;</div><h4>Mini Gym</h4><p>Weights, yoga mat & ball</p></div>
+  </div>
+</section>
+
+<!-- POOL -->
+<section class="pool-section" style="margin-top: 1.5rem;">
+  <div class="slbl">Splash & Relax</div>
+  <h2 class="stl">Pool & Screened Lanai</h2>
+  <img src="images/pool-1200.jpeg" alt="Pool area">
+  <p class="sdsc">The large pool sits inside a screened lanai with lounge seating, an outdoor TV, foosball, hammock, and ceiling fans — perfect all day and into the evening.</p>
+  <div class="pool-safety avoid-break">
+    <strong>&#128737; Safety Features:</strong> Door alarms are installed on the patio door for kids and pet safety. A pool fence is stored by the house and can be installed if needed — just let us know!
+  </div>
+  <ul class="pool-rules">
+    <li><span>&#9888;</span> Swim at your own risk — no lifeguard</li>
+    <li><span>&#128118;</span> Supervise children at all times</li>
+    <li><span>&#128683;</span> No glass near the pool</li>
+    <li><span>&#129528;</span> Pool toys provided — return after use</li>
+  </ul>
+</section>
+
+<!-- BEACHES -->
+<section class="avoid-break" style="margin-top: 1.5rem; text-align: center;">
+  <div class="slbl" style="display:block;text-align:center;">Nearby Beaches</div>
+  <h2 class="stl" style="text-align:center;">Florida's Best Beaches Are Close</h2>
+  <p class="sdsc" style="text-align:center;margin:0 auto 0.8rem;">Top location near some of the most beautiful beaches on Florida's Gulf Coast.</p>
+  <div class="beach-grid">
+    <div class="beach-card avoid-break"><div class="bm">&#127958;</div><h4>Siesta Key Beach</h4><p>World-famous white sand</p></div>
+    <div class="beach-card avoid-break"><div class="bm">&#127796;</div><h4>Gasparilla Island</h4><p>Boca Grande charm</p></div>
+    <div class="beach-card avoid-break"><div class="bm">&#128026;</div><h4>Englewood Beach</h4><p>Relaxed Gulf Coast</p></div>
+    <div class="beach-card avoid-break"><div class="bm">&#128166;</div><h4>Water Park</h4><p>Family water fun</p></div>
+    <div class="beach-card avoid-break"><div class="bm">&#127907;</div><h4>Fishing Canal</h4><p>Steps from the house</p></div>
+  </div>
+</section>
+<div class="page-break"></div>
+
+<!-- ==================== PAGE 6: HOUSE RULES + THINGS TO KNOW ==================== -->
+<section>
+  <div class="slbl">Please Respect</div>
+  <h2 class="stl">House Rules</h2>
+  <div class="rules-grid">
+    <div class="rule avoid-break"><div class="rule-ic">&#128062;</div><div><h4>Pet Friendly</h4><p>Pets are welcome! Please clean up after them and be mindful of furniture and outdoor areas.</p></div></div>
+    <div class="rule avoid-break"><div class="rule-ic">&#128685;</div><div><h4>No Smoking Indoors</h4><p>Please smoke only in designated outdoor areas.</p></div></div>
+    <div class="rule avoid-break"><div class="rule-ic">&#127831;</div><div><h4>BBQ</h4><p>Use the charcoal BBQ as much as you want — just close and clean it when you're done.</p></div></div>
+    <div class="rule avoid-break"><div class="rule-ic">&#128101;</div><div><h4>Max 10 Guests</h4><p>Only registered guests allowed on the property.</p></div></div>
+    <div class="rule avoid-break"><div class="rule-ic">&#128663;</div><div><h4>Free Parking</h4><p>Park in designated areas. Do not block neighbors or driveways.</p></div></div>
+    <div class="rule alert avoid-break"><div class="rule-ic">&#128682;</div><div><h4>Pool Door Alarms</h4><p>Door alarms on the patio door — do not disable them. They protect kids and pets from unsupervised pool access.</p></div></div>
+    <div class="rule avoid-break"><div class="rule-ic">&#128250;</div><div><h4>6 Smart TVs</h4><p>All TVs have streaming apps. Fire Stick gaming available in Bedroom 3.</p></div></div>
+    <div class="rule avoid-break"><div class="rule-ic">&#129514;</div><div><h4>Laundry</h4><p>Washer, dryer, and laundry pods are in the laundry room. Board games and first-aid kit are in the cabinets.</p></div></div>
+  </div>
+</section>
+
+<section style="margin-top: 1.5rem;">
+  <div class="slbl">Good to Know</div>
+  <h2 class="stl">Important Notes</h2>
+  <div class="know-grid">
+    <div class="kn avoid-break"><div class="ki">&#9749;</div><h4>Kitchen Starter Supply</h4><p>Coffee, tea, sugar, salt, pepper, oil, and vinegar included. Coffee pot filters provided. Dishwasher pods, laundry pods, dish soap, and garbage bags also supplied.</p></div>
+    <div class="kn avoid-break"><div class="ki">&#129524;</div><h4>Toiletries & Supplies</h4><p>Initial toilet paper and paper towels provided. Shampoo, conditioner, body wash, and hand soap in all bathrooms. Missing something? Message us and we'll deliver within 24 hours.</p></div>
+    <div class="kn avoid-break"><div class="ki">&#128688;</div><h4>Clean Water System</h4><p>This property uses its own water & sewer system — no sulfur smell common in SWFL. The tap water here is perfectly drinkable.</p></div>
+    <div class="kn avoid-break"><div class="ki">&#128118;</div><h4>For Infants</h4><p>Crib and high chair available. Baby sheets, blankets, plates, spoons, forks, and cups available by request — just ask!</p></div>
+    <div class="kn avoid-break"><div class="ki">&#128249;</div><h4>Security Cameras</h4><p>4 exterior cameras recording 24/7: front door, driveway, pool area, and inside lanai. No interior cameras.</p></div>
+    <div class="kn avoid-break"><div class="ki">&#9992;</div><h4>Airport Access</h4><p>Conveniently close to the airport. Car recommended for getting around the area.</p></div>
+  </div>
+</section>
+<div class="page-break"></div>
+
+<!-- ==================== PAGE 7: SAFETY + CHECKLIST + REVIEW + FOOTER ==================== -->
+<section>
+  <div class="slbl">Your Safety</div>
+  <h2 class="stl">Safety & Emergencies</h2>
+  <div class="sf-grid">
+    <div class="sf avoid-break"><div class="si-icon">&#128293;</div><h4>Smoke Alarm</h4><p>Installed</p></div>
+    <div class="sf avoid-break"><div class="si-icon">&#128168;</div><h4>CO Alarm</h4><p>Carbon monoxide</p></div>
+    <div class="sf avoid-break"><div class="si-icon">&#128247;</div><h4>4 Cameras</h4><p>Exterior only, 24/7</p></div>
+    <div class="sf avoid-break"><div class="si-icon">&#128682;</div><h4>Pool Door Alarm</h4><p>Patio door safety</p></div>
+    <div class="sf avoid-break"><div class="si-icon">&#127946;</div><h4>Pool Fence</h4><p>Available on request</p></div>
+    <div class="sf avoid-break"><div class="si-icon">&#129529;</div><h4>First Aid Kit</h4><p>In laundry room cabinets</p></div>
+  </div>
+  <div class="em-box avoid-break">
+    <h3>In Case of Emergency</h3>
+    <div class="num">Call 911</div>
+    <p>For property issues, contact Pire & Darling via Airbnb — they respond within an hour.</p>
+  </div>
+</section>
+
+<!-- CHECKOUT CHECKLIST -->
+<section style="margin-top: 1.5rem; text-align: center;">
+  <div class="slbl" style="display:block;text-align:center;">Before You Leave</div>
+  <h2 class="stl" style="text-align:center;">Checkout Checklist</h2>
+  <div class="cl-list" style="text-align:left;">
+    <div class="cl-i"><div class="cl-bx"></div><p>Gather used towels and linens in one area</p></div>
+    <div class="cl-i"><div class="cl-bx"></div><p>Take out all trash to designated bins</p></div>
+    <div class="cl-i"><div class="cl-bx"></div><p>Leave the refrigerator empty — remove all food</p></div>
+    <div class="cl-i"><div class="cl-bx"></div><p>Turn off all lights, TVs, and air conditioning</p></div>
+    <div class="cl-i"><div class="cl-bx"></div><p>Close and lock all windows and doors</p></div>
+    <div class="cl-i"><div class="cl-bx"></div><p>Check all drawers and closets for personal belongings</p></div>
+    <div class="cl-i"><div class="cl-bx"></div><p>Close and clean the BBQ if used</p></div>
+    <div class="cl-i"><div class="cl-bx"></div><p>Return pool toys and outdoor items to their places</p></div>
+    <div class="cl-i"><div class="cl-bx"></div><p>Follow all instructions from the check-out message</p></div>
+  </div>
+</section>
+
+<!-- REVIEW + FOOTER kept together -->
+<div class="avoid-break">
+<section class="review-sec" style="margin-top: 1.5rem;">
+  <div class="slbl" style="display:block;text-align:center;">We'd Love Your Feedback</div>
+  <h2 class="stl" style="text-align:center;">Leave a Review</h2>
+  <div class="stars">&#9733; &#9733; &#9733; &#9733; &#9733;</div>
+  <p class="rev-text">If your family had a wonderful time at The Family Hammock Home, a review on our Airbnb listing would mean the world to us. Your feedback helps us improve and helps other families discover this home!</p>
+</section>
+
+<!-- FOOTER -->
+<div class="footer-sec">
+  <h2>Thank You!</h2>
+  <p class="footer-msg">We hope The Family Hammock Home gave you an unforgettable vacation. Safe travels — we'd love to welcome you back!</p>
+  <div class="footer-contact">
+    <div class="footer-ci"><span>&#128172;</span> Message via Airbnb</div>
+    <div class="footer-ci"><span>&#9889;</span> Response within 1 hour</div>
+    <div class="footer-ci"><span>&#128205;</span> North Port, FL</div>
+  </div>
+  <div class="footer-brand" style="margin-top:0.8rem;">Family Hammock &middot; Hosted by Pire & Darling</div>
+</div>
+</div>
+
+</body>
+</html>
