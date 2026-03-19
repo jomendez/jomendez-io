@@ -1,0 +1,782 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Carteles para Airbnb — Guía de Compra</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #FAF7F2;
+    --warm-white: #FFFDF9;
+    --ink: #1A1510;
+    --charcoal: #2D2A26;
+    --gold: #C9973A;
+    --gold-light: #E8C97A;
+    --gold-pale: #F5E9CC;
+    --rust: #B85C38;
+    --sage: #6B8C6E;
+    --sage-light: #A8C4AA;
+    --border: #E0D8CC;
+    --shadow: rgba(26,21,16,0.08);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background-color: var(--cream);
+    color: var(--ink);
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    background: var(--ink);
+    padding: 72px 24px 60px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: 
+      radial-gradient(ellipse 60% 50% at 20% 50%, rgba(201,151,58,0.18) 0%, transparent 70%),
+      radial-gradient(ellipse 60% 50% at 80% 50%, rgba(107,140,110,0.12) 0%, transparent 70%);
+  }
+  .hero-tag {
+    display: inline-block;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--gold);
+    border: 1px solid rgba(201,151,58,0.4);
+    padding: 6px 16px;
+    border-radius: 2px;
+    margin-bottom: 28px;
+    position: relative;
+  }
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(36px, 6vw, 72px);
+    font-weight: 900;
+    color: var(--warm-white);
+    line-height: 1.05;
+    position: relative;
+    max-width: 780px;
+    margin: 0 auto 20px;
+  }
+  .hero h1 em {
+    font-style: italic;
+    color: var(--gold-light);
+  }
+  .hero-sub {
+    font-size: 17px;
+    color: rgba(255,253,249,0.65);
+    font-weight: 300;
+    max-width: 560px;
+    margin: 0 auto 40px;
+    position: relative;
+  }
+  .hero-stats {
+    display: flex;
+    justify-content: center;
+    gap: 48px;
+    position: relative;
+    flex-wrap: wrap;
+  }
+  .stat {
+    text-align: center;
+  }
+  .stat-n {
+    font-family: 'Playfair Display', serif;
+    font-size: 38px;
+    font-weight: 700;
+    color: var(--gold);
+    line-height: 1;
+  }
+  .stat-l {
+    font-size: 12px;
+    color: rgba(255,253,249,0.5);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-top: 4px;
+  }
+
+  /* ── INTRO STRIP ── */
+  .intro-strip {
+    background: var(--gold-pale);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    padding: 20px 24px;
+    text-align: center;
+    font-size: 14px;
+    color: var(--charcoal);
+  }
+  .intro-strip strong { color: var(--rust); }
+
+  /* ── GRID ── */
+  .grid-section {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 64px 24px;
+  }
+  .section-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 8px;
+  }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(28px, 4vw, 44px);
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 48px;
+  }
+
+  .cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 28px;
+  }
+
+  /* ── CARD ── */
+  .card {
+    background: var(--warm-white);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+    position: relative;
+  }
+  .card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 16px 48px var(--shadow);
+  }
+  .card-accent {
+    height: 4px;
+    background: linear-gradient(90deg, var(--gold), var(--gold-light));
+  }
+  .card-accent.green { background: linear-gradient(90deg, var(--sage), var(--sage-light)); }
+  .card-accent.rust  { background: linear-gradient(90deg, var(--rust), #D4896A); }
+
+  .card-body {
+    padding: 28px 28px 0;
+    flex: 1;
+  }
+  .card-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: var(--gold-pale);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    margin-bottom: 16px;
+  }
+  .card-icon.green { background: #E3EDE4; }
+  .card-icon.rust  { background: #F5E3DA; }
+
+  .card-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 10px;
+    line-height: 1.25;
+  }
+  .card-product {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--gold-pale);
+    border: 1px solid rgba(201,151,58,0.3);
+    border-radius: 2px;
+    padding: 4px 10px;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--charcoal);
+    margin-bottom: 14px;
+  }
+  .card-product.green { background: #E3EDE4; border-color: rgba(107,140,110,0.3); }
+  .card-product.rust  { background: #F5E3DA; border-color: rgba(184,92,56,0.3); }
+
+  .card-desc {
+    font-size: 14px;
+    color: #5A5550;
+    line-height: 1.65;
+    margin-bottom: 16px;
+  }
+
+  .card-placement {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+  }
+  .tag {
+    font-size: 11px;
+    padding: 3px 9px;
+    border-radius: 20px;
+    background: var(--cream);
+    border: 1px solid var(--border);
+    color: var(--charcoal);
+    font-weight: 500;
+  }
+
+  /* Amazon Link */
+  .card-footer {
+    padding: 0 28px 28px;
+  }
+  .amazon-link-card {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: var(--ink);
+    border-radius: 3px;
+    padding: 14px 16px;
+    text-decoration: none;
+    transition: background 0.2s;
+  }
+  .amazon-link-card:hover { background: #2D2A26; }
+  .amazon-logo {
+    flex-shrink: 0;
+    width: 36px;
+    height: 36px;
+    background: #FF9900;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    font-weight: 900;
+    color: var(--ink);
+    font-family: serif;
+  }
+  .amazon-link-text {
+    flex: 1;
+  }
+  .amazon-link-label {
+    font-size: 11px;
+    color: rgba(255,253,249,0.5);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  .amazon-link-query {
+    font-size: 13px;
+    color: #FF9900;
+    font-weight: 500;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-wrap: auto;
+  }
+  .amazon-link-arrow {
+    color: #FF9900;
+    font-size: 18px;
+    flex-shrink: 0;
+  }
+
+  /* ── STOREFRONT CALLOUT ── */
+  .storefront-band {
+    background: var(--ink);
+    margin: 0;
+    padding: 56px 24px;
+  }
+  .storefront-inner {
+    max-width: 860px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 32px;
+    align-items: center;
+  }
+  @media (max-width: 620px) {
+    .storefront-inner { grid-template-columns: 1fr; }
+  }
+  .storefront-kicker {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: #FF9900;
+    margin-bottom: 10px;
+  }
+  .storefront-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 30px;
+    color: var(--warm-white);
+    font-weight: 700;
+    margin-bottom: 10px;
+  }
+  .storefront-desc {
+    font-size: 15px;
+    color: rgba(255,253,249,0.6);
+    line-height: 1.6;
+  }
+  .storefront-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: #FF9900;
+    color: var(--ink);
+    font-weight: 700;
+    font-size: 14px;
+    padding: 16px 28px;
+    border-radius: 3px;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: opacity 0.2s;
+  }
+  .storefront-btn:hover { opacity: 0.88; }
+
+  /* ── TIPS ── */
+  .tips-section {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 64px 24px;
+  }
+  .tips-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 20px;
+    margin-top: 40px;
+  }
+  .tip-card {
+    background: var(--warm-white);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 24px;
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+  }
+  .tip-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 36px;
+    font-weight: 900;
+    color: var(--gold-pale);
+    line-height: 1;
+    min-width: 44px;
+  }
+  .tip-text { font-size: 14px; color: #4A4540; line-height: 1.65; }
+  .tip-text strong { color: var(--ink); }
+
+  /* ── FOOTER ── */
+  footer {
+    background: #111009;
+    padding: 32px 24px;
+    text-align: center;
+    font-size: 13px;
+    color: rgba(255,253,249,0.3);
+  }
+  footer a { color: rgba(201,151,58,0.7); text-decoration: none; }
+  footer a:hover { color: var(--gold); }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .hero > * { animation: fadeUp 0.7s ease both; }
+  .hero-tag   { animation-delay: 0.1s; }
+  .hero h1    { animation-delay: 0.25s; }
+  .hero-sub   { animation-delay: 0.4s; }
+  .hero-stats { animation-delay: 0.55s; }
+
+  .card {
+    animation: fadeUp 0.6s ease both;
+  }
+  .card:nth-child(1)  { animation-delay: 0.05s; }
+  .card:nth-child(2)  { animation-delay: 0.12s; }
+  .card:nth-child(3)  { animation-delay: 0.19s; }
+  .card:nth-child(4)  { animation-delay: 0.26s; }
+  .card:nth-child(5)  { animation-delay: 0.33s; }
+  .card:nth-child(6)  { animation-delay: 0.40s; }
+  .card:nth-child(7)  { animation-delay: 0.47s; }
+  .card:nth-child(8)  { animation-delay: 0.54s; }
+  .card:nth-child(9)  { animation-delay: 0.61s; }
+  .card:nth-child(10) { animation-delay: 0.68s; }
+
+  /* Divider */
+  .divider {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+  .divider hr {
+    border: none;
+    border-top: 1px solid var(--border);
+  }
+
+  /* Note */
+  .note-box {
+    background: var(--gold-pale);
+    border-left: 4px solid var(--gold);
+    padding: 14px 18px;
+    border-radius: 0 3px 3px 0;
+    font-size: 13px;
+    color: var(--charcoal);
+    margin-top: 40px;
+    line-height: 1.65;
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="hero-tag">✦ Guía para Hosts de Airbnb</div>
+  <h1>Carteles que <em>elevan</em> tu propiedad</h1>
+  <p class="hero-sub">Los carteles correctos reducen confusión, refuerzan tus reglas y dejan una impresión profesional desde el primer momento.</p>
+  <div class="hero-stats">
+    <div class="stat"><div class="stat-n">10</div><div class="stat-l">Tipos de carteles</div></div>
+    <div class="stat"><div class="stat-n">★ 4.9</div><div class="stat-l">Impacto en reseñas</div></div>
+    <div class="stat"><div class="stat-n">Amazon</div><div class="stat-l">Fuente principal</div></div>
+  </div>
+</header>
+
+<!-- INTRO -->
+<div class="intro-strip">
+  💡 <strong>Pro tip:</strong> No satures la casa de carteles. Elige 4–5 clave y complementa con un manual digital. Menos es más.
+</div>
+
+<!-- CARDS -->
+<section class="grid-section">
+  <div class="section-label">✦ Catálogo completo</div>
+  <h2 class="section-title">Todos los carteles recomendados</h2>
+
+  <div class="cards-grid">
+
+    <!-- 1. Bienvenida -->
+    <article class="card">
+      <div class="card-accent"></div>
+      <div class="card-body">
+        <div class="card-icon">🏠</div>
+        <h3 class="card-title">Cartel de Bienvenida</h3>
+        <span class="card-product">📦 Officeline Magnetic Dry Erase Whiteboard 25"×16"</span>
+        <p class="card-desc">Pizarra magnética que se coloca en la nevera o pared de la entrada. Permite escribir la dirección, WiFi, horarios de check-in/out y un mensaje personalizado para cada huésped. Fácil de actualizar entre estadías.</p>
+        <div class="card-placement">
+          <span class="tag">📍 Entrada</span>
+          <span class="tag">📍 Cocina</span>
+          <span class="tag">🔄 Reutilizable</span>
+        </div>
+      </div>
+      <div class="card-footer">
+        <a class="amazon-link-card" href="https://www.amazon.com/s?k=magnetic+dry+erase+whiteboard+fridge+25x16+Officeline" target="_blank">
+          <div class="amazon-logo">a</div>
+          <div class="amazon-link-text">
+            <div class="amazon-link-label">Buscar en Amazon</div>
+            <div class="amazon-link-query">magnetic dry erase whiteboard fridge 25x16</div>
+          </div>
+          <div class="amazon-link-arrow">→</div>
+        </a>
+      </div>
+    </article>
+
+    <!-- 2. Reglas de la Casa -->
+    <article class="card">
+      <div class="card-accent rust"></div>
+      <div class="card-body">
+        <div class="card-icon rust">📋</div>
+        <h3 class="card-title">Reglas de la Casa</h3>
+        <span class="card-product rust">📦 ClearView Universal Wall Mount Sign</span>
+        <p class="card-desc">Porta-carteles acrílico transparente para imprimir tus propias reglas. Muestra las normas clave — no fiestas, quiet hours, huéspedes máximos, mascotas — en una hoja que puedes actualizar sin cambiar el soporte.</p>
+        <div class="card-placement">
+          <span class="tag">📍 Sala</span>
+          <span class="tag">📍 Cocina</span>
+          <span class="tag">🖨️ Imprimible</span>
+        </div>
+      </div>
+      <div class="card-footer">
+        <a class="amazon-link-card" href="https://www.amazon.com/s?k=ClearView+universal+wall+mount+sign+8.5+x+11" target="_blank">
+          <div class="amazon-logo">a</div>
+          <div class="amazon-link-text">
+            <div class="amazon-link-label">Buscar en Amazon</div>
+            <div class="amazon-link-query">ClearView universal wall mount sign 8.5x11</div>
+          </div>
+          <div class="amazon-link-arrow">→</div>
+        </a>
+      </div>
+    </article>
+
+    <!-- 3. WiFi -->
+    <article class="card">
+      <div class="card-accent green"></div>
+      <div class="card-body">
+        <div class="card-icon green">📶</div>
+        <h3 class="card-title">Contraseña WiFi</h3>
+        <span class="card-product green">📦 Main Event Felt Letter Board</span>
+        <p class="card-desc">Letter board tipo felt con letras incluidas. Permite mostrar el nombre de la red y contraseña de forma clara, estética y personalizable. Es uno de los carteles más fotografiados por los huéspedes.</p>
+        <div class="card-placement">
+          <span class="tag">📍 Sala</span>
+          <span class="tag">📍 Cerca del router</span>
+          <span class="tag">✨ Fotogénico</span>
+        </div>
+      </div>
+      <div class="card-footer">
+        <a class="amazon-link-card" href="https://www.amazon.com/s?k=felt+letter+board+wifi+password+sign" target="_blank">
+          <div class="amazon-logo">a</div>
+          <div class="amazon-link-text">
+            <div class="amazon-link-label">Buscar en Amazon</div>
+            <div class="amazon-link-query">felt letter board wifi password sign</div>
+          </div>
+          <div class="amazon-link-arrow">→</div>
+        </a>
+      </div>
+    </article>
+
+    <!-- 4. Basura -->
+    <article class="card">
+      <div class="card-accent green"></div>
+      <div class="card-body">
+        <div class="card-icon green">♻️</div>
+        <h3 class="card-title">Basura y Reciclaje</h3>
+        <span class="card-product green">📦 Vinyl Friend Recycle Stickers</span>
+        <p class="card-desc">Pack de pegatinas resistentes al agua para pegar directamente en los cubos. Iconos claros que indican qué va en cada contenedor, ideal cuando las normas locales de reciclaje son estrictas.</p>
+        <div class="card-placement">
+          <span class="tag">📍 Cubos de basura</span>
+          <span class="tag">💧 Resistente al agua</span>
+          <span class="tag">🔖 Pack completo</span>
+        </div>
+      </div>
+      <div class="card-footer">
+        <a class="amazon-link-card" href="https://www.amazon.com/s?k=trash+recycle+bin+stickers+icons" target="_blank">
+          <div class="amazon-logo">a</div>
+          <div class="amazon-link-text">
+            <div class="amazon-link-label">Buscar en Amazon</div>
+            <div class="amazon-link-query">Vinyl Friend recycle stickers bin icons</div>
+          </div>
+          <div class="amazon-link-arrow">→</div>
+        </a>
+      </div>
+    </article>
+
+    <!-- 5. Check-out -->
+    <article class="card">
+      <div class="card-accent"></div>
+      <div class="card-body">
+        <div class="card-icon">🚪</div>
+        <h3 class="card-title">Instrucciones de Check-out</h3>
+        <span class="card-product">📦 Acrylic Tabletop Sign Holder 5×7</span>
+        <p class="card-desc">Marco acrílico de mesa con checklist de salida impreso: sacar basura, apagar luces/A/C, cerrar puertas, devolver llaves. Corto, claro y alineado con las instrucciones que envías por Airbnb.</p>
+        <div class="card-placement">
+          <span class="tag">📍 Puerta de salida</span>
+          <span class="tag">📍 Cocina</span>
+          <span class="tag">🖨️ Imprimible</span>
+        </div>
+      </div>
+      <div class="card-footer">
+        <a class="amazon-link-card" href="https://www.amazon.com/s?k=tabletop+acrylic+sign+holder+5x7+checkout" target="_blank">
+          <div class="amazon-logo">a</div>
+          <div class="amazon-link-text">
+            <div class="amazon-link-label">Buscar en Amazon</div>
+            <div class="amazon-link-query">tabletop acrylic sign holder 5x7 checkout</div>
+          </div>
+          <div class="amazon-link-arrow">→</div>
+        </a>
+      </div>
+    </article>
+
+    <!-- 6. Emergencias -->
+    <article class="card">
+      <div class="card-accent rust"></div>
+      <div class="card-body">
+        <div class="card-icon rust">🚨</div>
+        <h3 class="card-title">Contactos de Emergencia</h3>
+        <span class="card-product rust">📦 Acrylic Wall Mount Sign Holder</span>
+        <p class="card-desc">Porta-cartel acrílico de pared con hoja impresa de contactos. Incluye dirección exacta del inmueble, número del host, 911, bomberos y, si aplica, requisitos locales de señalización de emergencias.</p>
+        <div class="card-placement">
+          <span class="tag">📍 Entrada</span>
+          <span class="tag">📍 Cocina</span>
+          <span class="tag">🔴 Obligatorio</span>
+        </div>
+      </div>
+      <div class="card-footer">
+        <a class="amazon-link-card" href="https://www.amazon.com/s?k=acrylic+sign+holder+emergency+contacts+wall+mount" target="_blank">
+          <div class="amazon-logo">a</div>
+          <div class="amazon-link-text">
+            <div class="amazon-link-label">Buscar en Amazon</div>
+            <div class="amazon-link-query">acrylic wall mount sign emergency numbers</div>
+          </div>
+          <div class="amazon-link-arrow">→</div>
+        </a>
+      </div>
+    </article>
+
+    <!-- 7. No fumar -->
+    <article class="card">
+      <div class="card-accent rust"></div>
+      <div class="card-body">
+        <div class="card-icon rust">🚭</div>
+        <h3 class="card-title">No Fumar / No Velas</h3>
+        <span class="card-product rust">📦 No Smoking No Vaping Indoor Sign</span>
+        <p class="card-desc">Cartel preimpreso decorativo que prohíbe fumar, vapear y, si aplica, usar velas abiertas. Colocarlo en sala y cerca de puertas a balcón refuerza la regla del listado y protege tu propiedad.</p>
+        <div class="card-placement">
+          <span class="tag">📍 Sala</span>
+          <span class="tag">📍 Balcón</span>
+          <span class="tag">⚖️ Protección legal</span>
+        </div>
+      </div>
+      <div class="card-footer">
+        <a class="amazon-link-card" href="https://www.amazon.com/s?k=no+smoking+no+vaping+sign+indoor+airbnb" target="_blank">
+          <div class="amazon-logo">a</div>
+          <div class="amazon-link-text">
+            <div class="amazon-link-label">Buscar en Amazon</div>
+            <div class="amazon-link-query">no smoking no vaping sign indoor + no candles</div>
+          </div>
+          <div class="amazon-link-arrow">→</div>
+        </a>
+      </div>
+    </article>
+
+    <!-- 8. Jacuzzi -->
+    <article class="card">
+      <div class="card-accent"></div>
+      <div class="card-body">
+        <div class="card-icon">🛁</div>
+        <h3 class="card-title">Normas del Jacuzzi / Hot Tub</h3>
+        <span class="card-product">📦 Hot Tub Rules Sign — Aluminio/PVC Exterior</span>
+        <p class="card-desc">Cartel resistente a humedad y sol con capacidad máxima, supervisión de menores, prohibición de vidrio/alcohol, límite de tiempo y aviso "NO LIFEGUARD ON DUTY – USE AT YOUR OWN RISK" según normas sanitarias para spas.</p>
+        <div class="card-placement">
+          <span class="tag">📍 Junto al jacuzzi</span>
+          <span class="tag">☀️ Para exterior</span>
+          <span class="tag">⚖️ Reduce responsabilidad</span>
+        </div>
+      </div>
+      <div class="card-footer">
+        <a class="amazon-link-card" href="https://www.amazon.com/s?k=hot+tub+rules+sign+use+at+your+own+risk+aluminum" target="_blank">
+          <div class="amazon-logo">a</div>
+          <div class="amazon-link-text">
+            <div class="amazon-link-label">Buscar en Amazon</div>
+            <div class="amazon-link-query">hot tub rules sign use at your own risk</div>
+          </div>
+          <div class="amazon-link-arrow">→</div>
+        </a>
+      </div>
+    </article>
+
+    <!-- 9. Baño -->
+    <article class="card">
+      <div class="card-accent green"></div>
+      <div class="card-body">
+        <div class="card-icon green">🚿</div>
+        <h3 class="card-title">Cartel para el Baño</h3>
+        <span class="card-product green">📦 Reilly Originals Bathroom Sign</span>
+        <p class="card-desc">Cartel de baño pensado para recordar qué se puede tirar al inodoro y cómo usar las toallas. Previene obstrucciones costosas y queda muy bien estéticamente en baños modernos o rústicos.</p>
+        <div class="card-placement">
+          <span class="tag">📍 Baño</span>
+          <span class="tag">💧 Resistente humedad</span>
+          <span class="tag">💰 Ahorra en plomería</span>
+        </div>
+      </div>
+      <div class="card-footer">
+        <a class="amazon-link-card" href="https://www.amazon.com/s?k=bathroom+rules+sign+airbnb+acrylic" target="_blank">
+          <div class="amazon-logo">a</div>
+          <div class="amazon-link-text">
+            <div class="amazon-link-label">Buscar en Amazon</div>
+            <div class="amazon-link-query">Reilly Originals bathroom sign airbnb</div>
+          </div>
+          <div class="amazon-link-arrow">→</div>
+        </a>
+      </div>
+    </article>
+
+    <!-- 10. QR Manual -->
+    <article class="card">
+      <div class="card-accent"></div>
+      <div class="card-body">
+        <div class="card-icon">📱</div>
+        <h3 class="card-title">Placa QR — Manual Digital</h3>
+        <span class="card-product">📦 Artswave Scannable QR Code Sign</span>
+        <p class="card-desc">Placa acrílica/madera con QR escaneable que enlaza a tu manual digital (Notion, PDF, web). Incluye reglas ampliadas, instrucciones, recomendaciones locales y contacto directo del host, todo en un solo escaneo.</p>
+        <div class="card-placement">
+          <span class="tag">📍 Sala</span>
+          <span class="tag">📍 Mesa de centro</span>
+          <span class="tag">🔗 Digital + Físico</span>
+        </div>
+      </div>
+      <div class="card-footer">
+        <a class="amazon-link-card" href="https://www.amazon.com/s?k=tabletop+QR+code+sign+airbnb+acrylic" target="_blank">
+          <div class="amazon-logo">a</div>
+          <div class="amazon-link-text">
+            <div class="amazon-link-label">Buscar en Amazon</div>
+            <div class="amazon-link-query">Artswave scannable QR code sign tabletop</div>
+          </div>
+          <div class="amazon-link-arrow">→</div>
+        </a>
+      </div>
+    </article>
+
+  </div><!-- /cards-grid -->
+
+  <div class="note-box">
+    ⚠️ <strong>Nota sobre Amazon:</strong> Los links abren búsquedas preconfiguradas con el término exacto recomendado. Los precios y disponibilidad varían. Filtra por "4 estrellas o más" y revisa las reseñas antes de comprar.
+  </div>
+</section>
+
+<!-- STOREFRONT CALLOUT -->
+<div class="storefront-band" style="display: none;">
+  <div class="storefront-inner">
+    <div>
+      <div class="storefront-kicker">✦ Storefront curado para hosts</div>
+      <div class="storefront-title">Thanks for Visiting</div>
+      <p class="storefront-desc">Storefront de Amazon especializado en artículos para hosts de Airbnb y STR. Encuentras carteles, decoración y accesorios seleccionados específicamente para alojamientos — ahorra tiempo sin buscar entre miles de resultados genéricos.</p>
+    </div>
+    <a class="storefront-btn" href="https://www.amazon.com/shop/thanksforvisiting_" target="_blank">
+      🛒 Ver Storefront →
+    </a>
+  </div>
+</div>
+
+<!-- TIPS -->
+<section class="tips-section">
+  <div class="section-label">✦ Buenas prácticas</div>
+  <h2 class="section-title">Consejos de hosts expertos</h2>
+  <div class="tips-grid">
+    <div class="tip-card">
+      <div class="tip-num">01</div>
+      <div class="tip-text"><strong>No satures el espacio.</strong> Concéntrate en 4–5 carteles muy visibles: House Rules, WiFi, Check-out y Basura. El resto puede ir en un manual digital.</div>
+    </div>
+    <div class="tip-card">
+      <div class="tip-num">02</div>
+      <div class="tip-text"><strong>Coherencia visual.</strong> Elige carteles del mismo estilo (acrílico, madera, pizarra) para que no parezca un collage aleatorio. La estética importa en las fotos.</div>
+    </div>
+    <div class="tip-card">
+      <div class="tip-num">03</div>
+      <div class="tip-text"><strong>Jacuzzi = responsabilidad legal.</strong> El cartel de normas del spa debe incluir "USE AT YOUR OWN RISK" y "NO LIFEGUARD ON DUTY" para reducir exposición legal.</div>
+    </div>
+    <div class="tip-card">
+      <div class="tip-num">04</div>
+      <div class="tip-text"><strong>Imprimir vs. comprar.</strong> Para House Rules y Check-out, usar porta-carteles acrílico + hoja impresa te da flexibilidad total para actualizar reglas sin gastar más.</div>
+    </div>
+    <div class="tip-card">
+      <div class="tip-num">05</div>
+      <div class="tip-text"><strong>QR como hub central.</strong> Una sola placa con QR puede reemplazar 3–4 carteles informativos si enlaza a un manual bien estructurado en Notion o PDF.</div>
+    </div>
+    <div class="tip-card">
+      <div class="tip-num">06</div>
+      <div class="tip-text"><strong>Amazon vs. Etsy.</strong> Amazon es la mejor fuente para carteles físicos listos para usar. Etsy es mejor para plantillas editables y carteles personalizados.</div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>Guía compilada para hosts de Airbnb y alquileres de corta estancia · Fuentes: blogs especializados en STR hosting, guías de señalización para spas y Hospitable</p>
+  <p style="margin-top:8px;">jomendez.io — <a href="https://jomendez.io/airbnb-hosts-resources/index.html">Recursos para Hosts</a></p>
+</footer>
+
+</body>
+</html>
