@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Airbnb Tragedy in Miami-Dade | Pool Safety for Hosts</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Source+Serif+4:wght@300;400;600&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #1a1008;
+    --paper: #f5f0e8;
+    --paper-dark: #ede6d8;
+    --red: #b8230d;
+    --red-light: #e8dbd8;
+    --gold: #c8922a;
+    --gold-light: #f5e8c8;
+    --rule: #c8b89a;
+    --muted: #6b5f50;
+    --safe-green: #1a5c2e;
+    --edu-blue: #0a3a5c;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background-color: var(--paper);
+    color: var(--ink);
+    font-family: 'Source Serif 4', Georgia, serif;
+    font-weight: 300;
+    line-height: 1.7;
+    background-image: repeating-linear-gradient(0deg, transparent, transparent 27px, rgba(0,0,0,0.03) 28px);
+  }
+  .masthead {
+    background: var(--ink);
+    color: var(--paper);
+    text-align: center;
+    padding: 20px 24px 16px;
+    border-bottom: 4px solid var(--gold);
+    position: relative;
+    overflow: hidden;
+  }
+  .masthead::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: repeating-linear-gradient(45deg, transparent, transparent 3px, rgba(255,255,255,0.015) 3px, rgba(255,255,255,0.015) 6px);
+  }
+  .masthead-label { font-family: 'DM Sans', sans-serif; font-size: 10px; font-weight: 600; letter-spacing: 4px; text-transform: uppercase; color: var(--gold); margin-bottom: 8px; position: relative; }
+  .masthead h1 { font-family: 'Playfair Display', serif; font-size: clamp(28px, 5vw, 52px); font-weight: 900; line-height: 1.05; letter-spacing: -1px; position: relative; }
+  .masthead h1 span { color: var(--gold); }
+  .masthead-sub { font-family: 'DM Sans', sans-serif; font-size: 12px; color: rgba(245,240,232,0.6); margin-top: 10px; letter-spacing: 2px; text-transform: uppercase; position: relative; }
+  .container { max-width: 860px; margin: 0 auto; padding: 0 20px; }
+  .alert-banner { background: var(--red); color: white; padding: 12px 24px; display: flex; align-items: center; gap: 12px; font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; }
+  .alert-banner .dot { width: 8px; height: 8px; background: #ff6b6b; border-radius: 50%; flex-shrink: 0; animation: pulse 1.5s infinite; }
+  @keyframes pulse { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.5; transform: scale(1.4); } }
+  .noticia-header { padding: 40px 0 24px; border-bottom: 3px double var(--rule); margin-bottom: 32px; }
+  .kicker { font-family: 'DM Sans', sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; color: var(--red); margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
+  .kicker::after { content: ''; flex: 1; height: 1px; background: var(--red); opacity: 0.3; }
+  .headline { font-family: 'Playfair Display', serif; font-size: clamp(26px, 4.5vw, 44px); font-weight: 900; line-height: 1.1; letter-spacing: -0.5px; margin-bottom: 16px; }
+  .headline em { font-style: italic; color: var(--red); }
+  .deck { font-size: 18px; font-weight: 400; color: var(--muted); line-height: 1.5; border-left: 3px solid var(--gold); padding-left: 16px; margin-bottom: 20px; }
+  .byline { font-family: 'DM Sans', sans-serif; font-size: 12px; color: var(--muted); letter-spacing: 1px; display: flex; gap: 16px; flex-wrap: wrap; }
+  .byline strong { color: var(--ink); }
+  .body-copy { font-size: 17px; line-height: 1.75; }
+  .body-copy p { margin-bottom: 18px; }
+  .body-copy p:first-child::first-letter { font-family: 'Playfair Display', serif; font-size: 72px; font-weight: 900; float: left; line-height: 0.8; margin: 6px 8px 0 0; color: var(--red); }
+  .pull-quote { background: var(--red-light); border-left: 5px solid var(--red); padding: 24px 28px; margin: 32px 0; position: relative; }
+  .pull-quote::before { content: '\201C'; font-family: 'Playfair Display', serif; font-size: 120px; color: var(--red); opacity: 0.15; position: absolute; top: -20px; left: 16px; line-height: 1; }
+  .pull-quote p { font-family: 'Playfair Display', serif; font-size: 20px; font-style: italic; line-height: 1.5; color: var(--ink); position: relative; margin-bottom: 10px !important; }
+  .pull-quote cite { font-family: 'DM Sans', sans-serif; font-size: 12px; font-style: normal; color: var(--red); font-weight: 600; letter-spacing: 1px; text-transform: uppercase; }
+  .facts-box { background: var(--paper-dark); border: 1px solid var(--rule); border-top: 4px solid var(--ink); padding: 24px 28px; margin: 32px 0; }
+  .facts-box h3 { font-family: 'DM Sans', sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; color: var(--muted); margin-bottom: 16px; padding-bottom: 10px; border-bottom: 1px solid var(--rule); }
+  .facts-box ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+  .facts-box li { display: flex; gap: 10px; font-size: 15px; align-items: flex-start; }
+  .facts-box li::before { content: '\25AA'; color: var(--red); flex-shrink: 0; margin-top: 2px; }
+  .statement-box { background: var(--gold-light); border: 1px solid var(--gold); padding: 24px 28px; margin: 28px 0; }
+  .statement-box h4 { font-family: 'DM Sans', sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: #a07020; margin-bottom: 12px; }
+  .statement-box p { font-size: 15px; font-style: italic; color: var(--ink); line-height: 1.65; }
+  .section-divider { display: flex; align-items: center; gap: 16px; margin: 48px 0 32px; }
+  .section-divider::before, .section-divider::after { content: ''; flex: 1; height: 1px; background: var(--rule); }
+  .section-divider span { font-family: 'DM Sans', sans-serif; font-size: 10px; font-weight: 600; letter-spacing: 4px; text-transform: uppercase; color: var(--muted); white-space: nowrap; }
+
+  /* EDUCATIONAL */
+  .edu-section { background: var(--edu-blue); color: white; }
+  .edu-inner { max-width: 860px; margin: 0 auto; padding: 32px 28px; }
+  .edu-tag { font-family: 'DM Sans', sans-serif; font-size: 10px; font-weight: 600; letter-spacing: 4px; text-transform: uppercase; color: var(--gold); display: block; margin-bottom: 10px; }
+  .edu-inner h2 { font-family: 'Playfair Display', serif; font-size: clamp(22px, 3.5vw, 34px); font-weight: 700; line-height: 1.15; margin-bottom: 12px; }
+  .edu-inner > p { font-size: 15px; color: rgba(255,255,255,0.75); max-width: 600px; line-height: 1.6; margin-bottom: 28px; padding-bottom: 24px; border-bottom: 1px solid rgba(255,255,255,0.1); }
+  .reality-check { background: rgba(255,255,255,0.07); border-left: 4px solid var(--gold); padding: 20px 24px; margin-bottom: 28px; }
+  .reality-check h4 { font-family: 'DM Sans', sans-serif; font-size: 12px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); margin-bottom: 10px; }
+  .reality-check p { font-size: 14px; color: rgba(255,255,255,0.85); line-height: 1.6; }
+  .edu-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 16px; margin-bottom: 28px; }
+  .edu-card { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); border-top: 3px solid var(--gold); padding: 20px; }
+  .edu-card .ec-icon { font-size: 28px; margin-bottom: 10px; display: block; }
+  .edu-card h4 { font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 600; color: white; margin-bottom: 8px; line-height: 1.3; }
+  .edu-card p { font-size: 13px; color: rgba(255,255,255,0.7); line-height: 1.55; }
+  .edu-card .ec-action { display: inline-block; margin-top: 12px; font-family: 'DM Sans', sans-serif; font-size: 11px; font-weight: 600; color: var(--gold); letter-spacing: 0.5px; border-bottom: 1px solid var(--gold); padding-bottom: 1px; }
+  .myth-section-title { font-family: 'DM Sans', sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; color: var(--gold); margin-bottom: 16px; }
+  .myth-table { width: 100%; border-collapse: collapse; margin-bottom: 28px; font-size: 14px; }
+  .myth-table thead tr { background: rgba(255,255,255,0.1); }
+  .myth-table th { font-family: 'DM Sans', sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; padding: 12px 16px; text-align: left; color: var(--gold); }
+  .myth-table td { padding: 12px 16px; border-bottom: 1px solid rgba(255,255,255,0.08); vertical-align: top; line-height: 1.5; color: rgba(255,255,255,0.85); }
+  .myth-table tr:nth-child(even) td { background: rgba(255,255,255,0.03); }
+  .myth-table .myth { color: #ff9999; }
+  .myth-table .reality { color: #8fda8f; }
+  .steps-title { font-family: 'DM Sans', sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; color: var(--gold); margin-bottom: 16px; }
+  .steps { display: flex; flex-direction: column; gap: 0; }
+  .step { display: flex; gap: 16px; padding: 16px 0; border-bottom: 1px solid rgba(255,255,255,0.08); align-items: flex-start; }
+  .step:last-child { border-bottom: none; }
+  .step-num { background: var(--gold); color: var(--ink); width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: 'Playfair Display', serif; font-size: 16px; font-weight: 900; flex-shrink: 0; }
+  .step-content h4 { font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 600; color: white; margin-bottom: 4px; }
+  .step-content p { font-size: 13px; color: rgba(255,255,255,0.7); line-height: 1.5; }
+
+  /* PRODUCTS */
+  .products-header { background: var(--safe-green); color: white; padding: 32px 28px; }
+  .products-header .ph-tag { font-family: 'DM Sans', sans-serif; font-size: 10px; font-weight: 600; letter-spacing: 4px; text-transform: uppercase; color: rgba(255,255,255,0.6); margin-bottom: 10px; }
+  .products-header h2 { font-family: 'Playfair Display', serif; font-size: clamp(24px, 4vw, 38px); font-weight: 700; line-height: 1.15; margin-bottom: 12px; }
+  .products-header p { font-size: 15px; color: rgba(255,255,255,0.75); max-width: 580px; line-height: 1.6; }
+  .law-box { background: #fff8e6; border: 1px solid var(--gold); padding: 20px 24px; margin: 24px 0 32px; }
+  .law-box h4 { font-family: 'DM Sans', sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: #a07020; margin-bottom: 8px; }
+  .law-box p { font-size: 14px; color: var(--ink); line-height: 1.6; }
+  .law-box strong { color: var(--safe-green); }
+  .cat-label { font-family: 'DM Sans', sans-serif; font-size: 10px; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; color: white; background: var(--safe-green); display: inline-block; padding: 4px 12px; margin-bottom: 20px; margin-top: 36px; }
+  .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 16px; margin-bottom: 8px; }
+  .product-card { background: white; border: 1px solid var(--rule); border-top: 3px solid var(--safe-green); padding: 20px; transition: transform 0.2s, box-shadow 0.2s; position: relative; }
+  .product-card:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(0,0,0,0.1); }
+  .product-card .badge { position: absolute; top: -10px; right: 10px; padding: 3px 8px; font-family: 'DM Sans', sans-serif; font-size: 9px; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; border-radius: 2px; }
+  .badge-bs { background: #e8700a; color: white; }
+  .badge-ac { background: #0a5c8a; color: white; }
+  .badge-eco { background: var(--gold-light); color: #7a5500; border: 1px solid var(--gold); }
+  .product-card .product-icon { font-size: 32px; margin-bottom: 10px; }
+  .product-card h4 { font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 600; color: var(--ink); margin-bottom: 6px; line-height: 1.3; padding-right: 44px; }
+  .product-card .product-why { font-size: 13px; color: var(--muted); line-height: 1.55; margin-bottom: 14px; }
+  .product-meta { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 6px; padding-top: 12px; border-top: 1px solid var(--paper-dark); }
+  .product-price { font-family: 'DM Sans', sans-serif; font-size: 15px; font-weight: 600; color: var(--ink); }
+  .product-rating { font-family: 'DM Sans', sans-serif; font-size: 11px; color: var(--muted); }
+  .product-rating .stars { color: var(--gold); }
+  .amazon-link { display: block; margin-top: 12px; background: #FF9900; color: var(--ink); text-align: center; padding: 9px 14px; font-family: 'DM Sans', sans-serif; font-size: 12px; font-weight: 600; text-decoration: none; letter-spacing: 0.5px; transition: background 0.2s; }
+  .amazon-link:hover { background: #e88800; }
+  .amazon-link::before { content: '\1F6D2 '; }
+  .priority-tag { display: inline-block; background: var(--red); color: white; font-family: 'DM Sans', sans-serif; font-size: 9px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; padding: 2px 7px; margin-bottom: 8px; }
+  .hazard-explainer { background: #fff3cd; border: 1px solid #e8a020; border-left: 5px solid #e8a020; padding: 20px 24px; margin: 0 0 24px; }
+  .hazard-explainer h4 { font-family: 'DM Sans', sans-serif; font-size: 12px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #7a4500; margin-bottom: 10px; }
+  .hazard-explainer p { font-size: 14px; color: var(--ink); line-height: 1.65; margin-bottom: 8px; }
+  .hazard-explainer p:last-child { margin-bottom: 0; }
+  .hazard-explainer strong { color: #b85000; }
+  .checklist-wrap { background: var(--ink); color: var(--paper); padding: 32px 28px; margin-top: 40px; }
+  .checklist-wrap h3 { font-family: 'Playfair Display', serif; font-size: 24px; font-weight: 700; color: var(--gold); margin-bottom: 8px; }
+  .checklist-wrap .cw-sub { font-family: 'DM Sans', sans-serif; font-size: 13px; color: rgba(245,240,232,0.6); margin-bottom: 24px; }
+  .checklist { display: flex; flex-direction: column; gap: 10px; }
+  .checklist-item { display: flex; align-items: flex-start; gap: 12px; padding: 12px 14px; background: rgba(255,255,255,0.05); border-left: 3px solid var(--gold); }
+  .checklist-item .ci-icon { font-size: 18px; flex-shrink: 0; margin-top: 1px; }
+  .checklist-item .ci-text { font-family: 'DM Sans', sans-serif; font-size: 13px; line-height: 1.5; color: rgba(245,240,232,0.85); }
+  .checklist-item .ci-text strong { display: block; color: white; font-size: 14px; margin-bottom: 2px; }
+  .footer { background: var(--paper-dark); border-top: 3px double var(--rule); padding: 24px; text-align: center; font-family: 'DM Sans', sans-serif; font-size: 12px; color: var(--muted); line-height: 1.6; }
+  @media (max-width: 580px) {
+    .product-grid, .edu-grid { grid-template-columns: 1fr; }
+    .myth-table { display: block; overflow-x: auto; }
+    .body-copy p:first-child::first-letter { font-size: 52px; }
+  }
+  @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+  .masthead, .alert-banner { animation: fadeInUp 0.5s ease both; }
+  .noticia-header { animation: fadeInUp 0.5s 0.1s ease both; }
+  .body-copy { animation: fadeInUp 0.5s 0.2s ease both; }
+</style>
+</head>
+<body>
+
+<div class="masthead">
+  <div class="masthead-label">Special Report · Florida · Airbnb Safety</div>
+  <h1>Tragedy at<br><span>Airbnb Miami</span></h1>
+  <div class="masthead-sub">Kennedi Ray · 4 Years Old · March 2026</div>
+</div>
+
+<div class="alert-banner">
+  <span class="dot"></span>
+  Alert for Florida Hosts · Pool Safety Law · Action Required
+</div>
+
+<div class="container">
+
+  <div class="noticia-header">
+    <div class="kicker">News · Miami-Dade County</div>
+    <h1 class="headline">Family demands accountability after their <em>4-year-old</em> daughter drowns at a Miami Airbnb</h1>
+    <p class="deck">Kennedi Ray died on March 5, 2026 in a pool with no safety barriers. Her parents are suing Airbnb and demanding enforcement of Florida's Residential Pool Safety Law.</p>
+    <div class="byline">
+      <span>Sources: <strong>NBC6 Miami · New York Post</strong></span>
+      <span>Published: <strong>March 24–25, 2026</strong></span>
+    </div>
+  </div>
+
+  <div class="body-copy">
+    <p>On March 5, 2026, Kennedi Ray, a 4-year-old girl diagnosed with autism, was found at the bottom of the pool at a property rented through Airbnb on the 20200 block of Northeast 15th Avenue, in northeast Miami-Dade County. The family, originally from Atlanta, Georgia, was staying at the property when the tragedy occurred. Her parents were asleep when the little girl went out to the backyard on her own and fell into the pool. No alarm sounded. There were no barriers. No safety device stopped her.</p>
+
+    <div class="pull-quote">
+      <p>"I lost my daughter. I lost my 4-year-old baby girl. She only had four years here. We loved her so much. We miss her so much. I'm never going to hear my daughter laugh again. I just want to hold her."</p>
+      <cite>— Adenah Francis, Kennedi Ray's mother</cite>
+    </div>
+
+    <p>On Tuesday, March 24, the family held an emotional press conference at the very location where the tragedy occurred. Attorney Adam Finkel of Haggard Law Firm was emphatic in pointing out the complete absence of mandatory safety measures at the property.</p>
+
+    <div class="facts-box">
+      <h3>⚖️ What Was Allegedly Missing from the Property</h3>
+      <ul>
+        <li>No safety barrier or perimeter fence around the pool</li>
+        <li>No alarm on the backyard access door (sliding door)</li>
+        <li>No safety cover for the pool</li>
+        <li>No door lock on the pool area access</li>
+        <li>The property was listed as "family-friendly" on Airbnb</li>
+      </ul>
+    </div>
+
+    <p>Attorney Finkel stated that the property violated the Miami-Dade County vacation rental ordinance. "A child had access to the backyard. No alarm went off, there were no barriers, and we lost Kennedi. How can a house be advertised as family-friendly when it has a pool and none of the safety measures are in effect?" The family plans to file a formal lawsuit against Airbnb and demands that the property be removed from all rental platforms.</p>
+
+    <div class="statement-box">
+      <h4>📣 Official Statement from Airbnb</h4>
+      <p>"The loss of a child is a tragedy and our hearts go out to the Ray family. Airbnb has supported recent bipartisan efforts in the Florida state legislature to strengthen safety standards across all homes with pools. We also continue to work with partners on education campaigns and initiatives to promote water safety, including discounted pool fences for hosts and in-app safety tips for guests booking near water."</p>
+    </div>
+
+    <p>This case adds to a documented trend in Florida: short-term rental properties with pools pose a disproportionate risk when the legally required safety measures are not implemented. Florida's Residential Swimming Pool Safety Act (Florida Statute 515.23) was created to prevent this type of tragedy, requiring barriers, fences, and self-closing gates. However, enforcement at vacation rental properties remains inconsistent.</p>
+  </div>
+
+  <div class="section-divider"><span>Educational Guide for Hosts</span></div>
+
+</div>
+
+<!-- EDUCATIONAL SECTION -->
+<div class="edu-section">
+  <div class="edu-inner">
+
+    <span class="edu-tag">📚 Education · Prevention</span>
+    <h2>What Every Host Needs to Know Before It's Too Late</h2>
+    <p>Many hosts are unaware of local laws, trust that "it will never happen," or believe Airbnb automatically protects them. This section is here to change that.</p>
+
+    <div class="reality-check">
+      <h4>🔔 The Reality Nobody Told You When You Created Your Listing</h4>
+      <p>Airbnb allows you to publish a property with a pool and mark it as "family-friendly" <strong style="color:white;">without verifying</strong> whether it complies with your state or county safety laws. Legal liability falls <strong style="color:white;">entirely on the host</strong>. If a guest is injured or dies on your property due to lack of safety measures, you could face a multimillion-dollar civil lawsuit, negligence charges, and permanent loss of your listing — regardless of what Airbnb's policy says.</p>
+    </div>
+
+    <div class="edu-grid">
+      <div class="edu-card">
+        <span class="ec-icon">⚖️</span>
+        <h4>Florida Law Is Not Optional</h4>
+        <p>The Florida Residential Swimming Pool Safety Act (F.S. 515.23) requires physical barriers on every residential pool. For short-term rentals in Miami-Dade, there are additional active ordinances. "I didn't know" is not a legal defense.</p>
+        <span class="ec-action">F.S. 515.23 — Enforceable today</span>
+      </div>
+      <div class="edu-card">
+        <span class="ec-icon">🛡️</span>
+        <h4>AirCover Has Limits</h4>
+        <p>AirCover covers property damage. In the event of a death due to host negligence — lack of legally required barriers — coverage may be limited or denied. You need additional liability insurance for short-term rentals.</p>
+        <span class="ec-action">Verify your policy today</span>
+      </div>
+      <div class="edu-card">
+        <span class="ec-icon">👶</span>
+        <h4>Children with Autism and Water</h4>
+        <p>Children with autism frequently have a special attraction to water. If your property is advertised for families, you must assume that there will be children — with or without special conditions — who need maximum active protection.</p>
+        <span class="ec-action">Don't assume, protect</span>
+      </div>
+      <div class="edu-card">
+        <span class="ec-icon">💸</span>
+        <h4>The Cost of Inaction</h4>
+        <p>A door alarm: ~$20. A floating pool alarm: check Amazon. A negligence lawsuit: potentially millions. Safety investment is the most profitable one you'll make as a host in Florida.</p>
+        <span class="ec-action">ROI = your assets</span>
+      </div>
+      <div class="edu-card">
+        <span class="ec-icon">📋</span>
+        <h4>Review Your Listing Right Now</h4>
+        <p>Does it say "family-friendly"? Do you have a pool? Then you have an active legal obligation. Update your listing, add safety notices, and document with photos and dates every safety measure installed.</p>
+        <span class="ec-action">Act today</span>
+      </div>
+      <div class="edu-card">
+        <span class="ec-icon">🤝</span>
+        <h4>Safety Improves Your Reviews</h4>
+        <p>Hosts with active safety protocols in their guest manual receive better reviews. Guests value knowing the host cares about their well-being. Safety is also your best marketing.</p>
+        <span class="ec-action">More stars, less risk</span>
+      </div>
+    </div>
+
+    <div class="myth-section-title">❌ Myths vs. ✅ Reality — What They Say in the WhatsApp Group</div>
+    <table class="myth-table">
+      <thead>
+        <tr>
+          <th>❌ The Myth</th>
+          <th>✅ The Reality</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="myth">"Airbnb covers me if something happens"</td>
+          <td class="reality">AirCover covers property damage. In cases of negligence due to lack of legally required barriers, coverage may be limited or denied. You need separate liability insurance.</td>
+        </tr>
+        <tr>
+          <td class="myth">"If the parents were in charge, it's not my fault"</td>
+          <td class="reality">In Florida, the host has an independent responsibility to install the measures required by law. Both parties can be sued simultaneously.</td>
+        </tr>
+        <tr>
+          <td class="myth">"Nobody inspects Airbnb properties"</td>
+          <td class="reality">After an incident, they do inspect. Miami-Dade has active ordinances. A complaint can trigger an inspection at any time — even from a neighbor.</td>
+        </tr>
+        <tr>
+          <td class="myth">"A fence is enough"</td>
+          <td class="reality">The law requires layered barriers. A fence without a self-closing gate, without alarms on access doors, and without a pool alarm may not comply with the current code.</td>
+        </tr>
+        <tr>
+          <td class="myth">"This only happens at large properties"</td>
+          <td class="reality">The Kennedi Ray case occurred in a standard residential pool. The risk doesn't depend on size — it depends on the absence of protection.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="steps-title">🚀 Action Plan: What You Should Do This Week</div>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-content">
+          <h4>Audit your property today</h4>
+          <p>Ask yourself: "Can a 4-year-old access the pool without anyone noticing?" If the answer is yes, you have an active legal problem that must be resolved before your next booking.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-content">
+          <h4>Install certified pool alarms</h4>
+          <p>Alarm on every door accessing the patio (magnetic door and window alarm or PoolGuard) + floating pool alarm (Pool Alarm 110 dB). These are the two certifications recognized by Florida Law.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-content">
+          <h4>Photograph every safety measure installed</h4>
+          <p>Date + photo of each device. Save them in Google Drive or Dropbox. They are your documentation in the event of a lawsuit, inspection, or dispute with Airbnb or your insurer.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <div class="step-content">
+          <h4>Update your guest manual</h4>
+          <p>Add a "Pool Safety" section with clear rules, the emergency number (911), instructions on installed devices, and require guest acknowledgment before check-in.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">5</div>
+        <div class="step-content">
+          <h4>Consult with an attorney or your insurer</h4>
+          <p>A Florida attorney can confirm that your property complies with the Miami-Dade ordinance. Your insurer can tell you if you need an additional rider for short-term rentals with a pool.</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- PRODUCTS SECTION -->
+<div class="products-header">
+  <div class="ph-tag">🛡️ Verified Products · Amazon Best Sellers · Florida</div>
+  <h2>Products to Protect Your Property<br>and Comply with Florida Law</h2>
+  <p>Curated list of the best products available on Amazon — verified as Best Seller or Amazon's Choice — to prevent tragedies like Kennedi Ray's and comply with the Pool Safety Law.</p>
+</div>
+
+<div class="container">
+
+  <div class="law-box">
+    <h4>📋 Florida Residential Swimming Pool Safety Act — Key Requirements (F.S. 515.23)</h4>
+    <p>The law requires that pools have <strong>at least one</strong> of these barriers: perimeter fence with self-closing gate, approved cover, <strong>ASTM F2208</strong> certified pool alarm, or UL 2017 alarm on all access doors. For vacation rental properties in Miami-Dade, <strong>all applicable measures are mandatory</strong>.</p>
+  </div>
+
+  <!-- CATEGORY 1: POOL ALARMS -->
+  <div class="cat-label">🏊 Category 1 — Pool Alarms (PRIORITY #1 in Florida)</div>
+
+  <div class="hazard-explainer">
+    <h4>⚠️ Why Are These the Top Priority?</h4>
+    <p>The door alarm is the <strong>last line of defense</strong>: if a child goes out to the patio alone, it sounds in 7 seconds — before they reach the water. The floating alarm is the <strong>second layer</strong>: if the child reaches the water, it detects movement instantly. In Kennedi Ray's case, neither existed. Together they cost less than $350 and are the difference between a tragedy and a timely intervention.</p>
+  </div>
+
+  <div class="product-grid">
+
+    <div class="product-card">
+      <span class="badge badge-ac">Amazon's Choice</span>
+      <div class="priority-tag">🚨 Door & Window Security</div>
+      <div class="product-icon">🚪</div>
+      <h4>Door & Window Alarm — Magnetic Security Sensor</h4>
+      <p class="product-why">Amazon's Choice for door and window alarms. High-sensitivity magnetic sensor with 120 dB alarm. Ideal for sliding doors, gates, and windows accessing the patio and pool area. Easy tool-free installation. Perfect for covering multiple access points at vacation rental properties.</p>
+      <div class="product-meta">
+        <div class="product-price">Check price</div>
+        <div class="product-rating"><span class="stars">★★★★</span> Check reviews on Amazon</div>
+      </div>
+      <a class="amazon-link" href="https://www.amazon.com/Window-Security-Magnetic-Sensor-Business/dp/B07GY9YXL2?tag=jomendez-20" target="_blank" rel="noopener">View on Amazon · Door & Window Alarm</a>
+    </div>
+
+    <div class="product-card">
+      <span class="badge badge-ac">Amazon's Choice</span>
+      <div class="priority-tag">🔒 Industrial Reference UL 2017</div>
+      <div class="product-icon">🚨</div>
+      <h4>PoolGuard DAPT-2 — Pool Door Alarm</h4>
+      <p class="product-why">The only door alarm specifically listed under UL 2017 for water hazard zones. Sounds in 7 seconds even if the child closes the door. Adult bypass function to prevent false alarms. Reference standard for Florida inspectors.</p>
+      <div class="product-meta">
+        <div class="product-price">~$54–$63</div>
+        <div class="product-rating"><span class="stars">★★★★</span> 4.0 · 547 reviews</div>
+      </div>
+      <a class="amazon-link" href="https://www.amazon.com/dp/B001JFKER4?tag=jomendez-20" target="_blank" rel="noopener">View on Amazon · ASIN B001JFKER4</a>
+    </div>
+
+    <div class="product-card">
+      <span class="badge badge-bs">Best Seller</span>
+      <div class="priority-tag">🏅 Floating Pool Alarm</div>
+      <div class="product-icon">🌊</div>
+      <h4>Pool Alarm — Floating Pool Alarm (Hot Red)</h4>
+      <p class="product-why">Best Seller in floating pool alarms on Amazon. 110 dB alert. Adjustable sensitivity. For in-ground and above-ground pools. Essential protection for children and pets. Second layer of defense alongside the door alarm — detects movement in the water instantly.</p>
+      <div class="product-meta">
+        <div class="product-price">Check price</div>
+        <div class="product-rating"><span class="stars">★★★★</span> Check reviews on Amazon</div>
+      </div>
+      <a class="amazon-link" href="https://www.amazon.com/dp/B0FK9Q1H7X?tag=jomendez-20" target="_blank" rel="noopener">View on Amazon · Floating Pool Alarm</a>
+    </div>
+
+  </div>
+
+  <!-- CATEGORY 2: SMART LOCKS -->
+  <div class="cat-label">🔐 Category 2 — Smart Locks for Access Control</div>
+  <div class="product-grid">
+
+    <div class="product-card">
+      <span class="badge badge-bs">Best Seller</span>
+      <div class="product-icon">🔒</div>
+      <h4>Schlage Encode Smart Wi-Fi Deadbolt</h4>
+      <p class="product-why">The best seller for Airbnb on Amazon. Native Airbnb compatibility. Built-in Wi-Fi with no hub required. Up to 100 unique codes per booking. BHMA Grade AAA rating (highest security). Lifetime mechanical warranty + 3 years electronic. Integrates with Ring and Alexa.</p>
+      <div class="product-meta">
+        <div class="product-price">~$175–$225</div>
+        <div class="product-rating"><span class="stars">★★★★</span> 4.2 · 16,208 reviews</div>
+      </div>
+      <a class="amazon-link" href="https://www.amazon.com/dp/B07HXMLCBT?tag=jomendez-20" target="_blank" rel="noopener">View on Amazon · ASIN B07HXMLCBT</a>
+    </div>
+
+    <div class="product-card">
+      <span class="badge badge-ac">Amazon's Choice</span>
+      <div class="product-icon">🔑</div>
+      <h4>Yale Assure Lock 2 Deadbolt — Black Suede (YRD450-ZW2-BSP)</h4>
+      <p class="product-why">Yale Assure Lock 2 with touchscreen and Z-Wave connectivity. Keyless smart deadbolt with keypad for code entry. Direct Airbnb integration to automatically create and expire codes per booking. Black Suede finish. Verified Superhost favorite.</p>
+      <div class="product-meta">
+        <div class="product-price">Check price</div>
+        <div class="product-rating"><span class="stars">★★★★</span> Check reviews on Amazon</div>
+      </div>
+      <a class="amazon-link" href="https://www.amazon.com/Yale-Deadbolt-Touchscreen-Compatibility-%E2%80%8EYRD450-ZW2-BSP/dp/B0BMSVX3Z2?tag=jomendez-20" target="_blank" rel="noopener">View on Amazon · Yale Assure Lock 2 YRD450-ZW2-BSP</a>
+    </div>
+
+    <div class="product-card">
+      <span class="badge badge-eco">Budget Option</span>
+      <div class="product-icon">🗝️</div>
+      <h4>eufy Security Smart Lock C210</h4>
+      <p class="product-why">The most affordable option with built-in Wi-Fi and no hub, app control, and a solid review base. Ideal for hosts who need reliable access control without a high investment. 15-minute installation.</p>
+      <div class="product-meta">
+        <div class="product-price">~$80–$90</div>
+        <div class="product-rating"><span class="stars">★★★★</span> 4.2 · 3,791 reviews</div>
+      </div>
+      <a class="amazon-link" href="https://www.amazon.com/dp/B0BCV3NBKY?tag=jomendez-20" target="_blank" rel="noopener">View on Amazon · ASIN B0BCV3NBKY</a>
+    </div>
+
+  </div>
+
+  <!-- CATEGORY 3: OUTDOOR MONITORING -->
+  <div class="cat-label">📹 Category 3 — Outdoor Monitoring (No Indoor Cameras)</div>
+  <div class="product-grid">
+
+    <div class="product-card">
+      <span class="badge badge-bs">Best Seller</span>
+      <div class="product-icon">🔔</div>
+      <h4>Ring Battery Doorbell (latest)</h4>
+      <p class="product-why">Best Seller with 45,000+ reviews. 1440p full-body video. USB-C charging. Detects who enters and how many people arrive — key to identifying unauthorized occupancy before it escalates. Integrates with Ring ecosystem and Schlage locks.</p>
+      <div class="product-meta">
+        <div class="product-price">~$99.99</div>
+        <div class="product-rating"><span class="stars">★★★★★</span> 4.6 · 45,715 reviews</div>
+      </div>
+      <a class="amazon-link" href="https://www.amazon.com/dp/B0BZWRSRWV?tag=jomendez-20" target="_blank" rel="noopener">View on Amazon · ASIN B0BZWRSRWV</a>
+    </div>
+
+    <div class="product-card">
+      <span class="badge badge-bs">Best Seller</span>
+      <div class="product-icon">💡</div>
+      <h4>Ring Floodlight Cam Wired Plus</h4>
+      <p class="product-why">4.7 stars with 42,000+ reviews. Camera + 2000 lumens + 105 dB siren. For backyards and dark access points — where most nighttime incidents occur. Active deterrence: the light and siren stop intruders before they act.</p>
+      <div class="product-meta">
+        <div class="product-price">~$120–$180</div>
+        <div class="product-rating"><span class="stars">★★★★★</span> 4.7 · 42,769 reviews</div>
+      </div>
+      <a class="amazon-link" href="https://www.amazon.com/dp/B08F6GPQQ7?tag=jomendez-20" target="_blank" rel="noopener">View on Amazon · ASIN B08F6GPQQ7</a>
+    </div>
+
+    <div class="product-card">
+      <span class="badge badge-eco">Budget Option</span>
+      <div class="product-icon">📷</div>
+      <h4>Blink Outdoor 4 (4th gen., 2023)</h4>
+      <p class="product-why">Wireless with battery lasting up to 2 years. 24,000+ reviews. Ideal for covering secondary entrances and patio access doors without wiring. 1080p with infrared night vision.</p>
+      <div class="product-meta">
+        <div class="product-price">~$43.99</div>
+        <div class="product-rating"><span class="stars">★★★★</span> 4.2 · 24,826 reviews</div>
+      </div>
+      <a class="amazon-link" href="https://www.amazon.com/dp/B0DHLSZXQD?tag=jomendez-20" target="_blank" rel="noopener">View on Amazon · ASIN B0DHLSZXQD</a>
+    </div>
+
+  </div>
+
+  <!-- CATEGORY 4: EARLY DETECTION -->
+  <div class="cat-label">🔍 Category 4 — Early Detection: Noise, Occupancy and Water Leaks</div>
+
+  <div class="hazard-explainer">
+    <h4>💡 How Do These Sensors Prevent Incidents?</h4>
+    <p>These devices don't replace pool alarms — they are a <strong>proactive management layer</strong> that detects warning signs before damage occurs.</p>
+    <p>The <strong>Minut noise sensor</strong> alerts you when there are more people than normal at your property at 2am — before the neighbors call the police, before there's damage, before the Airbnb fine arrives. With that alert, you have time to contact the guests or send someone locally.</p>
+    <p>The <strong>Govee leak sensor</strong> alerts you when there's water on the floor under the washer or water heater — before the damage reaches $5,000 or more. An undetected leak during 3 days of occupancy can be the difference between a plumber call and a complete floor renovation.</p>
+  </div>
+
+  <div class="product-grid">
+
+    <div class="product-card">
+      <span class="badge badge-ac">Amazon's Choice</span>
+      <div class="product-icon">🔊</div>
+      <h4>Minut — Noise and Occupancy Sensor (No Camera)</h4>
+      <p class="product-why">Amazon's Choice for vacation rental monitoring. No camera or audio recording — complies with Airbnb's policy and privacy laws. Detects noise levels, number of people, temperature, and humidity. Real-time alerts to the host to intervene before any situation escalates.</p>
+      <div class="product-meta">
+        <div class="product-price">Check price</div>
+        <div class="product-rating"><span class="stars">★★★</span> 3.2 · 202 reviews</div>
+      </div>
+      <a class="amazon-link" href="https://www.amazon.com/dp/B07D388KVH?tag=jomendez-20" target="_blank" rel="noopener">View on Amazon · ASIN B07D388KVH</a>
+    </div>
+
+    <div class="product-card">
+      <span class="badge badge-bs">Best Seller</span>
+      <div class="product-icon">💧</div>
+      <h4>Govee WiFi Water Leak Detector (3-pack)</h4>
+      <p class="product-why">Best Seller in leak detectors with 14,972 reviews. 3 sensors + WiFi gateway, scales up to 20 sensors. Immediate alerts via app and email. Place them under sinks, water heater, and HVAC drip pan. Prevents thousands of dollars in damage between bookings.</p>
+      <div class="product-meta">
+        <div class="product-price">~$31</div>
+        <div class="product-rating"><span class="stars">★★★★</span> 4.2 · 14,972 reviews</div>
+      </div>
+      <a class="amazon-link" href="https://www.amazon.com/dp/B07J9HZ5VN?tag=jomendez-20" target="_blank" rel="noopener">View on Amazon · ASIN B07J9HZ5VN</a>
+    </div>
+
+  </div>
+
+  <!-- CATEGORY 5: EMERGENCIES -->
+  <div class="cat-label">🚒 Category 5 — Emergency Preparedness</div>
+  <div class="product-grid">
+
+    <div class="product-card">
+      <span class="badge badge-bs">Best Seller</span>
+      <div class="priority-tag">⭐ Required by Airbnb</div>
+      <div class="product-icon">🔥</div>
+      <h4>Kidde Smoke Detector — 10-Year Battery, 3-Pack</h4>
+      <p class="product-why">Kidde smoke detector with 10-year battery — no annual replacements. LED status indicators. 85 dB alarm. Compact 5-inch size. 3-pack for full property coverage. Quick and easy installation.</p>
+      <div class="product-meta">
+        <div class="product-price">Check price</div>
+        <div class="product-rating"><span class="stars">★★★★</span> Check reviews on Amazon</div>
+      </div>
+      <a class="amazon-link" href="https://www.amazon.com/Kidde-Detector-10-Year-Battery-Indicators/dp/B0FFVHYNL6?tag=jomendez-20" target="_blank" rel="noopener">View on Amazon · Kidde Smoke Detector 3-Pack</a>
+    </div>
+
+    <div class="product-card">
+      <span class="badge badge-bs">Best Seller</span>
+      <div class="product-icon">🧯</div>
+      <h4>Kidde FA110G — Multipurpose Fire Extinguisher 1A10BC</h4>
+      <p class="product-why">Best Seller in fire extinguishers with 28,785 reviews. 1A10BC rating (Type A, B, and C fires). Compact ~3.9 lb. Mountable in kitchen, garage, or laundry room. A visible fire extinguisher can prevent a small fire from becoming a total loss.</p>
+      <div class="product-meta">
+        <div class="product-price">~$25–$35</div>
+        <div class="product-rating"><span class="stars">★★★★★</span> 4.7 · 28,785 reviews</div>
+      </div>
+      <a class="amazon-link" href="https://www.amazon.com/dp/B00002ND64?tag=jomendez-20" target="_blank" rel="noopener">View on Amazon · ASIN B00002ND64</a>
+    </div>
+
+    <div class="product-card">
+      <span class="badge badge-ac">Amazon's Choice</span>
+      <div class="product-icon">🪧</div>
+      <h4>"No Lifeguard On Duty" Sign — Sigo Signs</h4>
+      <p class="product-why">Amazon's Choice for pool signage. Rust-resistant aluminum, fade-proof printing, pre-drilled holes. Legally recommended for properties with pools in Florida. The cheapest investment ($12.99) you can make to document your responsibility.</p>
+      <div class="product-meta">
+        <div class="product-price">~$12.99</div>
+        <div class="product-rating"><span class="stars">★★★★★</span> 4.9 · 352 reviews</div>
+      </div>
+      <a class="amazon-link" href="https://www.amazon.com/dp/B07KBB8CPN?tag=jomendez-20" target="_blank" rel="noopener">View on Amazon · ASIN B07KBB8CPN</a>
+    </div>
+
+  </div>
+
+  <!-- FINAL CHECKLIST -->
+  <div class="checklist-wrap">
+    <h3>✅ Final Checklist for Florida Hosts</h3>
+    <p class="cw-sub">If you have a property with a pool in Florida, these are the minimum compliance and prevention steps — in order of priority:</p>
+    <div class="checklist">
+      <div class="checklist-item">
+        <div class="ci-icon">🚨</div>
+        <div class="ci-text"><strong>Door & Window Alarm — Magnetic Sensor or PoolGuard DAPT-2</strong>Install on EVERY door accessing the patio with a pool. The first active barrier that can save a life.</div>
+      </div>
+      <div class="checklist-item">
+        <div class="ci-icon">🌊</div>
+        <div class="ci-text"><strong>Floating Pool Alarm — Pool Alarm 110 dB</strong>Second layer: detects movement in the water and alerts with a 110 dB alarm. Adjustable sensitivity for in-ground and above-ground pools.</div>
+      </div>
+      <div class="checklist-item">
+        <div class="ci-icon">🔒</div>
+        <div class="ci-text"><strong>Smart Lock — Schlage Encode or Yale Assure 2</strong>Unique code per booking, automatically deleted at checkout. Prevents unauthorized re-entry and eliminates the need to change keys.</div>
+      </div>
+      <div class="checklist-item">
+        <div class="ci-icon">💡</div>
+        <div class="ci-text"><strong>Outdoor Backyard Camera — Ring Floodlight Cam</strong>Monitors access to the pool area. Never install indoor cameras — it violates Airbnb's policy.</div>
+      </div>
+      <div class="checklist-item">
+        <div class="ci-icon">🔊</div>
+        <div class="ci-text"><strong>Noise/Occupancy Sensor — Minut</strong>Alerts when there are too many people or excessive noise — before it escalates to damage, neighbor complaints, or police calls.</div>
+      </div>
+      <div class="checklist-item">
+        <div class="ci-icon">💧</div>
+        <div class="ci-text"><strong>Water Leak Sensors — Govee 3-pack</strong>Under sinks, water heater, and HVAC. Detects leaks between bookings before they cause thousands of dollars in damage.</div>
+      </div>
+      <div class="checklist-item">
+        <div class="ci-icon">🔥</div>
+        <div class="ci-text"><strong>Smoke Detectors — Kidde 3-pack 10-year battery</strong>Full coverage with long-lasting battery. LED status indicators. Document installation for your insurance and Airbnb compliance.</div>
+      </div>
+      <div class="checklist-item">
+        <div class="ci-icon">🪧</div>
+        <div class="ci-text"><strong>Pool Signage — Sigo Signs "No Lifeguard On Duty"</strong>Install at the pool area entrance and by the back door. Complement with pool rules in your guest manual.</div>
+      </div>
+      <div class="checklist-item">
+        <div class="ci-icon">📋</div>
+        <div class="ci-text"><strong>Disclose ALL devices in your Airbnb listing</strong>Required by Airbnb. Outdoor cameras, smart locks, and sensors must be described in the house rules before booking.</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="footer">
+  <p><strong>Sources:</strong> NBC6 Miami · New York Post · Haggard Law Firm · Airbnb Newsroom · Amazon Best Sellers · Florida Statute 515.23</p>
+  <p style="margin-top:8px;">Prepared for Airbnb hosts in Florida · Information for educational purposes only. Consult with a local attorney for specific legal advice on Miami-Dade ordinance compliance.</p>
+  <p style="margin-top:8px; color:#999;">Amazon prices are subject to change. Best Seller and Amazon's Choice classifications are dynamic and were verified at the time of publication.</p>
+</div>
+
+</body>
+</html>
