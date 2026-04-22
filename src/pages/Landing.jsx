@@ -346,7 +346,9 @@ const Landing = () => {
             <a href="#about">About</a>
             <a href="#faq">FAQ</a>
             <a href="#apply" className="nav-cta" style={{ color: 'rgb(255, 255, 255)' }}>
-              <span className="pill"></span>Apply to Work With Us
+              <span className="pill"></span>
+              <span className="nav-cta-label nav-cta-label--full">Apply to Work With Us</span>
+              <span className="nav-cta-label nav-cta-label--short">Apply</span>
             </a>
           </div>
         </div>
