@@ -27,3 +27,6 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Design handoff archives (keep out of repo)
+jomendez-handoff.tar.gz

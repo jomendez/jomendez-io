@@ -9,7 +9,7 @@ const Home = () => {
       icon: '🤖',
       color: 'linear-gradient(135deg, #8B5CF6 0%, #3B82F6 100%)',
       tags: ['IA', 'Interactivo', 'LLM', 'Generativa'],
-      path: '/ai-panorama'
+      path: '/presentify/ai-panorama'
     },
     {
       id: 'prompts-101',
@@ -18,7 +18,7 @@ const Home = () => {
       icon: '✍️',
       color: 'linear-gradient(135deg, #EC4899 0%, #8B5CF6 100%)',
       tags: ['Prompts', 'Educativo', 'Práctico', 'Guía'],
-      path: '/prompts-101'
+      path: '/presentify/prompts-101'
     },
     {
       id: 'custom-instructions',
@@ -27,7 +27,7 @@ const Home = () => {
       icon: '🧠',
       color: 'linear-gradient(135deg, #10B981 0%, #3B82F6 100%)',
       tags: ['GPTs', 'Projects', 'Productividad', 'Negocio'],
-      path: '/custom-instructions'
+      path: '/presentify/custom-instructions'
     }
   ];
 

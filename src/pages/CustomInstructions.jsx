@@ -609,7 +609,7 @@ ${problemasPrincipales}
       
       {/* Back to Home Button */}
       <button
-        onClick={() => navigate('/')}
+        onClick={() => navigate('/presentify')}
         style={{
           position: 'fixed',
           top: '24px',
