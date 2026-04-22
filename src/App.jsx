@@ -1,35 +1,48 @@
+import { lazy, Suspense } from 'react'
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom'
 import Landing from './pages/Landing'
-import Home from './pages/Home'
-import AIPanorama from './pages/AIPanorama'
-import Prompts101 from './pages/Prompts101'
-import PromptAlchemyPage from './pages/PromptAlchemyPage'
-import CustomInstructions from './pages/CustomInstructions'
-import STRHostAssistantPrivacyPolicy from './pages/STRHostAssistantPrivacyPolicy'
+
+// The landing page is the LCP-critical root route, so it ships in the
+// initial bundle. Everything else is split off into its own chunk and
+// fetched on demand — keeps the first paint on `/` fast.
+const Home = lazy(() => import('./pages/Home'))
+const AIPanorama = lazy(() => import('./pages/AIPanorama'))
+const Prompts101 = lazy(() => import('./pages/Prompts101'))
+const PromptAlchemyPage = lazy(() => import('./pages/PromptAlchemyPage'))
+const CustomInstructions = lazy(() => import('./pages/CustomInstructions'))
+const STRHostAssistantPrivacyPolicy = lazy(() =>
+  import('./pages/STRHostAssistantPrivacyPolicy')
+)
+
+// Visually inert fallback — avoids a layout flash while the chunk loads.
+// React will swap it for the real page as soon as the JS arrives.
+const RouteFallback = () => <div style={{ minHeight: '100vh' }} aria-busy="true" />
 
 function App() {
   return (
     <Router>
-      <Routes>
-        {/* New landing page at the root */}
-        <Route path="/" element={<Landing />} />
+      <Suspense fallback={<RouteFallback />}>
+        <Routes>
+          {/* Landing page at the root — eager-loaded for fast LCP */}
+          <Route path="/" element={<Landing />} />
 
-        {/* Presentify now lives under /presentify/* */}
-        <Route path="/presentify" element={<Home />} />
-        <Route path="/presentify/ai-panorama" element={<AIPanorama />} />
-        <Route path="/presentify/prompts-101" element={<Prompts101 />} />
-        <Route path="/presentify/prompt-alchemy" element={<PromptAlchemyPage />} />
-        <Route path="/presentify/custom-instructions" element={<CustomInstructions />} />
+          {/* Presentify routes — lazy-loaded */}
+          <Route path="/presentify" element={<Home />} />
+          <Route path="/presentify/ai-panorama" element={<AIPanorama />} />
+          <Route path="/presentify/prompts-101" element={<Prompts101 />} />
+          <Route path="/presentify/prompt-alchemy" element={<PromptAlchemyPage />} />
+          <Route path="/presentify/custom-instructions" element={<CustomInstructions />} />
 
-        {/* Backwards-compatible redirects from the old flat paths */}
-        <Route path="/ai-panorama" element={<Navigate to="/presentify/ai-panorama" replace />} />
-        <Route path="/prompts-101" element={<Navigate to="/presentify/prompts-101" replace />} />
-        <Route path="/prompt-alchemy" element={<Navigate to="/presentify/prompt-alchemy" replace />} />
-        <Route path="/custom-instructions" element={<Navigate to="/presentify/custom-instructions" replace />} />
+          {/* Backwards-compatible redirects from the old flat paths */}
+          <Route path="/ai-panorama" element={<Navigate to="/presentify/ai-panorama" replace />} />
+          <Route path="/prompts-101" element={<Navigate to="/presentify/prompts-101" replace />} />
+          <Route path="/prompt-alchemy" element={<Navigate to="/presentify/prompt-alchemy" replace />} />
+          <Route path="/custom-instructions" element={<Navigate to="/presentify/custom-instructions" replace />} />
 
-        {/* Unchanged: the standalone privacy policy page */}
-        <Route path="/str-host-assistant/privacy-policy" element={<STRHostAssistantPrivacyPolicy />} />
-      </Routes>
+          {/* Standalone privacy policy — lazy-loaded */}
+          <Route path="/str-host-assistant/privacy-policy" element={<STRHostAssistantPrivacyPolicy />} />
+        </Routes>
+      </Suspense>
     </Router>
   )
 }

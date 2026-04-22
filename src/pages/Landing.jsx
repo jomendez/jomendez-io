@@ -354,12 +354,24 @@ const Landing = () => {
         </div>
       </nav>
 
+      <main id="main">
+
       {/* HERO */}
       <section className="hero blueprint grain" id="hero">
         <div className="wrap" id="hero-inner" ref={heroInnerRef}>
           <div className="hero-grid">
             <div className="hero-portrait">
-              <img src="/landing/images/hero_portrait.png" alt="Founder portrait" />
+              <picture>
+                <source srcSet="/landing/images/hero_portrait.webp" type="image/webp" />
+                <img
+                  src="/landing/images/hero_portrait.png"
+                  alt="Founder portrait"
+                  fetchpriority="high"
+                  decoding="async"
+                  width="1200"
+                  height="1500"
+                />
+              </picture>
               <div className="hero-portrait-meta">
                 <span className="mono micro">JOMENDEZ / INC</span>
                 <h3>Software that runs<br />your business.</h3>
@@ -647,7 +659,15 @@ const Landing = () => {
             <article className="case">
               <div className="case-img">
                 <span className="case-tag">Healthcare</span>
-                <img src="/landing/images/case_clinic.jpg" alt="Clinic operations system" />
+                <picture>
+                  <source srcSet="/landing/images/case_clinic.webp" type="image/webp" />
+                  <img
+                    src="/landing/images/case_clinic.jpg"
+                    alt="Clinic operations system"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </picture>
               </div>
               <div className="case-body">
                 <h3>Clinic Booking System</h3>
@@ -661,7 +681,15 @@ const Landing = () => {
             <article className="case">
               <div className="case-img">
                 <span className="case-tag">Coaching</span>
-                <img src="/landing/images/case_trainer.jpg" alt="Trainer platform" />
+                <picture>
+                  <source srcSet="/landing/images/case_trainer.webp" type="image/webp" />
+                  <img
+                    src="/landing/images/case_trainer.jpg"
+                    alt="Trainer platform"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </picture>
               </div>
               <div className="case-body">
                 <h3>Coaching Platform</h3>
@@ -675,7 +703,15 @@ const Landing = () => {
             <article className="case">
               <div className="case-img">
                 <span className="case-tag">Hospitality</span>
-                <img src="/landing/images/case_airbnb.jpg" alt="Hospitality ai tools" />
+                <picture>
+                  <source srcSet="/landing/images/case_airbnb.webp" type="image/webp" />
+                  <img
+                    src="/landing/images/case_airbnb.jpg"
+                    alt="Hospitality AI tools"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </picture>
               </div>
               <div className="case-body">
                 <h3>Host Automation Kit</h3>
@@ -696,7 +732,17 @@ const Landing = () => {
           <div className="about-grid">
             <div className="about-img">
               <div className="badge mono micro"><span className="pill"></span>Currently taking 2 clients</div>
-              <img src="/landing/images/about_portrait.png" alt="Founder portrait" />
+              <picture>
+                <source srcSet="/landing/images/about_portrait.webp" type="image/webp" />
+                <img
+                  src="/landing/images/about_portrait.png"
+                  alt="Founder portrait"
+                  loading="lazy"
+                  decoding="async"
+                  width="1200"
+                  height="1500"
+                />
+              </picture>
             </div>
             <div className="about-content">
               <span className="micro eyebrow">&mdash; WHO BUILDS IT</span>
@@ -733,7 +779,10 @@ const Landing = () => {
               <div className="mark">&ldquo;</div>
               <blockquote>They came into a mess and left us with real software. Six months in, I'm not in spreadsheets at 10pm anymore, and my team actually trusts the numbers.</blockquote>
               <div className="quote-person">
-                <img src="/landing/images/testimonial_a.jpg" alt="" />
+                <picture>
+                  <source srcSet="/landing/images/testimonial_a.webp" type="image/webp" />
+                  <img src="/landing/images/testimonial_a.jpg" alt="" loading="lazy" decoding="async" />
+                </picture>
                 <div>
                   <div className="name">Eliza R.</div>
                   <div className="role mono">CEO, wellness clinic</div>
@@ -744,7 +793,10 @@ const Landing = () => {
               <div className="mark">&ldquo;</div>
               <blockquote>I'd hired two agencies before Jomendez Inc. Both sold me fancy dashboards. Jose's team gave me my time back. That's the whole difference.</blockquote>
               <div className="quote-person">
-                <img src="/landing/images/testimonial_b.jpg" alt="" />
+                <picture>
+                  <source srcSet="/landing/images/testimonial_b.webp" type="image/webp" />
+                  <img src="/landing/images/testimonial_b.jpg" alt="" loading="lazy" decoding="async" />
+                </picture>
                 <div>
                   <div className="name">Marcus O.</div>
                   <div className="role mono">Owner, coaching studio</div>
@@ -755,7 +807,10 @@ const Landing = () => {
               <div className="mark">&ldquo;</div>
               <blockquote>Senior people, fair price, and they actually explained things in a way I understood. I didn't know this kind of partner existed until I found them.</blockquote>
               <div className="quote-person">
-                <img src="/landing/images/testimonial_c.jpg" alt="" />
+                <picture>
+                  <source srcSet="/landing/images/testimonial_c.webp" type="image/webp" />
+                  <img src="/landing/images/testimonial_c.jpg" alt="" loading="lazy" decoding="async" />
+                </picture>
                 <div>
                   <div className="name">Priya N.</div>
                   <div className="role mono">Owner, short-term rental group</div>
@@ -852,8 +907,8 @@ const Landing = () => {
               </div>
               <div className="field-row">
                 <div className="field">
-                  <label className="mono micro">YEARLY REVENUE</label>
-                  <select required defaultValue="">
+                  <label className="mono micro" htmlFor="apply-revenue">YEARLY REVENUE</label>
+                  <select id="apply-revenue" name="revenue" aria-label="Yearly revenue" required defaultValue="">
                     <option value="" disabled>Select range</option>
                     <option>Under $500k</option>
                     <option>$500k &ndash; $2M</option>
@@ -862,8 +917,8 @@ const Landing = () => {
                   </select>
                 </div>
                 <div className="field">
-                  <label className="mono micro">WHEN YOU'D LIKE TO START</label>
-                  <select required defaultValue="">
+                  <label className="mono micro" htmlFor="apply-timeline">WHEN YOU'D LIKE TO START</label>
+                  <select id="apply-timeline" name="timeline" aria-label="When you would like to start" required defaultValue="">
                     <option value="" disabled>Select</option>
                     <option>This quarter</option>
                     <option>Next quarter</option>
@@ -890,6 +945,8 @@ const Landing = () => {
           </div>
         </div>
       </section>
+
+      </main>
 
       {/* FOOTER */}
       <footer className="footer">
