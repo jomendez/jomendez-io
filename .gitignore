@@ -30,3 +30,15 @@ dist-ssr
 
 # Design handoff archives (keep out of repo)
 jomendez-handoff.tar.gz
+
+# Local Claude / Cowork settings
+.claude/
+
+# Firebase CLI cache (regenerated on deploy; not source)
+.firebase/
+firebase-debug.log
+firestore-debug.log
+
+# Vite dev-time temp configs
+vite.config.js.timestamp-*.mjs
+vite.config.ts.timestamp-*.mjs

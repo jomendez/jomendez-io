@@ -1,10 +1,11 @@
-import { 
+import {
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
   signOut,
   onAuthStateChanged,
   GoogleAuthProvider,
   signInWithPopup,
+  signInAnonymously,
   sendPasswordResetEmail,
   updateProfile
 } from 'firebase/auth'
@@ -87,4 +88,24 @@ export const onAuthChange = (callback) => {
     return () => {} // Return a no-op unsubscribe function
   }
   return onAuthStateChanged(auth, callback)
+}
+
+// --- Anonymous auth (used to gate public form writes) ---
+// Firebase persists the anonymous session, so repeat visitors re-use the
+// same uid. Concurrent callers share one in-flight sign-in promise so we
+// don't create duplicate anonymous users.
+
+let anonymousSignInPromise = null
+
+export const ensureAnonymousAuth = () => {
+  checkFirebaseInitialized()
+  if (auth.currentUser) return Promise.resolve(auth.currentUser)
+  if (anonymousSignInPromise) return anonymousSignInPromise
+  anonymousSignInPromise = signInAnonymously(auth)
+    .then((cred) => cred.user)
+    .catch((err) => {
+      anonymousSignInPromise = null // allow retry on failure
+      throw err
+    })
+  return anonymousSignInPromise
 }

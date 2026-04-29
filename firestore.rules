@@ -1,0 +1,27 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // All landing-page form writes now go through Cloud Functions
+    // (see functions/index.js). The admin SDK bypasses these rules, so we
+    // can lock everything down at the client level. Clients should never
+    // read, write, update, or delete any of these documents directly.
+
+    match /checklist_leads/{doc} {
+      allow read, write: if false;
+    }
+
+    match /applications/{doc} {
+      allow read, write: if false;
+    }
+
+    match /rate_limits/{uid} {
+      allow read, write: if false;
+    }
+
+    // Default deny for any collection we haven't explicitly allowed.
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

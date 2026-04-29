@@ -1,5 +1,7 @@
 import { initializeApp } from 'firebase/app'
 import { getAuth } from 'firebase/auth'
+import { getFirestore } from 'firebase/firestore'
+import { getFunctions } from 'firebase/functions'
 
 // Your web app's Firebase configuration
 // These values will be provided when you create a Firebase project
@@ -27,11 +29,16 @@ const isFirebaseConfigured = () => {
 // Initialize Firebase only if configuration is complete
 let app = null
 let auth = null
+let db = null
+let functions = null
 
 if (isFirebaseConfigured()) {
   try {
     app = initializeApp(firebaseConfig)
     auth = getAuth(app)
+    db = getFirestore(app)
+    // Must match the region set in functions/index.js setGlobalOptions().
+    functions = getFunctions(app, 'us-central1')
   } catch (error) {
     console.error('Error initializing Firebase:', error)
   }
@@ -42,6 +49,6 @@ if (isFirebaseConfigured()) {
   )
 }
 
-// Export the app instance and auth
-export { auth }
+// Export the app instance, auth, Firestore db, and Functions client
+export { auth, db, functions }
 export default app

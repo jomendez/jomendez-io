@@ -1,5 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import stylesCss from './Landing.styles.css?raw';
+import { submitApplication, submitMagnetLead } from '../services/forms';
+import { ensureAnonymousAuth } from '../services/auth';
 
 const FAQS = [
   {
@@ -59,9 +61,32 @@ function loadScript(src) {
 const Landing = () => {
   const [scrolled, setScrolled] = useState(false);
   const [openFaq, setOpenFaq] = useState(null);
-  const [magnetSubmitted, setMagnetSubmitted] = useState(false);
-  const [applicationSubmitted, setApplicationSubmitted] = useState(false);
   const heroInnerRef = useRef(null);
+
+  // Magnet (checklist) form
+  const [magnetEmail, setMagnetEmail] = useState('');
+  const [magnetWebsite, setMagnetWebsite] = useState(''); // honeypot
+  const [magnetSubmitting, setMagnetSubmitting] = useState(false);
+  const [magnetSubmitted, setMagnetSubmitted] = useState(false);
+  const [magnetError, setMagnetError] = useState(null);
+
+  // Application (CTA) form
+  const emptyApplication = {
+    name: '',
+    company: '',
+    email: '',
+    revenue: '',
+    timeline: '',
+    details: '',
+    website: '', // honeypot
+  };
+  const [application, setApplication] = useState(emptyApplication);
+  const [applicationSubmitting, setApplicationSubmitting] = useState(false);
+  const [applicationSubmitted, setApplicationSubmitted] = useState(false);
+  const [applicationError, setApplicationError] = useState(null);
+
+  const updateApplicationField = (field) => (e) =>
+    setApplication((prev) => ({ ...prev, [field]: e.target.value }));
 
   // Nav scroll state
   useEffect(() => {
@@ -89,6 +114,14 @@ const Landing = () => {
     return () => {
       document.title = prev;
     };
+  }, []);
+
+  // Eagerly sign in anonymously so Firestore writes don't pay the auth cost
+  // on submit. Failure is non-fatal — the forms service will retry on submit.
+  useEffect(() => {
+    ensureAnonymousAuth().catch((err) => {
+      console.warn('Anonymous auth failed (will retry on submit):', err);
+    });
   }, []);
 
   // Load GSAP + ScrollTrigger from CDN, then run entrance + scroll reveals.
@@ -318,13 +351,68 @@ const Landing = () => {
 
   const toggleFaq = (i) => setOpenFaq((prev) => (prev === i ? null : i));
 
-  const handleMagnetSubmit = (e) => {
-    e.preventDefault();
-    setMagnetSubmitted(true);
+  // Map Firebase Functions error codes to user-friendly messages. Keeping
+  // the messages short & non-technical; real details go to the console.
+  const friendlyError = (err) => {
+    const code = err?.code || '';
+    if (code === 'functions/resource-exhausted') {
+      return "You've hit the submission limit. Please try again in an hour.";
+    }
+    if (code === 'functions/invalid-argument') {
+      return 'Please double-check the form and try again.';
+    }
+    if (code === 'functions/unauthenticated') {
+      return 'We could not verify your session. Refresh the page and try again.';
+    }
+    // Honeypot tripped — pretend it worked so bots don't learn the signal.
+    if (code === 'functions/failed-precondition') return null;
+    return "Something went wrong \u2014 please try again.";
   };
-  const handleApplicationSubmit = (e) => {
+
+  const handleMagnetSubmit = async (e) => {
     e.preventDefault();
-    setApplicationSubmitted(true);
+    if (magnetSubmitting || magnetSubmitted) return;
+    setMagnetError(null);
+    setMagnetSubmitting(true);
+    try {
+      await submitMagnetLead({ email: magnetEmail, website: magnetWebsite });
+      setMagnetSubmitted(true);
+      setMagnetEmail('');
+      setMagnetWebsite('');
+    } catch (err) {
+      console.error('Failed to save magnet lead:', err);
+      const msg = friendlyError(err);
+      if (msg === null) {
+        // honeypot path — fake success to the bot
+        setMagnetSubmitted(true);
+      } else {
+        setMagnetError(msg);
+      }
+    } finally {
+      setMagnetSubmitting(false);
+    }
+  };
+
+  const handleApplicationSubmit = async (e) => {
+    e.preventDefault();
+    if (applicationSubmitting || applicationSubmitted) return;
+    setApplicationError(null);
+    setApplicationSubmitting(true);
+    try {
+      await submitApplication(application);
+      setApplicationSubmitted(true);
+      setApplication(emptyApplication);
+    } catch (err) {
+      console.error('Failed to save application:', err);
+      const msg = friendlyError(err);
+      if (msg === null) {
+        setApplicationSubmitted(true);
+      } else {
+        setApplicationError(msg);
+      }
+    } finally {
+      setApplicationSubmitting(false);
+    }
   };
 
   return (
@@ -830,9 +918,45 @@ const Landing = () => {
               <h2>The 34-point <em>Business Check-up</em> we run on every new client.</h2>
               <p>Download the same checklist we use in the first week of every project. It shows you exactly where time and money are leaking in your business &mdash; whether you work with us or not.</p>
               <form className="magnet-form" onSubmit={handleMagnetSubmit}>
-                <input type="email" placeholder="you@company.com" required />
-                <button type="submit">{magnetSubmitted ? 'Sent \u2713' : 'Send me the checklist'}</button>
+                {/* Honeypot: hidden from humans, bots often fill any input */}
+                <input
+                  type="text"
+                  name="website"
+                  tabIndex={-1}
+                  autoComplete="off"
+                  aria-hidden="true"
+                  value={magnetWebsite}
+                  onChange={(e) => setMagnetWebsite(e.target.value)}
+                  style={{
+                    position: 'absolute',
+                    left: '-10000px',
+                    width: '1px',
+                    height: '1px',
+                    opacity: 0,
+                    pointerEvents: 'none',
+                  }}
+                />
+                <input
+                  type="email"
+                  placeholder="you@company.com"
+                  required
+                  value={magnetEmail}
+                  onChange={(e) => setMagnetEmail(e.target.value)}
+                  disabled={magnetSubmitting || magnetSubmitted}
+                />
+                <button type="submit" disabled={magnetSubmitting || magnetSubmitted}>
+                  {magnetSubmitted
+                    ? 'Sent \u2713'
+                    : magnetSubmitting
+                    ? 'Sending\u2026'
+                    : 'Send me the checklist'}
+                </button>
               </form>
+              {magnetError && (
+                <p className="mono micro" style={{ marginTop: '12px', color: '#FF8A8A' }}>
+                  {magnetError}
+                </p>
+              )}
               <p className="mono micro" style={{ marginTop: '20px', color: 'rgba(255,255,255,.35)' }}>PDF &middot; 14 PAGES &middot; NO SPAM, EVER</p>
             </div>
             <div className="magnet-mock">
@@ -889,26 +1013,73 @@ const Landing = () => {
               </div>
             </div>
             <form className="cta-form" onSubmit={handleApplicationSubmit}>
+              {/* Honeypot: hidden from humans, bots often fill any input */}
+              <input
+                type="text"
+                name="website"
+                tabIndex={-1}
+                autoComplete="off"
+                aria-hidden="true"
+                value={application.website}
+                onChange={updateApplicationField('website')}
+                style={{
+                  position: 'absolute',
+                  left: '-10000px',
+                  width: '1px',
+                  height: '1px',
+                  opacity: 0,
+                  pointerEvents: 'none',
+                }}
+              />
               <div className="form-eyebrow mono micro">APPLICATION</div>
               <h3>Apply to work with us</h3>
               <div className="field-row">
                 <div className="field">
                   <label className="mono micro">NAME</label>
-                  <input type="text" placeholder="Your full name" required />
+                  <input
+                    type="text"
+                    placeholder="Your full name"
+                    required
+                    value={application.name}
+                    onChange={updateApplicationField('name')}
+                    disabled={applicationSubmitting || applicationSubmitted}
+                  />
                 </div>
                 <div className="field">
                   <label className="mono micro">COMPANY</label>
-                  <input type="text" placeholder="Company name" required />
+                  <input
+                    type="text"
+                    placeholder="Company name"
+                    required
+                    value={application.company}
+                    onChange={updateApplicationField('company')}
+                    disabled={applicationSubmitting || applicationSubmitted}
+                  />
                 </div>
               </div>
               <div className="field">
                 <label className="mono micro">WORK EMAIL</label>
-                <input type="email" placeholder="you@company.com" required />
+                <input
+                  type="email"
+                  placeholder="you@company.com"
+                  required
+                  value={application.email}
+                  onChange={updateApplicationField('email')}
+                  disabled={applicationSubmitting || applicationSubmitted}
+                />
               </div>
               <div className="field-row">
                 <div className="field">
                   <label className="mono micro" htmlFor="apply-revenue">YEARLY REVENUE</label>
-                  <select id="apply-revenue" name="revenue" aria-label="Yearly revenue" required defaultValue="">
+                  <select
+                    id="apply-revenue"
+                    name="revenue"
+                    aria-label="Yearly revenue"
+                    required
+                    value={application.revenue}
+                    onChange={updateApplicationField('revenue')}
+                    disabled={applicationSubmitting || applicationSubmitted}
+                  >
                     <option value="" disabled>Select range</option>
                     <option>Under $500k</option>
                     <option>$500k &ndash; $2M</option>
@@ -918,7 +1089,15 @@ const Landing = () => {
                 </div>
                 <div className="field">
                   <label className="mono micro" htmlFor="apply-timeline">WHEN YOU'D LIKE TO START</label>
-                  <select id="apply-timeline" name="timeline" aria-label="When you would like to start" required defaultValue="">
+                  <select
+                    id="apply-timeline"
+                    name="timeline"
+                    aria-label="When you would like to start"
+                    required
+                    value={application.timeline}
+                    onChange={updateApplicationField('timeline')}
+                    disabled={applicationSubmitting || applicationSubmitted}
+                  >
                     <option value="" disabled>Select</option>
                     <option>This quarter</option>
                     <option>Next quarter</option>
@@ -928,10 +1107,18 @@ const Landing = () => {
               </div>
               <div className="field">
                 <label className="mono micro">WHAT'S NOT WORKING</label>
-                <textarea placeholder="A short paragraph is enough. What's the thing costing you the most time or money right now?" required></textarea>
+                <textarea
+                  placeholder="A short paragraph is enough. What's the thing costing you the most time or money right now?"
+                  required
+                  value={application.details}
+                  onChange={updateApplicationField('details')}
+                  disabled={applicationSubmitting || applicationSubmitted}
+                ></textarea>
               </div>
-              <button type="submit">
-                {applicationSubmitted ? 'Application received \u2713' : (
+              <button type="submit" disabled={applicationSubmitting || applicationSubmitted}>
+                {applicationSubmitted ? 'Application received \u2713' : applicationSubmitting ? (
+                  'Sending\u2026'
+                ) : (
                   <>
                     Send Application
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -940,6 +1127,11 @@ const Landing = () => {
                   </>
                 )}
               </button>
+              {applicationError && (
+                <p className="mono micro" style={{ marginTop: '12px', color: '#FF8A8A' }}>
+                  {applicationError}
+                </p>
+              )}
               <p className="mono fine">WE REPLY WITHIN 48 HOURS &middot; A REAL PERSON, NOT A BOT</p>
             </form>
           </div>
