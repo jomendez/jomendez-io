@@ -13,6 +13,7 @@ const CustomInstructions = lazy(() => import('./pages/CustomInstructions'))
 const STRHostAssistantPrivacyPolicy = lazy(() =>
   import('./pages/STRHostAssistantPrivacyPolicy')
 )
+const Admin = lazy(() => import('./pages/Admin'))
 
 // Visually inert fallback — avoids a layout flash while the chunk loads.
 // React will swap it for the real page as soon as the JS arrives.
@@ -41,6 +42,9 @@ function App() {
 
           {/* Standalone privacy policy — lazy-loaded */}
           <Route path="/str-host-assistant/privacy-policy" element={<STRHostAssistantPrivacyPolicy />} />
+
+          {/* Admin dashboard — gated behind Firebase Auth + Firestore rules */}
+          <Route path="/admin" element={<Admin />} />
         </Routes>
       </Suspense>
     </Router>

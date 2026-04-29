@@ -2,19 +2,32 @@ rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
 
-    // All landing-page form writes now go through Cloud Functions
-    // (see functions/index.js). The admin SDK bypasses these rules, so we
-    // can lock everything down at the client level. Clients should never
-    // read, write, update, or delete any of these documents directly.
+    // The admin is identified solely by email. Sign in via Firebase Auth
+    // email/password (account created manually in the Firebase Console).
+    function isAdmin() {
+      return request.auth != null
+        && request.auth.token.email == 'support@jomendez.io';
+    }
 
+    // All form submissions go through Cloud Functions (admin SDK), so client
+    // writes stay denied. The admin can READ submissions to view them in the
+    // dashboard, and UPDATE only the `read` field (for mark-as-read).
     match /checklist_leads/{doc} {
-      allow read, write: if false;
+      allow read: if isAdmin();
+      allow update: if isAdmin()
+        && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['read']);
+      allow create, delete: if false;
     }
 
     match /applications/{doc} {
-      allow read, write: if false;
+      allow read: if isAdmin();
+      allow update: if isAdmin()
+        && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['read']);
+      allow create, delete: if false;
     }
 
+    // Rate-limit tracker is internal to the functions; never readable from the
+    // client (admin or not).
     match /rate_limits/{uid} {
       allow read, write: if false;
     }

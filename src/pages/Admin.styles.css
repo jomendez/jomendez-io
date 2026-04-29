@@ -1,0 +1,484 @@
+/* Admin dashboard styles — match the editorial dark aesthetic of the
+   landing page (Inter + Instrument Serif + a single accent color). */
+
+:root {
+  --admin-bg: #0a0a0a;
+  --admin-bg-elev: #111114;
+  --admin-bg-elev-2: #16161b;
+  --admin-border: rgba(255, 255, 255, 0.08);
+  --admin-border-strong: rgba(255, 255, 255, 0.16);
+  --admin-text: #e9e9ec;
+  --admin-text-dim: rgba(233, 233, 236, 0.55);
+  --admin-text-faint: rgba(233, 233, 236, 0.35);
+  --admin-accent: #6d84ff;
+  --admin-accent-soft: rgba(109, 132, 255, 0.12);
+  --admin-danger: #ff8a8a;
+  --admin-success: #6dd6a3;
+  --admin-warn: #f5c46a;
+}
+
+.admin-root {
+  min-height: 100vh;
+  background: var(--admin-bg);
+  color: var(--admin-text);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-size: 14px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+.admin-mono {
+  font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+  letter-spacing: 0.02em;
+}
+
+.admin-micro {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--admin-text-dim);
+}
+
+.admin-serif {
+  font-family: 'Instrument Serif', 'Times New Roman', serif;
+  font-style: italic;
+  font-weight: 400;
+}
+
+/* --- LOGIN --- */
+
+.admin-login-shell {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 32px 20px;
+}
+
+.admin-login-card {
+  width: 100%;
+  max-width: 420px;
+  background: var(--admin-bg-elev);
+  border: 1px solid var(--admin-border);
+  border-radius: 12px;
+  padding: 36px 32px;
+}
+
+.admin-login-eyebrow {
+  margin-bottom: 16px;
+}
+
+.admin-login-card h1 {
+  font-size: 28px;
+  line-height: 1.15;
+  font-weight: 500;
+  margin: 0 0 8px;
+}
+
+.admin-login-card h1 em {
+  font-family: 'Instrument Serif', serif;
+  font-style: italic;
+  font-weight: 400;
+  color: var(--admin-accent);
+}
+
+.admin-login-card .lead {
+  color: var(--admin-text-dim);
+  margin: 0 0 28px;
+}
+
+.admin-login-form {
+  display: grid;
+  gap: 14px;
+}
+
+.admin-field {
+  display: grid;
+  gap: 6px;
+}
+
+.admin-field label {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--admin-text-dim);
+}
+
+.admin-input,
+.admin-select,
+.admin-search-input {
+  background: var(--admin-bg);
+  border: 1px solid var(--admin-border-strong);
+  border-radius: 8px;
+  padding: 10px 12px;
+  color: var(--admin-text);
+  font: inherit;
+  outline: none;
+  transition: border-color 120ms ease;
+}
+
+.admin-input:focus,
+.admin-select:focus,
+.admin-search-input:focus {
+  border-color: var(--admin-accent);
+}
+
+.admin-input:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.admin-btn {
+  background: var(--admin-accent);
+  color: white;
+  font: inherit;
+  font-weight: 500;
+  border: 0;
+  border-radius: 8px;
+  padding: 11px 16px;
+  cursor: pointer;
+  transition: transform 80ms ease, opacity 120ms ease;
+}
+
+.admin-btn:hover:not(:disabled) {
+  transform: translateY(-1px);
+}
+
+.admin-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.admin-btn-ghost {
+  background: transparent;
+  color: var(--admin-text);
+  border: 1px solid var(--admin-border-strong);
+}
+
+.admin-btn-ghost:hover:not(:disabled) {
+  background: var(--admin-bg-elev-2);
+}
+
+.admin-error {
+  color: var(--admin-danger);
+  font-size: 13px;
+  margin-top: 6px;
+}
+
+.admin-helper {
+  color: var(--admin-text-faint);
+  font-size: 12px;
+  margin-top: 16px;
+}
+
+/* --- DASHBOARD --- */
+
+.admin-shell {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 28px 24px 80px;
+}
+
+.admin-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 28px;
+}
+
+.admin-header-left {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+}
+
+.admin-header h1 {
+  font-size: 22px;
+  font-weight: 500;
+  margin: 0;
+}
+
+.admin-header h1 em {
+  font-family: 'Instrument Serif', serif;
+  font-style: italic;
+  font-weight: 400;
+  color: var(--admin-accent);
+}
+
+.admin-user {
+  color: var(--admin-text-dim);
+  font-size: 12px;
+}
+
+.admin-tabs {
+  display: flex;
+  gap: 4px;
+  border-bottom: 1px solid var(--admin-border);
+  margin-bottom: 22px;
+}
+
+.admin-tab {
+  background: transparent;
+  border: 0;
+  border-bottom: 2px solid transparent;
+  padding: 10px 14px;
+  cursor: pointer;
+  color: var(--admin-text-dim);
+  font: inherit;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: -1px;
+  transition: color 120ms ease, border-color 120ms ease;
+}
+
+.admin-tab:hover {
+  color: var(--admin-text);
+}
+
+.admin-tab.active {
+  color: var(--admin-text);
+  border-bottom-color: var(--admin-accent);
+}
+
+.admin-tab-count {
+  background: var(--admin-accent-soft);
+  color: var(--admin-accent);
+  border-radius: 10px;
+  padding: 2px 8px;
+  font-size: 11px;
+  font-weight: 600;
+  min-width: 22px;
+  text-align: center;
+}
+
+/* Toolbar above the table — search, date filter, export, etc. */
+.admin-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.admin-search {
+  flex: 1 1 240px;
+  min-width: 240px;
+  position: relative;
+}
+
+.admin-search-input {
+  width: 100%;
+  padding-left: 36px;
+}
+
+.admin-search svg {
+  position: absolute;
+  left: 11px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--admin-text-faint);
+  pointer-events: none;
+}
+
+.admin-toolbar-spacer {
+  flex: 1;
+}
+
+.admin-toolbar-meta {
+  color: var(--admin-text-dim);
+  font-size: 12px;
+}
+
+/* Table */
+.admin-table-wrap {
+  border: 1px solid var(--admin-border);
+  border-radius: 12px;
+  overflow: hidden;
+  background: var(--admin-bg-elev);
+}
+
+.admin-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+.admin-table thead th {
+  text-align: left;
+  font-weight: 500;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--admin-text-dim);
+  padding: 12px 14px;
+  background: var(--admin-bg-elev-2);
+  border-bottom: 1px solid var(--admin-border);
+  white-space: nowrap;
+}
+
+.admin-table tbody tr {
+  border-top: 1px solid var(--admin-border);
+  transition: background 100ms ease;
+  cursor: pointer;
+}
+
+.admin-table tbody tr:hover {
+  background: var(--admin-bg-elev-2);
+}
+
+.admin-table tbody tr.unread td {
+  background: rgba(109, 132, 255, 0.04);
+}
+
+.admin-table td {
+  padding: 12px 14px;
+  vertical-align: top;
+}
+
+.admin-table td.col-date {
+  white-space: nowrap;
+  color: var(--admin-text-dim);
+  font-variant-numeric: tabular-nums;
+}
+
+.admin-table td.col-email {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 12px;
+}
+
+.admin-table td.col-truncate {
+  max-width: 320px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: var(--admin-text-dim);
+}
+
+.admin-table td.col-actions {
+  text-align: right;
+  white-space: nowrap;
+}
+
+.admin-pill {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 500;
+  background: var(--admin-bg);
+  border: 1px solid var(--admin-border-strong);
+  color: var(--admin-text-dim);
+}
+
+.admin-pill.unread {
+  color: var(--admin-accent);
+  background: var(--admin-accent-soft);
+  border-color: transparent;
+}
+
+/* Expanded row — full detail of a submission */
+.admin-row-expanded {
+  background: var(--admin-bg);
+}
+
+.admin-row-expanded td {
+  padding: 0 !important;
+}
+
+.admin-detail {
+  padding: 18px 22px 24px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px 28px;
+  border-top: 1px dashed var(--admin-border-strong);
+}
+
+.admin-detail-field-label {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--admin-text-faint);
+  margin-bottom: 4px;
+}
+
+.admin-detail-field-value {
+  font-size: 13px;
+  word-break: break-word;
+  white-space: pre-wrap;
+}
+
+.admin-detail-field-value.mono {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 12px;
+  color: var(--admin-text-dim);
+}
+
+.admin-detail-actions {
+  grid-column: 1 / -1;
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+  margin-top: 4px;
+}
+
+/* Empty state */
+.admin-empty {
+  padding: 60px 20px;
+  text-align: center;
+  color: var(--admin-text-dim);
+}
+
+.admin-empty h3 {
+  font-family: 'Instrument Serif', serif;
+  font-style: italic;
+  font-weight: 400;
+  font-size: 22px;
+  color: var(--admin-text);
+  margin: 0 0 6px;
+}
+
+/* Forbidden / wrong-email screen */
+.admin-forbidden {
+  max-width: 480px;
+  margin: 80px auto;
+  padding: 28px;
+  border: 1px solid var(--admin-border);
+  border-radius: 12px;
+  background: var(--admin-bg-elev);
+  text-align: center;
+}
+
+.admin-forbidden h2 {
+  margin: 0 0 8px;
+  font-size: 22px;
+  font-weight: 500;
+}
+
+.admin-forbidden p {
+  color: var(--admin-text-dim);
+  margin: 0 0 20px;
+}
+
+/* Loading */
+.admin-loading {
+  padding: 60px 20px;
+  text-align: center;
+  color: var(--admin-text-dim);
+  font-size: 13px;
+}
+
+/* Mobile tweaks */
+@media (max-width: 720px) {
+  .admin-shell {
+    padding: 20px 14px 60px;
+  }
+  .admin-header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .admin-table-wrap {
+    overflow-x: auto;
+  }
+}
