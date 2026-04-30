@@ -5,6 +5,11 @@ import Landing from './pages/Landing'
 // The landing page is the LCP-critical root route, so it ships in the
 // initial bundle. Everything else is split off into its own chunk and
 // fetched on demand — keeps the first paint on `/` fast.
+//
+// The previous homepage (positioned around custom AI software + an
+// application form) lives at /old-site. It's lazy-loaded since it's
+// only useful for archive/reference traffic now.
+const OldLanding = lazy(() => import('./pages/OldLanding'))
 const Home = lazy(() => import('./pages/Home'))
 const AIPanorama = lazy(() => import('./pages/AIPanorama'))
 const Prompts101 = lazy(() => import('./pages/Prompts101'))
@@ -26,6 +31,9 @@ function App() {
         <Routes>
           {/* Landing page at the root — eager-loaded for fast LCP */}
           <Route path="/" element={<Landing />} />
+
+          {/* Previous homepage, kept accessible for reference */}
+          <Route path="/old-site" element={<OldLanding />} />
 
           {/* Presentify routes — lazy-loaded */}
           <Route path="/presentify" element={<Home />} />

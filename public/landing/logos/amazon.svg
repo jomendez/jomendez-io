@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 40" role="img" aria-label="Amazon">
+  <!-- Placeholder Amazon wordmark for the homepage trust strip.
+       The smile + arrow are designed so the curve flows directly into a
+       clean filled arrowhead that points at the 'z', mirroring the real
+       Amazon mark. Inherits color from surrounding text via currentColor. -->
+  <text x="0" y="26"
+        font-family="-apple-system, BlinkMacSystemFont, 'Helvetica Neue', Inter, sans-serif"
+        font-size="26" font-weight="700" letter-spacing="-0.5"
+        fill="currentColor">amazon</text>
+
+  <!-- Smile: a quadratic curve from under the first 'a' to under the 'z'.
+       Stroke-linecap rounded so the cap blends visually into the arrow. -->
+  <path d="M 4 32 Q 35 42 62 32"
+        stroke="currentColor" stroke-width="2.6"
+        fill="none" stroke-linecap="round"/>
+
+  <!-- Arrow tip: a clean filled triangle whose back overlaps the curve's
+       rounded end-cap, with the tip extending up-right toward the 'z'.
+       The three vertices wrap around the curve's endpoint so the smile
+       and the arrowhead read as a single continuous swoop. -->
+  <path d="M 58 28 L 73 30 L 60 35 Z" fill="currentColor"/>
+</svg>

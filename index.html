@@ -5,30 +5,71 @@
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#F6F4EF" />
-    <title>Jomendez Inc — AI software for small business</title>
-    <meta name="description" content="Jomendez Inc builds custom AI software for small businesses — booking, follow-ups, reporting, AI helpers. Fixed price, senior engineer, three clients a quarter." />
+    <title>Jomendez Inc — Big-company technology, built for small business.</title>
+    <meta
+      name="description"
+      content="I help small business owners use the same systems and strategies the Fortune 500 use to grow — websites, CRMs, automations, AI content, ad strategy. Join the waitlist for The 8-Point Business Audit."
+    />
     <link rel="canonical" href="https://jomendez.io/" />
 
     <!-- Open Graph -->
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Jomendez Inc" />
-    <meta property="og:title" content="Jomendez Inc — AI software for small business" />
-    <meta property="og:description" content="Custom AI software for small businesses — built for you, priced up front. Application only." />
+    <meta property="og:title" content="Jomendez Inc — Big-company technology, built for small business." />
+    <meta
+      property="og:description"
+      content="Same systems and strategies the Fortune 500 use, built for small business owners. Join the waitlist for The 8-Point Business Audit."
+    />
     <meta property="og:url" content="https://jomendez.io/" />
-    <meta property="og:image" content="https://jomendez.io/landing/images/hero_portrait.png" />
+    <meta property="og:image" content="https://jomendez.io/landing/images/og.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Jomendez Inc — Big-company technology, built for your small business. Join the waitlist for The 8-Point Business Audit." />
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Jomendez Inc — AI software for small business" />
-    <meta name="twitter:description" content="Custom AI software for small businesses — built for you, priced up front. Application only." />
-    <meta name="twitter:image" content="https://jomendez.io/landing/images/hero_portrait.png" />
+    <meta name="twitter:title" content="Jomendez Inc — Big-company technology, built for small business." />
+    <meta
+      name="twitter:description"
+      content="Same systems and strategies the Fortune 500 use, built for small business owners. Join the waitlist for The 8-Point Business Audit."
+    />
+    <meta name="twitter:image" content="https://jomendez.io/landing/images/og.png" />
+    <meta name="twitter:image:alt" content="Jomendez Inc — Big-company technology, built for your small business. Join the waitlist for The 8-Point Business Audit." />
 
     <!-- Preconnect to font origins so the handshake overlaps app JS parse -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 
-    <!-- Hero LCP image preload -->
+    <!-- Hero LCP image preload — the founder portrait is the largest above-the-fold
+         element on the new homepage, so we hint the browser to start fetching it
+         in parallel with the JS bundle. -->
     <link rel="preload" as="image" href="/landing/images/hero_portrait.webp" type="image/webp" fetchpriority="high" />
+
+    <!-- Schema.org Organization markup. The same JSON-LD is also injected
+         from Landing.jsx so it travels with client navigations. Having it
+         here gives crawlers the data on first paint. -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "Jomendez Inc",
+        "url": "https://jomendez.io",
+        "description": "Jomendez Inc helps small business owners grow with technology — websites, CRMs, automations, AI content, and ad strategy. Founded by Jose Mendez.",
+        "founder": {
+          "@type": "Person",
+          "name": "Jose Mendez",
+          "jobTitle": "Founder",
+          "sameAs": [
+            "https://www.linkedin.com/in/jomendez/",
+            "https://github.com/jomendez"
+          ]
+        },
+        "sameAs": [
+          "https://www.linkedin.com/in/jomendez/",
+          "https://github.com/jomendez"
+        ]
+      }
+    </script>
   </head>
   <body>
     <div id="root"></div>

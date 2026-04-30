@@ -178,6 +178,40 @@ export const submitMagnetLead = onCall(callableOptions, async (request) => {
   return { id: ref.id }
 })
 
+/**
+ * Save a waitlist signup from the new homepage's 8-Point Audit hero/CTA.
+ *
+ * Same shape as submitMagnetLead — email-only, anon-auth required, honeypot
+ * check, per-uid rate limit. Lives in its own collection so we can track the
+ * audit waitlist independently from the older checklist magnet leads.
+ *
+ * TODO: when the email service provider (ConvertKit / GoHighLevel /
+ * Mailchimp) is chosen, push the email there from inside this handler so
+ * Firestore stays the system of record AND the lead lands in the ESP.
+ */
+export const submitWaitlist = onCall(callableOptions, async (request) => {
+  const uid = requireAuth(request)
+  const data = request.data || {}
+  checkHoneypot(data)
+
+  const email = requireEmail(data.email)
+  // Optional, max 64 chars. Free-form provenance tag from the client so we
+  // can tell which CTA (hero / audit / final) the lead came from.
+  const source =
+    typeof data.source === 'string' && data.source.length > 0
+      ? requireString(data.source, 'source', { min: 1, max: 64 })
+      : null
+
+  await checkAndRecordRateLimit(uid)
+
+  const ref = await db.collection('waitlist_leads').add({
+    email,
+    source,
+    ...buildMetadata(uid, request),
+  })
+  return { id: ref.id }
+})
+
 export const submitApplication = onCall(callableOptions, async (request) => {
   const uid = requireAuth(request)
   const data = request.data || {}

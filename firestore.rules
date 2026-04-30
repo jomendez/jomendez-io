@@ -26,6 +26,13 @@ service cloud.firestore {
       allow create, delete: if false;
     }
 
+    match /waitlist_leads/{doc} {
+      allow read: if isAdmin();
+      allow update: if isAdmin()
+        && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['read']);
+      allow create, delete: if false;
+    }
+
     // Rate-limit tracker is internal to the functions; never readable from the
     // client (admin or not).
     match /rate_limits/{uid} {
