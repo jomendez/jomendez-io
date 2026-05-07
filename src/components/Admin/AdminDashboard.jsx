@@ -4,6 +4,8 @@ import {
   subscribeToSubmissions,
   setSubmissionRead,
 } from '../../services/adminQueries'
+import { issueAuditInvite } from '../../services/audit'
+import AuditsTab from './AuditsTab'
 
 /**
  * The collections we surface and how to render them. Adding a new
@@ -39,7 +41,30 @@ const TABS = [
     detailFields: ['email', 'createdAt', 'createdByUid', 'userAgent', 'ip', 'referrer'],
     csvFields: ['createdAt', 'email', 'read'],
   },
+  {
+    id: 'waitlist',
+    label: 'Waitlist',
+    collection: 'waitlist_leads',
+    // Waitlist rows get an extra inline action: "Send audit invite",
+    // wired below in <Row>. The function call stays out of the generic
+    // table machinery so the rest of the tabs are unaffected.
+    rowActions: ['issueInvite'],
+    columns: [
+      { key: 'createdAt', label: 'Date', render: renderDate, className: 'col-date' },
+      { key: 'email', label: 'Email', className: 'col-email' },
+      { key: 'source', label: 'Source' },
+    ],
+    searchableFields: ['email', 'source'],
+    detailFields: ['email', 'source', 'createdAt', 'createdByUid', 'userAgent', 'ip', 'referrer'],
+    csvFields: ['createdAt', 'email', 'source', 'read'],
+  },
 ]
+
+// Special pseudo-tab: when active, the dashboard renders the bespoke
+// AuditsTab component instead of the generic submissions table. Lives
+// outside TABS so the existing search / date-filter / CSV machinery
+// doesn't try to apply to it.
+const AUDITS_TAB = { id: 'audits', label: 'Audits' }
 
 const DATE_FILTERS = [
   { id: 'all', label: 'All time' },
@@ -102,15 +127,23 @@ function downloadCsv(filename, rows, fields) {
 const AdminDashboard = ({ user }) => {
   const [activeTabId, setActiveTabId] = useState(TABS[0].id)
   // Map of tabId -> rows[]
-  const [rowsByTab, setRowsByTab] = useState({ applications: null, leads: null })
+  const [rowsByTab, setRowsByTab] = useState({
+    applications: null,
+    leads: null,
+    waitlist: null,
+  })
   const [errorByTab, setErrorByTab] = useState({})
   const [search, setSearch] = useState('')
   const [dateFilter, setDateFilter] = useState('all')
   const [expandedId, setExpandedId] = useState(null)
+  // Per-row issuing-invite UI state, keyed by the waitlist row id.
+  // Values: 'idle' | 'sending' | 'sent' | 'error'
+  const [inviteState, setInviteState] = useState({})
 
+  const isAuditsTab = activeTabId === AUDITS_TAB.id
   const activeTab = useMemo(
-    () => TABS.find((t) => t.id === activeTabId),
-    [activeTabId]
+    () => (isAuditsTab ? null : TABS.find((t) => t.id === activeTabId)),
+    [activeTabId, isAuditsTab]
   )
 
   // Subscribe to BOTH collections up-front so the tab badges (unread counts)
@@ -179,6 +212,38 @@ const AdminDashboard = ({ user }) => {
     downloadCsv(filename, filteredRows, activeTab.csvFields)
   }
 
+  const handleIssueInvite = async (row) => {
+    if (inviteState[row.id] === 'sending') return
+    setInviteState((s) => ({ ...s, [row.id]: 'sending' }))
+    try {
+      const result = await issueAuditInvite({ email: row.email, waitlistLeadId: row.id })
+      if (result?.emailSent === false) {
+        // Invite saved to Firestore, email delivery failed. Surface the
+        // URL so the admin can share it manually until the underlying
+        // email problem is fixed.
+        setInviteState((s) => ({ ...s, [row.id]: 'email-failed' }))
+        const lines = [
+          'Invite was created but the email failed to send.',
+          '',
+          `Reason: ${result.emailError || 'unknown'}`,
+          '',
+          'Manual link (copy this and send it yourself):',
+          result.inviteUrl,
+        ]
+        if (window.prompt(lines.join('\n'), result.inviteUrl) !== null) {
+          // User saw the prompt; we deliberately leave the inviteState
+          // as 'email-failed' so the row makes the failure visible.
+        }
+      } else {
+        setInviteState((s) => ({ ...s, [row.id]: 'sent' }))
+      }
+    } catch (err) {
+      console.error('Failed to issue audit invite:', err)
+      setInviteState((s) => ({ ...s, [row.id]: 'error' }))
+      alert(`Could not create invite: ${err.message || 'unknown error'}`)
+    }
+  }
+
   return (
     <div className="admin-shell">
       {/* Header */}
@@ -216,8 +281,21 @@ const AdminDashboard = ({ user }) => {
             </button>
           )
         })}
+        <button
+          role="tab"
+          aria-selected={isAuditsTab}
+          className={`admin-tab${isAuditsTab ? ' active' : ''}`}
+          onClick={() => setActiveTabId(AUDITS_TAB.id)}
+          type="button"
+        >
+          {AUDITS_TAB.label}
+        </button>
       </div>
 
+      {isAuditsTab ? (
+        <AuditsTab user={user} />
+      ) : (
+      <>
       {/* Toolbar */}
       <div className="admin-toolbar">
         <div className="admin-search">
@@ -302,18 +380,23 @@ const AdminDashboard = ({ user }) => {
                     row={row}
                     columns={activeTab.columns}
                     detailFields={activeTab.detailFields}
+                    rowActions={activeTab.rowActions || []}
+                    inviteStatus={inviteState[row.id]}
                     isExpanded={isExpanded}
                     unread={unread}
                     onToggleExpand={() =>
                       setExpandedId(isExpanded ? null : row.id)
                     }
                     onToggleRead={() => handleToggleRead(row.id, row.read)}
+                    onIssueInvite={() => handleIssueInvite(row)}
                   />
                 )
               })}
             </tbody>
           </table>
         </div>
+      )}
+      </>
       )}
     </div>
   )
@@ -323,10 +406,13 @@ const Row = ({
   row,
   columns,
   detailFields,
+  rowActions = [],
+  inviteStatus,
   isExpanded,
   unread,
   onToggleExpand,
   onToggleRead,
+  onIssueInvite,
 }) => {
   return (
     <>
@@ -351,6 +437,25 @@ const Row = ({
           )
         })}
         <td className="col-actions">
+          {rowActions.includes('issueInvite') && (
+            <button
+              type="button"
+              className="admin-btn admin-btn-ghost"
+              onClick={(e) => {
+                e.stopPropagation()
+                onIssueInvite()
+              }}
+              disabled={inviteStatus === 'sending'}
+              style={{ marginRight: 8 }}
+              title="Send a fresh audit invite to this email"
+            >
+              {inviteStatus === 'sending' && 'Sending\u2026'}
+              {inviteStatus === 'sent' && 'Invited \u2713'}
+              {inviteStatus === 'email-failed' && 'Email failed \u2014 retry'}
+              {(!inviteStatus || inviteStatus === 'idle' || inviteStatus === 'error') &&
+                (inviteStatus === 'error' ? 'Retry invite' : 'Send audit invite')}
+            </button>
+          )}
           <button
             type="button"
             className="admin-btn admin-btn-ghost"

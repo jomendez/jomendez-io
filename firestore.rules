@@ -33,6 +33,34 @@ service cloud.firestore {
       allow create, delete: if false;
     }
 
+    // Audit invites — every audit submission starts with one of these.
+    // The doc id IS the secret invite token, so listing must stay denied.
+    // The Cloud Functions (issueAuditInvite / validateAuditInvite /
+    // submitAudit) write through the admin SDK; client direct access
+    // would defeat the token's purpose.
+    match /audit_invites/{tokenId} {
+      allow read, write: if false;
+    }
+
+    // Audit submissions — created by submitAudit, finalized by
+    // finalizeAudit (both via admin SDK). Admins can read+update for the
+    // dashboard; the user's read happens through getAuditResults, which
+    // verifies the resultsToken server-side.
+    match /audit_submissions/{doc} {
+      allow read: if isAdmin();
+      allow update: if isAdmin()
+        && request.resource.data.diff(resource.data).affectedKeys()
+             .hasOnly(['read', 'adminNotes']);
+      allow create, delete: if false;
+
+      // Per-submission message log (admin-to-user emails sent via the
+      // dashboard's "Send message" composer).
+      match /messages/{messageId} {
+        allow read: if isAdmin();
+        allow create, update, delete: if false;
+      }
+    }
+
     // Rate-limit tracker is internal to the functions; never readable from the
     // client (admin or not).
     match /rate_limits/{uid} {

@@ -33,7 +33,7 @@ const assertDb = () => {
  * unsubscribe function. Only callable by the admin (Firestore rules will
  * reject anyone else).
  *
- * @param {'checklist_leads' | 'applications'} collectionName
+ * @param {'checklist_leads' | 'applications' | 'waitlist_leads' | 'audit_submissions'} collectionName
  * @param {(rows: Array<{ id: string } & object>) => void} onData
  * @param {(err: Error) => void} [onError]
  * @returns {() => void} unsubscribe

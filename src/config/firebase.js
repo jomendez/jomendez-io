@@ -2,6 +2,7 @@ import { initializeApp } from 'firebase/app'
 import { getAuth } from 'firebase/auth'
 import { getFirestore } from 'firebase/firestore'
 import { getFunctions } from 'firebase/functions'
+import { getStorage } from 'firebase/storage'
 
 // Your web app's Firebase configuration
 // These values will be provided when you create a Firebase project
@@ -31,6 +32,7 @@ let app = null
 let auth = null
 let db = null
 let functions = null
+let storage = null
 
 if (isFirebaseConfigured()) {
   try {
@@ -39,6 +41,7 @@ if (isFirebaseConfigured()) {
     db = getFirestore(app)
     // Must match the region set in functions/index.js setGlobalOptions().
     functions = getFunctions(app, 'us-central1')
+    storage = getStorage(app)
   } catch (error) {
     console.error('Error initializing Firebase:', error)
   }
@@ -49,6 +52,6 @@ if (isFirebaseConfigured()) {
   )
 }
 
-// Export the app instance, auth, Firestore db, and Functions client
-export { auth, db, functions }
+// Export the app instance, auth, Firestore db, Functions client, and Storage
+export { auth, db, functions, storage }
 export default app

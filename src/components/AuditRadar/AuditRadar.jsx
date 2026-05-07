@@ -23,9 +23,24 @@ const DIMENSIONS = [
   'Tech Stack',
 ]
 
+// Same order as DIMENSIONS — used to translate a scores object (keyed
+// by camelCase dimension keys, the way the Cloud Function stores them)
+// into the positional array the renderer needs.
+const DIMENSION_KEYS = [
+  'onlineVisibility',
+  'leadCapture',
+  'leadResponse',
+  'customerRetention',
+  'operationsTime',
+  'marketingEngine',
+  'financialClarity',
+  'techStack',
+]
+
 // Sample scores out of 100, ordered to match DIMENSIONS. These are
 // illustrative only — they should look like a believable mid-audit
-// snapshot, not a perfect octagon and not a flat line.
+// snapshot, not a perfect octagon and not a flat line. Used when no
+// real scores are passed (e.g. on the homepage hero brand visual).
 const SAMPLE_SCORES = [62, 48, 36, 72, 52, 66, 58, 44]
 
 const SIZE = 600
@@ -47,13 +62,36 @@ const ringPoints = (r) =>
     return `${x.toFixed(2)},${y.toFixed(2)}`
   }).join(' ')
 
-const scorePoints = SAMPLE_SCORES.map((score, i) => {
-  const r = (score / 100) * MAX_R
-  const [x, y] = polar(CENTER, CENTER, r, angleFor(i))
-  return `${x.toFixed(2)},${y.toFixed(2)}`
-}).join(' ')
+// Convert a scores prop (either an array of 8 numbers OR an object keyed
+// by dimension) into the positional array the renderer needs.
+const normalizeScores = (scores) => {
+  if (!scores) return SAMPLE_SCORES
+  if (Array.isArray(scores)) {
+    if (scores.length !== DIMENSIONS.length) return SAMPLE_SCORES
+    return scores
+  }
+  if (typeof scores === 'object') {
+    return DIMENSION_KEYS.map((k) =>
+      typeof scores[k] === 'number' ? scores[k] : 0
+    )
+  }
+  return SAMPLE_SCORES
+}
 
-const AuditRadar = ({ className = '', ariaLabel = 'The 8-Point Business Audit radar chart' }) => {
+const AuditRadar = ({
+  className = '',
+  ariaLabel = 'The 8-Point Business Audit radar chart',
+  scores = null,
+}) => {
+  const positional = normalizeScores(scores)
+  const scorePoints = positional
+    .map((score, i) => {
+      const r = (Math.max(0, Math.min(100, score)) / 100) * MAX_R
+      const [x, y] = polar(CENTER, CENTER, r, angleFor(i))
+      return `${x.toFixed(2)},${y.toFixed(2)}`
+    })
+    .join(' ')
+
   return (
     <svg
       className={`audit-radar ${className}`.trim()}
@@ -113,8 +151,8 @@ const AuditRadar = ({ className = '', ariaLabel = 'The 8-Point Business Audit ra
 
       {/* Score points */}
       <g className="audit-radar__points">
-        {SAMPLE_SCORES.map((score, i) => {
-          const r = (score / 100) * MAX_R
+        {positional.map((score, i) => {
+          const r = (Math.max(0, Math.min(100, score)) / 100) * MAX_R
           const [x, y] = polar(CENTER, CENTER, r, angleFor(i))
           return (
             <circle
@@ -172,4 +210,4 @@ const AuditRadar = ({ className = '', ariaLabel = 'The 8-Point Business Audit ra
 }
 
 export default AuditRadar
-export { DIMENSIONS as AUDIT_DIMENSIONS }
+export { DIMENSIONS as AUDIT_DIMENSIONS, DIMENSION_KEYS as AUDIT_DIMENSION_KEYS }

@@ -482,3 +482,170 @@
     overflow-x: auto;
   }
 }
+
+/* ============================================================
+ * AUDITS TAB
+ * ============================================================ */
+.audits-tab { display: flex; flex-direction: column; gap: 20px; }
+.audits-list { display: flex; flex-direction: column; gap: 12px; }
+
+.audit-card {
+  border: 1px solid var(--admin-border);
+  border-radius: 10px;
+  background: var(--admin-bg-elev);
+  overflow: hidden;
+}
+.audit-card--ready { border-color: rgba(109, 214, 163, 0.32); }
+.audit-card--in_progress { border-color: rgba(245, 196, 106, 0.32); }
+
+.audit-card-head {
+  display: flex; align-items: center; justify-content: space-between;
+  width: 100%;
+  padding: 14px 18px;
+  background: transparent;
+  color: var(--admin-text);
+  text-align: left;
+  cursor: pointer;
+}
+.audit-card-head:hover { background: var(--admin-bg-elev-2); }
+.audit-card-head-left { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+.audit-card-head-right {
+  display: flex; align-items: center; gap: 14px;
+  font-size: 11px;
+  color: var(--admin-text-dim);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.audit-status {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--admin-text-dim);
+}
+.audit-status--pending_review { background: rgba(245, 196, 106, 0.18); color: #f5c46a; }
+.audit-status--in_progress { background: rgba(109, 132, 255, 0.18); color: var(--admin-accent); }
+.audit-status--ready { background: rgba(109, 214, 163, 0.18); color: var(--admin-success); }
+
+.audit-card-email { font-size: 14px; color: var(--admin-text); }
+
+.audit-card-body { padding: 4px 22px 22px; }
+.audit-section { padding: 16px 0; }
+.audit-section-title {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--admin-text-dim);
+  margin: 0 0 12px;
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 500;
+}
+.audit-divider {
+  border: 0;
+  border-top: 1px solid var(--admin-border);
+  margin: 0;
+}
+
+.audit-answers {
+  list-style: none; padding: 0; margin: 0;
+  display: grid; grid-template-columns: 1fr; gap: 6px;
+  font-family: 'JetBrains Mono', monospace; font-size: 12px;
+}
+.audit-answers li {
+  display: flex; gap: 12px;
+  padding: 6px 0;
+  border-bottom: 1px dashed var(--admin-border);
+}
+.audit-answer-qid { color: var(--admin-text-dim); min-width: 140px; }
+.audit-answer-value { color: var(--admin-text); }
+
+.audit-scores {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.audit-score-row {
+  border: 1px solid var(--admin-border);
+  border-radius: 8px;
+  padding: 12px 14px;
+  background: var(--admin-bg);
+}
+.audit-score-row-head {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 14px;
+  margin-bottom: 8px;
+}
+.audit-score-label {
+  display: flex; flex-direction: column; gap: 2px;
+}
+.audit-score-label strong { font-weight: 500; color: var(--admin-text); }
+.audit-score-label span { color: var(--admin-text-dim); font-size: 11px; }
+.audit-score-input {
+  width: 80px;
+  padding: 8px 10px;
+  border-radius: 6px;
+  border: 1px solid var(--admin-border-strong);
+  background: var(--admin-bg-elev-2);
+  color: var(--admin-text);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 14px;
+  text-align: right;
+}
+.audit-rec-textarea {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 6px;
+  border: 1px solid var(--admin-border);
+  background: var(--admin-bg-elev-2);
+  color: var(--admin-text);
+  font-family: inherit;
+  font-size: 13px;
+  resize: vertical;
+}
+
+.audit-msg-subject {
+  width: 100%;
+  padding: 10px 12px;
+  margin-bottom: 8px;
+  border-radius: 6px;
+  border: 1px solid var(--admin-border);
+  background: var(--admin-bg-elev-2);
+  color: var(--admin-text);
+  font-family: inherit;
+  font-size: 14px;
+}
+.audit-msg-body {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 6px;
+  border: 1px solid var(--admin-border);
+  background: var(--admin-bg-elev-2);
+  color: var(--admin-text);
+  font-family: inherit;
+  font-size: 13px;
+  resize: vertical;
+}
+
+/* admin button variants used by AuditsTab */
+.admin-btn-primary {
+  background: var(--admin-accent);
+  color: #0a0a0a;
+  border: 0;
+  padding: 10px 16px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background .15s ease, opacity .15s ease;
+}
+.admin-btn-primary:hover:not(:disabled) {
+  background: #8aa0ff;
+}
+.admin-btn-primary:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}

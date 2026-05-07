@@ -1,0 +1,36 @@
+rules_version = '2';
+
+// Storage rules for jomendez-io.
+//
+// The audit PDF flow:
+//   1. Admin uploads an audit-report PDF via the /admin dashboard. The
+//      upload happens with the admin's authenticated session (Firebase
+//      Auth email/password, gated by isAdmin() below).
+//   2. End users never read storage directly. The getAuditResults Cloud
+//      Function uses the admin SDK to mint a short-lived signed URL,
+//      which the user's browser fetches once for embed/download.
+//
+// Default: deny everything that isn't explicitly allowed below.
+service firebase.storage {
+  match /b/{bucket}/o {
+
+    function isAdmin() {
+      return request.auth != null
+        && request.auth.token.email == 'support@jomendez.io';
+    }
+
+    // Audit PDFs. Admin-only writes (the dashboard upload). No client
+    // reads; reads are gated by signed URLs minted in Cloud Functions.
+    match /audits/{submissionId}/{filename} {
+      allow read: if false;
+      allow write: if isAdmin()
+        && request.resource.size < 25 * 1024 * 1024            // 25 MB cap
+        && request.resource.contentType.matches('application/pdf');
+    }
+
+    // Default deny.
+    match /{allPaths=**} {
+      allow read, write: if false;
+    }
+  }
+}

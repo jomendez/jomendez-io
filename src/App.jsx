@@ -10,6 +10,9 @@ import Landing from './pages/Landing'
 // application form) lives at /old-site. It's lazy-loaded since it's
 // only useful for archive/reference traffic now.
 const OldLanding = lazy(() => import('./pages/OldLanding'))
+const Audit = lazy(() => import('./pages/Audit'))
+const AuditSubmitted = lazy(() => import('./pages/AuditSubmitted'))
+const AuditResults = lazy(() => import('./pages/AuditResults'))
 const Home = lazy(() => import('./pages/Home'))
 const AIPanorama = lazy(() => import('./pages/AIPanorama'))
 const Prompts101 = lazy(() => import('./pages/Prompts101'))
@@ -34,6 +37,14 @@ function App() {
 
           {/* Previous homepage, kept accessible for reference */}
           <Route path="/old-site" element={<OldLanding />} />
+
+          {/* The 8-Point Business Audit flow.
+              /audit/submitted is registered ahead of /audit/:inviteToken
+              so the literal segment wins the match for the post-submit
+              confirmation page. */}
+          <Route path="/audit/submitted" element={<AuditSubmitted />} />
+          <Route path="/audit/results/:submissionId" element={<AuditResults />} />
+          <Route path="/audit/:inviteToken" element={<Audit />} />
 
           {/* Presentify routes — lazy-loaded */}
           <Route path="/presentify" element={<Home />} />
