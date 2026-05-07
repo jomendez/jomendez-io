@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Shadow Elevation</title>
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  body { margin:0; padding:32px 24px; background:var(--c-paper); }
+  .row { display:grid; grid-template-columns:repeat(4,1fr); gap:24px; }
+  .cell { display:flex; flex-direction:column; align-items:center; gap:14px; }
+  .box { width:100%; height:80px; background:var(--c-cream); border-radius:10px; border:1px solid var(--c-grey-200); }
+  .sm { box-shadow:var(--shadow-sm); }
+  .md { box-shadow:var(--shadow-md); }
+  .lg { box-shadow:var(--shadow-lg); }
+  .cta-shadow { box-shadow:var(--shadow-cta); border-color:var(--c-teal-soft); background:var(--c-teal); }
+  .name { font-family:var(--f-display); font-size:14px; color:var(--c-grey-900); }
+  .meta { font-family:var(--f-body); font-size:10px; color:var(--c-grey-600); letter-spacing:.04em; text-transform:uppercase; text-align:center; }
+</style>
+</head>
+<body>
+<div class="row">
+  <div class="cell"><div class="box sm"></div><div class="name">--shadow-sm</div><div class="meta">Resting cards</div></div>
+  <div class="cell"><div class="box md"></div><div class="name">--shadow-md</div><div class="meta">Hover</div></div>
+  <div class="cell"><div class="box lg"></div><div class="name">--shadow-lg</div><div class="meta">Modals</div></div>
+  <div class="cell"><div class="box cta-shadow"></div><div class="name">--shadow-cta</div><div class="meta">Brand teal tint</div></div>
+</div>
+</body></html>

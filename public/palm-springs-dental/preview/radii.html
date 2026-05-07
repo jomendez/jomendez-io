@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Radii</title>
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  body { margin:0; padding:24px; background:var(--c-paper); }
+  .row { display:grid; grid-template-columns:repeat(4,1fr); gap:18px; }
+  .cell { display:flex; flex-direction:column; align-items:center; gap:10px; }
+  .box { width:100%; height:70px; background:var(--c-cream); border:1px solid var(--c-grey-200); }
+  .name { font-family:var(--f-display); font-size:15px; color:var(--c-grey-900); }
+  .meta { font-family:var(--f-body); font-size:11px; color:var(--c-grey-600); letter-spacing:.04em; text-transform:uppercase; }
+</style>
+</head>
+<body>
+<div class="row">
+  <div class="cell"><div class="box" style="border-radius:6px"></div><div class="name">Small · 6px</div><div class="meta">--r-sm · inputs</div></div>
+  <div class="cell"><div class="box" style="border-radius:8px"></div><div class="name">Medium · 8px</div><div class="meta">--r-md · cards</div></div>
+  <div class="cell"><div class="box" style="border-radius:16px"></div><div class="name">Large · 16px</div><div class="meta">--r-lg · callouts</div></div>
+  <div class="cell"><div class="box" style="border-radius:999px"></div><div class="name">Pill · 999px</div><div class="meta">--r-pill · buttons</div></div>
+</div>
+</body></html>

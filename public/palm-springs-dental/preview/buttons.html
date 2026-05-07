@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Buttons</title>
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  body { margin:0; padding:32px; background:var(--c-paper); display:flex; flex-direction:column; gap:20px; }
+  .row { display:flex; align-items:center; gap:14px; flex-wrap:wrap; }
+  .lbl { font-family:var(--f-body); font-size:11px; color:var(--c-grey-600); letter-spacing:.06em; text-transform:uppercase; width:100px; }
+  button { font-family:var(--f-body); font-weight:500; font-size:15px; letter-spacing:.01em; cursor:pointer; border:none; }
+  .btn-primary { background:var(--c-teal); color:#fff; padding:14px 28px; border-radius:999px; box-shadow:var(--shadow-cta); }
+  .btn-primary:hover { background:var(--c-teal-deep); transform:translateY(-1px); box-shadow:var(--shadow-cta-hover); }
+  .btn-secondary { background:transparent; color:var(--c-grey-900); border:1.5px solid var(--c-grey-900); padding:12.5px 26px; border-radius:999px; }
+  .btn-secondary:hover { background:var(--c-grey-900); color:#fff; }
+  .link-arrow { background:none; padding:0; color:var(--c-teal); font-size:15px; text-decoration:underline; text-decoration-color:var(--c-teal-soft); text-underline-offset:4px; text-decoration-thickness:1.5px; }
+  .link-arrow::after { content:" →"; }
+</style>
+</head>
+<body>
+  <div class="row"><div class="lbl">Primary</div><button class="btn-primary">Book today</button><button class="btn-primary">Reservar cita</button></div>
+  <div class="row"><div class="lbl">Secondary</div><button class="btn-secondary">View services</button><button class="btn-secondary">Ver servicios</button></div>
+  <div class="row"><div class="lbl">Tertiary</div><button class="link-arrow">Learn more</button><button class="link-arrow">Saber más</button></div>
+</body></html>

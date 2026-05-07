@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Cards · Service & Review</title>
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  body { margin:0; padding:24px; background:var(--c-paper); display:grid; grid-template-columns:1fr 1fr; gap:20px; }
+  .card { background:var(--c-cream); border:1px solid var(--c-grey-200); border-radius:8px; padding:24px; transition:all 240ms cubic-bezier(.2,.8,.2,1); }
+  .card:hover { transform:translateY(-2px); border-color:var(--c-teal); box-shadow:var(--shadow-md); }
+  .icon { width:32px; height:32px; color:var(--c-teal); margin-bottom:14px; }
+  h4 { font-family:var(--f-display); font-size:20px; font-weight:500; color:var(--c-grey-900); margin:0 0 6px; letter-spacing:-0.01em; }
+  .es { font-family:var(--f-display); font-style:italic; font-size:14px; color:var(--c-teal); display:block; margin-bottom:10px; font-variation-settings:'SOFT' 100; }
+  p { font-family:var(--f-body); font-size:14px; color:var(--c-grey-700); margin:0; }
+  .review { background:var(--c-teal-wash); border:none; }
+  .quote { font-family:var(--f-display); font-size:60px; line-height:.8; color:var(--c-teal); height:24px; }
+  .stars { display:flex; gap:2px; margin:10px 0 12px; color:var(--c-warn); }
+  .stars svg { width:14px; height:14px; fill:currentColor; }
+  .body { font-family:var(--f-body); font-size:14px; color:var(--c-grey-900); line-height:1.5; }
+  .author { font-family:var(--f-body); font-size:12px; color:var(--c-grey-600); margin-top:10px; letter-spacing:.04em; text-transform:uppercase; }
+</style>
+</head>
+<body>
+  <div class="card">
+    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+    <h4>Same-week visits<em class="es">Cita esta misma semana</em></h4>
+    <p>Tooth pain shouldn't wait. Most new patients are seen within five days of booking.</p>
+  </div>
+  <div class="card review">
+    <div class="quote">“</div>
+    <div class="stars">
+      <svg viewBox="0 0 24 24"><path d="M12 2l3 7 7 .6-5.3 4.6 1.6 7L12 17.5 5.7 21.2l1.6-7L2 9.6 9 9z"/></svg>
+      <svg viewBox="0 0 24 24"><path d="M12 2l3 7 7 .6-5.3 4.6 1.6 7L12 17.5 5.7 21.2l1.6-7L2 9.6 9 9z"/></svg>
+      <svg viewBox="0 0 24 24"><path d="M12 2l3 7 7 .6-5.3 4.6 1.6 7L12 17.5 5.7 21.2l1.6-7L2 9.6 9 9z"/></svg>
+      <svg viewBox="0 0 24 24"><path d="M12 2l3 7 7 .6-5.3 4.6 1.6 7L12 17.5 5.7 21.2l1.6-7L2 9.6 9 9z"/></svg>
+      <svg viewBox="0 0 24 24"><path d="M12 2l3 7 7 .6-5.3 4.6 1.6 7L12 17.5 5.7 21.2l1.6-7L2 9.6 9 9z"/></svg>
+    </div>
+    <div class="body">Me explicaron todo en español, sin prisa. Salí sin miedo y con un plan claro.</div>
+    <div class="author">— María R. · Hialeah</div>
+  </div>
+</body></html>

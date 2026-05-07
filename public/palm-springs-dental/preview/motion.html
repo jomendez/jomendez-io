@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Motion tokens</title>
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  body { margin:0; padding:24px; background:var(--c-bone); font-family:var(--f-body); }
+  table { width:100%; border-collapse:collapse; }
+  th, td { text-align:left; padding:8px 12px; border-bottom:1px solid var(--c-linen); font-size:13px; }
+  th { font-size:10px; font-weight:500; letter-spacing:.06em; text-transform:uppercase; color:var(--c-teal-fog); }
+  td.tok { font-family:'Inter Tight'; font-weight:500; color:var(--c-teal-deep); width:160px; }
+  td.val { font-variant-numeric:tabular-nums; color:var(--c-ink-soft); width:100px; }
+  td.use { color:var(--c-ink-soft); }
+  .swatch { display:inline-block; height:8px; background:var(--c-terra); border-radius:999px; vertical-align:middle; margin-right:8px; }
+</style>
+</head>
+<body>
+<table>
+  <tr><th>Token</th><th>Value</th><th>Usage</th></tr>
+  <tr><td class="tok">--d-fast</td><td class="val">160ms</td><td class="use"><span class="swatch" style="width:24px"></span>Hovers, focus rings</td></tr>
+  <tr><td class="tok">--d-base</td><td class="val">240ms</td><td class="use"><span class="swatch" style="width:36px"></span>Most UI transitions</td></tr>
+  <tr><td class="tok">--d-slow</td><td class="val">480ms</td><td class="use"><span class="swatch" style="width:72px"></span>Section reveals</td></tr>
+  <tr><td class="tok">--d-page</td><td class="val">720ms</td><td class="use"><span class="swatch" style="width:108px"></span>Page transitions</td></tr>
+  <tr><td class="tok">--ease-out</td><td class="val">cubic-bezier(.2,.8,.2,1)</td><td class="use">Exits, reveals</td></tr>
+  <tr><td class="tok">--ease-in-out</td><td class="val">cubic-bezier(.65,0,.35,1)</td><td class="use">Transitions</td></tr>
+</table>
+</body></html>

@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Color · brand in use</title>
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  body { margin:0; padding:24px; background:var(--c-paper); }
+  .demo { background:var(--c-cream); border:1px solid var(--c-grey-200); border-radius:12px; padding:28px; display:grid; grid-template-columns: 1.4fr 1fr; gap:24px; align-items:center; }
+  h1 { font-size:30px; line-height:1.05; margin:0 0 6px; color:var(--c-grey-900); }
+  .es { font-size:18px; color:var(--c-teal); }
+  p { color:var(--c-grey-700); font-size:14px; margin:8px 0 16px; }
+  .cta { display:inline-flex; align-items:center; gap:8px; background:var(--c-teal); color:#fff; padding:11px 22px; border-radius:999px; font-family:var(--f-body); font-weight:500; font-size:14px; box-shadow:var(--shadow-cta); }
+  .ratio { display:flex; height:24px; border-radius:999px; overflow:hidden; border:1px solid var(--c-grey-200); }
+  .ratio span { display:flex; align-items:center; justify-content:center; font-family:'Inter Tight'; font-size:11px; font-weight:600; }
+  .b60 { flex:60; background:#FFFFFF; color:var(--c-grey-600); }
+  .b30 { flex:30; background:var(--c-grey-900); color:#fff; }
+  .b10 { flex:10; background:var(--c-teal); color:#fff; }
+  .lbl { font-family:'Inter Tight'; font-size:11px; color:var(--c-grey-600); margin-top:8px; letter-spacing:.04em; text-transform:uppercase; }
+</style>
+</head>
+<body>
+<div class="demo">
+  <div>
+    <h1>Comfortable dental care
+      <em class="es">Cuidado dental con confianza</em></h1>
+    <p>Same-week appointments, transparent pricing, a real bilingual team.</p>
+    <a class="cta">Book today →</a>
+  </div>
+  <div>
+    <div class="ratio"><span class="b60">60% Paper</span><span class="b30">30% Grey</span><span class="b10">10%</span></div>
+    <div class="lbl">Surface · Structure · Brand teal</div>
+  </div>
+</div>
+</body></html>

@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Color · Functional</title>
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  body { margin:0; padding:24px; background:var(--c-paper); }
+  .row { display:grid; grid-template-columns: repeat(3, 1fr); gap:14px; }
+  .sw { background:var(--c-paper); border:1px solid var(--c-grey-200); border-radius:8px; overflow:hidden; }
+  .chip { height:64px; display:flex; align-items:center; justify-content:center; font-family:'Inter Tight', sans-serif; font-size:13px; font-weight:500; color:#fff; }
+  .meta { padding:10px 12px; }
+  .name { font-family:var(--f-display); font-size:16px; color:var(--c-grey-900); line-height:1.1; }
+  .hex  { font-family:var(--f-body); font-size:12px; color:var(--c-grey-600); font-variant-numeric:tabular-nums; margin-top:2px; }
+</style>
+</head>
+<body>
+<div class="row">
+  <div class="sw"><div class="chip" style="background:#3F9D6E">Success</div><div class="meta"><div class="name">Success</div><div class="hex">#3F9D6E</div></div></div>
+  <div class="sw"><div class="chip" style="background:#C68A2E">Warning</div><div class="meta"><div class="name">Warning</div><div class="hex">#C68A2E</div></div></div>
+  <div class="sw"><div class="chip" style="background:#C0463A">Alert</div><div class="meta"><div class="name">Alert</div><div class="hex">#C0463A</div></div></div>
+</div>
+</body></html>

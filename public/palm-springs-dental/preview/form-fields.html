@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Form fields</title>
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  body { margin:0; padding:24px; background:var(--c-paper); display:grid; grid-template-columns:1fr 1fr; gap:20px; }
+  .field label { display:block; font-family:var(--f-body); font-size:13px; font-weight:500; color:var(--c-grey-600); margin-bottom:6px; }
+  .req { color:var(--c-teal); }
+  .field input, .field select { width:100%; box-sizing:border-box; background:var(--c-paper); border:1.5px solid var(--c-grey-200); border-radius:6px; padding:14px 18px; font-family:var(--f-body); font-size:16px; color:var(--c-grey-900); transition:border-color 200ms; }
+  .focused input { border-color:var(--c-teal); background:var(--c-paper); outline:none; box-shadow:0 0 0 4px var(--c-teal-wash); }
+  .err input { border-color:var(--c-alert); background:#FBF3F2; }
+  .help { font-family:var(--f-body); font-size:13px; color:var(--c-alert); margin-top:6px; }
+</style>
+</head>
+<body>
+  <div class="field"><label>Full name <span class="req">*</span></label><input value="" placeholder="María Hernández"></div>
+  <div class="field focused"><label>Phone <span class="req">*</span></label><input value="(305) 555-0117"></div>
+  <div class="field"><label>Email</label><input value="maria@example.com"></div>
+  <div class="field err"><label>Date of birth <span class="req">*</span></label><input value=""><div class="help">Please share your date of birth so we can confirm.</div></div>
+</body></html>
