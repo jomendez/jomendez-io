@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=1280">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Palm Springs Dental — Hialeah's bilingual dental clinic</title>
 
   <!-- Design tokens -->
@@ -137,7 +137,7 @@ a:hover { color: var(--c-teal-deep); }
   <!-- Component styles -->
   <style>
 * { box-sizing: border-box; }
-html, body { margin:0; padding:0; }
+html, body { margin:0; padding:0; overflow-x: hidden; }
 
 .psd-eyebrow {
   display:inline-block;
@@ -695,10 +695,183 @@ html, body { margin:0; padding:0; }
 }
 .psd-footer__lang { font-variant-numeric: tabular-nums; }
 
+/* ---- Mobile hamburger button (hidden on desktop via display:none) ---- */
+.psd-nav__hamburger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 40px; height: 40px;
+  padding: 8px;
+  background: none; border: 0; cursor: pointer;
+  z-index: 60;
+}
+.psd-nav__hamburger span {
+  display: block; width: 100%; height: 2px;
+  background: var(--c-teal-deep); border-radius: 2px;
+  transition: transform .25s ease, opacity .2s ease;
+}
+.psd-nav__hamburger.is-open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.psd-nav__hamburger.is-open span:nth-child(2) { opacity: 0; }
+.psd-nav__hamburger.is-open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+/* ---- Mobile menu overlay ---- */
+.psd-mobile-menu {
+  display: none;
+  position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+  z-index: 55;
+  background: rgba(255,255,255,0.98);
+  backdrop-filter: blur(16px);
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  padding: 80px 32px 32px;
+}
+.psd-mobile-menu a {
+  font-family: var(--f-display);
+  font-size: 24px;
+  color: var(--c-teal-deep);
+  text-decoration: none;
+  padding: 16px 0;
+  width: 100%;
+  text-align: center;
+  border-bottom: 1px solid var(--c-grey-200);
+}
+.psd-mobile-menu a:last-child { border-bottom: 0; }
+.psd-mobile-menu a:hover { color: var(--c-teal); }
+.psd-mobile-menu .psd-btn {
+  margin-top: 20px;
+  width: 100%;
+  justify-content: center;
+  padding: 16px 28px;
+  font-size: 16px;
+}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+
+/* ---- Tablet (960px) ---- */
 @media (max-width: 960px) {
-  .psd-hero, .psd-doctor, .psd-offer-band, .psd-footer__top { grid-template-columns: 1fr; gap: 48px; }
-  .psd-service-grid, .psd-promise__grid { grid-template-columns: 1fr; }
+  /* Nav: hide desktop links, show hamburger to the left of logo */
+  .psd-nav__utility { display: none; }
   .psd-nav__links { display: none; }
+  .psd-nav__cta { display: none; }
+  .psd-nav__hamburger { display: flex; }
+  .psd-mobile-menu.is-open { display: flex; }
+  .psd-nav__main {
+    grid-template-columns: auto 1fr;
+    gap: 12px;
+    padding: 12px 20px;
+  }
+  .psd-nav__logo img { height: 48px; }
+
+  /* Grids to single column */
+  .psd-hero { grid-template-columns: 1fr; gap: 32px; padding: 48px 24px 56px; }
+  .psd-hero__visual .psd-photo { margin-right: 0; height: auto; aspect-ratio: 16/9; border-radius: 12px; }
+  .psd-hero__visual { overflow: hidden; }
+  .psd-photo--hero { aspect-ratio: 16/9; }
+
+  .psd-doctor { grid-template-columns: 1fr; gap: 36px; }
+  .psd-doctor__photo { max-width: 400px; margin: 0 auto; border-radius: 12px; }
+
+  .psd-offer-band { grid-template-columns: 1fr; gap: 36px; padding: 56px 24px; }
+
+  .psd-footer__top { grid-template-columns: 1fr 1fr; gap: 36px; }
+
+  .psd-service-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; }
+  .psd-promise__grid { grid-template-columns: 1fr; gap: 32px; }
+
+  .psd-section { padding: 56px 24px; }
+  .psd-promise { padding: 56px 24px; }
+  .psd-promise__head { font-size: 32px; margin-bottom: 40px; }
+  .psd-booking-cta { padding: 56px 24px; }
+  .psd-booking-cta__head { font-size: 32px; }
+  .psd-insurance { padding: 48px 24px; }
+  .psd-footer { padding: 56px 24px 24px; }
+
+  .psd-section__head h2 { font-size: 32px; }
+  .psd-doctor__copy h2 { font-size: 28px; }
+  .psd-quote { font-size: 19px; }
+
+  .psd-review-card { padding: 40px 32px; }
+  .psd-review-card p { font-size: 22px; }
+
+  .psd-offer-band__copy h2 { font-size: 30px; }
+  .psd-offer-card__price { font-size: 48px; }
+}
+
+/* ---- Mobile (480px) ---- */
+@media (max-width: 480px) {
+  .psd-nav__main { padding: 10px 16px; gap: 10px; }
+  .psd-nav__logo img { height: 40px; }
+
+  .psd-hero { padding: 32px 16px 40px; gap: 24px; }
+  .psd-hero__headline { font-size: clamp(32px, 9vw, 48px); margin-bottom: 14px; }
+  .psd-hero__headline-es { font-size: 0.45em; margin-top: 8px; }
+  .psd-hero__lead { font-size: 15px; line-height: 1.55; margin-bottom: 24px; max-width: none; }
+  .psd-hero__ctas { flex-direction: column; gap: 10px; }
+  .psd-hero__ctas .psd-btn { width: 100%; justify-content: center; }
+  .psd-hero__trust { font-size: 13px; gap: 8px; }
+  .psd-hero__visual .psd-photo { aspect-ratio: 4/3; border-radius: 10px; }
+  .psd-photo--hero { aspect-ratio: 4/3; }
+
+  .psd-section { padding: 40px 16px; }
+  .psd-section__head { margin-bottom: 24px; }
+  .psd-section__head h2 { font-size: 26px; }
+
+  .psd-service-grid { grid-template-columns: 1fr; gap: 12px; }
+  .psd-service-card { padding: 20px; border-radius: 10px; }
+  .psd-service-card h4 { font-size: 19px; margin-bottom: 10px; }
+  .psd-service-card__icon { margin-bottom: 12px; }
+
+  .psd-promise { padding: 40px 16px; }
+  .psd-promise__head { font-size: 26px; margin-bottom: 28px; }
+  .psd-pillar__title { font-size: 20px; }
+  .psd-pillar__es { font-size: 14px; }
+  .psd-pillar p { font-size: 14px; }
+
+  .psd-doctor { gap: 28px; }
+  .psd-doctor__photo { max-width: 320px; }
+  .psd-doctor__copy h2 { font-size: 24px; }
+  .psd-doctor__creds { font-size: 10px; margin-bottom: 16px; }
+  .psd-quote { font-size: 17px; max-width: none; }
+  .psd-quote-es { font-size: 13px; max-width: none; }
+
+  .psd-review-card { padding: 28px 20px; border-radius: 12px; }
+  .psd-review-card__quote { font-size: 56px; top: 8px; left: 12px; }
+  .psd-review-card p { font-size: 18px; }
+  .psd-review-card footer { font-size: 11px; }
+
+  .psd-offer-band { padding: 40px 16px; gap: 28px; }
+  .psd-offer-band__copy h2 { font-size: 26px; }
+  .psd-offer-band__copy p { font-size: 15px; }
+  .psd-offer-card { padding: 24px; border-radius: 10px; }
+  .psd-offer-card__price { font-size: 40px; }
+  .psd-offer-card__list li { font-size: 14px; gap: 10px; }
+
+  .psd-insurance { padding: 32px 16px; }
+  .psd-insurance__lbl { font-size: 10px; margin-bottom: 20px; }
+  .psd-insurance__row { gap: 16px 24px; }
+  .psd-insurance__chip { font-size: 15px; }
+
+  .psd-booking-cta { padding: 40px 16px; }
+  .psd-booking-cta__head { font-size: 24px; margin-bottom: 24px; }
+  .psd-booking-cta__actions { flex-direction: column; gap: 12px; }
+  .psd-booking-cta__actions .psd-btn,
+  .psd-booking-cta__actions .psd-link-arrow { width: 100%; text-align: center; justify-content: center; display: flex; }
+
+  .psd-footer { padding: 40px 16px 20px; }
+  .psd-footer__top { grid-template-columns: 1fr; gap: 28px; margin-bottom: 32px; }
+  .psd-footer__brand img { height: 40px; }
+  .psd-footer__brand p { font-size: 14px; }
+  .psd-footer__col p, .psd-footer__addr { font-size: 14px; }
+  .psd-footer__bottom {
+    flex-direction: column; gap: 6px; align-items: flex-start;
+    font-size: 12px; padding-top: 16px;
+  }
+  .psd-footer__bottom em { font-size: 13px; }
 }
   </style>
 
@@ -716,6 +889,7 @@ const { useState, useEffect } = React;
 
 function Nav() {
   const [lang, setLang] = useState('EN');
+  const [menuOpen, setMenuOpen] = useState(false);
   return (
     <header className="psd-nav">
       <div className="psd-nav__utility">
@@ -734,6 +908,14 @@ function Nav() {
         </div>
       </div>
       <div className="psd-nav__main">
+        <button
+          className={'psd-nav__hamburger' + (menuOpen ? ' is-open' : '')}
+          onClick={() => setMenuOpen(v => !v)}
+          aria-label={menuOpen ? 'Close menu' : 'Open menu'}
+          aria-expanded={menuOpen}
+        >
+          <span /><span /><span />
+        </button>
         <a className="psd-nav__logo" href="#">
           <img src="assets/logo-full.png" alt="Palm Springs Dental" />
         </a>
@@ -749,6 +931,19 @@ function Nav() {
           <button className="psd-btn psd-btn--primary">{lang==='EN'?'Book today':'Reservar cita'}</button>
         </div>
       </div>
+      {menuOpen && (
+        <div className="psd-mobile-menu is-open" onClick={() => setMenuOpen(false)}>
+          <a href="#">Services</a>
+          <a href="#">New patients</a>
+          <a href="#">Our team</a>
+          <a href="#">Insurance</a>
+          <a href="#">Reviews</a>
+          <a href="tel:+13055550117">(305) 555-0117</a>
+          <button className="psd-btn psd-btn--primary" style={{marginTop: 8}}>
+            {lang==='EN'?'Book today':'Reservar cita'}
+          </button>
+        </div>
+      )}
     </header>
   );
 }

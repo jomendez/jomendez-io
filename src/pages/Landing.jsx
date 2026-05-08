@@ -50,6 +50,7 @@ if (
 
 const Landing = () => {
   const [scrolled, setScrolled] = useState(false)
+  const [menuOpen, setMenuOpen] = useState(false)
   const heroRef = useRef(null)
 
   // Nav scroll state (frosted-glass after the hero passes)
@@ -140,8 +141,29 @@ const Landing = () => {
               <span>Join the waitlist</span>
             </a>
           </div>
+          <button
+            className={`nav-hamburger${menuOpen ? ' is-open' : ''}`}
+            onClick={() => setMenuOpen((v) => !v)}
+            aria-label={menuOpen ? 'Close menu' : 'Open menu'}
+            aria-expanded={menuOpen}
+          >
+            <span /><span /><span />
+          </button>
         </div>
       </nav>
+
+      {/* Mobile menu overlay */}
+      {menuOpen && (
+        <div className="mobile-menu" aria-label="Mobile navigation">
+          <a href="#audit" onClick={() => setMenuOpen(false)}>The Audit</a>
+          <a href="#why" onClick={() => setMenuOpen(false)}>Why it works</a>
+          <a href="#about" onClick={() => setMenuOpen(false)}>About</a>
+          <a href="#join" className="nav-cta" onClick={() => setMenuOpen(false)}>
+            <span className="pill" aria-hidden="true"></span>
+            <span>Join the waitlist</span>
+          </a>
+        </div>
+      )}
 
       <main id="top">
         {/* ============================================================
