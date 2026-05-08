@@ -632,6 +632,9 @@ const Landing = () => {
               <span>&copy; {new Date().getFullYear()} JOMENDEZ INC</span>
               <span>BUILT IN MIAMI</span>
             </div>
+            <div className="footer-address" style={{ textAlign: 'center', fontSize: '0.55rem', opacity: 0.5, marginTop: '0.75rem', letterSpacing: '0.03em' }}>
+              13375 SW 42 Ter, Miami, FL 33175 &nbsp;|&nbsp; 786 486 1561
+            </div>
           </div>
         </footer>
       </main>
