@@ -873,6 +873,508 @@ html, body { margin:0; padding:0; overflow-x: hidden; }
   }
   .psd-footer__bottom em { font-size: 13px; }
 }
+
+/* ============================================================
+   MOCKED WIDGETS — booking modal, hero slots, sticky bar,
+   chat, social-proof toasts. All shells, no backends.
+   ============================================================ */
+
+.psd-btn:disabled { opacity: 0.45; cursor: not-allowed; pointer-events: none; }
+
+/* ---- Booking modal ---- */
+.psd-modal-backdrop {
+  position: fixed; inset: 0;
+  background: rgba(46, 46, 51, 0.55);
+  backdrop-filter: blur(6px);
+  z-index: 100;
+  display: flex; align-items: center; justify-content: center;
+  padding: 24px;
+  animation: psdFadeIn 220ms var(--ease-out);
+}
+@keyframes psdFadeIn { from { opacity: 0; } to { opacity: 1; } }
+.psd-modal {
+  background: var(--c-paper);
+  border-radius: 16px;
+  max-width: 560px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  padding: 40px;
+  position: relative;
+  box-shadow: var(--shadow-lg);
+  animation: psdSlideUp 320ms var(--ease-out);
+}
+@keyframes psdSlideUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.psd-modal__close {
+  position: absolute; top: 14px; right: 14px;
+  background: none; border: none;
+  width: 32px; height: 32px;
+  border-radius: 999px;
+  cursor: pointer;
+  color: var(--c-grey-600);
+  display: flex; align-items: center; justify-content: center;
+  transition: all var(--d-fast) var(--ease-out);
+}
+.psd-modal__close:hover { background: var(--c-grey-100); color: var(--c-grey-900); }
+.psd-modal__steps {
+  display: flex; gap: 8px;
+  margin-bottom: 28px;
+  padding-right: 36px;
+}
+.psd-modal__step {
+  flex: 1; height: 4px;
+  background: var(--c-grey-200);
+  border-radius: 999px;
+  transition: background var(--d-base) var(--ease-out);
+}
+.psd-modal__step.is-active { background: var(--c-teal); }
+.psd-modal__step.is-done { background: var(--c-teal-deep); }
+.psd-modal h3 {
+  font-family: var(--f-display);
+  font-size: 28px;
+  font-weight: 500;
+  color: var(--c-teal-deep);
+  margin: 0 0 8px;
+  letter-spacing: -0.01em;
+}
+.psd-modal__sub {
+  color: var(--c-grey-600);
+  font-size: 14px;
+  margin: 0 0 22px;
+  max-width: none;
+}
+
+.psd-svc-options {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+.psd-svc-option {
+  display: flex; align-items: center; gap: 12px;
+  padding: 14px 16px;
+  background: var(--c-paper);
+  border: 1px solid var(--c-grey-200);
+  border-radius: 10px;
+  cursor: pointer;
+  text-align: left;
+  font: inherit;
+  font-size: 14px;
+  color: var(--c-grey-900);
+  transition: all var(--d-fast) var(--ease-out);
+}
+.psd-svc-option:hover { border-color: var(--c-teal); background: var(--c-teal-wash); }
+.psd-svc-option.is-selected {
+  border-color: var(--c-teal);
+  background: var(--c-teal-wash);
+  box-shadow: 0 0 0 3px rgba(40, 168, 176, 0.15);
+}
+.psd-svc-option svg { width: 18px; height: 18px; color: var(--c-teal-deep); flex-shrink: 0; }
+
+.psd-day { margin-bottom: 16px; }
+.psd-day:last-child { margin-bottom: 0; }
+.psd-day__label {
+  font-family: var(--f-body);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--c-grey-600);
+  margin-bottom: 8px;
+}
+.psd-slots { display: flex; flex-wrap: wrap; gap: 8px; }
+.psd-slot {
+  padding: 8px 14px;
+  background: var(--c-paper);
+  border: 1px solid var(--c-grey-200);
+  border-radius: 999px;
+  font: inherit;
+  font-size: 14px;
+  font-variant-numeric: tabular-nums;
+  color: var(--c-teal-deep);
+  cursor: pointer;
+  transition: all var(--d-fast) var(--ease-out);
+}
+.psd-slot:hover:not(:disabled) { border-color: var(--c-teal); background: var(--c-teal-wash); }
+.psd-slot.is-selected {
+  background: var(--c-teal);
+  color: var(--c-cream);
+  border-color: var(--c-teal);
+}
+.psd-slot:disabled {
+  color: var(--c-grey-400);
+  cursor: not-allowed;
+  text-decoration: line-through;
+  text-decoration-color: var(--c-grey-300);
+}
+
+.psd-field { margin-bottom: 14px; }
+.psd-field label {
+  display: block;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--c-grey-700);
+  margin-bottom: 6px;
+}
+.psd-field input {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid var(--c-grey-300);
+  border-radius: 8px;
+  font: inherit;
+  font-size: 15px;
+  color: var(--c-grey-900);
+  background: var(--c-paper);
+  transition: all var(--d-fast) var(--ease-out);
+}
+.psd-field input:focus {
+  outline: none;
+  border-color: var(--c-teal);
+  box-shadow: 0 0 0 3px rgba(40, 168, 176, 0.15);
+}
+
+.psd-summary {
+  background: var(--c-teal-wash);
+  border-radius: 10px;
+  padding: 14px 16px;
+  margin-bottom: 20px;
+}
+.psd-summary__row {
+  display: flex; justify-content: space-between;
+  font-size: 14px;
+  padding: 4px 0;
+  gap: 16px;
+}
+.psd-summary__row span:first-child { color: var(--c-grey-600); flex-shrink: 0; }
+.psd-summary__row span:last-child { color: var(--c-teal-deep); font-weight: 500; text-align: right; }
+
+.psd-confirm { text-align: center; padding: 8px 0 0; }
+.psd-confirm__icon {
+  width: 64px; height: 64px;
+  border-radius: 999px;
+  background: var(--c-teal);
+  color: var(--c-cream);
+  margin: 0 auto 20px;
+  display: flex; align-items: center; justify-content: center;
+}
+.psd-confirm h3 { margin-bottom: 12px; }
+.psd-confirm p { color: var(--c-grey-700); margin: 0 auto 8px; max-width: 380px; }
+.psd-confirm__details {
+  background: var(--c-teal-wash);
+  border-radius: 10px;
+  padding: 16px 18px;
+  margin: 24px 0;
+  text-align: left;
+}
+
+.psd-modal__nav {
+  display: flex; gap: 10px;
+  margin-top: 24px;
+}
+.psd-modal__nav .psd-btn { flex: 1; justify-content: center; }
+
+/* ---- Hero slot chips ---- */
+.psd-hero__slots { margin: 28px 0 32px; }
+.psd-hero__slots-lbl {
+  display: flex; align-items: center; gap: 10px;
+  font-family: var(--f-body);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--c-grey-600);
+  margin-bottom: 12px;
+}
+.psd-hero__slots-lbl::before {
+  content: '';
+  width: 8px; height: 8px;
+  background: var(--c-success);
+  border-radius: 999px;
+  animation: psdPulse 2s infinite;
+}
+@keyframes psdPulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(63, 157, 110, 0.45); }
+  50% { box-shadow: 0 0 0 6px rgba(63, 157, 110, 0); }
+}
+.psd-hero__slots-row { display: flex; flex-wrap: wrap; gap: 8px; }
+.psd-hero__slot {
+  padding: 8px 14px;
+  background: var(--c-paper);
+  border: 1px solid var(--c-grey-300);
+  border-radius: 999px;
+  font: inherit;
+  font-size: 13px;
+  font-variant-numeric: tabular-nums;
+  color: var(--c-teal-deep);
+  cursor: pointer;
+  transition: all var(--d-fast) var(--ease-out);
+}
+.psd-hero__slot:hover {
+  border-color: var(--c-teal);
+  background: var(--c-teal-wash);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-sm);
+}
+
+/* ---- Sticky mobile call/book bar ---- */
+.psd-sticky-bar {
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  z-index: 70;
+  display: none;
+  background: var(--c-paper);
+  border-top: 1px solid var(--c-grey-200);
+  padding: 10px 16px;
+  gap: 10px;
+  box-shadow: 0 -4px 24px -8px rgba(46, 46, 51, 0.18);
+  transform: translateY(110%);
+  transition: transform var(--d-base) var(--ease-out);
+}
+.psd-sticky-bar.is-visible { transform: translateY(0); }
+.psd-sticky-bar .psd-btn { flex: 1; justify-content: center; padding: 12px; font-size: 14px; }
+@media (max-width: 960px) {
+  .psd-sticky-bar { display: flex; }
+  body.has-sticky-bar { padding-bottom: 72px; }
+}
+
+/* ---- Chat widget ---- */
+.psd-chat { position: fixed; bottom: 24px; right: 24px; z-index: 65; }
+@media (max-width: 960px) {
+  .psd-chat { bottom: 88px; right: 16px; }
+}
+.psd-chat__bubble {
+  width: 60px; height: 60px;
+  border-radius: 999px;
+  background: var(--c-teal);
+  color: var(--c-cream);
+  border: none;
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: var(--shadow-cta);
+  transition: all var(--d-base) var(--ease-out);
+  position: relative;
+}
+.psd-chat__bubble:hover {
+  background: var(--c-teal-deep);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-cta-hover);
+}
+.psd-chat__badge {
+  position: absolute;
+  top: -2px; right: -2px;
+  min-width: 18px; height: 18px;
+  background: var(--c-alert);
+  color: var(--c-cream);
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 600;
+  display: flex; align-items: center; justify-content: center;
+  border: 2px solid var(--c-paper);
+  padding: 0 4px;
+}
+.psd-chat__panel {
+  position: absolute;
+  bottom: 76px; right: 0;
+  width: 360px;
+  max-width: calc(100vw - 32px);
+  height: 480px;
+  max-height: calc(100vh - 120px);
+  background: var(--c-paper);
+  border-radius: 16px;
+  box-shadow: var(--shadow-lg);
+  display: flex; flex-direction: column;
+  overflow: hidden;
+  animation: psdSlideUp 280ms var(--ease-out);
+}
+.psd-chat__header {
+  background: var(--c-teal-deep);
+  color: var(--c-cream);
+  padding: 14px 18px;
+  display: flex; align-items: center; gap: 12px;
+}
+.psd-chat__avatar {
+  width: 36px; height: 36px;
+  border-radius: 999px;
+  background: var(--c-teal-light);
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--f-display);
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--c-teal-deep);
+  flex-shrink: 0;
+}
+.psd-chat__header-text { min-width: 0; }
+.psd-chat__header h4 {
+  font-family: var(--f-body);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--c-cream);
+  margin: 0;
+  letter-spacing: 0;
+}
+.psd-chat__header-meta {
+  font-size: 11px;
+  color: rgba(255,255,255,.7);
+  display: flex; align-items: center; gap: 6px;
+  margin-top: 2px;
+}
+.psd-chat__online-dot {
+  width: 8px; height: 8px;
+  background: var(--c-success);
+  border-radius: 999px;
+}
+.psd-chat__close {
+  margin-left: auto;
+  background: none; border: none;
+  color: var(--c-cream); cursor: pointer;
+  width: 28px; height: 28px;
+  border-radius: 999px;
+  display: flex; align-items: center; justify-content: center;
+  transition: background var(--d-fast) var(--ease-out);
+  flex-shrink: 0;
+}
+.psd-chat__close:hover { background: rgba(255,255,255,.15); }
+.psd-chat__body {
+  flex: 1; overflow-y: auto;
+  padding: 16px;
+  background: var(--c-grey-50);
+  display: flex; flex-direction: column; gap: 8px;
+}
+.psd-chat__msg {
+  max-width: 82%;
+  padding: 10px 14px;
+  border-radius: 14px;
+  font-size: 14px;
+  line-height: 1.45;
+  animation: psdSlideUp 240ms var(--ease-out);
+}
+.psd-chat__msg--bot {
+  background: var(--c-paper);
+  color: var(--c-grey-900);
+  border: 1px solid var(--c-grey-200);
+  border-bottom-left-radius: 4px;
+  align-self: flex-start;
+}
+.psd-chat__msg--user {
+  background: var(--c-teal);
+  color: var(--c-cream);
+  border-bottom-right-radius: 4px;
+  align-self: flex-end;
+}
+.psd-chat__typing {
+  background: var(--c-paper);
+  border: 1px solid var(--c-grey-200);
+  border-radius: 14px;
+  border-bottom-left-radius: 4px;
+  padding: 12px 16px;
+  align-self: flex-start;
+  display: flex; gap: 4px;
+}
+.psd-chat__typing span {
+  width: 6px; height: 6px;
+  background: var(--c-grey-400);
+  border-radius: 999px;
+  animation: psdBounce 1.2s infinite;
+}
+.psd-chat__typing span:nth-child(2) { animation-delay: .15s; }
+.psd-chat__typing span:nth-child(3) { animation-delay: .3s; }
+@keyframes psdBounce {
+  0%, 60%, 100% { transform: translateY(0); opacity: .5; }
+  30% { transform: translateY(-4px); opacity: 1; }
+}
+.psd-chat__chips {
+  padding: 10px 14px;
+  display: flex; flex-wrap: wrap; gap: 6px;
+  background: var(--c-paper);
+  border-top: 1px solid var(--c-grey-200);
+}
+.psd-chat__chip {
+  padding: 6px 12px;
+  background: var(--c-paper);
+  border: 1px solid var(--c-teal);
+  color: var(--c-teal-deep);
+  border-radius: 999px;
+  font: inherit;
+  font-size: 13px;
+  cursor: pointer;
+  transition: all var(--d-fast) var(--ease-out);
+}
+.psd-chat__chip:hover { background: var(--c-teal-wash); }
+.psd-chat__footer {
+  padding: 8px 14px;
+  background: var(--c-paper);
+  font-size: 10px;
+  color: var(--c-grey-600);
+  text-align: center;
+  border-top: 1px solid var(--c-grey-200);
+  letter-spacing: .04em;
+  text-transform: uppercase;
+}
+
+/* ---- Social-proof toasts ---- */
+.psd-toast-stack {
+  position: fixed;
+  bottom: 24px; left: 24px;
+  z-index: 60;
+  display: flex; flex-direction: column; gap: 8px;
+  max-width: 320px;
+  pointer-events: none;
+}
+@media (max-width: 960px) {
+  .psd-toast-stack {
+    bottom: 88px; left: 16px;
+    max-width: calc(100vw - 32px);
+  }
+}
+.psd-toast {
+  background: var(--c-paper);
+  border: 1px solid var(--c-grey-200);
+  border-radius: 12px;
+  padding: 12px 14px;
+  display: flex; align-items: center; gap: 12px;
+  box-shadow: var(--shadow-md);
+  animation: psdSlideInLeft 320ms var(--ease-out);
+  pointer-events: auto;
+}
+@keyframes psdSlideInLeft {
+  from { opacity: 0; transform: translateX(-20px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+.psd-toast.is-leaving { animation: psdSlideOutLeft 320ms var(--ease-out) forwards; }
+@keyframes psdSlideOutLeft {
+  to { opacity: 0; transform: translateX(-20px); }
+}
+.psd-toast__avatar {
+  width: 36px; height: 36px;
+  border-radius: 999px;
+  background: var(--c-teal-wash);
+  color: var(--c-teal-deep);
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--f-display);
+  font-size: 15px;
+  font-weight: 500;
+  flex-shrink: 0;
+}
+.psd-toast__body { flex: 1; min-width: 0; }
+.psd-toast__body p {
+  font-size: 13px;
+  color: var(--c-grey-900);
+  margin: 0 0 2px;
+  line-height: 1.4;
+}
+.psd-toast__body small {
+  font-size: 11px;
+  color: var(--c-grey-600);
+}
+
+/* ---- Mobile modal tweaks ---- */
+@media (max-width: 480px) {
+  .psd-modal { padding: 28px 20px; border-radius: 12px; max-height: 95vh; }
+  .psd-modal h3 { font-size: 22px; }
+  .psd-svc-options { grid-template-columns: 1fr; }
+}
   </style>
 
   <!-- React + Babel from CDN -->
@@ -887,9 +1389,428 @@ html, body { margin:0; padding:0; overflow-x: hidden; }
 /* global React, ReactDOM */
 const { useState, useEffect } = React;
 
+/* ============================================================
+   MOCKED WIDGET COMPONENTS
+   Booking modal, hero slots, sticky bar, chat, toasts.
+   No backend — all interactions are scripted theater.
+   ============================================================ */
+
+const BookingContext = React.createContext(null);
+function useBooking() { return React.useContext(BookingContext); }
+
+const SERVICE_OPTIONS = [
+  { id: 'newpatient', label: 'New patient exam' },
+  { id: 'cleaning',   label: 'Cleaning' },
+  { id: 'emergency',  label: 'Emergency visit' },
+  { id: 'invisalign', label: 'Invisalign consult' },
+  { id: 'whitening',  label: 'Whitening' },
+  { id: 'implants',   label: 'Implants consult' },
+];
+
+function buildDaysOfSlots() {
+  const today = new Date();
+  const out = [];
+  let i = 0;
+  while (out.length < 4 && i < 8) {
+    const d = new Date(today);
+    d.setDate(today.getDate() + i);
+    const dow = d.getDay();
+    if (dow !== 0) {
+      const longDate = d.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' });
+      const label = i === 0 ? 'Today · ' + longDate
+        : i === 1 ? 'Tomorrow · ' + longDate
+        : d.toLocaleDateString('en-US', { weekday: 'long', month: 'short', day: 'numeric' });
+      const slots = dow === 6
+        ? [{ time: '9:00a', avail: true }, { time: '10:30a', avail: false }, { time: '12:00p', avail: true }, { time: '1:30p', avail: true }]
+        : [
+            { time: '8:30a',  avail: i > 0 },
+            { time: '10:00a', avail: true },
+            { time: '11:30a', avail: i % 2 === 1 },
+            { time: '2:00p',  avail: true },
+            { time: '3:30p',  avail: i % 2 === 0 },
+            { time: '5:00p',  avail: true },
+          ];
+      out.push({ key: d.toISOString().slice(0,10), label, slots });
+    }
+    i++;
+  }
+  return out;
+}
+
+function BookingModal({ open, onClose, initialSlot }) {
+  const [step, setStep] = useState(0);
+  const [service, setService] = useState(null);
+  const [slot, setSlot] = useState(null);
+  const [name, setName] = useState('');
+  const [phone, setPhone] = useState('');
+  const days = React.useMemo(() => buildDaysOfSlots(), [open]);
+
+  useEffect(() => {
+    if (open) {
+      document.body.style.overflow = 'hidden';
+      setStep(0);
+      setService(null);
+      setSlot(initialSlot || null);
+      setName('');
+      setPhone('');
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => { document.body.style.overflow = ''; };
+  }, [open, initialSlot]);
+
+  useEffect(() => {
+    if (!open) return;
+    const onKey = e => { if (e.key === 'Escape') onClose(); };
+    document.addEventListener('keydown', onKey);
+    return () => document.removeEventListener('keydown', onKey);
+  }, [open, onClose]);
+
+  if (!open) return null;
+
+  const canNext =
+    (step === 0 && service) ||
+    (step === 1 && slot) ||
+    (step === 2 && name.trim() && phone.trim());
+
+  const cleanDayLabel = (lbl) => (lbl || '').replace(/ · .*$/, '');
+
+  return (
+    <div className="psd-modal-backdrop" onClick={onClose}>
+      <div className="psd-modal" onClick={e => e.stopPropagation()} role="dialog" aria-modal="true">
+        <button className="psd-modal__close" onClick={onClose} aria-label="Close">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
+        </button>
+
+        {step < 3 && (
+          <div className="psd-modal__steps">
+            {[0,1,2].map(n => (
+              <div key={n} className={'psd-modal__step' + (n < step ? ' is-done' : n === step ? ' is-active' : '')} />
+            ))}
+          </div>
+        )}
+
+        {step === 0 && (
+          <>
+            <h3>What brings you in?</h3>
+            <p className="psd-modal__sub">Pick the visit type — we'll match you with the right provider.</p>
+            <div className="psd-svc-options">
+              {SERVICE_OPTIONS.map(s => (
+                <button
+                  key={s.id}
+                  className={'psd-svc-option' + (service && service.id === s.id ? ' is-selected' : '')}
+                  onClick={() => setService(s)}
+                >
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="9"/><path d="M9 12l2 2 4-4"/></svg>
+                  {s.label}
+                </button>
+              ))}
+            </div>
+          </>
+        )}
+
+        {step === 1 && (
+          <>
+            <h3>Pick a time</h3>
+            <p className="psd-modal__sub">Live availability for {service.label.toLowerCase()}. Greyed slots are taken.</p>
+            {days.map(d => (
+              <div key={d.key} className="psd-day">
+                <div className="psd-day__label">{d.label}</div>
+                <div className="psd-slots">
+                  {d.slots.map(s => (
+                    <button
+                      key={s.time}
+                      className={'psd-slot' + (slot && slot.day === d.key && slot.time === s.time ? ' is-selected' : '')}
+                      disabled={!s.avail}
+                      onClick={() => setSlot({ day: d.key, dayLabel: d.label, time: s.time })}
+                    >
+                      {s.time}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </>
+        )}
+
+        {step === 2 && (
+          <>
+            <h3>Almost there</h3>
+            <p className="psd-modal__sub">We'll text you to confirm — no spam, ever.</p>
+            <div className="psd-summary">
+              <div className="psd-summary__row"><span>Visit</span><span>{service.label}</span></div>
+              <div className="psd-summary__row"><span>When</span><span>{cleanDayLabel(slot.dayLabel)} · {slot.time}</span></div>
+            </div>
+            <div className="psd-field">
+              <label>Your name</label>
+              <input type="text" value={name} onChange={e => setName(e.target.value)} placeholder="María Rodríguez" />
+            </div>
+            <div className="psd-field">
+              <label>Phone number</label>
+              <input type="tel" value={phone} onChange={e => setPhone(e.target.value)} placeholder="(305) 555-0117" />
+            </div>
+          </>
+        )}
+
+        {step === 3 && (
+          <div className="psd-confirm">
+            <div className="psd-confirm__icon">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
+            </div>
+            <h3>You're booked!</h3>
+            <p>We've reserved your slot. A team member will text {phone} shortly to confirm.</p>
+            <div className="psd-confirm__details">
+              <div className="psd-summary__row"><span>Visit</span><span>{service.label}</span></div>
+              <div className="psd-summary__row"><span>When</span><span>{cleanDayLabel(slot.dayLabel)} · {slot.time}</span></div>
+              <div className="psd-summary__row"><span>Name</span><span>{name}</span></div>
+              <div className="psd-summary__row"><span>Phone</span><span>{phone}</span></div>
+            </div>
+            <button className="psd-btn psd-btn--primary" onClick={onClose}>Done</button>
+          </div>
+        )}
+
+        {step < 3 && (
+          <div className="psd-modal__nav">
+            {step > 0 && <button className="psd-btn psd-btn--secondary" onClick={() => setStep(step - 1)}>Back</button>}
+            <button
+              className="psd-btn psd-btn--primary"
+              disabled={!canNext}
+              onClick={() => setStep(step + 1)}
+            >
+              {step === 2 ? 'Confirm booking' : 'Continue →'}
+            </button>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+
+function BookingProvider({ children }) {
+  const [open, setOpen] = useState(false);
+  const [initialSlot, setInitialSlot] = useState(null);
+  const openBooking = (slot = null) => { setInitialSlot(slot); setOpen(true); };
+  const closeBooking = () => setOpen(false);
+  return (
+    <BookingContext.Provider value={{ openBooking, closeBooking }}>
+      {children}
+      <BookingModal open={open} onClose={closeBooking} initialSlot={initialSlot} />
+    </BookingContext.Provider>
+  );
+}
+
+function HeroSlots() {
+  const { openBooking } = useBooking();
+  const slots = React.useMemo(() => {
+    const today = new Date();
+    const times = ['10:00a', '2:30p', '9:00a', '4:00p', '11:00a'];
+    const out = [];
+    let i = 0, added = 0;
+    while (added < 5 && i < 10) {
+      const d = new Date(today);
+      d.setDate(today.getDate() + i);
+      if (d.getDay() !== 0) {
+        const day = d.toLocaleDateString('en-US', { weekday: 'short' });
+        const label = i === 0 ? 'Today' : i === 1 ? 'Tomorrow' : day;
+        const longLabel = d.toLocaleDateString('en-US', { weekday: 'long', month: 'short', day: 'numeric' });
+        out.push({
+          chip: label + ' ' + times[added],
+          day: d.toISOString().slice(0, 10),
+          dayLabel: longLabel,
+          time: times[added],
+        });
+        added++;
+      }
+      i++;
+    }
+    return out;
+  }, []);
+  return (
+    <div className="psd-hero__slots">
+      <span className="psd-hero__slots-lbl">Next available · Updated live</span>
+      <div className="psd-hero__slots-row">
+        {slots.map(s => (
+          <button
+            key={s.day + s.time}
+            className="psd-hero__slot"
+            onClick={() => openBooking({ day: s.day, dayLabel: s.dayLabel, time: s.time })}
+          >
+            {s.chip}
+          </button>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function StickyBar() {
+  const [visible, setVisible] = useState(false);
+  const { openBooking } = useBooking();
+  useEffect(() => {
+    const onScroll = () => setVisible(window.scrollY > 500);
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+  useEffect(() => {
+    document.body.classList.toggle('has-sticky-bar', visible);
+    return () => document.body.classList.remove('has-sticky-bar');
+  }, [visible]);
+  return (
+    <div className={'psd-sticky-bar' + (visible ? ' is-visible' : '')} role="region" aria-label="Quick actions">
+      <a className="psd-btn psd-btn--secondary" href="tel:+13055550117">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.37 1.9.72 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.35 1.85.59 2.81.72A2 2 0 0 1 22 16.92z"/></svg>
+        Call
+      </a>
+      <button className="psd-btn psd-btn--primary" onClick={() => openBooking()}>Book today</button>
+    </div>
+  );
+}
+
+const CHAT_FLOW = [
+  { id: 'emergency',  label: 'Emergency',     reply: "Oh no — call us at (305) 555-0117 and we'll get you in today. We hold same-day emergency slots open." },
+  { id: 'newpatient', label: 'New patient',   reply: "Welcome! Our $129 new-patient visit includes exam, x-rays, and a written plan — bilingual, no pressure. Want me to find a slot this week?" },
+  { id: 'invisalign', label: 'Invisalign',    reply: "Free Invisalign consult with a 3D smile preview. Most patients qualify for ~$89/mo financing. Want to book the consult?" },
+  { id: 'cost',       label: 'Cost question', reply: "Totally fair — tell me the procedure and your insurance, and I'll come back with a real estimate, not a guess." },
+];
+
+function ChatWidget() {
+  const [open, setOpen] = useState(false);
+  const [messages, setMessages] = useState([]);
+  const [typing, setTyping] = useState(false);
+  const [showChips, setShowChips] = useState(false);
+  const [hasUnread, setHasUnread] = useState(true);
+  const bodyRef = React.useRef(null);
+
+  useEffect(() => {
+    if (open) {
+      setHasUnread(false);
+      if (messages.length === 0) {
+        setTyping(true);
+        const t = setTimeout(() => {
+          setTyping(false);
+          setMessages([{ from: 'bot', text: "¡Hola! 👋 I'm Sofia from the front desk. What brings you in today?" }]);
+          setShowChips(true);
+        }, 1200);
+        return () => clearTimeout(t);
+      }
+    }
+  }, [open]);
+
+  useEffect(() => {
+    if (bodyRef.current) bodyRef.current.scrollTop = bodyRef.current.scrollHeight;
+  }, [messages, typing]);
+
+  const handleChip = (chip) => {
+    setMessages(m => [...m, { from: 'user', text: chip.label }]);
+    setShowChips(false);
+    setTyping(true);
+    setTimeout(() => {
+      setTyping(false);
+      setMessages(m => [...m, { from: 'bot', text: chip.reply }]);
+      setTimeout(() => setShowChips(true), 600);
+    }, 900);
+  };
+
+  return (
+    <div className="psd-chat">
+      {open && (
+        <div className="psd-chat__panel">
+          <div className="psd-chat__header">
+            <div className="psd-chat__avatar">S</div>
+            <div className="psd-chat__header-text">
+              <h4>Sofia · Front desk</h4>
+              <div className="psd-chat__header-meta">
+                <span className="psd-chat__online-dot" /> Replies in ~2 min · EN · ES
+              </div>
+            </div>
+            <button className="psd-chat__close" onClick={() => setOpen(false)} aria-label="Close chat">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
+            </button>
+          </div>
+          <div className="psd-chat__body" ref={bodyRef}>
+            {messages.map((m, i) => (
+              <div key={i} className={'psd-chat__msg psd-chat__msg--' + m.from}>{m.text}</div>
+            ))}
+            {typing && (
+              <div className="psd-chat__typing"><span/><span/><span/></div>
+            )}
+          </div>
+          {showChips && (
+            <div className="psd-chat__chips">
+              {CHAT_FLOW.map(c => (
+                <button key={c.id} className="psd-chat__chip" onClick={() => handleChip(c)}>{c.label}</button>
+              ))}
+            </div>
+          )}
+          <div className="psd-chat__footer">Powered by Palm Springs Dental · Bilingual support</div>
+        </div>
+      )}
+      <button className="psd-chat__bubble" onClick={() => setOpen(v => !v)} aria-label={open ? 'Close chat' : 'Open chat'}>
+        {open ? (
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
+        ) : (
+          <>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+            {hasUnread && <span className="psd-chat__badge">1</span>}
+          </>
+        )}
+      </button>
+    </div>
+  );
+}
+
+const TOAST_EVENTS = [
+  { initial: 'M', text: 'María R. just booked a cleaning',          when: '2 min ago' },
+  { initial: 'J', text: 'Jorge L. checked Aetna coverage',          when: '7 min ago' },
+  { initial: 'A', text: 'Ana M. booked an Invisalign consult',      when: '12 min ago' },
+  { initial: 'C', text: 'Carlos D. requested an emergency visit',   when: '18 min ago' },
+  { initial: 'L', text: 'Lucía P. left a 5-star Google review',     when: '24 min ago' },
+];
+
+function SocialToasts() {
+  const [active, setActive] = useState(null);
+  const [leaving, setLeaving] = useState(false);
+
+  useEffect(() => {
+    let cancelled = false;
+    const timers = [];
+    const cycle = (i) => {
+      if (cancelled) return;
+      setLeaving(false);
+      setActive(TOAST_EVENTS[i % TOAST_EVENTS.length]);
+      timers.push(setTimeout(() => {
+        if (cancelled) return;
+        setLeaving(true);
+        timers.push(setTimeout(() => {
+          if (cancelled) return;
+          setActive(null);
+          timers.push(setTimeout(() => cycle(i + 1), 7000));
+        }, 320));
+      }, 6000));
+    };
+    timers.push(setTimeout(() => cycle(0), 4500));
+    return () => { cancelled = true; timers.forEach(clearTimeout); };
+  }, []);
+
+  if (!active) return null;
+  return (
+    <div className="psd-toast-stack">
+      <div className={'psd-toast' + (leaving ? ' is-leaving' : '')}>
+        <div className="psd-toast__avatar">{active.initial}</div>
+        <div className="psd-toast__body">
+          <p>{active.text}</p>
+          <small>{active.when}</small>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function Nav() {
   const [lang, setLang] = useState('EN');
   const [menuOpen, setMenuOpen] = useState(false);
+  const { openBooking } = useBooking();
   return (
     <header className="psd-nav">
       <div className="psd-nav__utility">
@@ -928,7 +1849,7 @@ function Nav() {
         </nav>
         <div className="psd-nav__cta">
           <a className="psd-link-arrow" href="tel:+13055550117">(305) 555-0117</a>
-          <button className="psd-btn psd-btn--primary">{lang==='EN'?'Book today':'Reservar cita'}</button>
+          <button className="psd-btn psd-btn--primary" onClick={() => openBooking()}>{lang==='EN'?'Book today':'Reservar cita'}</button>
         </div>
       </div>
       {menuOpen && (
@@ -939,7 +1860,7 @@ function Nav() {
           <a href="#">Insurance</a>
           <a href="#">Reviews</a>
           <a href="tel:+13055550117">(305) 555-0117</a>
-          <button className="psd-btn psd-btn--primary" style={{marginTop: 8}}>
+          <button className="psd-btn psd-btn--primary" style={{marginTop: 8}} onClick={() => { setMenuOpen(false); openBooking(); }}>
             {lang==='EN'?'Book today':'Reservar cita'}
           </button>
         </div>
@@ -949,6 +1870,7 @@ function Nav() {
 }
 
 function Hero() {
+  const { openBooking } = useBooking();
   return (
     <section className="psd-hero">
       <div className="psd-hero__copy">
@@ -962,9 +1884,10 @@ function Hero() {
           We treat your smile without losing who you are.
         </p>
         <div className="psd-hero__ctas">
-          <button className="psd-btn psd-btn--primary">Book today, see us this week</button>
+          <button className="psd-btn psd-btn--primary" onClick={() => openBooking()}>Book today, see us this week</button>
           <button className="psd-btn psd-btn--secondary">View our services</button>
         </div>
+        <HeroSlots />
         <div className="psd-hero__trust">
           <div className="psd-stars" aria-label="4.9 of 5 stars">
             {[0,1,2,3,4].map(i => (
@@ -1113,6 +2036,7 @@ function ReviewCarousel() {
 }
 
 function OfferBand() {
+  const { openBooking } = useBooking();
   return (
     <section className="psd-offer-band">
       <div className="psd-offer-band__copy">
@@ -1129,7 +2053,7 @@ function OfferBand() {
           <li><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19l12-12-1.4-1.4z"/></svg>Bilingual treatment plan, in writing</li>
           <li><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19l12-12-1.4-1.4z"/></svg>CareCredit financing if you need it</li>
         </ul>
-        <button className="psd-btn psd-btn--primary">Book today →</button>
+        <button className="psd-btn psd-btn--primary" onClick={() => openBooking()}>Book today →</button>
       </article>
     </section>
   );
@@ -1151,6 +2075,7 @@ function InsuranceStrip() {
 }
 
 function BookingCTA() {
+  const { openBooking } = useBooking();
   return (
     <section className="psd-booking-cta">
       <div className="psd-booking-cta__inner">
@@ -1159,7 +2084,7 @@ function BookingCTA() {
           <em className="psd-es psd-es--light">Cita esta semana. Sin sorpresas en el precio.</em>
         </h2>
         <div className="psd-booking-cta__actions">
-          <button className="psd-btn psd-btn--primary">Book online</button>
+          <button className="psd-btn psd-btn--primary" onClick={() => openBooking()}>Book online</button>
           <a className="psd-btn psd-btn--ghost-light" href="tel:+13055550117">(305) 555-0117</a>
           <a className="psd-link-arrow psd-link-arrow--light">Text us instead</a>
         </div>
@@ -1211,7 +2136,7 @@ function Footer() {
 
 function App() {
   return (
-    <>
+    <BookingProvider>
       <Nav />
       <main>
         <Hero />
@@ -1224,7 +2149,10 @@ function App() {
         <BookingCTA />
       </main>
       <Footer />
-    </>
+      <StickyBar />
+      <ChatWidget />
+      <SocialToasts />
+    </BookingProvider>
   );
 }
 
