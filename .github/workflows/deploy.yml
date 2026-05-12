@@ -9,6 +9,7 @@ jobs:
   deploy:
     name: Build and Deploy
     runs-on: ubuntu-latest
+    environment: jomendez
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
