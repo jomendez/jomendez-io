@@ -1,0 +1,860 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Dental Practice ROI Calculator · Jomendez</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#F6F4EF;
+    --bg-2:#EFEBE2;
+    --paper:#FBFAF6;
+    --ink:#161616;
+    --ink-soft:#3A3A38;
+    --muted:#7A766C;
+    --line:#E4DFD3;
+    --line-soft:#EEEAE0;
+    --navy:#0E2240;
+    --navy-deep:#091830;
+    --gold:#B8884A;
+    --gold-light:#D4B988;
+    --gold-deep:#8A6535;
+    --success:#2C6E4B;
+    --warn:#A0571C;
+    --shadow-sm: 0 1px 2px rgba(14,34,64,.04);
+    --shadow-md: 0 2px 8px rgba(14,34,64,.06), 0 1px 3px rgba(14,34,64,.04);
+    --shadow-lg: 0 8px 32px rgba(14,34,64,.08), 0 2px 8px rgba(14,34,64,.05);
+  }
+
+  *{box-sizing:border-box;margin:0;padding:0;}
+
+  html,body{
+    background:var(--bg);color:var(--ink);
+    font-family:'Inter',sans-serif;-webkit-font-smoothing:antialiased;
+    line-height:1.5;font-feature-settings:"ss01","cv11";
+  }
+
+  body::before{
+    content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
+    background-image:radial-gradient(rgba(14,34,64,.025) 1px, transparent 1px);
+    background-size:3px 3px;opacity:.6;
+  }
+
+  .page{max-width:1200px;margin:0 auto;padding:32px 32px 80px;position:relative;z-index:1;}
+
+  header.brand{
+    display:flex;justify-content:space-between;align-items:center;
+    padding:18px 0 22px;border-bottom:1px solid var(--line);
+  }
+  .brand-mark{display:flex;align-items:center;gap:12px;}
+  .brand-logo{
+    width:34px;height:34px;background:var(--navy);
+    display:flex;align-items:center;justify-content:center;
+    font-family:'Fraunces',serif;font-weight:600;font-size:17px;
+    color:var(--bg);letter-spacing:-.5px;border-radius:2px;
+  }
+  .brand-text{display:flex;flex-direction:column;line-height:1.1;}
+  .brand-name{font-family:'Fraunces',serif;font-size:18px;font-weight:600;color:var(--navy);letter-spacing:-.3px;}
+  .brand-tag{font-size:10.5px;color:var(--muted);font-weight:400;margin-top:2px;letter-spacing:.2px;}
+  .brand-right{text-align:right;}
+  .doc-label{font-size:10px;text-transform:uppercase;letter-spacing:2px;color:var(--gold-deep);font-weight:600;margin-bottom:3px;}
+  .doc-title{font-family:'Fraunces',serif;font-size:14px;color:var(--navy);font-weight:500;font-style:italic;}
+
+  .hero{margin-bottom:36px;padding:56px 0 16px;text-align:left;max-width:820px;}
+  .hero-meta{
+    display:flex;align-items:center;gap:14px;margin-bottom:28px;
+    font-size:11px;text-transform:uppercase;letter-spacing:2.5px;color:var(--gold-deep);font-weight:600;
+  }
+  .hero-meta-line{flex:0 0 32px;height:1px;background:var(--gold);}
+  .hero-title{
+    font-family:'Fraunces',serif;font-size:64px;line-height:1.02;color:var(--navy);
+    font-weight:500;letter-spacing:-2px;margin-bottom:24px;
+    font-variation-settings:"opsz" 144;
+  }
+  .hero-title em{font-style:italic;font-weight:400;color:var(--gold-deep);}
+  .hero-sub{font-size:17px;color:var(--ink-soft);max-width:640px;line-height:1.6;font-weight:400;}
+
+  .controls-row{display:flex;justify-content:flex-end;align-items:center;margin-bottom:32px;gap:16px;flex-wrap:wrap;}
+  .preset-buttons{display:flex;gap:8px;flex-wrap:wrap;}
+  .preset-btn{
+    padding:9px 16px;background:var(--paper);border:1px solid var(--line);
+    font-family:'Inter',sans-serif;font-size:11px;font-weight:600;
+    color:var(--ink-soft);cursor:pointer;letter-spacing:.4px;
+    transition:all .2s ease;border-radius:2px;
+    display:inline-flex;align-items:center;gap:7px;text-transform:uppercase;
+  }
+  .preset-btn:hover{border-color:var(--navy);color:var(--navy);background:var(--bg-2);}
+  .preset-btn.breakeven{border-color:var(--warn);color:var(--warn);}
+  .preset-btn.breakeven:hover{background:var(--warn);color:var(--paper);border-color:var(--warn);}
+  .preset-btn .dot{width:6px;height:6px;border-radius:50%;background:currentColor;}
+
+  .layout{display:grid;grid-template-columns:380px 1fr;gap:28px;align-items:start;}
+  @media(max-width:900px){.layout{grid-template-columns:1fr;}}
+
+  .panel{background:var(--paper);border:1px solid var(--line);box-shadow:var(--shadow-md);overflow:hidden;border-radius:2px;}
+  .panel-head{
+    background:var(--navy);color:var(--bg);padding:18px 22px;
+    display:flex;justify-content:space-between;align-items:center;
+    border-bottom:2px solid var(--gold);
+  }
+  .panel-head h2{font-family:'Fraunces',serif;font-size:17px;font-weight:500;letter-spacing:-.2px;}
+  .panel-head .pill{
+    font-size:9.5px;text-transform:uppercase;letter-spacing:1.5px;color:var(--gold-light);
+    padding:3px 9px;border:1px solid rgba(212,185,136,.4);border-radius:50px;
+  }
+  .panel-body{padding:22px;}
+
+  .section-label{
+    font-size:10px;text-transform:uppercase;letter-spacing:2px;color:var(--gold-deep);font-weight:700;
+    margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid var(--line-soft);
+    display:flex;align-items:center;gap:10px;
+  }
+  .section-label::before{content:'§';font-family:'Fraunces',serif;font-size:14px;color:var(--gold);font-weight:400;}
+
+  .field{margin-bottom:18px;}
+  .field:last-child{margin-bottom:0;}
+  .field-row{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px;}
+  .field-label{font-size:13px;color:var(--ink);font-weight:500;}
+  .field-help{font-size:11px;color:var(--muted);margin-top:5px;line-height:1.45;}
+  .field-value{
+    font-family:'JetBrains Mono',monospace;font-size:12.5px;color:var(--gold-deep);font-weight:600;
+    background:var(--bg-2);padding:2px 9px;border-radius:2px;min-width:60px;text-align:right;
+  }
+
+  input[type="range"]{
+    -webkit-appearance:none;appearance:none;width:100%;height:3px;background:var(--line);
+    border-radius:0;outline:none;margin:8px 0 4px;
+  }
+  input[type="range"]::-webkit-slider-thumb{
+    -webkit-appearance:none;appearance:none;width:16px;height:16px;background:var(--navy);
+    border:2px solid var(--gold);border-radius:50%;cursor:pointer;
+    box-shadow:0 2px 4px rgba(14,34,64,.25);transition:transform .15s;
+  }
+  input[type="range"]::-webkit-slider-thumb:hover{transform:scale(1.15);}
+  input[type="range"]::-moz-range-thumb{
+    width:16px;height:16px;background:var(--navy);border:2px solid var(--gold);
+    border-radius:50%;cursor:pointer;
+  }
+
+  input[type="number"]{
+    width:100%;padding:10px 12px;border:1px solid var(--line);border-radius:2px;
+    font-family:'JetBrains Mono',monospace;font-size:13.5px;color:var(--navy);
+    background:var(--paper);transition:all .2s;font-weight:500;
+  }
+  input[type="number"]:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 3px rgba(184,136,74,.12);}
+
+  .reset-btn{
+    width:100%;margin-top:20px;padding:11px;background:transparent;border:1px solid var(--line);
+    border-radius:2px;color:var(--muted);font-family:'Inter',sans-serif;font-size:11px;
+    text-transform:uppercase;letter-spacing:1.5px;cursor:pointer;transition:all .2s;font-weight:600;
+  }
+  .reset-btn:hover{border-color:var(--navy);color:var(--navy);}
+
+  .results{display:flex;flex-direction:column;gap:22px;}
+
+  .headline-card{
+    background:var(--navy);color:var(--bg);border-radius:2px;padding:40px;
+    position:relative;overflow:hidden;box-shadow:var(--shadow-lg);border:1px solid var(--navy-deep);
+  }
+  .headline-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--gold);}
+  .headline-card::after{
+    content:'∞';position:absolute;top:24px;right:32px;
+    font-family:'Fraunces',serif;font-size:42px;color:var(--gold);opacity:.15;line-height:1;
+  }
+  .headline-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px;position:relative;z-index:1;}
+  .headline-label{font-size:10px;text-transform:uppercase;letter-spacing:2.5px;color:var(--gold-light);font-weight:600;margin-bottom:12px;}
+  .headline-value{
+    font-family:'Fraunces',serif;font-size:54px;font-weight:500;line-height:1;
+    letter-spacing:-2px;color:var(--bg);margin-bottom:10px;
+    font-variation-settings:"opsz" 144;
+  }
+  .headline-sub{font-size:13px;color:rgba(246,244,239,.65);font-weight:400;}
+  .headline-divider{position:absolute;top:40px;bottom:40px;left:50%;width:1px;background:rgba(212,185,136,.18);}
+
+  .metric-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
+  @media(max-width:600px){.metric-grid{grid-template-columns:1fr 1fr;}}
+  .metric-card{
+    background:var(--paper);border:1px solid var(--line);border-radius:2px;
+    padding:22px;box-shadow:var(--shadow-sm);transition:all .2s;position:relative;
+  }
+  .metric-card:hover{transform:translateY(-1px);box-shadow:var(--shadow-md);border-color:var(--gold);}
+  .metric-card::before{content:'';position:absolute;top:0;left:0;width:24px;height:2px;background:var(--gold);}
+  .metric-label{font-size:10.5px;text-transform:uppercase;letter-spacing:1.8px;color:var(--muted);font-weight:600;margin-bottom:8px;margin-top:8px;}
+  .metric-value{font-family:'Fraunces',serif;font-size:28px;font-weight:500;color:var(--navy);line-height:1.1;letter-spacing:-.8px;}
+  .metric-foot{font-size:11px;color:var(--muted);margin-top:6px;}
+
+  .breakdown-card{background:var(--paper);border:1px solid var(--line);border-radius:2px;box-shadow:var(--shadow-md);overflow:hidden;}
+  .breakdown-head{
+    padding:20px 24px;border-bottom:1px solid var(--line-soft);
+    display:flex;justify-content:space-between;align-items:center;background:var(--bg-2);
+  }
+  .breakdown-title{font-family:'Fraunces',serif;font-size:20px;color:var(--navy);font-weight:500;letter-spacing:-.4px;}
+  .breakdown-meta{font-size:10.5px;color:var(--gold-deep);text-transform:uppercase;letter-spacing:1.8px;font-weight:600;}
+  .breakdown-body{padding:8px 24px 20px;}
+  .b-row{display:grid;grid-template-columns:1fr auto auto;gap:20px;align-items:center;padding:14px 0;border-bottom:1px dashed var(--line-soft);}
+  .b-row:last-of-type{border-bottom:none;}
+  .b-row.b-total{border-top:2px solid var(--navy);border-bottom:none;margin-top:4px;padding-top:18px;}
+  .b-label{font-size:14px;color:var(--ink);font-weight:500;}
+  .b-label .sub{display:block;font-size:11.5px;color:var(--muted);font-weight:400;margin-top:2px;}
+  .b-formula{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted);text-align:right;}
+  .b-amount{font-family:'JetBrains Mono',monospace;font-size:15.5px;color:var(--navy);font-weight:600;text-align:right;min-width:110px;}
+  .b-row.positive .b-amount{color:var(--success);}
+  .b-row.negative .b-amount{color:var(--warn);}
+  .b-row.b-total .b-label{font-family:'Fraunces',serif;font-size:18px;font-weight:600;letter-spacing:-.3px;}
+  .b-row.b-total .b-amount{font-family:'Fraunces',serif;font-size:24px;color:var(--gold-deep);font-weight:600;letter-spacing:-.5px;}
+
+  .chart-card{background:var(--paper);border:1px solid var(--line);border-radius:2px;padding:24px;box-shadow:var(--shadow-md);}
+  .chart-head{margin-bottom:16px;}
+  .chart-title{font-family:'Fraunces',serif;font-size:18px;color:var(--navy);font-weight:500;margin-bottom:4px;letter-spacing:-.3px;}
+  .chart-sub{font-size:12px;color:var(--muted);}
+  .chart-wrap{position:relative;height:260px;}
+  .chart-legend{display:flex;gap:18px;margin-top:14px;flex-wrap:wrap;}
+  .lg-item{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--navy);}
+  .lg-dot{width:10px;height:10px;border-radius:1px;}
+
+  .scenario-row{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
+  @media(max-width:600px){.scenario-row{grid-template-columns:1fr;}}
+  .scenario{padding:20px;border:1px solid var(--line);border-radius:2px;background:var(--paper);box-shadow:var(--shadow-sm);position:relative;}
+  .scenario::before{content:'';position:absolute;top:0;left:0;width:32px;height:2px;background:var(--line);}
+  .scenario-name{font-size:10.5px;text-transform:uppercase;letter-spacing:1.8px;color:var(--muted);font-weight:600;margin-bottom:10px;}
+  .scenario-value{font-family:'Fraunces',serif;font-size:26px;font-weight:500;color:var(--navy);line-height:1;letter-spacing:-.6px;}
+  .scenario-sub{font-size:11px;color:var(--muted);margin-top:7px;}
+  .scenario.highlight{background:var(--navy);color:var(--bg);border-color:var(--navy);}
+  .scenario.highlight::before{background:var(--gold);}
+  .scenario.highlight .scenario-name{color:var(--gold-light);}
+  .scenario.highlight .scenario-value{color:var(--bg);}
+  .scenario.highlight .scenario-sub{color:rgba(246,244,239,.55);}
+
+  .footnote{
+    margin-top:32px;padding:22px 26px;background:var(--paper);
+    border-left:2px solid var(--gold);border-radius:0 2px 2px 0;
+    font-size:12px;color:var(--ink-soft);line-height:1.7;
+    font-family:'Fraunces',serif;font-style:italic;font-weight:400;
+  }
+  .footnote strong{color:var(--navy);font-weight:600;font-style:normal;font-family:'Inter',sans-serif;}
+
+  .doc-footer{
+    margin-top:48px;padding-top:22px;border-top:1px solid var(--line);
+    display:flex;justify-content:space-between;align-items:center;
+    font-size:11px;color:var(--muted);
+  }
+  .doc-footer .left{letter-spacing:.3px;}
+  .doc-footer .right{font-family:'Fraunces',serif;font-style:italic;font-size:12px;color:var(--gold-deep);}
+
+  .breakeven-notice{
+    display:none;padding:12px 18px;background:rgba(160,87,28,.08);
+    border-left:2px solid var(--warn);margin-bottom:22px;border-radius:0 2px 2px 0;
+    font-size:12.5px;color:var(--warn);font-weight:500;
+  }
+  .breakeven-notice.active{display:block;}
+  .breakeven-notice strong{color:var(--warn);}
+
+  @media print{
+    body{background:white;}body::before{display:none;}
+    .controls-row,.reset-btn{display:none;}
+    .page{padding:20px;}
+    .panel,.headline-card,.metric-card,.breakdown-card,.chart-card,.scenario{box-shadow:none;break-inside:avoid;}
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <header class="brand">
+    <div class="brand-mark">
+      <div class="brand-logo">J</div>
+      <div class="brand-text">
+        <span class="brand-name">Jomendez</span>
+        <span class="brand-tag">Big-company technology, built for small business.</span>
+      </div>
+    </div>
+    <div class="brand-right">
+      <div class="doc-label">Proposal Companion</div>
+      <div class="doc-title">ROI Calculator · Dental Practice</div>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="hero-meta">
+      <span class="hero-meta-line"></span>
+      <span>Interactive Investment Analysis</span>
+    </div>
+    <h1 class="hero-title">What does <em>one new patient</em> actually return to your practice?</h1>
+    <p class="hero-sub">A transparent, plug-and-play model showing what a professional website plus ongoing SEO is worth — in real dollars, over real time. Every number is adjustable. Every assumption is defensible.</p>
+  </section>
+
+  <div class="controls-row">
+    <div class="preset-buttons">
+      <button class="preset-btn" id="defaultsBtn"><span class="dot"></span>Industry Defaults</button>
+      <button class="preset-btn breakeven" id="breakevenBtn"><span class="dot"></span>Minimum to Break Even</button>
+    </div>
+  </div>
+
+  <div class="breakeven-notice" id="breakevenNotice">
+    <strong>Break-even mode active.</strong> Traffic has been set to the minimum monthly visitors needed for the long-term revenue from acquired patients to exactly equal your full investment. Anything above this number is pure profit.
+  </div>
+
+  <div class="layout">
+
+    <aside class="panel">
+      <div class="panel-head">
+        <h2>Adjust the numbers</h2>
+        <span class="pill">Live</span>
+      </div>
+      <div class="panel-body">
+
+        <div class="section-label">Patient Economics</div>
+
+        <div class="field">
+          <div class="field-row">
+            <span class="field-label">Avg. revenue per visit</span>
+            <span class="field-value" id="v-revPerVisit">$400</span>
+          </div>
+          <input type="range" id="revPerVisit" min="150" max="800" step="25" value="400" />
+          <div class="field-help">Industry range: $300–$500 (cleaning, exam, x-ray combined)</div>
+        </div>
+
+        <div class="field">
+          <div class="field-row">
+            <span class="field-label">Visits per year per patient</span>
+            <span class="field-value" id="v-visitsYear">2</span>
+          </div>
+          <input type="range" id="visitsYear" min="1" max="6" step="1" value="2" />
+          <div class="field-help">Most patients: 2 cleanings/year + occasional treatment</div>
+        </div>
+
+        <div class="field">
+          <div class="field-row">
+            <span class="field-label">Years patient stays</span>
+            <span class="field-value" id="v-lifespan">6</span>
+          </div>
+          <input type="range" id="lifespan" min="2" max="15" step="1" value="6" />
+          <div class="field-help">Industry avg: ~6 years (Henry Schein attrition data)</div>
+        </div>
+
+        <div class="section-label" style="margin-top:24px;">Website &amp; SEO Performance</div>
+
+        <div class="field">
+          <div class="field-row">
+            <span class="field-label">Monthly organic visitors</span>
+            <span class="field-value" id="v-traffic">400</span>
+          </div>
+          <input type="range" id="traffic" min="10" max="2000" step="10" value="400" />
+          <div class="field-help">Realistic for a local dental site after 3–6 months of SEO</div>
+        </div>
+
+        <div class="field">
+          <div class="field-row">
+            <span class="field-label">Visitor → lead conversion</span>
+            <span class="field-value" id="v-convLead">3.0%</span>
+          </div>
+          <input type="range" id="convLead" min="0.5" max="8" step="0.25" value="3" />
+          <div class="field-help">Industry avg: 2–4.2% on a properly built site</div>
+        </div>
+
+        <div class="field">
+          <div class="field-row">
+            <span class="field-label">Lead → booked patient</span>
+            <span class="field-value" id="v-convBook">45%</span>
+          </div>
+          <input type="range" id="convBook" min="15" max="80" step="5" value="45" />
+          <div class="field-help">Depends on front-desk follow-up. Avg: 40–50%</div>
+        </div>
+
+        <div class="section-label" style="margin-top:24px;">Investment Structure</div>
+
+        <div class="field">
+          <div class="field-row"><span class="field-label">One-time setup fee</span></div>
+          <input type="number" id="setupFee" value="5000" min="0" step="100" />
+          <div class="field-help">Website design, build, launch, on-page SEO foundation</div>
+        </div>
+
+        <div class="field">
+          <div class="field-row"><span class="field-label">Monthly retainer</span></div>
+          <input type="number" id="retainer" value="697" min="0" step="50" />
+          <div class="field-help">Ongoing SEO, content, technical maintenance, reporting</div>
+        </div>
+
+        <div class="field">
+          <div class="field-row">
+            <span class="field-label">Analysis time horizon</span>
+            <span class="field-value" id="v-horizon">12 mo</span>
+          </div>
+          <input type="range" id="horizon" min="3" max="36" step="3" value="12" />
+          <div class="field-help">How long you'll be paying the retainer</div>
+        </div>
+
+        <button class="reset-btn" id="resetBtn">↺ Reset all inputs</button>
+      </div>
+    </aside>
+
+    <main class="results">
+
+      <div class="headline-card">
+        <div class="headline-grid">
+          <div>
+            <div class="headline-label">Net Long-term Return</div>
+            <div class="headline-value" id="heroValue1">$48,300</div>
+            <div class="headline-sub">After your full investment</div>
+          </div>
+          <div class="headline-divider"></div>
+          <div>
+            <div class="headline-label">Return on Investment</div>
+            <div class="headline-value" id="heroValue2">432%</div>
+            <div class="headline-sub" id="heroValue2Sub">Every $1 returns $5.30+</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="metric-grid">
+        <div class="metric-card">
+          <div class="metric-label">New Patients</div>
+          <div class="metric-value" id="m-patients">65</div>
+          <div class="metric-foot">acquired during <span id="m-horizon-1">12 months</span></div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-label">Patient Lifetime Value</div>
+          <div class="metric-value" id="m-ltv">$4,800</div>
+          <div class="metric-foot">over <span id="m-lifespan">6</span> years</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-label">Break-even Point</div>
+          <div class="metric-value" id="m-breakeven">7 mo</div>
+          <div class="metric-foot">to recover all costs</div>
+        </div>
+      </div>
+
+      <div class="breakdown-card">
+        <div class="breakdown-head">
+          <div class="breakdown-title">The full math, line by line</div>
+          <div class="breakdown-meta">Long-term Patient Value</div>
+        </div>
+        <div class="breakdown-body" id="breakdownBody"></div>
+      </div>
+
+      <div class="chart-card">
+        <div class="chart-head">
+          <div class="chart-title">Scenario Comparison</div>
+          <div class="chart-sub">What if SEO underdelivers — or overdelivers?</div>
+        </div>
+        <div class="scenario-row">
+          <div class="scenario">
+            <div class="scenario-name">Conservative</div>
+            <div class="scenario-value" id="sc-low">$22K</div>
+            <div class="scenario-sub">50% of projected traffic</div>
+          </div>
+          <div class="scenario highlight">
+            <div class="scenario-name">Expected</div>
+            <div class="scenario-value" id="sc-mid">$48K</div>
+            <div class="scenario-sub">Projected scenario</div>
+          </div>
+          <div class="scenario">
+            <div class="scenario-name">Optimistic</div>
+            <div class="scenario-value" id="sc-high">$98K</div>
+            <div class="scenario-sub">150% of projected traffic</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="chart-card">
+        <div class="chart-head">
+          <div class="chart-title">Cumulative return over time</div>
+          <div class="chart-sub">Total patient lifetime value earned vs. cumulative investment, month by month</div>
+        </div>
+        <div class="chart-wrap">
+          <canvas id="chart"></canvas>
+        </div>
+        <div class="chart-legend">
+          <div class="lg-item"><span class="lg-dot" style="background:var(--gold);"></span> Cumulative patient LTV (earned)</div>
+          <div class="lg-item"><span class="lg-dot" style="background:var(--navy);"></span> Cumulative investment</div>
+          <div class="lg-item"><span class="lg-dot" style="background:var(--success);"></span> Net return</div>
+        </div>
+      </div>
+
+      <div class="footnote">
+        <strong>About these defaults.</strong> Industry benchmarks drawn from Henry Schein patient attrition data, Dental Intelligence retention studies, PatientGain conversion rate research (2–4.2% on optimized dental sites), and Delmain marketing benchmarks (gross production per patient ~$4,200/year). Lifetime values referenced from Dandy, Dentistry Today, and RevenueWell, citing typical PLV ranges of $4,500–$22,000. <strong>This model does not credit referrals to the website investment</strong> — happy patients refer 1–2 more on average, but that revenue is treated as upside rather than included in ROI to keep the analysis defensible.
+      </div>
+    </main>
+  </div>
+
+  <div class="doc-footer">
+    <div class="left">Jomendez Inc. · support@jomendez.io</div>
+    <div class="right">Confidential — for proposal review</div>
+  </div>
+</div>
+
+<script>
+/* ============================================================================
+   REVENUE MODEL — single source of truth
+   ----------------------------------------------------------------------------
+   Direct LTV per patient = revenue/visit × visits/year × years stayed
+   (Referrals are intentionally excluded from ROI to avoid double-counting
+   and to keep the model defensible. They are mentioned as upside in the
+   footnote only.)
+
+   Every patient acquired during the horizon will, over their full lifespan,
+   earn the practice their direct LTV. Patients are acquired evenly each
+   month; a patient acquired in month m has been a patient for (n - m + 1)
+   months by month n, accumulating LTV linearly until they hit full lifespan.
+
+   "Cumulative LTV earned by month n" = sum over all patients acquired
+   in months 1..n of: min(months_as_patient, lifespan_in_months) × monthly_value
+
+   Where monthly_value = directLTV / (lifespan × 12) = revenue/visit × visits/yr / 12
+
+   The HEADLINE "Net long-term return" uses TOTAL LIFETIME revenue from
+   patients acquired during the horizon (not capped to horizon), because
+   patients keep generating revenue after you stop paying the retainer.
+   The CHART shows the within-horizon accumulation so you can see the
+   breakeven crossover happen visually.
+============================================================================ */
+
+const fmt = n => (n < 0 ? '−' : '') + '$' + Math.abs(Math.round(n)).toLocaleString('en-US');
+const fmtK = n => {
+  const sign = n < 0 ? '−' : '';
+  const abs = Math.abs(n);
+  if(abs >= 1000) return sign + '$' + (abs/1000).toFixed(abs>=10000?0:1) + 'K';
+  return sign + '$' + Math.round(abs).toLocaleString('en-US');
+};
+const fmtPct = n => Math.round(n*100) + '%';
+
+const inputs = {
+  revPerVisit:document.getElementById('revPerVisit'),
+  visitsYear:document.getElementById('visitsYear'),
+  lifespan:document.getElementById('lifespan'),
+  traffic:document.getElementById('traffic'),
+  convLead:document.getElementById('convLead'),
+  convBook:document.getElementById('convBook'),
+  setupFee:document.getElementById('setupFee'),
+  retainer:document.getElementById('retainer'),
+  horizon:document.getElementById('horizon'),
+};
+
+const defaults = {
+  revPerVisit:400, visitsYear:2, lifespan:6,
+  traffic:400, convLead:3, convBook:45,
+  setupFee:5000, retainer:697, horizon:12,
+};
+
+function vals(){
+  return {
+    revPerVisit:+inputs.revPerVisit.value,
+    visitsYear:+inputs.visitsYear.value,
+    lifespan:+inputs.lifespan.value,
+    traffic:+inputs.traffic.value,
+    convLead:+inputs.convLead.value/100,
+    convBook:+inputs.convBook.value/100,
+    setupFee:+inputs.setupFee.value,
+    retainer:+inputs.retainer.value,
+    horizon:+inputs.horizon.value,
+  };
+}
+
+function compute(v){
+  const annualValue = v.revPerVisit * v.visitsYear;
+  const directLTV = annualValue * v.lifespan;
+
+  // Patient acquisition
+  const leadsPerMonth = v.traffic * v.convLead;
+  const patientsPerMonth = leadsPerMonth * v.convBook;
+  const patientsOverHorizon = patientsPerMonth * v.horizon;
+
+  // TOTAL long-term revenue from patients acquired during horizon
+  // Every acquired patient eventually delivers their full directLTV.
+  const totalLifetimeRevenue = patientsOverHorizon * directLTV;
+
+  // Total investment over the horizon
+  const totalInvest = v.setupFee + (v.retainer * v.horizon);
+
+  const netReturn = totalLifetimeRevenue - totalInvest;
+  const roi = totalInvest > 0 ? (netReturn / totalInvest) : 0;
+
+  // CUMULATIVE LTV EARNED — for chart and break-even
+  // monthly_value = directLTV / lifespanMonths = annualValue / 12
+  const monthlyValue = annualValue / 12;
+  const lifespanMonths = v.lifespan * 12;
+
+  function cumulativeLTV(byMonth){
+    let total = 0;
+    for(let m=1; m<=byMonth; m++){
+      const monthsAsPatient = byMonth - m + 1;
+      const cappedMonths = Math.min(monthsAsPatient, lifespanMonths);
+      total += patientsPerMonth * monthlyValue * cappedMonths;
+    }
+    return total;
+  }
+  function cumulativeInvest(byMonth){
+    return byMonth === 0 ? 0 : v.setupFee + v.retainer * byMonth;
+  }
+
+  // Break-even: month when cumulativeLTV >= cumulativeInvest
+  let breakeven = null;
+  for(let n=1; n<=120; n++){
+    if(cumulativeLTV(n) >= cumulativeInvest(n)){ breakeven = n; break; }
+  }
+
+  return {
+    annualValue, directLTV,
+    leadsPerMonth, patientsPerMonth, patientsOverHorizon,
+    totalLifetimeRevenue, totalInvest,
+    netReturn, roi, breakeven,
+    cumulativeLTV, cumulativeInvest
+  };
+}
+
+function render(){
+  const v = vals();
+
+  document.getElementById('v-revPerVisit').textContent = '$' + v.revPerVisit;
+  document.getElementById('v-visitsYear').textContent = v.visitsYear;
+  document.getElementById('v-lifespan').textContent = v.lifespan;
+  document.getElementById('v-traffic').textContent = v.traffic.toLocaleString();
+  document.getElementById('v-convLead').textContent = (v.convLead*100).toFixed(2) + '%';
+  document.getElementById('v-convBook').textContent = (v.convBook*100).toFixed(0) + '%';
+  document.getElementById('v-horizon').textContent = v.horizon + ' mo';
+
+  const c = compute(v);
+
+  document.getElementById('heroValue1').textContent = fmt(c.netReturn);
+  document.getElementById('heroValue2').textContent = fmtPct(c.roi);
+  const multiplier = c.totalInvest > 0 ? (c.totalLifetimeRevenue / c.totalInvest) : 0;
+  document.getElementById('heroValue2Sub').textContent = `Every $1 returns $${multiplier.toFixed(2)}`;
+
+  document.getElementById('m-patients').textContent = Math.round(c.patientsOverHorizon);
+  document.getElementById('m-horizon-1').textContent = v.horizon + ' months';
+  document.getElementById('m-ltv').textContent = fmt(c.directLTV);
+  document.getElementById('m-lifespan').textContent = v.lifespan;
+  document.getElementById('m-breakeven').textContent = c.breakeven ? c.breakeven + ' mo' : 'never';
+
+  const bd = document.getElementById('breakdownBody');
+  bd.innerHTML = `
+    <div class="b-row">
+      <div class="b-label">Monthly website visitors<span class="sub">From organic search (SEO)</span></div>
+      <div class="b-formula">baseline</div>
+      <div class="b-amount">${v.traffic.toLocaleString()}</div>
+    </div>
+    <div class="b-row">
+      <div class="b-label">Leads generated each month<span class="sub">Visitors who request appointment / contact</span></div>
+      <div class="b-formula">× ${(v.convLead*100).toFixed(2)}%</div>
+      <div class="b-amount">${c.leadsPerMonth.toFixed(1)}</div>
+    </div>
+    <div class="b-row">
+      <div class="b-label">New booked patients per month<span class="sub">Leads that become real patients</span></div>
+      <div class="b-formula">× ${(v.convBook*100).toFixed(0)}%</div>
+      <div class="b-amount">${c.patientsPerMonth.toFixed(1)}</div>
+    </div>
+    <div class="b-row">
+      <div class="b-label">Total new patients in ${v.horizon} months<span class="sub">Acquired during the SEO engagement</span></div>
+      <div class="b-formula">× ${v.horizon} mo</div>
+      <div class="b-amount">${Math.round(c.patientsOverHorizon)}</div>
+    </div>
+    <div class="b-row positive">
+      <div class="b-label">Lifetime value per patient<span class="sub">${fmt(v.revPerVisit)}/visit × ${v.visitsYear} visits/yr × ${v.lifespan} yrs</span></div>
+      <div class="b-formula">direct value</div>
+      <div class="b-amount">${fmt(c.directLTV)}</div>
+    </div>
+    <div class="b-row positive">
+      <div class="b-label">Total long-term revenue<span class="sub">Full lifetime value of all patients acquired</span></div>
+      <div class="b-formula">${Math.round(c.patientsOverHorizon)} × ${fmt(c.directLTV)}</div>
+      <div class="b-amount">${fmt(c.totalLifetimeRevenue)}</div>
+    </div>
+    <div class="b-row negative">
+      <div class="b-label">Total investment<span class="sub">Setup + ${v.horizon} months retainer</span></div>
+      <div class="b-formula">${fmt(v.setupFee)} + ${fmt(v.retainer)}×${v.horizon}</div>
+      <div class="b-amount">−${fmt(c.totalInvest)}</div>
+    </div>
+    <div class="b-row b-total">
+      <div class="b-label">Net long-term return</div>
+      <div class="b-formula">ROI: ${fmtPct(c.roi)}</div>
+      <div class="b-amount">${fmt(c.netReturn)}</div>
+    </div>
+  `;
+
+  // Scenarios — recompute with traffic at 50% and 150%
+  const computeScenario = (mult) => compute({...v, traffic: v.traffic * mult});
+  const lo = computeScenario(0.5);
+  const hi = computeScenario(1.5);
+  document.getElementById('sc-low').textContent = fmtK(lo.netReturn);
+  document.getElementById('sc-mid').textContent = fmtK(c.netReturn);
+  document.getElementById('sc-high').textContent = fmtK(hi.netReturn);
+
+  drawChart(v, c);
+}
+
+function drawChart(v, c){
+  const canvas = document.getElementById('chart');
+  const ctx = canvas.getContext('2d');
+  const dpr = window.devicePixelRatio || 1;
+  const W = canvas.parentElement.clientWidth;
+  const H = 260;
+  canvas.width = W * dpr;
+  canvas.height = H * dpr;
+  canvas.style.width = W + 'px';
+  canvas.style.height = H + 'px';
+  ctx.scale(dpr, dpr);
+  ctx.clearRect(0,0,W,H);
+
+  const months = v.horizon;
+  const padL = 64, padR = 20, padT = 16, padB = 32;
+  const chartW = W - padL - padR;
+  const chartH = H - padT - padB;
+
+  // Build data: at each month n, cumulative LTV earned vs cumulative investment
+  const data = [];
+  for(let n=0; n<=months; n++){
+    const rev = c.cumulativeLTV(n);
+    const inv = c.cumulativeInvest(n);
+    data.push({month:n, rev, inv, net:rev-inv});
+  }
+
+  const maxVal = Math.max(...data.map(d=>Math.max(d.rev, d.inv, d.net, 0)));
+  const minVal = Math.min(0, ...data.map(d=>d.net));
+  const range = maxVal - minVal || 1;
+
+  const x = i => padL + (i/months) * chartW;
+  const y = val => padT + chartH - ((val - minVal)/range) * chartH;
+
+  // grid + Y-axis labels
+  ctx.strokeStyle = '#EEEAE0';
+  ctx.lineWidth = 1;
+  ctx.font = "10px 'JetBrains Mono', monospace";
+  ctx.fillStyle = '#7A766C';
+  for(let g=0; g<=4; g++){
+    const gv = minVal + (range/4)*g;
+    const gy = y(gv);
+    ctx.beginPath();
+    ctx.moveTo(padL, gy);
+    ctx.lineTo(W-padR, gy);
+    ctx.stroke();
+    ctx.textAlign = 'right';
+    ctx.fillText(fmtK(gv), padL-8, gy+3);
+  }
+
+  // X-axis labels
+  ctx.textAlign = 'center';
+  ctx.fillStyle = '#7A766C';
+  ctx.font = "10px 'Inter', sans-serif";
+  const xStep = Math.max(1, Math.ceil(months/6));
+  for(let i=0; i<=months; i+=xStep){
+    ctx.fillText('Month ' + i, x(i), H-12);
+  }
+  if(months % xStep !== 0) ctx.fillText('Month ' + months, x(months), H-12);
+
+  // Zero line
+  ctx.strokeStyle = '#D1CCBE';
+  ctx.setLineDash([3,3]);
+  ctx.beginPath();
+  ctx.moveTo(padL, y(0));
+  ctx.lineTo(W-padR, y(0));
+  ctx.stroke();
+  ctx.setLineDash([]);
+
+  // Helper
+  const drawLine = (key, color, fillRgba, lineW=2.5) => {
+    ctx.beginPath();
+    data.forEach((d,i)=>{
+      if(i===0) ctx.moveTo(x(i), y(d[key]));
+      else ctx.lineTo(x(i), y(d[key]));
+    });
+    ctx.strokeStyle = color;
+    ctx.lineWidth = lineW;
+    ctx.stroke();
+    if(fillRgba){
+      ctx.lineTo(x(months), y(0));
+      ctx.lineTo(x(0), y(0));
+      ctx.closePath();
+      ctx.fillStyle = fillRgba;
+      ctx.fill();
+    }
+  };
+
+  // Order: net (background fill), investment (navy), revenue (gold)
+  drawLine('net', '#2C6E4B', 'rgba(44,110,75,0.08)', 2);
+  drawLine('inv', '#0E2240', null, 2);
+  drawLine('rev', '#B8884A', null, 3);
+
+  // Mark break-even point if it falls inside the visible window
+  if(c.breakeven && c.breakeven <= months){
+    const bx = x(c.breakeven);
+    const by = y(c.cumulativeInvest(c.breakeven));
+    ctx.strokeStyle = '#A0571C';
+    ctx.setLineDash([2,3]);
+    ctx.beginPath();
+    ctx.moveTo(bx, padT);
+    ctx.lineTo(bx, padT + chartH);
+    ctx.stroke();
+    ctx.setLineDash([]);
+    // dot
+    ctx.fillStyle = '#A0571C';
+    ctx.beginPath();
+    ctx.arc(bx, by, 4, 0, Math.PI*2);
+    ctx.fill();
+    // label
+    ctx.fillStyle = '#A0571C';
+    ctx.font = "600 10px 'Inter', sans-serif";
+    ctx.textAlign = 'left';
+    const labelX = Math.min(bx + 6, W - padR - 70);
+    ctx.fillText('Break-even · M' + c.breakeven, labelX, padT + 12);
+  }
+}
+
+/* ============================================================================
+   BREAK-EVEN SOLVER
+   ----------------------------------------------------------------------------
+   Goal: find the minimum monthly traffic T such that the headline
+   "Total long-term revenue" equals "Total investment".
+
+   totalLifetimeRevenue = patientsOverHorizon × directLTV
+                       = (T × convLead × convBook × horizon) × (revPerVisit × visitsYear × lifespan)
+
+   totalInvest = setupFee + retainer × horizon
+
+   Setting them equal:
+     T = totalInvest / (convLead × convBook × horizon × revPerVisit × visitsYear × lifespan)
+
+   We round UP to the next 10 (slider step) so the displayed scenario is
+   at or just barely above true break-even — never below.
+============================================================================ */
+function solveBreakeven(){
+  Object.keys(defaults).forEach(k => { inputs[k].value = defaults[k]; });
+
+  const v = vals();
+  const totalInvest = v.setupFee + (v.retainer * v.horizon);
+  const denom = v.convLead * v.convBook * v.horizon * v.revPerVisit * v.visitsYear * v.lifespan;
+  const requiredTraffic = totalInvest / denom;
+  const rounded = Math.max(10, Math.ceil(requiredTraffic / 10) * 10);
+  inputs.traffic.value = Math.min(rounded, +inputs.traffic.max);
+}
+
+Object.values(inputs).forEach(el => el.addEventListener('input', () => {
+  document.getElementById('breakevenNotice').classList.remove('active');
+  render();
+}));
+
+document.getElementById('resetBtn').addEventListener('click', () => {
+  Object.keys(defaults).forEach(k => { inputs[k].value = defaults[k]; });
+  document.getElementById('breakevenNotice').classList.remove('active');
+  render();
+});
+
+document.getElementById('defaultsBtn').addEventListener('click', () => {
+  Object.keys(defaults).forEach(k => { inputs[k].value = defaults[k]; });
+  document.getElementById('breakevenNotice').classList.remove('active');
+  render();
+});
+
+document.getElementById('breakevenBtn').addEventListener('click', () => {
+  solveBreakeven();
+  document.getElementById('breakevenNotice').classList.add('active');
+  render();
+});
+
+window.addEventListener('resize', () => render());
+
+render();
+</script>
+</body>
+</html>
