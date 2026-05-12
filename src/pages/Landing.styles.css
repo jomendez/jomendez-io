@@ -18,18 +18,23 @@
  * ========================================================================== */
 
 :root {
-  --bg: #F6F4EF;
-  --bg-2: #EFECE4;
-  --ink: #0B0D10;
-  --ink-2: #1A1D22;
-  --muted: #5A5D66;
-  --muted-2: #8A8D94;
-  --line: rgba(11, 13, 16, 0.08);
-  --line-2: rgba(11, 13, 16, 0.14);
-  --accent: #3452FF;
-  --accent-ink: #1E2E99;
-  --accent-soft: #6D84FF; /* lighter blue, legible on dark backgrounds */
+  --bg: #F6F4EF;          /* warm cream */
+  --bg-2: #EDE9DF;        /* slightly deeper cream, tuned against navy */
+  --ink: #0E2240;         /* refined navy */
+  --ink-2: #1A3458;       /* lighter navy for secondary surfaces */
+  --muted: #5A6373;
+  --muted-2: #8A8F9A;
+  --line: rgba(14, 34, 64, 0.10);
+  --line-2: rgba(14, 34, 64, 0.16);
+  --accent: #B8884A;      /* deeper, less-yellow gold */
+  --accent-ink: #8E6738;  /* darker gold for hover */
+  --accent-soft: #D4A668; /* lighter gold, legible on navy backgrounds */
   --white: #FFFFFF;
+
+  /* Drive the AuditRadar via its CSS-var hooks so its palette matches */
+  --audit-score-stroke: var(--accent);
+  --audit-label: var(--ink);
+  --audit-label-num: var(--accent);
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; -webkit-font-smoothing: antialiased; }
@@ -80,8 +85,8 @@ img { display: block; max-width: 100%; }
 
 .blueprint {
   background-image:
-    linear-gradient(rgba(11,13,16,.035) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(11,13,16,.035) 1px, transparent 1px);
+    linear-gradient(rgba(14,34,64,.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(14,34,64,.04) 1px, transparent 1px);
   background-size: 48px 48px;
 }
 .grain::after {
@@ -131,13 +136,13 @@ img { display: block; max-width: 100%; }
   border-radius: 999px;
   font-size: 13px; font-weight: 500;
   transition: transform .2s ease, background .2s ease, box-shadow .2s ease;
-  box-shadow: 0 6px 16px rgba(52, 82, 255, 0.25);
+  box-shadow: 0 6px 16px rgba(184, 136, 74, 0.25);
 }
 .nav-cta:hover {
   background: var(--accent-ink);
   color: #ffffff;
   transform: translateY(-1px);
-  box-shadow: 0 10px 22px rgba(52, 82, 255, 0.35);
+  box-shadow: 0 10px 22px rgba(184, 136, 74, 0.35);
 }
 .nav-cta .pill {
   width: 6px; height: 6px; border-radius: 50%; background: #9fffc6;
@@ -238,8 +243,8 @@ section { position: relative; }
   aspect-ratio: 4/5;
   border-radius: 28px;
   overflow: hidden;
-  background: #1a1a1a;
-  box-shadow: 0 30px 80px rgba(11,13,16,.12);
+  background: var(--ink);
+  box-shadow: 0 30px 80px rgba(14,34,64,.18);
 }
 .hero-portrait img {
   width: 100%; height: 100%; object-fit: cover;
@@ -264,8 +269,8 @@ section { position: relative; }
   position: absolute; inset: 0;
   display: grid; place-items: center;
   background:
-    radial-gradient(circle at 30% 20%, rgba(52,82,255,.35), transparent 60%),
-    linear-gradient(135deg, #1A1D22 0%, #0B0D10 100%);
+    radial-gradient(circle at 30% 20%, rgba(184,136,74,.35), transparent 60%),
+    linear-gradient(135deg, #1A3458 0%, #0E2240 100%);
   color: rgba(255,255,255,.6);
   font-family: 'JetBrains Mono', monospace;
   font-size: 11px;
@@ -356,8 +361,8 @@ section { position: relative; }
 .leak-icon {
   width: 44px; height: 44px;
   border-radius: 12px;
-  background: rgba(52, 82, 255, 0.08);
-  border: 1px solid rgba(52, 82, 255, 0.18);
+  background: rgba(184, 136, 74, 0.08);
+  border: 1px solid rgba(184, 136, 74, 0.18);
   display: grid; place-items: center;
   color: var(--accent);
 }
@@ -430,7 +435,7 @@ section { position: relative; }
 .capability:hover { background: #15181D; }
 .capability-icon {
   width: 44px; height: 44px; border-radius: 12px;
-  background: rgba(52, 82, 255, 0.14);
+  background: rgba(184, 136, 74, 0.14);
   border: 1px solid rgba(109, 132, 255, 0.32);
   display: grid; place-items: center;
   color: var(--accent-soft);
@@ -651,7 +656,7 @@ section { position: relative; }
   aspect-ratio: 4/5;
   border-radius: 28px;
   overflow: hidden;
-  background: #222;
+  background: var(--ink);
   position: relative;
 }
 .about-img img {
@@ -661,8 +666,8 @@ section { position: relative; }
   position: absolute; inset: 0;
   display: grid; place-items: center;
   background:
-    radial-gradient(circle at 70% 30%, rgba(52,82,255,.25), transparent 60%),
-    linear-gradient(135deg, #2A2D34 0%, #15181E 100%);
+    radial-gradient(circle at 70% 30%, rgba(184,136,74,.25), transparent 60%),
+    linear-gradient(135deg, #244170 0%, #0E2240 100%);
   color: rgba(255,255,255,.55);
   font-family: 'JetBrains Mono', monospace;
   font-size: 11px;
@@ -914,7 +919,7 @@ section { position: relative; }
 .waitlist-form--theme-light .waitlist-form__row {
   background: var(--white);
   border: 1px solid var(--line-2);
-  box-shadow: 0 6px 20px rgba(11,13,16,.06);
+  box-shadow: 0 6px 20px rgba(14,34,64,.10);
 }
 .waitlist-form--theme-light .waitlist-form__field input {
   color: var(--ink);
@@ -1047,7 +1052,7 @@ input:focus-visible,
   font-size: 15px;
   font-weight: 500;
   width: auto;
-  box-shadow: 0 6px 16px rgba(52, 82, 255, 0.25);
+  box-shadow: 0 6px 16px rgba(184, 136, 74, 0.25);
 }
 .mobile-menu .nav-cta:hover { color: #ffffff; background: var(--accent-ink); }
 
