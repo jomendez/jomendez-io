@@ -32,6 +32,14 @@ jobs:
           VITE_FIREBASE_MESSAGING_SENDER_ID: ${{ secrets.VITE_FIREBASE_MESSAGING_SENDER_ID }}
           VITE_FIREBASE_APP_ID: ${{ secrets.VITE_FIREBASE_APP_ID }}
 
+      - name: Verify Firebase config baked into bundle
+        run: |
+          if ! grep -rqE 'AIza[A-Za-z0-9_-]{30,45}' dist/assets/; then
+            echo "::error::No Firebase API key (AIza...) found in dist/assets/. Build was missing env vars; refusing to deploy."
+            exit 1
+          fi
+          echo "Firebase config detected in build output."
+
       - name: Install Firebase CLI
         run: npm install -g firebase-tools
 
