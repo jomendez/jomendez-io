@@ -138,7 +138,7 @@ const Landing = () => {
             <a href="#about">About</a>
             <a href="#join" className="nav-cta">
               <span className="pill" aria-hidden="true"></span>
-              <span>Join the waitlist</span>
+              <span style={{ color: 'rgb(255, 255, 255)' }}>Join the waitlist</span>
             </a>
           </div>
           <button
