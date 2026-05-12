@@ -1,0 +1,955 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Website + SEO ROI Calculator · Proposal for Sofhia Cruz</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500;1,600;1,700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    /* Sofhia's portfolio palette — bright sky + deep teal, halftone vibe */
+    --sky:#5BA3F5;
+    --sky-light:#A5CFF8;
+    --sky-bg:#D7EAF7;
+    --deep:#1E6A8F;
+    --deep-dark:#155570;
+    --navy:#0F3F5A;
+    --paper:#FFFFFF;
+    --cream:#F8FAFC;
+    --ink:#0F2A3D;
+    --muted:#6B8195;
+    --line:#D7E5EE;
+    --line-soft:#EAF1F6;
+    --gold:#F5C842;
+    --success:#2E8B57;
+    --warn:#E07B3C;
+    --shadow-sm:0 1px 2px rgba(15,63,90,.06);
+    --shadow-md:0 4px 14px rgba(15,63,90,.10),0 1px 3px rgba(15,63,90,.06);
+    --shadow-lg:0 12px 40px rgba(15,63,90,.15),0 4px 12px rgba(15,63,90,.08);
+  }
+
+  *{box-sizing:border-box;margin:0;padding:0;}
+
+  html,body{
+    background:var(--cream);color:var(--ink);
+    font-family:'Inter',sans-serif;-webkit-font-smoothing:antialiased;
+    line-height:1.5;
+  }
+
+  body::before{
+    content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
+    background-image:radial-gradient(rgba(91,163,245,.08) 1.5px, transparent 1.5px);
+    background-size:14px 14px;opacity:.5;
+  }
+
+  .page{max-width:1200px;margin:0 auto;padding:32px 32px 80px;position:relative;z-index:1;}
+
+  /* ============ DUAL HEADER — from Jomendez, to Sofhia ============ */
+  header.brand{
+    display:flex;justify-content:space-between;align-items:center;
+    padding:14px 0 22px;border-bottom:2px solid var(--sky);gap:24px;flex-wrap:wrap;
+  }
+  .from-block, .to-block{display:flex;align-items:center;gap:12px;flex:1;min-width:240px;}
+  .to-block{justify-content:flex-end;text-align:right;}
+  .meta-tag{
+    font-size:9.5px;text-transform:uppercase;letter-spacing:2.5px;
+    color:var(--sky);font-weight:700;display:block;margin-bottom:4px;
+  }
+  .brand-logo{
+    width:42px;height:42px;display:flex;align-items:center;justify-content:center;
+    font-family:'Playfair Display',serif;font-weight:700;color:var(--paper);
+    border-radius:6px;font-size:20px;flex-shrink:0;
+  }
+  .brand-logo.jomendez{background:var(--navy);border-radius:4px;}
+  .brand-logo.sofhia{background:var(--sky);border-radius:50%;font-style:italic;font-size:24px;}
+  .brand-text{display:flex;flex-direction:column;line-height:1.1;}
+  .brand-name{font-family:'Playfair Display',serif;font-size:19px;font-weight:700;color:var(--deep);letter-spacing:-.3px;}
+  .brand-name em{font-style:italic;font-weight:500;color:var(--sky);}
+  .brand-sub{font-size:11px;color:var(--muted);font-weight:500;margin-top:2px;}
+
+  .arrow{
+    flex-shrink:0;font-family:'Playfair Display',serif;font-style:italic;
+    color:var(--sky);font-size:24px;font-weight:500;padding:0 8px;
+  }
+
+  /* ============ HERO ============ */
+  .hero{
+    position:relative;margin:42px 0 32px;padding:54px 50px;
+    background:var(--deep);
+    border-radius:8px;overflow:hidden;color:var(--paper);
+    box-shadow:var(--shadow-lg);
+  }
+  .hero::before{
+    content:'';position:absolute;inset:0;
+    background-image:radial-gradient(rgba(255,255,255,.10) 2px, transparent 2px);
+    background-size:18px 18px;pointer-events:none;
+  }
+  .hero::after{
+    content:'';position:absolute;top:-100px;right:-100px;width:400px;height:400px;
+    background:radial-gradient(circle,rgba(91,163,245,.35),transparent 70%);
+    pointer-events:none;
+  }
+  .hero-eyebrow{
+    position:relative;z-index:1;display:inline-block;
+    font-family:'Playfair Display',serif;font-style:italic;font-size:17px;
+    margin-bottom:18px;font-weight:400;color:var(--sky-light);
+  }
+  .hero-title{
+    position:relative;z-index:1;
+    font-family:'Playfair Display',serif;font-size:64px;line-height:1;
+    font-weight:700;color:var(--paper);letter-spacing:-2.5px;margin-bottom:22px;
+  }
+  .hero-title em{font-style:italic;font-weight:400;color:var(--sky);}
+  .hero-sub{
+    position:relative;z-index:1;
+    font-size:16px;color:rgba(255,255,255,.85);max-width:640px;line-height:1.6;font-weight:400;
+  }
+
+  /* ============ CONTROLS ============ */
+  .controls-row{
+    display:flex;justify-content:space-between;align-items:center;
+    margin-bottom:26px;gap:16px;flex-wrap:wrap;
+  }
+  .tier-mix-label{
+    font-family:'Playfair Display',serif;font-size:15px;font-style:italic;
+    color:var(--deep);font-weight:500;
+  }
+  .preset-btn{
+    padding:10px 18px;background:var(--paper);border:1.5px solid var(--line);
+    font-family:'Inter',sans-serif;font-size:11px;font-weight:700;
+    color:var(--ink);cursor:pointer;letter-spacing:.5px;
+    transition:all .2s ease;border-radius:50px;
+    display:inline-flex;align-items:center;gap:7px;text-transform:uppercase;
+  }
+  .preset-btn:hover{border-color:var(--deep);color:var(--deep);}
+  .preset-btn.breakeven{border-color:var(--warn);color:var(--warn);}
+  .preset-btn.breakeven:hover{background:var(--warn);color:var(--paper);}
+  .preset-btn .dot{width:7px;height:7px;border-radius:50%;background:currentColor;}
+
+  .breakeven-notice{
+    display:none;padding:14px 18px;background:rgba(245,200,66,.18);
+    border-left:3px solid var(--gold);margin-bottom:22px;border-radius:0 4px 4px 0;
+    font-size:13px;color:#7A5C00;font-weight:500;
+  }
+  .breakeven-notice.active{display:block;}
+  .breakeven-notice strong{color:var(--ink);}
+
+  /* ============ LAYOUT ============ */
+  .layout{display:grid;grid-template-columns:400px 1fr;gap:24px;align-items:start;}
+  @media(max-width:900px){.layout{grid-template-columns:1fr;}}
+
+  /* ============ INPUT PANEL ============ */
+  .panel{
+    background:var(--paper);border:1px solid var(--line);border-radius:8px;
+    box-shadow:var(--shadow-md);overflow:hidden;
+  }
+  .panel-head{
+    background:var(--deep);color:var(--paper);padding:18px 22px;
+    display:flex;justify-content:space-between;align-items:center;
+  }
+  .panel-head h2{font-family:'Playfair Display',serif;font-size:18px;font-weight:600;}
+  .panel-head h2 em{font-style:italic;font-weight:400;color:var(--sky-light);}
+  .panel-head .pill{
+    font-size:9px;text-transform:uppercase;letter-spacing:1.5px;color:var(--sky-light);
+    padding:4px 10px;border:1px solid rgba(165,207,248,.4);border-radius:50px;font-weight:600;
+  }
+  .panel-body{padding:22px;}
+
+  .section-label{
+    font-family:'Playfair Display',serif;font-size:13px;font-style:italic;
+    color:var(--deep);font-weight:600;margin-bottom:14px;padding-bottom:8px;
+    border-bottom:1px solid var(--line-soft);
+  }
+
+  .field{margin-bottom:18px;}
+  .field:last-child{margin-bottom:0;}
+  .field-row{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px;}
+  .field-label{font-size:13px;color:var(--ink);font-weight:600;}
+  .field-help{font-size:11px;color:var(--muted);margin-top:5px;line-height:1.45;}
+  .field-value{
+    font-family:'Inter',sans-serif;font-size:13px;color:var(--deep);font-weight:700;
+    background:var(--sky-bg);padding:2px 10px;border-radius:50px;min-width:60px;text-align:right;
+  }
+
+  input[type="range"]{
+    -webkit-appearance:none;appearance:none;
+    width:100%;height:4px;background:var(--line);border-radius:50px;outline:none;
+    margin:10px 0 4px;
+  }
+  input[type="range"]::-webkit-slider-thumb{
+    -webkit-appearance:none;appearance:none;
+    width:18px;height:18px;background:var(--sky);
+    border:3px solid var(--paper);border-radius:50%;cursor:pointer;
+    box-shadow:0 2px 6px rgba(91,163,245,.45);transition:transform .15s;
+  }
+  input[type="range"]::-webkit-slider-thumb:hover{transform:scale(1.15);}
+  input[type="range"]::-moz-range-thumb{
+    width:18px;height:18px;background:var(--sky);border:3px solid var(--paper);
+    border-radius:50%;cursor:pointer;
+  }
+
+  input[type="number"]{
+    width:100%;padding:10px 14px;border:1.5px solid var(--line);border-radius:8px;
+    font-family:'Inter',sans-serif;font-size:14px;color:var(--deep);
+    background:var(--paper);transition:all .2s;font-weight:600;
+  }
+  input[type="number"]:focus{outline:none;border-color:var(--sky);box-shadow:0 0 0 3px rgba(91,163,245,.15);}
+
+  /* Tier mix sliders — special inline layout */
+  .tier-mix-card{
+    background:var(--sky-bg);border-radius:6px;padding:16px;margin-bottom:18px;
+  }
+  .tier-mix-card .field{margin-bottom:14px;}
+  .tier-mix-card .field:last-child{margin-bottom:0;}
+  .tier-mix-card .field-label{font-size:12px;}
+  .tier-mix-card .field-help{font-size:10.5px;}
+  .tier-mix-total{
+    display:flex;justify-content:space-between;align-items:center;
+    padding-top:10px;margin-top:6px;border-top:1px dashed rgba(30,106,143,.25);
+    font-size:12px;color:var(--deep);font-weight:600;
+  }
+  .tier-mix-total span:last-child{font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:var(--deep);}
+
+  .reset-btn{
+    width:100%;margin-top:20px;padding:11px;background:transparent;border:1.5px solid var(--line);
+    border-radius:50px;color:var(--muted);font-family:'Inter',sans-serif;font-size:11px;
+    text-transform:uppercase;letter-spacing:1.5px;cursor:pointer;transition:all .2s;font-weight:700;
+  }
+  .reset-btn:hover{border-color:var(--deep);color:var(--deep);}
+
+  /* ============ RESULTS ============ */
+  .results{display:flex;flex-direction:column;gap:22px;}
+
+  .headline-card{
+    background:var(--deep);
+    color:var(--paper);border-radius:8px;padding:40px;
+    position:relative;overflow:hidden;box-shadow:var(--shadow-lg);
+  }
+  .headline-card::before{
+    content:'';position:absolute;inset:0;
+    background-image:radial-gradient(rgba(255,255,255,.06) 1.5px, transparent 1.5px);
+    background-size:14px 14px;pointer-events:none;
+  }
+  .headline-card::after{
+    content:'';position:absolute;top:-80px;right:-80px;width:300px;height:300px;
+    background:radial-gradient(circle,rgba(91,163,245,.25),transparent 70%);
+    pointer-events:none;
+  }
+  .headline-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px;position:relative;z-index:1;}
+  .headline-label{font-family:'Playfair Display',serif;font-size:14px;font-style:italic;color:var(--sky-light);font-weight:500;margin-bottom:14px;}
+  .headline-value{font-family:'Playfair Display',serif;font-size:58px;font-weight:700;line-height:1;letter-spacing:-2.5px;color:var(--paper);margin-bottom:10px;}
+  .headline-sub{font-size:13px;color:rgba(255,255,255,.7);font-weight:400;}
+  .headline-divider{position:absolute;top:40px;bottom:40px;left:50%;width:1px;background:rgba(91,163,245,.25);}
+
+  .metric-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
+  @media(max-width:600px){.metric-grid{grid-template-columns:1fr 1fr;}}
+  .metric-card{
+    background:var(--paper);border:1.5px solid var(--line);border-radius:8px;
+    padding:22px;box-shadow:var(--shadow-sm);transition:all .2s;
+  }
+  .metric-card:hover{transform:translateY(-2px);border-color:var(--sky);box-shadow:var(--shadow-md);}
+  .metric-label{font-size:10.5px;text-transform:uppercase;letter-spacing:1.5px;color:var(--muted);font-weight:700;margin-bottom:8px;}
+  .metric-value{font-family:'Playfair Display',serif;font-size:30px;font-weight:700;color:var(--deep);line-height:1.1;letter-spacing:-1px;}
+  .metric-foot{font-size:11px;color:var(--muted);margin-top:6px;}
+
+  .breakdown-card{
+    background:var(--paper);border:1.5px solid var(--line);border-radius:8px;
+    box-shadow:var(--shadow-md);overflow:hidden;
+  }
+  .breakdown-head{padding:20px 26px;border-bottom:1px solid var(--line-soft);display:flex;justify-content:space-between;align-items:center;background:var(--cream);}
+  .breakdown-title{font-family:'Playfair Display',serif;font-size:22px;color:var(--deep);font-weight:700;letter-spacing:-.5px;}
+  .breakdown-title em{font-style:italic;font-weight:500;color:var(--sky);}
+  .breakdown-meta{font-size:10.5px;color:var(--sky);text-transform:uppercase;letter-spacing:1.5px;font-weight:700;}
+  .breakdown-body{padding:8px 26px 22px;}
+  .b-row{display:grid;grid-template-columns:1fr auto auto;gap:18px;align-items:center;padding:14px 0;border-bottom:1px dashed var(--line-soft);}
+  .b-row:last-of-type{border-bottom:none;}
+  .b-row.b-total{border-top:2px solid var(--deep);border-bottom:none;margin-top:4px;padding-top:18px;}
+  .b-label{font-size:14px;color:var(--ink);font-weight:600;}
+  .b-label .sub{display:block;font-size:11.5px;color:var(--muted);font-weight:400;margin-top:2px;}
+  .b-formula{font-family:'Inter',sans-serif;font-size:11.5px;color:var(--muted);text-align:right;font-weight:500;}
+  .b-amount{font-family:'Inter',sans-serif;font-size:16px;color:var(--deep);font-weight:700;text-align:right;min-width:110px;}
+  .b-row.positive .b-amount{color:var(--success);}
+  .b-row.negative .b-amount{color:var(--warn);}
+  .b-row.b-total .b-label{font-family:'Playfair Display',serif;font-size:19px;font-weight:700;}
+  .b-row.b-total .b-amount{font-family:'Playfair Display',serif;font-size:26px;color:var(--sky);font-weight:700;letter-spacing:-.5px;}
+
+  .chart-card{background:var(--paper);border:1.5px solid var(--line);border-radius:8px;padding:26px;box-shadow:var(--shadow-md);}
+  .chart-head{margin-bottom:18px;}
+  .chart-title{font-family:'Playfair Display',serif;font-size:20px;color:var(--deep);font-weight:700;margin-bottom:4px;letter-spacing:-.4px;}
+  .chart-title em{font-style:italic;font-weight:500;color:var(--sky);}
+  .chart-sub{font-size:12px;color:var(--muted);}
+  .chart-wrap{position:relative;height:260px;}
+  .chart-legend{display:flex;gap:18px;margin-top:14px;flex-wrap:wrap;}
+  .lg-item{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--deep);font-weight:500;}
+  .lg-dot{width:12px;height:12px;border-radius:50%;}
+
+  .scenario-row{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
+  @media(max-width:600px){.scenario-row{grid-template-columns:1fr;}}
+  .scenario{padding:22px;border:1.5px solid var(--line);border-radius:8px;background:var(--paper);box-shadow:var(--shadow-sm);text-align:center;}
+  .scenario-name{font-size:11px;text-transform:uppercase;letter-spacing:1.5px;color:var(--muted);font-weight:700;margin-bottom:10px;}
+  .scenario-value{font-family:'Playfair Display',serif;font-size:28px;font-weight:700;color:var(--deep);line-height:1;letter-spacing:-.5px;}
+  .scenario-sub{font-size:11px;color:var(--muted);margin-top:8px;}
+  .scenario.highlight{background:var(--deep);color:var(--paper);border-color:var(--deep);}
+  .scenario.highlight .scenario-name{color:var(--sky-light);}
+  .scenario.highlight .scenario-value{color:var(--paper);}
+  .scenario.highlight .scenario-sub{color:rgba(255,255,255,.6);}
+
+  .footnote{
+    margin-top:32px;padding:22px 26px;background:var(--sky-bg);
+    border-left:3px solid var(--sky);border-radius:0 4px 4px 0;
+    font-size:12.5px;color:var(--ink);line-height:1.7;font-weight:400;
+  }
+  .footnote strong{color:var(--deep);font-weight:700;}
+
+  .doc-footer{
+    margin-top:48px;padding-top:24px;border-top:2px solid var(--sky);
+    display:flex;justify-content:space-between;align-items:center;
+    font-size:11px;color:var(--muted);flex-wrap:wrap;gap:10px;
+  }
+  .doc-footer .left{letter-spacing:.3px;font-weight:500;}
+  .doc-footer .right{font-family:'Playfair Display',serif;font-style:italic;font-size:13px;color:var(--sky);font-weight:500;}
+
+  @media print{
+    body{background:white;}body::before{display:none;}
+    .controls-row,.reset-btn{display:none;}
+    .page{padding:20px;}
+    .panel,.headline-card,.metric-card,.breakdown-card,.chart-card,.scenario,.hero{box-shadow:none;break-inside:avoid;}
+  }
+  @media(max-width:600px){
+    .hero-title{font-size:42px;letter-spacing:-1.5px;}
+    .hero{padding:36px 26px;}
+    .headline-value{font-size:42px;}
+    .headline-grid{grid-template-columns:1fr;gap:28px;}
+    .headline-divider{display:none;}
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- DUAL HEADER: from Jomendez → to Sofhia -->
+  <header class="brand">
+    <div class="from-block">
+      <div class="brand-logo jomendez">J</div>
+      <div class="brand-text">
+        <span class="meta-tag">Proposal from</span>
+        <span class="brand-name">Jomendez</span>
+        <span class="brand-sub">Big-company technology, built for small business</span>
+      </div>
+    </div>
+    <div class="arrow">↣</div>
+    <div class="to-block">
+      <div class="brand-text">
+        <span class="meta-tag">Prepared for</span>
+        <span class="brand-name">Sofhia <em>Cruz</em></span>
+        <span class="brand-sub">Turning content into conversions</span>
+      </div>
+      <div class="brand-logo sofhia">S</div>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <span class="hero-eyebrow">Website + SEO ROI Analysis</span>
+    <h1 class="hero-title">What's <em>one new retainer client</em> actually worth?</h1>
+    <p class="hero-sub">Your social presence is already winning. The website is what converts the prospects who Google you before they sign. Here's the math, transparently, with every assumption you can adjust.</p>
+  </section>
+
+  <!-- CONTROLS -->
+  <div class="controls-row">
+    <span class="tier-mix-label">Every number is yours to challenge.</span>
+    <button class="preset-btn breakeven" id="breakevenBtn"><span class="dot"></span>Minimum to Break Even</button>
+  </div>
+
+  <div class="breakeven-notice" id="breakevenNotice">
+    <strong>Break-even mode active.</strong> Monthly visitors have been set to the minimum needed for the long-term value of new retainer clients to exactly cover your investment in the website. Anything above this is profit.
+  </div>
+
+  <div class="layout">
+
+    <!-- INPUTS -->
+    <aside class="panel">
+      <div class="panel-head">
+        <h2>Adjust the <em>numbers</em></h2>
+        <span class="pill">Live</span>
+      </div>
+      <div class="panel-body">
+
+        <div class="section-label">Your Service Mix</div>
+
+        <div class="tier-mix-card">
+          <div class="field">
+            <div class="field-row">
+              <span class="field-label">% Basic ($700/mo)</span>
+              <span class="field-value" id="v-mixBasic">20%</span>
+            </div>
+            <input type="range" id="mixBasic" min="0" max="100" step="5" value="20" />
+          </div>
+          <div class="field">
+            <div class="field-row">
+              <span class="field-label">% Standard ($900/mo)</span>
+              <span class="field-value" id="v-mixStandard">40%</span>
+            </div>
+            <input type="range" id="mixStandard" min="0" max="100" step="5" value="40" />
+          </div>
+          <div class="field">
+            <div class="field-row">
+              <span class="field-label">% Advance ($1,200/mo)</span>
+              <span class="field-value" id="v-mixAdvance">30%</span>
+            </div>
+            <input type="range" id="mixAdvance" min="0" max="100" step="5" value="30" />
+          </div>
+          <div class="field">
+            <div class="field-row">
+              <span class="field-label">% Pro ($2,100/mo)</span>
+              <span class="field-value" id="v-mixPro">10%</span>
+            </div>
+            <input type="range" id="mixPro" min="0" max="100" step="5" value="10" />
+          </div>
+          <div class="tier-mix-total">
+            <span>Avg. monthly retainer per client</span>
+            <span id="avgRetainer">$1,015</span>
+          </div>
+        </div>
+
+        <div class="field">
+          <div class="field-row">
+            <span class="field-label">Avg. client lifespan</span>
+            <span class="field-value" id="v-lifespan">18 mo</span>
+          </div>
+          <input type="range" id="lifespan" min="6" max="36" step="3" value="18" />
+          <div class="field-help">Industry avg for small agencies: 12–24 months</div>
+        </div>
+
+        <div class="section-label" style="margin-top:24px;">Website Performance</div>
+
+        <div class="field">
+          <div class="field-row">
+            <span class="field-label">Monthly organic visitors</span>
+            <span class="field-value" id="v-traffic">150</span>
+          </div>
+          <input type="range" id="traffic" min="1" max="1500" step="1" value="150" />
+          <div class="field-help">From SEO + people who Google you after seeing your content</div>
+        </div>
+
+        <div class="field">
+          <div class="field-row">
+            <span class="field-label">Visitor → inquiry rate</span>
+            <span class="field-value" id="v-convLead">4.0%</span>
+          </div>
+          <input type="range" id="convLead" min="1" max="10" step="0.25" value="4" />
+          <div class="field-help">% who fill out the contact form or email you</div>
+        </div>
+
+        <div class="field">
+          <div class="field-row">
+            <span class="field-label">Inquiry → signed client</span>
+            <span class="field-value" id="v-convBook">25%</span>
+          </div>
+          <input type="range" id="convBook" min="5" max="60" step="5" value="25" />
+          <div class="field-help">Your close rate on qualified inbound leads</div>
+        </div>
+
+        <div class="section-label" style="margin-top:24px;">Investment</div>
+
+        <div class="field">
+          <div class="field-row"><span class="field-label">One-time setup fee</span></div>
+          <input type="number" id="setupFee" value="3000" min="0" step="100" />
+          <div class="field-help">Custom website design, build, on-page SEO foundation</div>
+        </div>
+
+        <div class="field">
+          <div class="field-row"><span class="field-label">Monthly maintenance retainer</span></div>
+          <input type="number" id="retainer" value="297" min="0" step="50" />
+          <div class="field-help">Ongoing SEO, content updates, hosting, technical maintenance</div>
+        </div>
+
+        <div class="field">
+          <div class="field-row">
+            <span class="field-label">Analysis time horizon</span>
+            <span class="field-value" id="v-horizon">12 mo</span>
+          </div>
+          <input type="range" id="horizon" min="3" max="36" step="3" value="12" />
+          <div class="field-help">How long you'll be paying the maintenance retainer</div>
+        </div>
+
+        <button class="reset-btn" id="resetBtn">↺ Reset all inputs</button>
+      </div>
+    </aside>
+
+    <!-- RESULTS -->
+    <main class="results">
+
+      <div class="headline-card">
+        <div class="headline-grid">
+          <div>
+            <div class="headline-label">Net long-term return</div>
+            <div class="headline-value" id="heroValue1">$245K</div>
+            <div class="headline-sub">After your full investment in the website</div>
+          </div>
+          <div class="headline-divider"></div>
+          <div>
+            <div class="headline-label">Return on investment</div>
+            <div class="headline-value" id="heroValue2">3,750%</div>
+            <div class="headline-sub" id="heroValue2Sub">Every $1 returns $38</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="metric-grid">
+        <div class="metric-card">
+          <div class="metric-label">New Retainer Clients</div>
+          <div class="metric-value" id="m-clients">18</div>
+          <div class="metric-foot">signed during <span id="m-horizon-1">12 months</span></div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-label">Avg. Client Lifetime Value</div>
+          <div class="metric-value" id="m-ltv">$18,270</div>
+          <div class="metric-foot"><span id="m-avgret">$1,015</span>/mo × <span id="m-lifespan">18</span> mo</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-label">Break-even Point</div>
+          <div class="metric-value" id="m-breakeven">2 mo</div>
+          <div class="metric-foot">to recover all costs</div>
+        </div>
+      </div>
+
+      <div class="breakdown-card">
+        <div class="breakdown-head">
+          <div class="breakdown-title">The full math, <em>line by line</em></div>
+          <div class="breakdown-meta">Retainer Client Perspective</div>
+        </div>
+        <div class="breakdown-body" id="breakdownBody"></div>
+      </div>
+
+      <div class="chart-card">
+        <div class="chart-head">
+          <div class="chart-title">Scenario <em>comparison</em></div>
+          <div class="chart-sub">What if the website underperforms — or overperforms?</div>
+        </div>
+        <div class="scenario-row">
+          <div class="scenario">
+            <div class="scenario-name">Conservative</div>
+            <div class="scenario-value" id="sc-low">$120K</div>
+            <div class="scenario-sub">50% of projected traffic</div>
+          </div>
+          <div class="scenario highlight">
+            <div class="scenario-name">Expected</div>
+            <div class="scenario-value" id="sc-mid">$245K</div>
+            <div class="scenario-sub">Projected scenario</div>
+          </div>
+          <div class="scenario">
+            <div class="scenario-name">Optimistic</div>
+            <div class="scenario-value" id="sc-high">$370K</div>
+            <div class="scenario-sub">150% of projected traffic</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="chart-card">
+        <div class="chart-head">
+          <div class="chart-title">Cumulative return <em>over time</em></div>
+          <div class="chart-sub">Retainer revenue earned vs. cumulative investment, month by month</div>
+        </div>
+        <div class="chart-wrap">
+          <canvas id="chart"></canvas>
+        </div>
+        <div class="chart-legend">
+          <div class="lg-item"><span class="lg-dot" style="background:var(--sky);"></span> Cumulative retainer revenue</div>
+          <div class="lg-item"><span class="lg-dot" style="background:var(--deep);"></span> Cumulative investment</div>
+          <div class="lg-item"><span class="lg-dot" style="background:var(--success);"></span> Net return</div>
+        </div>
+      </div>
+
+      <div class="footnote">
+        <strong>About these defaults.</strong> Client lifespan defaults to 18 months — drawn from Focus Digital's 2026 agency churn benchmarks (retainer agencies average ~56 months; small founder-led agencies typically 12–24 months) and aligned with your current portfolio of accounts started in 2024–2026. Service-mix percentages reflect a healthy distribution where Standard and Advance carry the volume while Pro lifts the average revenue per client. <strong>This model only counts retainer revenue</strong> — referrals and one-off project work are intentionally excluded to keep the ROI defensible.
+      </div>
+    </main>
+  </div>
+
+  <div class="doc-footer">
+    <div class="left">Jomendez Inc. · support@jomendez.io · Confidential proposal companion</div>
+    <div class="right">Let's build something that converts</div>
+  </div>
+</div>
+
+<script>
+/* ============================================================================
+   REVENUE MODEL — Sofhia perspective
+   ----------------------------------------------------------------------------
+   Each new retainer client = avgRetainer × clientLifespan (in months)
+   avgRetainer = weighted average of her 4 tiers based on her service-mix %
+
+   Acquisition funnel:
+     visitors → inquiries (convLead %) → signed clients (convBook %)
+
+   Total revenue = clientsAcquired × avgRetainer × lifespan
+   Investment = setupFee + maintenanceRetainer × horizon
+
+   The model is CONSERVATIVE:
+   - Doesn't credit referrals (huge upside in social media)
+   - Doesn't count project work or one-offs
+   - Uses 18-month default lifespan (small-agency reality, not the 56-mo
+     retainer-agency benchmark)
+============================================================================ */
+
+const TIER_PRICES = { basic:700, standard:900, advance:1200, pro:2100 };
+
+const defaults = {
+  mixBasic:20, mixStandard:40, mixAdvance:30, mixPro:10,
+  lifespan:18,
+  traffic:150, convLead:4, convBook:25,
+  setupFee:3000, retainer:297, horizon:12,
+};
+
+const fmt = n => (n < 0 ? '−' : '') + '$' + Math.abs(Math.round(n)).toLocaleString('en-US');
+const fmtK = n => {
+  const sign = n < 0 ? '−' : '';
+  const abs = Math.abs(n);
+  if(abs >= 1000) return sign + '$' + (abs/1000).toFixed(abs>=10000?0:1) + 'K';
+  return sign + '$' + Math.round(abs).toLocaleString('en-US');
+};
+const fmtPct = n => Math.round(n*100) + '%';
+
+const inputs = {
+  mixBasic: document.getElementById('mixBasic'),
+  mixStandard: document.getElementById('mixStandard'),
+  mixAdvance: document.getElementById('mixAdvance'),
+  mixPro: document.getElementById('mixPro'),
+  lifespan: document.getElementById('lifespan'),
+  traffic: document.getElementById('traffic'),
+  convLead: document.getElementById('convLead'),
+  convBook: document.getElementById('convBook'),
+  setupFee: document.getElementById('setupFee'),
+  retainer: document.getElementById('retainer'),
+  horizon: document.getElementById('horizon'),
+};
+
+function vals(){
+  const mb = +inputs.mixBasic.value;
+  const ms = +inputs.mixStandard.value;
+  const ma = +inputs.mixAdvance.value;
+  const mp = +inputs.mixPro.value;
+  const mixTotal = mb + ms + ma + mp;
+  // Normalize the mix to 100% (in case sliders don't sum exactly)
+  const norm = mixTotal > 0 ? 100/mixTotal : 0;
+  const wBasic = (mb * norm)/100;
+  const wStandard = (ms * norm)/100;
+  const wAdvance = (ma * norm)/100;
+  const wPro = (mp * norm)/100;
+
+  const avgRetainer = wBasic*TIER_PRICES.basic + wStandard*TIER_PRICES.standard +
+                      wAdvance*TIER_PRICES.advance + wPro*TIER_PRICES.pro;
+
+  return {
+    mixBasic: mb, mixStandard: ms, mixAdvance: ma, mixPro: mp,
+    avgRetainer,
+    lifespan: +inputs.lifespan.value,
+    traffic: +inputs.traffic.value,
+    convLead: +inputs.convLead.value / 100,
+    convBook: +inputs.convBook.value / 100,
+    setupFee: +inputs.setupFee.value,
+    retainer: +inputs.retainer.value,
+    horizon: +inputs.horizon.value,
+  };
+}
+
+function compute(v){
+  // Client LTV (forward-looking: avg retainer × full lifespan)
+  const clientLTV = v.avgRetainer * v.lifespan;
+
+  // Acquisition funnel (exact decimals — NOT rounded)
+  const inquiriesPerMonth = v.traffic * v.convLead;
+  const clientsPerMonth = inquiriesPerMonth * v.convBook;
+  const clientsOverHorizon = clientsPerMonth * v.horizon;
+
+  // Total long-term revenue = all signed clients × full LTV
+  const totalRevenue = clientsOverHorizon * clientLTV;
+
+  // Investment
+  const totalInvest = v.setupFee + (v.retainer * v.horizon);
+  const netReturn = totalRevenue - totalInvest;
+  const roi = totalInvest > 0 ? (netReturn / totalInvest) : 0;
+
+  // CUMULATIVE REALIZED REVENUE within any month n
+  // Client signed in month m has paid (n - m + 1) months of retainer by month n,
+  // capped at their lifespan.
+  function cumulativeRevenue(byMonth){
+    let total = 0;
+    for(let m=1; m<=byMonth; m++){
+      const monthsActive = Math.min(byMonth - m + 1, v.lifespan);
+      total += clientsPerMonth * v.avgRetainer * monthsActive;
+    }
+    return total;
+  }
+  function cumulativeInvest(byMonth){
+    return byMonth === 0 ? 0 : v.setupFee + v.retainer * byMonth;
+  }
+
+  // Reconciliation: realized within horizon + future contracted = total LTV
+  const realizedAtHorizon = cumulativeRevenue(v.horizon);
+  const futureContracted = totalRevenue - realizedAtHorizon;
+
+  // Break-even: month when realized revenue crosses cumulative investment
+  let breakeven = null;
+  for(let n=1; n<=120; n++){
+    if(cumulativeRevenue(n) >= cumulativeInvest(n)){ breakeven = n; break; }
+  }
+
+  return {
+    clientLTV, inquiriesPerMonth, clientsPerMonth, clientsOverHorizon,
+    totalRevenue, realizedAtHorizon, futureContracted,
+    totalInvest, netReturn, roi, breakeven,
+    cumulativeRevenue, cumulativeInvest
+  };
+}
+
+function render(){
+  const v = vals();
+
+  // Update slider displays
+  document.getElementById('v-mixBasic').textContent = v.mixBasic + '%';
+  document.getElementById('v-mixStandard').textContent = v.mixStandard + '%';
+  document.getElementById('v-mixAdvance').textContent = v.mixAdvance + '%';
+  document.getElementById('v-mixPro').textContent = v.mixPro + '%';
+  document.getElementById('avgRetainer').textContent = fmt(v.avgRetainer);
+  document.getElementById('v-lifespan').textContent = v.lifespan + ' mo';
+  document.getElementById('v-traffic').textContent = v.traffic.toLocaleString();
+  document.getElementById('v-convLead').textContent = (v.convLead*100).toFixed(2) + '%';
+  document.getElementById('v-convBook').textContent = (v.convBook*100).toFixed(0) + '%';
+  document.getElementById('v-horizon').textContent = v.horizon + ' mo';
+
+  const c = compute(v);
+
+  document.getElementById('heroValue1').textContent = fmtK(c.netReturn);
+  document.getElementById('heroValue2').textContent = fmtPct(c.roi);
+  const mult = c.totalInvest > 0 ? c.totalRevenue / c.totalInvest : 0;
+  document.getElementById('heroValue2Sub').textContent = `Every $1 returns $${mult.toFixed(2)}`;
+
+  // Client metric: show with appropriate precision so it reconciles with breakdown math
+  const clientsDisplay = c.clientsOverHorizon < 10
+    ? c.clientsOverHorizon.toFixed(1)
+    : Math.round(c.clientsOverHorizon).toString();
+  document.getElementById('m-clients').textContent = clientsDisplay;
+  document.getElementById('m-horizon-1').textContent = v.horizon + ' months';
+  document.getElementById('m-ltv').textContent = fmt(c.clientLTV);
+  document.getElementById('m-avgret').textContent = fmt(v.avgRetainer);
+  document.getElementById('m-lifespan').textContent = v.lifespan;
+  document.getElementById('m-breakeven').textContent = c.breakeven ? c.breakeven + ' mo' : 'never';
+
+  // Precise client counts for use in breakdown table (matches what's actually multiplied)
+  const clientsPerMoStr = c.clientsPerMonth.toFixed(2);
+  const totalClientsStr = c.clientsOverHorizon.toFixed(2);
+
+  const bd = document.getElementById('breakdownBody');
+  bd.innerHTML = `
+    <div class="b-row">
+      <div class="b-label">Monthly organic visitors<span class="sub">People who Google you, find your work, or click your bio</span></div>
+      <div class="b-formula">baseline</div>
+      <div class="b-amount">${v.traffic.toLocaleString()}</div>
+    </div>
+    <div class="b-row">
+      <div class="b-label">Inquiries per month<span class="sub">Contact form fills, emails, DMs</span></div>
+      <div class="b-formula">× ${(v.convLead*100).toFixed(2)}%</div>
+      <div class="b-amount">${c.inquiriesPerMonth.toFixed(2)}</div>
+    </div>
+    <div class="b-row">
+      <div class="b-label">Signed retainer clients per month<span class="sub">Inquiries that become paying clients</span></div>
+      <div class="b-formula">× ${(v.convBook*100).toFixed(0)}%</div>
+      <div class="b-amount">${clientsPerMoStr}</div>
+    </div>
+    <div class="b-row">
+      <div class="b-label">Total clients signed in ${v.horizon} months<span class="sub">An acquisition rate — fractional values represent the average flow</span></div>
+      <div class="b-formula">× ${v.horizon} mo</div>
+      <div class="b-amount">${totalClientsStr}</div>
+    </div>
+    <div class="b-row positive">
+      <div class="b-label">Lifetime value per client<span class="sub">${fmt(v.avgRetainer)}/mo × ${v.lifespan} months</span></div>
+      <div class="b-formula">avg retainer × lifespan</div>
+      <div class="b-amount">${fmt(c.clientLTV)}</div>
+    </div>
+    <div class="b-row positive">
+      <div class="b-label">Total long-term revenue<span class="sub">Full LTV of all clients signed</span></div>
+      <div class="b-formula">${totalClientsStr} × ${fmt(c.clientLTV)}</div>
+      <div class="b-amount">${fmt(c.totalRevenue)}</div>
+    </div>
+    <div class="b-row">
+      <div class="b-label" style="padding-left:16px;font-size:13px;color:var(--muted);">↳ Realized within ${v.horizon} months<span class="sub">Retainer revenue actually collected during the engagement</span></div>
+      <div class="b-formula">in-horizon</div>
+      <div class="b-amount" style="font-size:14px;color:var(--muted);">${fmt(c.realizedAtHorizon)}</div>
+    </div>
+    <div class="b-row">
+      <div class="b-label" style="padding-left:16px;font-size:13px;color:var(--muted);">↳ Future contracted<span class="sub">Remaining months of each client's lifespan beyond horizon</span></div>
+      <div class="b-formula">post-horizon</div>
+      <div class="b-amount" style="font-size:14px;color:var(--muted);">${fmt(c.futureContracted)}</div>
+    </div>
+    <div class="b-row negative">
+      <div class="b-label">Total investment<span class="sub">Setup + ${v.horizon} months maintenance</span></div>
+      <div class="b-formula">${fmt(v.setupFee)} + ${fmt(v.retainer)}×${v.horizon}</div>
+      <div class="b-amount">−${fmt(c.totalInvest)}</div>
+    </div>
+    <div class="b-row b-total">
+      <div class="b-label">Net long-term return</div>
+      <div class="b-formula">ROI: ${fmtPct(c.roi)}</div>
+      <div class="b-amount">${fmt(c.netReturn)}</div>
+    </div>
+  `;
+
+  const computeScenario = (mult) => compute({...v, traffic: v.traffic * mult});
+  const lo = computeScenario(0.5);
+  const hi = computeScenario(1.5);
+  document.getElementById('sc-low').textContent = fmtK(lo.netReturn);
+  document.getElementById('sc-mid').textContent = fmtK(c.netReturn);
+  document.getElementById('sc-high').textContent = fmtK(hi.netReturn);
+
+  drawChart(v, c);
+}
+
+function drawChart(v, c){
+  const canvas = document.getElementById('chart');
+  const ctx = canvas.getContext('2d');
+  const dpr = window.devicePixelRatio || 1;
+  const W = canvas.parentElement.clientWidth;
+  const H = 260;
+  canvas.width = W * dpr;
+  canvas.height = H * dpr;
+  canvas.style.width = W + 'px';
+  canvas.style.height = H + 'px';
+  ctx.scale(dpr, dpr);
+  ctx.clearRect(0,0,W,H);
+
+  const months = v.horizon;
+  const padL = 64, padR = 20, padT = 16, padB = 32;
+  const chartW = W - padL - padR;
+  const chartH = H - padT - padB;
+
+  const data = [];
+  for(let n=0; n<=months; n++){
+    const rev = c.cumulativeRevenue(n);
+    const inv = c.cumulativeInvest(n);
+    data.push({month:n, rev, inv, net:rev-inv});
+  }
+
+  const maxVal = Math.max(...data.map(d=>Math.max(d.rev, d.inv, d.net, 0)));
+  const minVal = Math.min(0, ...data.map(d=>d.net));
+  const range = maxVal - minVal || 1;
+
+  const x = i => padL + (i/months) * chartW;
+  const y = val => padT + chartH - ((val - minVal)/range) * chartH;
+
+  ctx.strokeStyle = '#EAF1F6';
+  ctx.lineWidth = 1;
+  ctx.font = "10px 'Inter', sans-serif";
+  ctx.fillStyle = '#6B8195';
+  for(let g=0; g<=4; g++){
+    const gv = minVal + (range/4)*g;
+    const gy = y(gv);
+    ctx.beginPath();
+    ctx.moveTo(padL, gy);
+    ctx.lineTo(W-padR, gy);
+    ctx.stroke();
+    ctx.textAlign = 'right';
+    ctx.fillText(fmtK(gv), padL-8, gy+3);
+  }
+
+  ctx.textAlign = 'center';
+  ctx.fillStyle = '#6B8195';
+  const xStep = Math.max(1, Math.ceil(months/6));
+  for(let i=0; i<=months; i+=xStep){
+    ctx.fillText('Month ' + i, x(i), H-12);
+  }
+  if(months % xStep !== 0) ctx.fillText('Month ' + months, x(months), H-12);
+
+  ctx.strokeStyle = '#C8D7E1';
+  ctx.setLineDash([3,3]);
+  ctx.beginPath();
+  ctx.moveTo(padL, y(0));
+  ctx.lineTo(W-padR, y(0));
+  ctx.stroke();
+  ctx.setLineDash([]);
+
+  const drawLine = (key, color, fillRgba, lineW=2.5) => {
+    ctx.beginPath();
+    data.forEach((d,i)=>{
+      if(i===0) ctx.moveTo(x(i), y(d[key]));
+      else ctx.lineTo(x(i), y(d[key]));
+    });
+    ctx.strokeStyle = color;
+    ctx.lineWidth = lineW;
+    ctx.stroke();
+    if(fillRgba){
+      ctx.lineTo(x(months), y(0));
+      ctx.lineTo(x(0), y(0));
+      ctx.closePath();
+      ctx.fillStyle = fillRgba;
+      ctx.fill();
+    }
+  };
+
+  drawLine('net', '#2E8B57', 'rgba(46,139,87,0.08)', 2);
+  drawLine('inv', '#1E6A8F', null, 2.5);
+  drawLine('rev', '#5BA3F5', null, 3);
+
+  if(c.breakeven && c.breakeven <= months){
+    const bx = x(c.breakeven);
+    const by = y(c.cumulativeInvest(c.breakeven));
+    ctx.strokeStyle = '#E07B3C';
+    ctx.setLineDash([2,3]);
+    ctx.beginPath();
+    ctx.moveTo(bx, padT);
+    ctx.lineTo(bx, padT + chartH);
+    ctx.stroke();
+    ctx.setLineDash([]);
+    ctx.fillStyle = '#E07B3C';
+    ctx.beginPath();
+    ctx.arc(bx, by, 5, 0, Math.PI*2);
+    ctx.fill();
+    ctx.fillStyle = '#E07B3C';
+    ctx.font = "700 10px 'Inter', sans-serif";
+    ctx.textAlign = 'left';
+    const labelX = Math.min(bx + 8, W - padR - 80);
+    ctx.fillText('Break-even · M' + c.breakeven, labelX, padT + 14);
+  }
+}
+
+/* BREAK-EVEN SOLVER
+   Finds the minimum monthly traffic where TOTAL LONG-TERM REVENUE equals the
+   total investment. Rounds UP to the next whole visitor so the displayed
+   scenario is at or just above true break-even — never below.
+*/
+function solveBreakeven(){
+  Object.keys(defaults).forEach(k => { inputs[k].value = defaults[k]; });
+
+  const v = vals();
+  const totalInvest = v.setupFee + (v.retainer * v.horizon);
+  const clientLTV = v.avgRetainer * v.lifespan;
+  const denom = v.convLead * v.convBook * v.horizon * clientLTV;
+  const requiredTraffic = totalInvest / denom;
+  const rounded = Math.max(1, Math.ceil(requiredTraffic));
+  inputs.traffic.value = Math.min(rounded, +inputs.traffic.max);
+}
+
+Object.values(inputs).forEach(el => el.addEventListener('input', () => {
+  document.getElementById('breakevenNotice').classList.remove('active');
+  render();
+}));
+
+document.getElementById('resetBtn').addEventListener('click', () => {
+  Object.keys(defaults).forEach(k => { inputs[k].value = defaults[k]; });
+  document.getElementById('breakevenNotice').classList.remove('active');
+  render();
+});
+
+document.getElementById('breakevenBtn').addEventListener('click', () => {
+  solveBreakeven();
+  document.getElementById('breakevenNotice').classList.add('active');
+  render();
+});
+
+window.addEventListener('resize', () => render());
+render();
+</script>
+</body>
+</html>

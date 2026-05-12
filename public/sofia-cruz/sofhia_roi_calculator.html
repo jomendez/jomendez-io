@@ -1,0 +1,1031 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Social Media ROI Calculator · Sofhia Cruz</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600;1,700;1,800;1,900&family=Inter:wght@400;500;600;700;800&family=Caveat:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    /* Sofhia's portfolio palette */
+    --sky:#5BA3F5;          /* bright sky blue — hero accent */
+    --sky-light:#A5CFF8;
+    --sky-bg:#D7EAF7;       /* lightest tint */
+    --deep:#1E6A8F;         /* deep teal blue — body/cards */
+    --deep-dark:#155570;
+    --navy:#0F3F5A;
+    --paper:#FFFFFF;
+    --cream:#F8FAFC;
+    --ink:#0F2A3D;
+    --muted:#6B8195;
+    --line:#D7E5EE;
+    --line-soft:#EAF1F6;
+    --gold:#F5C842;         /* small accent — for the break-even highlight */
+    --success:#2E8B57;
+    --warn:#E07B3C;
+    --shadow-sm:0 1px 2px rgba(15,63,90,.06);
+    --shadow-md:0 4px 14px rgba(15,63,90,.10),0 1px 3px rgba(15,63,90,.06);
+    --shadow-lg:0 12px 40px rgba(15,63,90,.15),0 4px 12px rgba(15,63,90,.08);
+  }
+
+  *{box-sizing:border-box;margin:0;padding:0;}
+
+  html,body{
+    background:var(--cream);color:var(--ink);
+    font-family:'Inter',sans-serif;-webkit-font-smoothing:antialiased;
+    line-height:1.5;
+  }
+
+  /* Halftone dot texture — Sofhia's signature pattern */
+  body::before{
+    content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
+    background-image:radial-gradient(rgba(91,163,245,.08) 1.5px, transparent 1.5px);
+    background-size:14px 14px;
+    opacity:.5;
+  }
+
+  .page{max-width:1200px;margin:0 auto;padding:32px 32px 80px;position:relative;z-index:1;}
+
+  /* ============ HEADER ============ */
+  header.brand{
+    display:flex;justify-content:space-between;align-items:center;
+    padding:14px 0 22px;border-bottom:2px solid var(--sky);
+  }
+  .brand-mark{display:flex;align-items:center;gap:12px;}
+  .brand-logo{
+    width:40px;height:40px;background:var(--sky);
+    display:flex;align-items:center;justify-content:center;
+    font-family:'Playfair Display',serif;font-weight:700;font-style:italic;
+    color:var(--paper);font-size:24px;border-radius:50%;
+    box-shadow:var(--shadow-sm);
+  }
+  .brand-text{display:flex;flex-direction:column;line-height:1.1;}
+  .brand-name{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:var(--deep);letter-spacing:-.3px;}
+  .brand-name em{font-style:italic;font-weight:500;color:var(--sky);}
+  .brand-tag{font-size:11px;color:var(--muted);font-weight:500;margin-top:2px;letter-spacing:.3px;font-style:italic;}
+  .brand-right{text-align:right;}
+  .doc-label{font-size:10px;text-transform:uppercase;letter-spacing:2.5px;color:var(--sky);font-weight:700;margin-bottom:3px;}
+  .doc-title{font-family:'Playfair Display',serif;font-size:14px;color:var(--deep);font-weight:500;font-style:italic;}
+
+  /* ============ HERO ============ */
+  .hero{
+    position:relative;margin:50px 0 36px;padding:60px 50px;
+    background:var(--sky);
+    border-radius:8px;overflow:hidden;color:var(--paper);
+    box-shadow:var(--shadow-lg);
+  }
+  /* Halftone overlay on hero — signature look */
+  .hero::before{
+    content:'';position:absolute;inset:0;
+    background-image:radial-gradient(rgba(255,255,255,.18) 2px, transparent 2px);
+    background-size:18px 18px;
+    pointer-events:none;
+  }
+  .hero::after{
+    content:'';position:absolute;top:-100px;right:-100px;width:400px;height:400px;
+    background:radial-gradient(circle,rgba(255,255,255,.15),transparent 70%);
+    pointer-events:none;
+  }
+  .hero-eyebrow{
+    position:relative;z-index:1;display:inline-block;
+    font-family:'Playfair Display',serif;font-style:italic;font-size:18px;
+    margin-bottom:20px;font-weight:400;color:rgba(255,255,255,.95);
+  }
+  .hero-title{
+    position:relative;z-index:1;
+    font-family:'Playfair Display',serif;font-size:78px;line-height:.95;
+    font-weight:700;color:var(--paper);letter-spacing:-3px;margin-bottom:24px;
+  }
+  .hero-title em{font-style:italic;font-weight:400;font-family:'Playfair Display',serif;}
+  .hero-sub{
+    position:relative;z-index:1;
+    font-size:17px;color:rgba(255,255,255,.92);max-width:620px;line-height:1.55;font-weight:400;
+  }
+
+  /* ============ CONTROLS ============ */
+  .controls-row{
+    display:flex;justify-content:space-between;align-items:flex-start;
+    margin-bottom:28px;gap:20px;flex-wrap:wrap;
+  }
+  .industry-tabs{
+    display:flex;flex-wrap:wrap;gap:6px;
+  }
+  .industry-tab{
+    padding:10px 18px;background:var(--paper);border:1.5px solid var(--line);
+    font-family:'Inter',sans-serif;font-size:12px;font-weight:600;
+    color:var(--muted);cursor:pointer;letter-spacing:.2px;
+    transition:all .2s ease;border-radius:50px;
+    display:inline-flex;align-items:center;gap:6px;
+  }
+  .industry-tab:hover{border-color:var(--sky);color:var(--deep);}
+  .industry-tab.active{background:var(--deep);color:var(--paper);border-color:var(--deep);}
+  .industry-tab .emoji{font-size:14px;}
+
+  .preset-btn{
+    padding:10px 18px;background:var(--paper);border:1.5px solid var(--line);
+    font-family:'Inter',sans-serif;font-size:11px;font-weight:700;
+    color:var(--ink);cursor:pointer;letter-spacing:.5px;
+    transition:all .2s ease;border-radius:50px;
+    display:inline-flex;align-items:center;gap:7px;text-transform:uppercase;
+  }
+  .preset-btn:hover{border-color:var(--deep);color:var(--deep);}
+  .preset-btn.breakeven{border-color:var(--warn);color:var(--warn);}
+  .preset-btn.breakeven:hover{background:var(--warn);color:var(--paper);}
+  .preset-btn .dot{width:7px;height:7px;border-radius:50%;background:currentColor;}
+
+  /* ============ TIER SELECTOR ============ */
+  .tier-section{margin-bottom:28px;}
+  .tier-label{
+    font-family:'Playfair Display',serif;font-size:14px;font-style:italic;
+    color:var(--deep);margin-bottom:10px;display:block;
+  }
+  .tier-row{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;}
+  @media(max-width:700px){.tier-row{grid-template-columns:1fr 1fr;}}
+  .tier-card{
+    padding:14px 16px;background:var(--paper);border:2px solid var(--line);
+    border-radius:8px;cursor:pointer;transition:all .2s ease;text-align:left;
+    font-family:'Inter',sans-serif;
+  }
+  .tier-card:hover{border-color:var(--sky);transform:translateY(-1px);}
+  .tier-card.active{background:var(--deep);border-color:var(--deep);color:var(--paper);}
+  .tier-card.active .tier-name{color:var(--sky-light);}
+  .tier-card.active .tier-price{color:var(--paper);}
+  .tier-card.active .tier-detail{color:rgba(255,255,255,.7);}
+  .tier-name{font-size:11px;text-transform:uppercase;letter-spacing:1.5px;color:var(--muted);font-weight:700;margin-bottom:6px;}
+  .tier-price{font-family:'Playfair Display',serif;font-size:24px;font-weight:700;color:var(--deep);line-height:1;}
+  .tier-detail{font-size:11px;color:var(--muted);margin-top:6px;}
+
+  /* ============ NOTICES ============ */
+  .breakeven-notice{
+    display:none;padding:14px 18px;background:rgba(245,200,66,.15);
+    border-left:3px solid var(--gold);margin-bottom:22px;border-radius:0 4px 4px 0;
+    font-size:13px;color:#7A5C00;font-weight:500;
+  }
+  .breakeven-notice.active{display:block;}
+  .breakeven-notice strong{color:var(--ink);}
+
+  /* ============ LAYOUT ============ */
+  .layout{display:grid;grid-template-columns:380px 1fr;gap:24px;align-items:start;}
+  @media(max-width:900px){.layout{grid-template-columns:1fr;}}
+
+  /* ============ INPUT PANEL ============ */
+  .panel{
+    background:var(--paper);border:1px solid var(--line);border-radius:8px;
+    box-shadow:var(--shadow-md);overflow:hidden;
+  }
+  .panel-head{
+    background:var(--deep);color:var(--paper);padding:18px 22px;
+    display:flex;justify-content:space-between;align-items:center;
+  }
+  .panel-head h2{font-family:'Playfair Display',serif;font-size:18px;font-weight:600;}
+  .panel-head h2 em{font-style:italic;font-weight:400;color:var(--sky-light);}
+  .panel-head .pill{
+    font-size:9px;text-transform:uppercase;letter-spacing:1.5px;color:var(--sky-light);
+    padding:4px 10px;border:1px solid rgba(165,207,248,.4);border-radius:50px;font-weight:600;
+  }
+  .panel-body{padding:22px;}
+
+  .section-label{
+    font-family:'Playfair Display',serif;font-size:13px;font-style:italic;
+    color:var(--deep);font-weight:600;margin-bottom:14px;padding-bottom:8px;
+    border-bottom:1px solid var(--line-soft);
+  }
+
+  .field{margin-bottom:18px;}
+  .field:last-child{margin-bottom:0;}
+  .field-row{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px;}
+  .field-label{font-size:13px;color:var(--ink);font-weight:600;}
+  .field-help{font-size:11px;color:var(--muted);margin-top:5px;line-height:1.45;}
+  .field-value{
+    font-family:'Inter',sans-serif;font-size:13px;color:var(--deep);font-weight:700;
+    background:var(--sky-bg);padding:2px 10px;border-radius:50px;min-width:60px;text-align:right;
+  }
+
+  input[type="range"]{
+    -webkit-appearance:none;appearance:none;
+    width:100%;height:4px;background:var(--line);border-radius:50px;outline:none;
+    margin:10px 0 4px;
+  }
+  input[type="range"]::-webkit-slider-thumb{
+    -webkit-appearance:none;appearance:none;
+    width:18px;height:18px;background:var(--sky);
+    border:3px solid var(--paper);border-radius:50%;cursor:pointer;
+    box-shadow:0 2px 6px rgba(91,163,245,.45);transition:transform .15s;
+  }
+  input[type="range"]::-webkit-slider-thumb:hover{transform:scale(1.15);}
+  input[type="range"]::-moz-range-thumb{
+    width:18px;height:18px;background:var(--sky);border:3px solid var(--paper);
+    border-radius:50%;cursor:pointer;
+  }
+
+  input[type="number"]{
+    width:100%;padding:10px 14px;border:1.5px solid var(--line);border-radius:8px;
+    font-family:'Inter',sans-serif;font-size:14px;color:var(--deep);
+    background:var(--paper);transition:all .2s;font-weight:600;
+  }
+  input[type="number"]:focus{
+    outline:none;border-color:var(--sky);box-shadow:0 0 0 3px rgba(91,163,245,.15);
+  }
+
+  .reset-btn{
+    width:100%;margin-top:20px;padding:11px;background:transparent;border:1.5px solid var(--line);
+    border-radius:50px;color:var(--muted);font-family:'Inter',sans-serif;font-size:11px;
+    text-transform:uppercase;letter-spacing:1.5px;cursor:pointer;transition:all .2s;font-weight:700;
+  }
+  .reset-btn:hover{border-color:var(--deep);color:var(--deep);}
+
+  /* ============ RESULTS ============ */
+  .results{display:flex;flex-direction:column;gap:22px;}
+
+  .headline-card{
+    background:var(--deep);
+    color:var(--paper);border-radius:8px;padding:40px;
+    position:relative;overflow:hidden;box-shadow:var(--shadow-lg);
+  }
+  .headline-card::before{
+    content:'';position:absolute;inset:0;
+    background-image:radial-gradient(rgba(255,255,255,.06) 1.5px, transparent 1.5px);
+    background-size:14px 14px;
+    pointer-events:none;
+  }
+  .headline-card::after{
+    content:'';position:absolute;top:-80px;right:-80px;width:300px;height:300px;
+    background:radial-gradient(circle,rgba(91,163,245,.25),transparent 70%);
+    pointer-events:none;
+  }
+  .headline-grid{
+    display:grid;grid-template-columns:1fr 1fr;gap:40px;
+    position:relative;z-index:1;
+  }
+  .headline-label{
+    font-family:'Playfair Display',serif;font-size:14px;font-style:italic;
+    color:var(--sky-light);font-weight:500;margin-bottom:14px;
+  }
+  .headline-value{
+    font-family:'Playfair Display',serif;font-size:58px;font-weight:700;line-height:1;
+    letter-spacing:-2.5px;color:var(--paper);margin-bottom:10px;
+  }
+  .headline-sub{font-size:13px;color:rgba(255,255,255,.7);font-weight:400;}
+  .headline-divider{position:absolute;top:40px;bottom:40px;left:50%;width:1px;background:rgba(91,163,245,.25);}
+
+  /* metric cards */
+  .metric-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
+  @media(max-width:600px){.metric-grid{grid-template-columns:1fr 1fr;}}
+  .metric-card{
+    background:var(--paper);border:1.5px solid var(--line);border-radius:8px;
+    padding:22px;box-shadow:var(--shadow-sm);transition:all .2s;position:relative;
+  }
+  .metric-card:hover{transform:translateY(-2px);border-color:var(--sky);box-shadow:var(--shadow-md);}
+  .metric-label{font-size:10.5px;text-transform:uppercase;letter-spacing:1.5px;color:var(--muted);font-weight:700;margin-bottom:8px;}
+  .metric-value{font-family:'Playfair Display',serif;font-size:30px;font-weight:700;color:var(--deep);line-height:1.1;letter-spacing:-1px;}
+  .metric-value em{font-style:italic;font-weight:500;color:var(--sky);}
+  .metric-foot{font-size:11px;color:var(--muted);margin-top:6px;}
+
+  /* breakdown card */
+  .breakdown-card{
+    background:var(--paper);border:1.5px solid var(--line);border-radius:8px;
+    box-shadow:var(--shadow-md);overflow:hidden;
+  }
+  .breakdown-head{
+    padding:20px 26px;border-bottom:1px solid var(--line-soft);
+    display:flex;justify-content:space-between;align-items:center;background:var(--cream);
+  }
+  .breakdown-title{font-family:'Playfair Display',serif;font-size:22px;color:var(--deep);font-weight:700;letter-spacing:-.5px;}
+  .breakdown-title em{font-style:italic;font-weight:500;color:var(--sky);}
+  .breakdown-meta{font-size:10.5px;color:var(--sky);text-transform:uppercase;letter-spacing:1.5px;font-weight:700;}
+  .breakdown-body{padding:8px 26px 22px;}
+  .b-row{display:grid;grid-template-columns:1fr auto auto;gap:18px;align-items:center;padding:14px 0;border-bottom:1px dashed var(--line-soft);}
+  .b-row:last-of-type{border-bottom:none;}
+  .b-row.b-total{border-top:2px solid var(--deep);border-bottom:none;margin-top:4px;padding-top:18px;}
+  .b-label{font-size:14px;color:var(--ink);font-weight:600;}
+  .b-label .sub{display:block;font-size:11.5px;color:var(--muted);font-weight:400;margin-top:2px;}
+  .b-formula{font-family:'Inter',sans-serif;font-size:11.5px;color:var(--muted);text-align:right;font-weight:500;}
+  .b-amount{font-family:'Inter',sans-serif;font-size:16px;color:var(--deep);font-weight:700;text-align:right;min-width:110px;}
+  .b-row.positive .b-amount{color:var(--success);}
+  .b-row.negative .b-amount{color:var(--warn);}
+  .b-row.b-total .b-label{font-family:'Playfair Display',serif;font-size:19px;font-weight:700;}
+  .b-row.b-total .b-amount{font-family:'Playfair Display',serif;font-size:26px;color:var(--sky);font-weight:700;letter-spacing:-.5px;}
+
+  /* chart & scenarios */
+  .chart-card{
+    background:var(--paper);border:1.5px solid var(--line);border-radius:8px;
+    padding:26px;box-shadow:var(--shadow-md);
+  }
+  .chart-head{margin-bottom:18px;}
+  .chart-title{font-family:'Playfair Display',serif;font-size:20px;color:var(--deep);font-weight:700;margin-bottom:4px;letter-spacing:-.4px;}
+  .chart-title em{font-style:italic;font-weight:500;color:var(--sky);}
+  .chart-sub{font-size:12px;color:var(--muted);}
+  .chart-wrap{position:relative;height:260px;}
+  .chart-legend{display:flex;gap:18px;margin-top:14px;flex-wrap:wrap;}
+  .lg-item{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--deep);font-weight:500;}
+  .lg-dot{width:12px;height:12px;border-radius:50%;}
+
+  .scenario-row{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
+  @media(max-width:600px){.scenario-row{grid-template-columns:1fr;}}
+  .scenario{
+    padding:22px;border:1.5px solid var(--line);border-radius:8px;background:var(--paper);
+    box-shadow:var(--shadow-sm);position:relative;text-align:center;
+  }
+  .scenario-name{font-size:11px;text-transform:uppercase;letter-spacing:1.5px;color:var(--muted);font-weight:700;margin-bottom:10px;}
+  .scenario-value{font-family:'Playfair Display',serif;font-size:28px;font-weight:700;color:var(--deep);line-height:1;letter-spacing:-.5px;}
+  .scenario-sub{font-size:11px;color:var(--muted);margin-top:8px;}
+  .scenario.highlight{background:var(--deep);color:var(--paper);border-color:var(--deep);}
+  .scenario.highlight .scenario-name{color:var(--sky-light);}
+  .scenario.highlight .scenario-value{color:var(--paper);}
+  .scenario.highlight .scenario-sub{color:rgba(255,255,255,.6);}
+
+  /* footnote */
+  .footnote{
+    margin-top:32px;padding:22px 26px;background:var(--sky-bg);
+    border-left:3px solid var(--sky);border-radius:0 4px 4px 0;
+    font-size:12.5px;color:var(--ink);line-height:1.7;font-weight:400;
+  }
+  .footnote strong{color:var(--deep);font-weight:700;}
+
+  /* doc footer */
+  .doc-footer{
+    margin-top:48px;padding-top:24px;border-top:2px solid var(--sky);
+    display:flex;justify-content:space-between;align-items:center;
+    font-size:11px;color:var(--muted);flex-wrap:wrap;gap:10px;
+  }
+  .doc-footer .left{letter-spacing:.3px;font-weight:500;}
+  .doc-footer .right{font-family:'Playfair Display',serif;font-style:italic;font-size:13px;color:var(--sky);font-weight:500;}
+
+  @media print{
+    body{background:white;}body::before{display:none;}
+    .controls-row,.reset-btn,.industry-tabs{display:none;}
+    .page{padding:20px;}
+    .panel,.headline-card,.metric-card,.breakdown-card,.chart-card,.scenario,.hero{box-shadow:none;break-inside:avoid;}
+  }
+
+  @media(max-width:600px){
+    .hero-title{font-size:46px;letter-spacing:-1.5px;}
+    .hero{padding:40px 28px;}
+    .headline-value{font-size:42px;}
+    .headline-grid{grid-template-columns:1fr;gap:30px;}
+    .headline-divider{display:none;}
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- HEADER -->
+  <header class="brand">
+    <div class="brand-mark">
+      <div class="brand-logo">S</div>
+      <div class="brand-text">
+        <span class="brand-name">Sofhia <em>Cruz</em></span>
+        <span class="brand-tag">Turning content into conversions</span>
+      </div>
+    </div>
+    <div class="brand-right">
+      <div class="doc-label">Proposal Companion</div>
+      <div class="doc-title">ROI Calculator</div>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <span class="hero-eyebrow">Interactive Investment Analysis</span>
+    <h1 class="hero-title">What is great content <em>actually worth</em> to your business?</h1>
+    <p class="hero-sub">A clear, honest look at the real returns of professional social media management — from monthly reach, to new clients, to revenue you can count.</p>
+  </section>
+
+  <!-- INDUSTRY TABS -->
+  <div class="controls-row">
+    <div class="industry-tabs" id="industryTabs">
+      <button class="industry-tab active" data-industry="beauty"><span class="emoji">💅</span>Beauty / Nails</button>
+      <button class="industry-tab" data-industry="dental"><span class="emoji">🦷</span>Dental</button>
+      <button class="industry-tab" data-industry="esthetician"><span class="emoji">✨</span>Esthetician</button>
+      <button class="industry-tab" data-industry="wedding"><span class="emoji">💍</span>Wedding / Events</button>
+      <button class="industry-tab" data-industry="catering"><span class="emoji">🧀</span>Catering / Charcuterie</button>
+      <button class="industry-tab" data-industry="ecommerce"><span class="emoji">🛍️</span>E-commerce</button>
+    </div>
+    <button class="preset-btn breakeven" id="breakevenBtn"><span class="dot"></span>Minimum to Break Even</button>
+  </div>
+
+  <!-- TIER SELECTOR -->
+  <div class="tier-section">
+    <span class="tier-label">Choose your service tier</span>
+    <div class="tier-row" id="tierRow">
+      <button class="tier-card" data-tier="basic">
+        <div class="tier-name">Option 1 · Basic</div>
+        <div class="tier-price">$700<span style="font-size:13px;font-weight:500;">/mo</span></div>
+        <div class="tier-detail">15 posts, 5 stories/wk, 1 content session</div>
+      </button>
+      <button class="tier-card active" data-tier="standard">
+        <div class="tier-name">Option 2 · Standard</div>
+        <div class="tier-price">$900<span style="font-size:13px;font-weight:500;">/mo</span></div>
+        <div class="tier-detail">15 posts + DMs, 7 stories/wk, 2 sessions</div>
+      </button>
+      <button class="tier-card" data-tier="advance">
+        <div class="tier-name">Option 3 · Advance</div>
+        <div class="tier-price">$1,200<span style="font-size:13px;font-weight:500;">/mo</span></div>
+        <div class="tier-detail">20 posts, 10 stories/wk, 3 sessions</div>
+      </button>
+      <button class="tier-card" data-tier="pro">
+        <div class="tier-name">Option 4 · Pro</div>
+        <div class="tier-price">$2,100<span style="font-size:13px;font-weight:500;">/mo</span></div>
+        <div class="tier-detail">30 posts, 10 stories/wk, 4 sessions</div>
+      </button>
+    </div>
+  </div>
+
+  <!-- BREAK-EVEN NOTICE -->
+  <div class="breakeven-notice" id="breakevenNotice">
+    <strong>Break-even mode active.</strong> Monthly reach has been set to the minimum needed for client revenue to exactly cover your investment. Everything above this number is pure profit.
+  </div>
+
+  <!-- MAIN LAYOUT -->
+  <div class="layout">
+
+    <!-- INPUTS -->
+    <aside class="panel">
+      <div class="panel-head">
+        <h2>Adjust the <em>numbers</em></h2>
+        <span class="pill">Live</span>
+      </div>
+      <div class="panel-body">
+
+        <div class="section-label">Content Performance</div>
+
+        <div class="field">
+          <div class="field-row">
+            <span class="field-label">Monthly content reach</span>
+            <span class="field-value" id="v-reach">35,000</span>
+          </div>
+          <input type="range" id="reach" min="1000" max="500000" step="1000" value="35000" />
+          <div class="field-help">Total monthly views across all posts, reels & stories</div>
+        </div>
+
+        <div class="field">
+          <div class="field-row">
+            <span class="field-label">Profile / link click rate</span>
+            <span class="field-value" id="v-ctr">1.20%</span>
+          </div>
+          <input type="range" id="ctr" min="0.25" max="4" step="0.05" value="1.2" />
+          <div class="field-help">% of viewers who tap profile, link, or DM. Avg: 0.5–2%</div>
+        </div>
+
+        <div class="field">
+          <div class="field-row">
+            <span class="field-label">Click → new client rate</span>
+            <span class="field-value" id="v-conv">2.50%</span>
+          </div>
+          <input type="range" id="conv" min="0.5" max="10" step="0.25" value="2.5" />
+          <div class="field-help">% of profile visitors who book or buy. Varies by industry</div>
+        </div>
+
+        <div class="section-label" style="margin-top:24px;">Client Value</div>
+
+        <div class="field">
+          <div class="field-row"><span class="field-label">Avg. revenue per client</span></div>
+          <input type="number" id="clientValue" value="65" min="0" step="5" />
+          <div class="field-help">What one client pays you per visit / per order</div>
+        </div>
+
+        <div class="field">
+          <div class="field-row">
+            <span class="field-label">Visits per year per client</span>
+            <span class="field-value" id="v-frequency">8</span>
+          </div>
+          <input type="range" id="frequency" min="1" max="12" step="1" value="8" />
+          <div class="field-help">How often does the same client come back?</div>
+        </div>
+
+        <div class="section-label" style="margin-top:24px;">Investment</div>
+
+        <div class="field">
+          <div class="field-row"><span class="field-label">Monthly retainer</span></div>
+          <input type="number" id="retainer" value="900" min="0" step="50" />
+          <div class="field-help">Tier price (auto-set when you pick a tier above)</div>
+        </div>
+
+        <div class="field">
+          <div class="field-row">
+            <span class="field-label">Analysis time horizon</span>
+            <span class="field-value" id="v-horizon">12 mo</span>
+          </div>
+          <input type="range" id="horizon" min="3" max="24" step="3" value="12" />
+          <div class="field-help">How long you'll be paying the retainer</div>
+        </div>
+
+        <button class="reset-btn" id="resetBtn">↺ Reset to industry defaults</button>
+      </div>
+    </aside>
+
+    <!-- RESULTS -->
+    <main class="results">
+
+      <div class="headline-card">
+        <div class="headline-grid">
+          <div>
+            <div class="headline-label">Net return over period</div>
+            <div class="headline-value" id="heroValue1">$24,300</div>
+            <div class="headline-sub">After your full investment</div>
+          </div>
+          <div class="headline-divider"></div>
+          <div>
+            <div class="headline-label">Return on investment</div>
+            <div class="headline-value" id="heroValue2">225%</div>
+            <div class="headline-sub" id="heroValue2Sub">Every $1 returns $3.25</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="metric-grid">
+        <div class="metric-card">
+          <div class="metric-label">New Clients</div>
+          <div class="metric-value" id="m-clients">126</div>
+          <div class="metric-foot">acquired in <span id="m-horizon-1">12 months</span></div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-label">Avg. Client Value</div>
+          <div class="metric-value" id="m-ltv">$520</div>
+          <div class="metric-foot">over <span id="m-frequency">8</span> visits / year</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-label">Break-even</div>
+          <div class="metric-value" id="m-breakeven">3 mo</div>
+          <div class="metric-foot">to recover all costs</div>
+        </div>
+      </div>
+
+      <div class="breakdown-card">
+        <div class="breakdown-head">
+          <div class="breakdown-title">The full math, <em>step by step</em></div>
+          <div class="breakdown-meta" id="bdMeta">Beauty / Nails</div>
+        </div>
+        <div class="breakdown-body" id="breakdownBody"></div>
+      </div>
+
+      <div class="chart-card">
+        <div class="chart-head">
+          <div class="chart-title">Scenario <em>comparison</em></div>
+          <div class="chart-sub">What if content performance varies?</div>
+        </div>
+        <div class="scenario-row">
+          <div class="scenario">
+            <div class="scenario-name">Conservative</div>
+            <div class="scenario-value" id="sc-low">$10K</div>
+            <div class="scenario-sub">50% of projected reach</div>
+          </div>
+          <div class="scenario highlight">
+            <div class="scenario-name">Expected</div>
+            <div class="scenario-value" id="sc-mid">$24K</div>
+            <div class="scenario-sub">Projected scenario</div>
+          </div>
+          <div class="scenario">
+            <div class="scenario-name">Optimistic</div>
+            <div class="scenario-value" id="sc-high">$48K</div>
+            <div class="scenario-sub">150% of projected reach</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="chart-card">
+        <div class="chart-head">
+          <div class="chart-title">Cumulative return <em>over time</em></div>
+          <div class="chart-sub">Total client revenue vs. cumulative investment, month by month</div>
+        </div>
+        <div class="chart-wrap">
+          <canvas id="chart"></canvas>
+        </div>
+        <div class="chart-legend">
+          <div class="lg-item"><span class="lg-dot" style="background:var(--sky);"></span> Cumulative revenue earned</div>
+          <div class="lg-item"><span class="lg-dot" style="background:var(--deep);"></span> Cumulative investment</div>
+          <div class="lg-item"><span class="lg-dot" style="background:var(--success);"></span> Net return</div>
+        </div>
+      </div>
+
+      <div class="footnote">
+        <strong>About these defaults.</strong> Industry benchmarks pulled from Bazaarvoice Instagram analytics (avg conversion rate 1.08–1.3%), WebFX 2026 Meta benchmarks (Instagram CTR 0.22–0.88% organic, higher for engaged audiences), Driftlead conversion studies (Instagram social commerce 2–5%), and Sofhia's real portfolio results across @beyoutiful_nail_salon, @drpeggyalvarez, @by_rebecamartinez, @niaspapers, @majestyplatters, and @soulmatecustomss. Defaults assume organic reach only — paid advertising amplifies these numbers further.
+      </div>
+    </main>
+  </div>
+
+  <div class="doc-footer">
+    <div class="left">Sofhia Cruz · sofhiacruz03@gmail.com · 786-477-1583 · @sofhiacruzv</div>
+    <div class="right">Let's bring your vision to life</div>
+  </div>
+</div>
+
+<script>
+/* ============================================================================
+   REVENUE MODEL
+   ----------------------------------------------------------------------------
+   Monthly reach → profile/link clicks → new clients
+   New client annual value = clientValue × visits per year
+   Over horizon: each acquired client contributes their annual value × yearsRemainingInHorizon
+
+   Headline "Net long-term return" uses TOTAL ANNUAL REVENUE of all clients
+   acquired during the horizon (calculated as: clients × annual value × 1 year
+   of projected business — keeps the model conservative since we don't claim
+   patients stay forever).
+============================================================================ */
+
+const INDUSTRY_DEFAULTS = {
+  beauty: {
+    label: 'Beauty / Nails', emoji: '💅',
+    clientValue: 65, frequency: 8, conv: 2.5, ctr: 1.2,
+    note: 'Loyal repeat clients, high frequency'
+  },
+  dental: {
+    label: 'Dental', emoji: '🦷',
+    clientValue: 400, frequency: 2, conv: 1.0, ctr: 0.8,
+    note: 'High-value clients, lower frequency'
+  },
+  esthetician: {
+    label: 'Esthetician', emoji: '✨',
+    clientValue: 120, frequency: 6, conv: 2.0, ctr: 1.0,
+    note: 'Treatments, moderate repeat'
+  },
+  wedding: {
+    label: 'Wedding / Events', emoji: '💍',
+    clientValue: 1800, frequency: 1, conv: 1.5, ctr: 1.0,
+    note: 'High-value, one-time bookings'
+  },
+  catering: {
+    label: 'Catering / Charcuterie', emoji: '🧀',
+    clientValue: 250, frequency: 1.5, conv: 2.0, ctr: 1.2,
+    note: 'Event-based, some repeat'
+  },
+  ecommerce: {
+    label: 'E-commerce', emoji: '🛍️',
+    clientValue: 45, frequency: 2, conv: 3.0, ctr: 1.5,
+    note: 'High volume, lower order value'
+  }
+};
+
+const TIER_PRICES = {
+  basic: 700, standard: 900, advance: 1200, pro: 2100
+};
+const TIER_REACH = {
+  basic: 22000, standard: 35000, advance: 60000, pro: 110000
+};
+
+let currentIndustry = 'beauty';
+let currentTier = 'standard';
+
+const fmt = n => (n < 0 ? '−' : '') + '$' + Math.abs(Math.round(n)).toLocaleString('en-US');
+const fmtK = n => {
+  const sign = n < 0 ? '−' : '';
+  const abs = Math.abs(n);
+  if(abs >= 1000) return sign + '$' + (abs/1000).toFixed(abs>=10000?0:1) + 'K';
+  return sign + '$' + Math.round(abs).toLocaleString('en-US');
+};
+const fmtPct = n => Math.round(n*100) + '%';
+
+const inputs = {
+  reach: document.getElementById('reach'),
+  ctr: document.getElementById('ctr'),
+  conv: document.getElementById('conv'),
+  clientValue: document.getElementById('clientValue'),
+  frequency: document.getElementById('frequency'),
+  retainer: document.getElementById('retainer'),
+  horizon: document.getElementById('horizon'),
+};
+
+function vals(){
+  return {
+    reach: +inputs.reach.value,
+    ctr: +inputs.ctr.value / 100,
+    conv: +inputs.conv.value / 100,
+    clientValue: +inputs.clientValue.value,
+    frequency: +inputs.frequency.value,
+    retainer: +inputs.retainer.value,
+    horizon: +inputs.horizon.value,
+  };
+}
+
+function compute(v){
+  // Annual value per client
+  const annualValue = v.clientValue * v.frequency;
+
+  // Funnel
+  const profileClicksPerMonth = v.reach * v.ctr;
+  const clientsPerMonth = profileClicksPerMonth * v.conv;
+  const clientsOverHorizon = clientsPerMonth * v.horizon;
+
+  // Total annual revenue from acquired clients
+  // (Conservative — counts one full year per acquired client. Doesn't claim
+  // clients stay forever, doesn't credit referrals.)
+  const totalRevenue = clientsOverHorizon * annualValue;
+
+  // Investment
+  const totalInvest = v.retainer * v.horizon;
+  const netReturn = totalRevenue - totalInvest;
+  const roi = totalInvest > 0 ? (netReturn / totalInvest) : 0;
+
+  // CUMULATIVE REVENUE EARNED — used for chart & break-even
+  // Client acquired in month m generates annualValue/12 per month for up to 12 months
+  // (or until end of horizon, whichever comes first within view)
+  function cumulativeRevenue(byMonth){
+    let total = 0;
+    for(let m=1; m<=byMonth; m++){
+      const monthsActive = Math.min(byMonth - m + 1, 12); // cap at 12 months per client for this view
+      total += clientsPerMonth * (annualValue/12) * monthsActive;
+    }
+    return total;
+  }
+  function cumulativeInvest(byMonth){
+    return v.retainer * byMonth;
+  }
+
+  // Break-even
+  let breakeven = null;
+  for(let n=1; n<=120; n++){
+    if(cumulativeRevenue(n) >= cumulativeInvest(n)){ breakeven = n; break; }
+  }
+
+  return {
+    annualValue, profileClicksPerMonth, clientsPerMonth, clientsOverHorizon,
+    totalRevenue, totalInvest, netReturn, roi, breakeven,
+    cumulativeRevenue, cumulativeInvest
+  };
+}
+
+function render(){
+  const v = vals();
+
+  // Update slider value displays
+  document.getElementById('v-reach').textContent = v.reach.toLocaleString();
+  document.getElementById('v-ctr').textContent = (v.ctr*100).toFixed(2) + '%';
+  document.getElementById('v-conv').textContent = (v.conv*100).toFixed(2) + '%';
+  document.getElementById('v-frequency').textContent = v.frequency;
+  document.getElementById('v-horizon').textContent = v.horizon + ' mo';
+
+  const c = compute(v);
+
+  // Headline
+  document.getElementById('heroValue1').textContent = fmt(c.netReturn);
+  document.getElementById('heroValue2').textContent = fmtPct(c.roi);
+  const mult = c.totalInvest > 0 ? c.totalRevenue / c.totalInvest : 0;
+  document.getElementById('heroValue2Sub').textContent = `Every $1 returns $${mult.toFixed(2)}`;
+
+  // Metrics
+  document.getElementById('m-clients').textContent = Math.round(c.clientsOverHorizon);
+  document.getElementById('m-horizon-1').textContent = v.horizon + ' months';
+  document.getElementById('m-ltv').textContent = fmt(c.annualValue);
+  document.getElementById('m-frequency').textContent = v.frequency;
+  document.getElementById('m-breakeven').textContent = c.breakeven ? c.breakeven + ' mo' : 'never';
+
+  // Breakdown
+  const ind = INDUSTRY_DEFAULTS[currentIndustry];
+  document.getElementById('bdMeta').textContent = ind.label;
+
+  const bd = document.getElementById('breakdownBody');
+  bd.innerHTML = `
+    <div class="b-row">
+      <div class="b-label">Monthly content reach<span class="sub">Total views across posts, reels & stories</span></div>
+      <div class="b-formula">baseline</div>
+      <div class="b-amount">${v.reach.toLocaleString()}</div>
+    </div>
+    <div class="b-row">
+      <div class="b-label">Profile / link clicks per month<span class="sub">Viewers tapping to learn more</span></div>
+      <div class="b-formula">× ${(v.ctr*100).toFixed(2)}%</div>
+      <div class="b-amount">${Math.round(c.profileClicksPerMonth).toLocaleString()}</div>
+    </div>
+    <div class="b-row">
+      <div class="b-label">New clients per month<span class="sub">Visitors who book or buy</span></div>
+      <div class="b-formula">× ${(v.conv*100).toFixed(2)}%</div>
+      <div class="b-amount">${c.clientsPerMonth.toFixed(1)}</div>
+    </div>
+    <div class="b-row">
+      <div class="b-label">Total new clients in ${v.horizon} months<span class="sub">Acquired during the engagement</span></div>
+      <div class="b-formula">× ${v.horizon} mo</div>
+      <div class="b-amount">${Math.round(c.clientsOverHorizon)}</div>
+    </div>
+    <div class="b-row positive">
+      <div class="b-label">Annual value per client<span class="sub">${fmt(v.clientValue)} × ${v.frequency} visits/year</span></div>
+      <div class="b-formula">client value</div>
+      <div class="b-amount">${fmt(c.annualValue)}</div>
+    </div>
+    <div class="b-row positive">
+      <div class="b-label">Total annual revenue generated<span class="sub">One full year of business from acquired clients</span></div>
+      <div class="b-formula">${Math.round(c.clientsOverHorizon)} × ${fmt(c.annualValue)}</div>
+      <div class="b-amount">${fmt(c.totalRevenue)}</div>
+    </div>
+    <div class="b-row negative">
+      <div class="b-label">Total investment<span class="sub">${fmt(v.retainer)}/mo × ${v.horizon} months</span></div>
+      <div class="b-formula">retainer × months</div>
+      <div class="b-amount">−${fmt(c.totalInvest)}</div>
+    </div>
+    <div class="b-row b-total">
+      <div class="b-label">Net return</div>
+      <div class="b-formula">ROI: ${fmtPct(c.roi)}</div>
+      <div class="b-amount">${fmt(c.netReturn)}</div>
+    </div>
+  `;
+
+  // Scenarios
+  const computeScenario = (mult) => compute({...v, reach: v.reach * mult});
+  const lo = computeScenario(0.5);
+  const hi = computeScenario(1.5);
+  document.getElementById('sc-low').textContent = fmtK(lo.netReturn);
+  document.getElementById('sc-mid').textContent = fmtK(c.netReturn);
+  document.getElementById('sc-high').textContent = fmtK(hi.netReturn);
+
+  drawChart(v, c);
+}
+
+function drawChart(v, c){
+  const canvas = document.getElementById('chart');
+  const ctx = canvas.getContext('2d');
+  const dpr = window.devicePixelRatio || 1;
+  const W = canvas.parentElement.clientWidth;
+  const H = 260;
+  canvas.width = W * dpr;
+  canvas.height = H * dpr;
+  canvas.style.width = W + 'px';
+  canvas.style.height = H + 'px';
+  ctx.scale(dpr, dpr);
+  ctx.clearRect(0,0,W,H);
+
+  const months = v.horizon;
+  const padL = 64, padR = 20, padT = 16, padB = 32;
+  const chartW = W - padL - padR;
+  const chartH = H - padT - padB;
+
+  const data = [];
+  for(let n=0; n<=months; n++){
+    const rev = c.cumulativeRevenue(n);
+    const inv = c.cumulativeInvest(n);
+    data.push({month:n, rev, inv, net:rev-inv});
+  }
+
+  const maxVal = Math.max(...data.map(d=>Math.max(d.rev, d.inv, d.net, 0)));
+  const minVal = Math.min(0, ...data.map(d=>d.net));
+  const range = maxVal - minVal || 1;
+
+  const x = i => padL + (i/months) * chartW;
+  const y = val => padT + chartH - ((val - minVal)/range) * chartH;
+
+  // grid lines
+  ctx.strokeStyle = '#EAF1F6';
+  ctx.lineWidth = 1;
+  ctx.font = "10px 'Inter', sans-serif";
+  ctx.fillStyle = '#6B8195';
+  for(let g=0; g<=4; g++){
+    const gv = minVal + (range/4)*g;
+    const gy = y(gv);
+    ctx.beginPath();
+    ctx.moveTo(padL, gy);
+    ctx.lineTo(W-padR, gy);
+    ctx.stroke();
+    ctx.textAlign = 'right';
+    ctx.fillText(fmtK(gv), padL-8, gy+3);
+  }
+
+  // x axis labels
+  ctx.textAlign = 'center';
+  ctx.fillStyle = '#6B8195';
+  const xStep = Math.max(1, Math.ceil(months/6));
+  for(let i=0; i<=months; i+=xStep){
+    ctx.fillText('Month ' + i, x(i), H-12);
+  }
+  if(months % xStep !== 0) ctx.fillText('Month ' + months, x(months), H-12);
+
+  // zero line
+  ctx.strokeStyle = '#C8D7E1';
+  ctx.setLineDash([3,3]);
+  ctx.beginPath();
+  ctx.moveTo(padL, y(0));
+  ctx.lineTo(W-padR, y(0));
+  ctx.stroke();
+  ctx.setLineDash([]);
+
+  const drawLine = (key, color, fillRgba, lineW=2.5) => {
+    ctx.beginPath();
+    data.forEach((d,i)=>{
+      if(i===0) ctx.moveTo(x(i), y(d[key]));
+      else ctx.lineTo(x(i), y(d[key]));
+    });
+    ctx.strokeStyle = color;
+    ctx.lineWidth = lineW;
+    ctx.stroke();
+    if(fillRgba){
+      ctx.lineTo(x(months), y(0));
+      ctx.lineTo(x(0), y(0));
+      ctx.closePath();
+      ctx.fillStyle = fillRgba;
+      ctx.fill();
+    }
+  };
+
+  drawLine('net', '#2E8B57', 'rgba(46,139,87,0.08)', 2);
+  drawLine('inv', '#1E6A8F', null, 2.5);
+  drawLine('rev', '#5BA3F5', null, 3);
+
+  // break-even marker
+  if(c.breakeven && c.breakeven <= months){
+    const bx = x(c.breakeven);
+    const by = y(c.cumulativeInvest(c.breakeven));
+    ctx.strokeStyle = '#E07B3C';
+    ctx.setLineDash([2,3]);
+    ctx.beginPath();
+    ctx.moveTo(bx, padT);
+    ctx.lineTo(bx, padT + chartH);
+    ctx.stroke();
+    ctx.setLineDash([]);
+    ctx.fillStyle = '#E07B3C';
+    ctx.beginPath();
+    ctx.arc(bx, by, 5, 0, Math.PI*2);
+    ctx.fill();
+    ctx.fillStyle = '#E07B3C';
+    ctx.font = "700 10px 'Inter', sans-serif";
+    ctx.textAlign = 'left';
+    const labelX = Math.min(bx + 8, W - padR - 80);
+    ctx.fillText('Break-even · M' + c.breakeven, labelX, padT + 14);
+  }
+}
+
+/* APPLY INDUSTRY DEFAULTS — keeps reach (tier-driven) and retainer unchanged */
+function applyIndustry(industry){
+  currentIndustry = industry;
+  const d = INDUSTRY_DEFAULTS[industry];
+  inputs.clientValue.value = d.clientValue;
+  inputs.frequency.value = d.frequency;
+  inputs.conv.value = d.conv;
+  inputs.ctr.value = d.ctr;
+  document.querySelectorAll('.industry-tab').forEach(t => {
+    t.classList.toggle('active', t.dataset.industry === industry);
+  });
+}
+
+/* APPLY TIER — sets retainer and tier-appropriate reach */
+function applyTier(tier){
+  currentTier = tier;
+  inputs.retainer.value = TIER_PRICES[tier];
+  inputs.reach.value = TIER_REACH[tier];
+  document.querySelectorAll('.tier-card').forEach(t => {
+    t.classList.toggle('active', t.dataset.tier === tier);
+  });
+}
+
+/* BREAK-EVEN SOLVER — finds minimum reach where revenue == investment */
+function solveBreakeven(){
+  // Reset everything to current industry + tier defaults first
+  applyIndustry(currentIndustry);
+  applyTier(currentTier);
+
+  const v = vals();
+  const totalInvest = v.retainer * v.horizon;
+  const annualValue = v.clientValue * v.frequency;
+
+  // totalRevenue = (reach × ctr × conv × horizon) × annualValue
+  // Setting equal:
+  // reach = totalInvest / (ctr × conv × horizon × annualValue)
+  const denom = v.ctr * v.conv * v.horizon * annualValue;
+  const requiredReach = totalInvest / denom;
+  const rounded = Math.max(1000, Math.ceil(requiredReach / 1000) * 1000);
+  inputs.reach.value = Math.min(rounded, +inputs.reach.max);
+}
+
+// Wire events
+Object.values(inputs).forEach(el => el.addEventListener('input', () => {
+  document.getElementById('breakevenNotice').classList.remove('active');
+  render();
+}));
+
+document.getElementById('resetBtn').addEventListener('click', () => {
+  applyIndustry(currentIndustry);
+  applyTier(currentTier);
+  document.getElementById('breakevenNotice').classList.remove('active');
+  render();
+});
+
+document.getElementById('breakevenBtn').addEventListener('click', () => {
+  solveBreakeven();
+  document.getElementById('breakevenNotice').classList.add('active');
+  render();
+});
+
+document.querySelectorAll('.industry-tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    applyIndustry(tab.dataset.industry);
+    document.getElementById('breakevenNotice').classList.remove('active');
+    render();
+  });
+});
+
+document.querySelectorAll('.tier-card').forEach(card => {
+  card.addEventListener('click', () => {
+    applyTier(card.dataset.tier);
+    document.getElementById('breakevenNotice').classList.remove('active');
+    render();
+  });
+});
+
+window.addEventListener('resize', () => render());
+
+// Initial setup
+applyIndustry('beauty');
+applyTier('standard');
+render();
+</script>
+</body>
+</html>
