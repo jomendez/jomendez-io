@@ -1,21 +1,24 @@
 import { useEffect, useRef, useState } from 'react'
+import { Link } from 'react-router-dom'
 import stylesCss from './Landing.styles.css?raw'
 import AuditRadar, { AUDIT_DIMENSIONS } from '../components/AuditRadar'
 import { ensureAnonymousAuth } from '../services/auth'
 
 // Two CTA buttons used in the hero, audit-cta, and final sections.
-// Wiring (instant-quote modal + strategy-call booking) is pending —
-// the data-cta / data-source attributes are the hook for that.
+// "Get free business audit" routes to /free-audit (the dedicated landing
+// page that hosts the GHL Prospecting Widget). "Book a Strategy Call"
+// is still an unwired placeholder — the data-cta / data-source
+// attributes are the hook for that.
 const CtaButtons = ({ source }) => (
   <div className="cta-buttons">
-    <button
-      type="button"
+    <Link
+      to="/free-audit"
       className="btn btn-primary"
-      data-cta="instant-quote"
+      data-cta="free-audit"
       data-source={source}
     >
-      Get an instant quote
-    </button>
+      Get free business audit
+    </Link>
     <button
       type="button"
       className="btn btn-outline"
@@ -208,7 +211,7 @@ const Landing = () => {
                 <div className="hero-cta-stack">
                   <CtaButtons source="hero" />
                   <p className="hero-cta-fineprint">
-                    Quotes within 24 hours. Strategy calls are free.
+                    Free business audit. No pitch, no obligation.
                   </p>
                 </div>
               </div>
@@ -417,14 +420,17 @@ const Landing = () => {
           <div className="wrap">
             <div className="audit-head">
               <div>
-                <span className="eyebrow micro">FIND THE GAPS</span>
+                <span className="eyebrow micro">WHEN WE WORK TOGETHER</span>
                 <h2>
                   The 8-Point <em>Business Audit</em>
                 </h2>
               </div>
               <div className="audit-body">
                 <p>
-                  Before we build anything, we look at your business across the eight dimensions that drive growth. You&apos;ll see exactly where leads are leaking, where follow-up is breaking down, and what to fix first &mdash; in plain English.
+                  When we start working together, the 8-Point Business Audit is the first thing we run. It&apos;s a deep, tailored look at where your business stands across the eight dimensions that drive growth &mdash; the discovery work that shapes every system we build for you, so what you end up with fits your business and not a template.
+                </p>
+                <p>
+                  Different from the free instant audit, this one looks inside the business: operations, follow-up, retention, financial clarity, and the tools you already use &mdash; not just what&apos;s visible on the web.
                 </p>
               </div>
             </div>
@@ -447,8 +453,8 @@ const Landing = () => {
 
             <div className="audit-cta">
               <div className="audit-cta-copy">
-                <h3>Let&apos;s find what to build first</h3>
-                <p>Book a short strategy call. We&apos;ll talk through where your business is &mdash; new, growing, or stuck &mdash; and what to put in place first to start capturing and converting more leads.</p>
+                <h3>Ready to find what to build first?</h3>
+                <p>Book a short strategy call. If we&apos;re a fit, the 8-Point Business Audit is the first thing we run together &mdash; and it shapes everything that comes after.</p>
               </div>
               <CtaButtons source="audit" />
             </div>
@@ -576,7 +582,7 @@ const Landing = () => {
                 <span className="path-step-num serif">02</span>
                 <span className="path-step-eyebrow mono micro">STEP 02</span>
                 <h3>Get your audit &amp; plan</h3>
-                <p>We walk through the 8-Point Business Audit together. You leave with a clear map of what to fix first &mdash; and what you can ignore.</p>
+                <p>We walk through the 8-Point Business Audit together &mdash; a deep, tailored look at where your business stands across the eight dimensions that drive growth. You leave with a clear map of what to fix first.</p>
               </li>
               <li className="path-step">
                 <span className="path-step-num serif">03</span>
