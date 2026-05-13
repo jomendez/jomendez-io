@@ -1,8 +1,31 @@
 import { useEffect, useRef, useState } from 'react'
 import stylesCss from './Landing.styles.css?raw'
-import WaitlistForm from '../components/WaitlistForm'
 import AuditRadar, { AUDIT_DIMENSIONS } from '../components/AuditRadar'
 import { ensureAnonymousAuth } from '../services/auth'
+
+// Two CTA buttons used in the hero, audit-cta, and final sections.
+// Wiring (instant-quote modal + strategy-call booking) is pending —
+// the data-cta / data-source attributes are the hook for that.
+const CtaButtons = ({ source }) => (
+  <div className="cta-buttons">
+    <button
+      type="button"
+      className="btn btn-primary"
+      data-cta="instant-quote"
+      data-source={source}
+    >
+      Get an instant quote
+    </button>
+    <button
+      type="button"
+      className="btn btn-outline"
+      data-cta="strategy-call"
+      data-source={source}
+    >
+      Book a Strategy Call
+    </button>
+  </div>
+)
 
 /**
  * The new homepage — single-purpose: get a non-technical small-business
@@ -183,16 +206,9 @@ const Landing = () => {
                   I build the website, CRM, booking, AI chat, and automated follow-up system that helps you respond faster, stay organized, and turn more inquiries into customers &mdash; without adding more work to your day.
                 </p>
                 <div className="hero-cta-stack">
-                  <WaitlistForm
-                    source="hero"
-                    variant="inline"
-                    theme="light"
-                    ctaLabel="Book a Strategy Call"
-                    ctaSentLabel={'Request received \u2713'}
-                    successMessage={'Got it. I\u2019ll be in touch within 24 hours to schedule your call.'}
-                  />
+                  <CtaButtons source="hero" />
                   <p className="hero-cta-fineprint">
-                    Free 20-minute call. We&apos;ll map where your business is losing leads.
+                    Quotes within 24 hours. Strategy calls are free.
                   </p>
                 </div>
               </div>
@@ -434,14 +450,7 @@ const Landing = () => {
                 <h3>Let&apos;s find what to build first</h3>
                 <p>Book a short strategy call. We&apos;ll talk through where your business is &mdash; new, growing, or stuck &mdash; and what to put in place first to start capturing and converting more leads.</p>
               </div>
-              <WaitlistForm
-                source="audit"
-                variant="inline"
-                theme="dark"
-                ctaLabel="Book a Strategy Call"
-                ctaSentLabel={'Request received ✓'}
-                successMessage={'Got it. I’ll be in touch within 24 hours to schedule your call.'}
-              />
+              <CtaButtons source="audit" />
             </div>
           </div>
         </section>
@@ -592,14 +601,7 @@ const Landing = () => {
                 Book a short strategy call. We&apos;ll map the fastest path to a complete system &mdash; whether you&apos;re starting from scratch, replacing what isn&apos;t working, or filling in the gaps.
               </p>
               <div className="final-form">
-                <WaitlistForm
-                  source="final"
-                  variant="stacked"
-                  theme="dark"
-                  ctaLabel="Book a Strategy Call"
-                  ctaSentLabel={'Request received \u2713'}
-                  successMessage={'Got it. I\u2019ll be in touch within 24 hours to schedule your call.'}
-                />
+                <CtaButtons source="final" />
               </div>
             </div>
           </div>
