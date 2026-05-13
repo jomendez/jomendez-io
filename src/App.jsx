@@ -10,6 +10,7 @@ import Landing from './pages/Landing'
 // application form) lives at /old-site. It's lazy-loaded since it's
 // only useful for archive/reference traffic now.
 const OldLanding = lazy(() => import('./pages/OldLanding'))
+const FreeAudit = lazy(() => import('./pages/FreeAudit'))
 const Audit = lazy(() => import('./pages/Audit'))
 const AuditSubmitted = lazy(() => import('./pages/AuditSubmitted'))
 const AuditResults = lazy(() => import('./pages/AuditResults'))
@@ -37,6 +38,10 @@ function App() {
 
           {/* Previous homepage, kept accessible for reference */}
           <Route path="/old-site" element={<OldLanding />} />
+
+          {/* Dedicated free-audit landing page — hosts the GHL
+              Prospecting Widget. Designed for paid traffic. */}
+          <Route path="/free-audit" element={<FreeAudit />} />
 
           {/* The 8-Point Business Audit flow.
               /audit/submitted is registered ahead of /audit/:inviteToken
