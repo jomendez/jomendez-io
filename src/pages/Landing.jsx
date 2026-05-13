@@ -27,14 +27,14 @@ const FONTS_HREF =
 // Order matches AUDIT_DIMENSIONS so the list reads in the same order as
 // the radar chart axes (top-clockwise).
 const AUDIT_DETAIL = [
-  { name: 'Online Visibility', desc: 'Can your customers actually find you?' },
-  { name: 'Lead Capture', desc: 'Are you turning interest into contact info?' },
-  { name: 'Lead Response', desc: 'How fast do leads hear back from you?' },
-  { name: 'Customer Retention', desc: 'Are past customers coming back?' },
-  { name: 'Operations & Time', desc: 'Where is your week disappearing?' },
-  { name: 'Marketing Engine', desc: 'Is content working for you, or are you working for it?' },
-  { name: 'Financial Clarity', desc: 'Do you know your real numbers?' },
-  { name: 'Tech Stack', desc: 'Are your tools helping or fighting each other?' },
+  { name: 'Online Visibility', desc: 'Can the right customers actually find you?' },
+  { name: 'Lead Capture', desc: 'Is your website turning visitors into contacts?' },
+  { name: 'Lead Response', desc: 'How fast do new inquiries hear back from you?' },
+  { name: 'Customer Retention', desc: 'Are past customers coming back — and sending referrals?' },
+  { name: 'Operations & Time', desc: 'Where are the manual tasks eating your week?' },
+  { name: 'Marketing Engine', desc: 'Is your content driving leads, or just creating busy work?' },
+  { name: 'Financial Clarity', desc: 'Do you actually see your pipeline and your real numbers?' },
+  { name: 'Tech Stack', desc: 'Are your tools working together, or fighting each other?' },
 ]
 
 // Sanity check: keep the radar's labels in lockstep with the detail list.
@@ -76,7 +76,7 @@ const Landing = () => {
   useEffect(() => {
     const prev = document.title
     document.title =
-      'Jomendez Inc \u2014 Big-company technology, built for small business.'
+      'Jomendez Inc \u2014 Smart websites & AI-powered sales systems for local businesses.'
     return () => {
       document.title = prev
     }
@@ -107,7 +107,7 @@ const Landing = () => {
             name: 'Jomendez Inc',
             url: 'https://jomendez.io',
             description:
-              'Jomendez Inc helps small business owners grow with technology — websites, CRMs, automations, AI content, and ad strategy. Founded by Jose Mendez.',
+              'Jomendez Inc builds smart websites and AI-powered sales systems — website, CRM, booking, AI chat, and automated follow-up — that help local businesses capture, follow up with, and convert more leads. Founded by Jose Mendez.',
             founder: {
               '@type': 'Person',
               name: 'Jose Mendez',
@@ -133,12 +133,12 @@ const Landing = () => {
             <span className="mono micro">JOMENDEZ / INC</span>
           </a>
           <div className="nav-links">
-            <a href="#audit">The Audit</a>
-            <a href="#why">Why it works</a>
+            <a href="#audit">How It Works</a>
+            <a href="#why">Why It Works</a>
             <a href="#about">About</a>
             <a href="#join" className="nav-cta">
               <span className="pill" aria-hidden="true"></span>
-              <span style={{ color: 'rgb(255, 255, 255)' }}>Join the waitlist</span>
+              <span style={{ color: 'rgb(255, 255, 255)' }}>Book a Strategy Call</span>
             </a>
           </div>
           <button
@@ -155,12 +155,12 @@ const Landing = () => {
       {/* Mobile menu overlay */}
       {menuOpen && (
         <div className="mobile-menu" aria-label="Mobile navigation">
-          <a href="#audit" onClick={() => setMenuOpen(false)}>The Audit</a>
-          <a href="#why" onClick={() => setMenuOpen(false)}>Why it works</a>
+          <a href="#audit" onClick={() => setMenuOpen(false)}>How It Works</a>
+          <a href="#why" onClick={() => setMenuOpen(false)}>Why It Works</a>
           <a href="#about" onClick={() => setMenuOpen(false)}>About</a>
           <a href="#join" className="nav-cta" onClick={() => setMenuOpen(false)}>
             <span className="pill" aria-hidden="true"></span>
-            <span>Join the waitlist</span>
+            <span>Book a Strategy Call</span>
           </a>
         </div>
       )}
@@ -174,23 +174,25 @@ const Landing = () => {
             <div className="hero-grid">
               <div className="hero-content">
                 <div className="hero-eyebrow mono micro">
-                  &mdash; THE 8-POINT BUSINESS AUDIT / WAITLIST
+                  &mdash; FRACTIONAL CTO / GROWTH SYSTEMS FOR LOCAL BUSINESSES
                 </div>
                 <h1 className="hero-headline">
-                  Big-company <em>technology</em>, built for your small business.
+                  Smart <em>websites</em> that help local businesses capture and convert more leads.
                 </h1>
                 <p className="hero-sub">
-                  I&apos;m Jose. I spent 15 years building software at Amazon, VMware, and high-growth startups. Now I help small business owners &mdash; plumbers, electricians, med spas, coaches &mdash; use the same systems and strategies the Fortune 500 use to grow their businesses.
+                  I build the website, CRM, booking, AI chat, and automated follow-up system that helps you respond faster, stay organized, and turn more inquiries into customers &mdash; without adding more work to your day.
                 </p>
                 <div className="hero-cta-stack">
                   <WaitlistForm
                     source="hero"
                     variant="inline"
                     theme="light"
-                    ctaLabel={'Join the waitlist \u2014 Free'}
+                    ctaLabel="Book a Strategy Call"
+                    ctaSentLabel={'Request received \u2713'}
+                    successMessage={'Got it. I\u2019ll be in touch within 24 hours to schedule your call.'}
                   />
                   <p className="hero-cta-fineprint">
-                    Get early access to The 8-Point Business Audit.
+                    Free 20-minute call. We&apos;ll map where your business is losing leads.
                   </p>
                 </div>
               </div>
@@ -223,9 +225,9 @@ const Landing = () => {
                 <div className="hero-portrait-meta">
                   <span className="mono micro">JOMENDEZ / INC</span>
                   <h3>
-                    Built for owners
+                    The system behind
                     <br />
-                    who built it themselves.
+                    your website.
                   </h3>
                 </div>
               </div>
@@ -237,9 +239,9 @@ const Landing = () => {
         <section className="trust" aria-label="Engineering experience">
           <div className="wrap-wide trust-inner">
             <p className="mono micro trust-label">
-              Engineering experience
+              Disciplined engineering
               <br />
-              from
+              background
             </p>
             <div className="trust-logos">
               {/* TODO: drop in real Amazon / VMware / Well Health logo
@@ -265,22 +267,22 @@ const Landing = () => {
           <div className="wrap">
             <div className="problem-head">
               <div>
-                <span className="eyebrow micro">THE GAP</span>
+                <span className="eyebrow micro">THE REAL PROBLEM</span>
                 <h2>
-                  You&apos;re great at what you do.
+                  Most small businesses don&apos;t have a website problem.
                   <br />
-                  The technology is <em>eating your time.</em>
+                  They have a <em>follow-up problem.</em>
                 </h2>
               </div>
               <div className="problem-body">
                 <p>
-                  You started this business because you&apos;re good at your craft &mdash; fixing pipes, treating skin, coaching clients, wiring homes. Nobody warned you that running it would mean wearing every hat: the marketer, the bookkeeper, the social media manager, the IT department, the person who chases late invoices at 9pm.
+                  You already have a website. You already have ads, social posts, and referrals sending people your way. The traffic isn&apos;t the issue. The issue is what happens next.
                 </p>
                 <p>
-                  Meanwhile, your competitors are using AI to write their content, automations to follow up with leads in 60 seconds, and CRMs that turn one client into ten referrals. They&apos;re not smarter than you. They just have the systems.
+                  Inquiries come in after hours. Forms get buried in email. Texts wait until you&apos;re free. By the time you reach back out, the lead has already called someone else &mdash; or quietly moved on.
                 </p>
                 <p>
-                  Every month you don&apos;t have those systems, you lose money you&apos;ll never see &mdash; to the lead that didn&apos;t get a callback, the customer who forgot you existed, the invoice that sat unpaid for 90 days.
+                  There&apos;s no system catching every lead, organizing them in one place, following up automatically, and moving them toward a booked appointment. That&apos;s where the money is leaking.
                 </p>
               </div>
             </div>
@@ -294,8 +296,8 @@ const Landing = () => {
                     <circle cx="12" cy="12" r="3" />
                   </svg>
                 </div>
-                <h3>Lost leads</h3>
-                <p>The caller who didn&apos;t hear back in five minutes is calling your competitor in ten.</p>
+                <h3>Leads that never get a reply</h3>
+                <p>Inquiries come in while you&apos;re with a customer, on a job, or asleep. By the time you see them, the lead has already called someone else.</p>
               </div>
               <div className="leak">
                 <span className="leak-num mono micro">02</span>
@@ -305,8 +307,8 @@ const Landing = () => {
                     <path d="M12 6v6l4 2" />
                   </svg>
                 </div>
-                <h3>Lost time</h3>
-                <p>Hours a week copying info between apps, sending the same emails, chasing no-shows.</p>
+                <h3>Hours lost to manual work</h3>
+                <p>Copying info between apps, sending the same follow-up emails, chasing no-shows, juggling tools that don&apos;t talk to each other.</p>
               </div>
               <div className="leak">
                 <span className="leak-num mono micro">03</span>
@@ -315,8 +317,8 @@ const Landing = () => {
                     <path d="M12 2v20M17 6c-1-2-3-3-5-3-3 0-5 1.5-5 4 0 6 11 4 11 10 0 2.5-2.5 4-5.5 4-2.5 0-4.5-1-5.5-3" />
                   </svg>
                 </div>
-                <h3>Lost revenue</h3>
-                <p>Past customers who never came back. Invoices that sat unpaid. Referrals that never happened.</p>
+                <h3>Past customers who forget you</h3>
+                <p>No reactivation, no review requests, no reminders. Your best source of revenue goes cold while you chase new leads.</p>
               </div>
             </div>
           </div>
@@ -329,16 +331,16 @@ const Landing = () => {
           <div className="wrap">
             <div className="promise-head">
               <div>
-                <span className="eyebrow micro">WHAT I DO</span>
+                <span className="eyebrow micro">THE SYSTEM</span>
                 <h2>
-                  I&apos;m the technology partner your business <em>never had.</em>
+                  A complete lead conversion system, <em>built around your business.</em>
                 </h2>
               </div>
               <div className="promise-body">
                 <p>
-                  I help you find the gaps in your business that are costing you money &mdash; and I build the systems that close them. Websites that actually convert. CRMs that follow up while you sleep. Automations that handle the boring work. AI that creates your content. Ad strategies that don&apos;t waste budget.
+                  Not just a website. Your website, CRM, booking, AI chat, and automated follow-up all working together as one system &mdash; so every lead gets captured, every inquiry gets a fast response, and nothing falls through the cracks.
                 </p>
-                <p>You don&apos;t need to learn any of it. That&apos;s my job.</p>
+                <p>Simple for your team. Powerful behind the scenes. You don&apos;t need to learn any of it &mdash; that&apos;s my job.</p>
               </div>
             </div>
 
@@ -351,8 +353,8 @@ const Landing = () => {
                   </svg>
                 </div>
                 <span className="micro meta">CAPABILITY 01</span>
-                <h3>Websites &amp; Funnels</h3>
-                <p>Pages that turn visitors into customers, not just business cards.</p>
+                <h3>Smart Business Websites</h3>
+                <p>Fast, professional sites built to capture leads &mdash; not just look good. Designed to turn visitors into booked appointments.</p>
               </article>
               <article className="capability">
                 <div className="capability-icon" aria-hidden="true">
@@ -362,8 +364,8 @@ const Landing = () => {
                   </svg>
                 </div>
                 <span className="micro meta">CAPABILITY 02</span>
-                <h3>Automation &amp; CRM</h3>
-                <p>Follow-ups, invoicing, scheduling, and lead capture, all on autopilot.</p>
+                <h3>CRM &amp; Lead Pipeline</h3>
+                <p>Every lead in one place, with a clear next step for each one. Real visibility into your pipeline &mdash; no spreadsheets, no guessing.</p>
               </article>
               <article className="capability">
                 <div className="capability-icon" aria-hidden="true">
@@ -373,8 +375,8 @@ const Landing = () => {
                   </svg>
                 </div>
                 <span className="micro meta">CAPABILITY 03</span>
-                <h3>AI Content Engine</h3>
-                <p>Reels, images, posts, and copy generated for your brand, on schedule.</p>
+                <h3>AI Chat &amp; Automated Follow-Up</h3>
+                <p>Reply to new leads in seconds. Send reminders and follow-ups automatically. An AI assistant answers common questions 24/7.</p>
               </article>
               <article className="capability">
                 <div className="capability-icon" aria-hidden="true">
@@ -385,8 +387,8 @@ const Landing = () => {
                   </svg>
                 </div>
                 <span className="micro meta">CAPABILITY 04</span>
-                <h3>Ads &amp; Growth</h3>
-                <p>Paid strategies that bring in qualified leads, with the numbers to prove it.</p>
+                <h3>Booking &amp; Customer Reactivation</h3>
+                <p>Online booking, review collection, and win-back campaigns that bring quiet customers back &mdash; without you lifting a finger.</p>
               </article>
             </div>
           </div>
@@ -399,14 +401,14 @@ const Landing = () => {
           <div className="wrap">
             <div className="audit-head">
               <div>
-                <span className="eyebrow micro">START HERE</span>
+                <span className="eyebrow micro">FIND THE GAPS</span>
                 <h2>
                   The 8-Point <em>Business Audit</em>
                 </h2>
               </div>
               <div className="audit-body">
                 <p>
-                  Before I build anything, I look at your business across the eight dimensions that actually drive growth. You&apos;ll get a personalized report showing exactly where you&apos;re leaving money on the table &mdash; and a clear plan to fix it.
+                  Before we build anything, we look at your business across the eight dimensions that drive growth. You&apos;ll see exactly where leads are leaking, where follow-up is breaking down, and what to fix first &mdash; in plain English.
                 </p>
               </div>
             </div>
@@ -429,14 +431,16 @@ const Landing = () => {
 
             <div className="audit-cta">
               <div className="audit-cta-copy">
-                <h3>Join the waitlist for The 8-Point Audit</h3>
-                <p>I&apos;ll let you know the moment it opens. No charge, no spam.</p>
+                <h3>Let&apos;s identify where your business is losing leads</h3>
+                <p>Book a short strategy call. We&apos;ll map how your website, CRM, follow-up, and booking could work together as one system.</p>
               </div>
               <WaitlistForm
                 source="audit"
                 variant="inline"
                 theme="dark"
-                ctaLabel="Get early access"
+                ctaLabel="Book a Strategy Call"
+                ctaSentLabel={'Request received ✓'}
+                successMessage={'Got it. I’ll be in touch within 24 hours to schedule your call.'}
               />
             </div>
           </div>
@@ -451,17 +455,17 @@ const Landing = () => {
               <div>
                 <span className="eyebrow micro">WHY THIS WORKS</span>
                 <h2>
-                  Big-company rigor.
+                  Not a basic website.
                   <br />
-                  Small-business <em>common sense.</em>
+                  Not a <em>generic agency.</em>
                 </h2>
               </div>
               <div className="why-body">
                 <p>
-                  At Amazon, I learned how the world&apos;s largest companies make decisions: working backward from the customer, separating reversible bets from irreversible ones, treating every day like Day One. Most small businesses never get exposed to those frameworks. They&apos;re not complicated &mdash; they just need someone to translate them.
+                  Most agencies stop at the website. The result looks fine, but every lead still depends on you remembering to follow up. I build the operational system behind the website &mdash; capture, CRM, booking, follow-up, AI &mdash; so every inquiry moves through a clear process, automatically.
                 </p>
                 <p>
-                  That&apos;s the work. I take what runs Amazon and Wall Street and adapt it for a med spa in Hialeah, a plumber in Kendall, a coach scaling from one to ten. Same principles. Different scale.
+                  My background is in professional software engineering, but my focus is simple: helping local businesses use technology to respond faster, stay organized, and close more opportunities. The same disciplined approach used to build reliable systems at scale &mdash; applied to your business at your scale.
                 </p>
               </div>
             </div>
@@ -470,15 +474,15 @@ const Landing = () => {
               <div className="why-stat">
                 <div className="why-stat-num">15+ years</div>
                 <div className="why-stat-label">
-                  Building software
-                  <span className="why-stat-sub">for Amazon, VMware, and high-growth startups.</span>
+                  Building reliable systems
+                  <span className="why-stat-sub">across enterprise and high-growth startup environments.</span>
                 </div>
               </div>
               <div className="why-stat">
-                <div className="why-stat-num">Senior Engineer</div>
+                <div className="why-stat-num">Fractional CTO</div>
                 <div className="why-stat-label">
-                  At Amazon
-                  <span className="why-stat-sub">currently building Amazon&apos;s internal communication platform.</span>
+                  For local businesses
+                  <span className="why-stat-sub">the technical partner most small businesses can&apos;t justify hiring full-time.</span>
                 </div>
               </div>
               <div className="why-stat">
@@ -525,16 +529,16 @@ const Landing = () => {
               <div className="about-content">
                 <span className="eyebrow micro">ABOUT</span>
                 <h2>
-                  From Havana to Amazon to <em>your business.</em>
+                  The technical partner most small businesses <em>never get.</em>
                 </h2>
                 <p>
-                  I started my career as an intern in Cuba, building internal tools for a company that couldn&apos;t afford anyone more experienced. Every job after that &mdash; Ecuador, Costa Rica, Miami, eventually Amazon &mdash; was the same pattern: walk into a business, find what&apos;s broken, build the system that fixes it.
+                  I started my career as an intern in Cuba, building internal tools for a company that couldn&apos;t afford anyone more experienced. Every job after that &mdash; Ecuador, Costa Rica, Miami, and into senior engineering work in the US &mdash; was the same pattern: walk into a business, find what&apos;s broken, build the system that fixes it.
                 </p>
                 <p>
-                  Somewhere along the way I realized the businesses that need this work the most aren&apos;t the Fortune 500. They&apos;re the ones run by people who immigrated, hustled, and built something real with their hands. They have the customers. They have the craft. What they&apos;re missing is the engineering.
+                  Somewhere along the way I realized the businesses that need this work the most are the ones run by people who hustled and built something real with their hands. They have the customers. They have the craft. What they&apos;re missing is the system behind it &mdash; the kind of digital operating system larger companies already use to capture, follow up, and convert.
                 </p>
                 <p>
-                  I built <strong>jomendez.io</strong> to close that gap.
+                  I built <strong>jomendez.io</strong> to bring that system to local businesses.
                 </p>
               </div>
             </div>
@@ -556,20 +560,20 @@ const Landing = () => {
               <li className="path-step">
                 <span className="path-step-num serif">01</span>
                 <span className="path-step-eyebrow mono micro">STEP 01</span>
-                <h3>Join the waitlist</h3>
-                <p>When the audit opens, you&apos;ll be among the first to get access. No charge to join.</p>
+                <h3>Book a strategy call</h3>
+                <p>A free 20-minute conversation. We&apos;ll talk about where leads are coming from, where they&apos;re slipping away, and what&apos;s possible.</p>
               </li>
               <li className="path-step">
                 <span className="path-step-num serif">02</span>
                 <span className="path-step-eyebrow mono micro">STEP 02</span>
-                <h3>Take the audit</h3>
-                <p>A guided assessment of your business across the eight dimensions, plus a personalized report with specific recommendations.</p>
+                <h3>Get your audit &amp; plan</h3>
+                <p>We walk through the 8-Point Business Audit together. You leave with a clear map of what to fix first &mdash; and what you can ignore.</p>
               </li>
               <li className="path-step">
                 <span className="path-step-num serif">03</span>
                 <span className="path-step-eyebrow mono micro">STEP 03</span>
-                <h3>We build it together</h3>
-                <p>Pick the recommendations that matter most. I scope, I build, I hand it off &mdash; or we keep working together long-term.</p>
+                <h3>Build your growth system</h3>
+                <p>Pick what matters most. I scope, I build, I hand it off &mdash; or we keep working together long-term. You stay in business mode. I handle the technology.</p>
               </li>
             </ol>
           </div>
@@ -582,18 +586,19 @@ const Landing = () => {
           <div className="wrap">
             <div className="final-wrap">
               <h2>
-                Your business deserves the same systems the <em>Fortune 500 use.</em>
+                Stop losing leads. Start building a system that <em>converts them.</em>
               </h2>
               <p className="final-sub">
-                Join the waitlist for The 8-Point Business Audit. I&apos;ll let you know the moment it&apos;s open.
+                Book a short strategy call. We&apos;ll map how your website, CRM, follow-up, and booking could work together as one system &mdash; and where the biggest wins are hiding right now.
               </p>
               <div className="final-form">
                 <WaitlistForm
                   source="final"
                   variant="stacked"
                   theme="dark"
-                  ctaLabel={'Join the waitlist \u2014 Free'}
-                  successMessage={'You\u2019re on the list. I\u2019ll email you the moment the audit opens.'}
+                  ctaLabel="Book a Strategy Call"
+                  ctaSentLabel={'Request received \u2713'}
+                  successMessage={'Got it. I\u2019ll be in touch within 24 hours to schedule your call.'}
                 />
               </div>
             </div>
