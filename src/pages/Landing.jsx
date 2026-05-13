@@ -269,20 +269,20 @@ const Landing = () => {
               <div>
                 <span className="eyebrow micro">THE REAL PROBLEM</span>
                 <h2>
-                  Most small businesses don&apos;t have a website problem.
+                  A website alone doesn&apos;t capture and convert leads.
                   <br />
-                  They have a <em>follow-up problem.</em>
+                  The <em>system behind it</em> does.
                 </h2>
               </div>
               <div className="problem-body">
                 <p>
-                  You already have a website. You already have ads, social posts, and referrals sending people your way. The traffic isn&apos;t the issue. The issue is what happens next.
+                  Whether you already have a website, you&apos;re replacing one that isn&apos;t working, or you&apos;re launching your business from scratch &mdash; the goal is the same: every lead captured, every inquiry followed up with, every appointment booked. Most businesses never get there because nobody built the system underneath.
                 </p>
                 <p>
-                  Inquiries come in after hours. Forms get buried in email. Texts wait until you&apos;re free. By the time you reach back out, the lead has already called someone else &mdash; or quietly moved on.
+                  Inquiries arrive from referrals, social, ads, and walk-ins. They land in different places &mdash; phone, DMs, email, a sticky note &mdash; and the ones that don&apos;t get a fast, organized response quietly disappear.
                 </p>
                 <p>
-                  There&apos;s no system catching every lead, organizing them in one place, following up automatically, and moving them toward a booked appointment. That&apos;s where the money is leaking.
+                  What&apos;s missing isn&apos;t another pretty page. It&apos;s one place to catch every lead, one clear process for following up, and the automation to keep it running while you focus on the work.
                 </p>
               </div>
             </div>
@@ -297,7 +297,7 @@ const Landing = () => {
                   </svg>
                 </div>
                 <h3>Leads that never get a reply</h3>
-                <p>Inquiries come in while you&apos;re with a customer, on a job, or asleep. By the time you see them, the lead has already called someone else.</p>
+                <p>Inquiries arrive while you&apos;re with a customer, on a job, or asleep. With nothing set up to catch and respond, they quietly go to a competitor.</p>
               </div>
               <div className="leak">
                 <span className="leak-num mono micro">02</span>
@@ -308,7 +308,7 @@ const Landing = () => {
                   </svg>
                 </div>
                 <h3>Hours lost to manual work</h3>
-                <p>Copying info between apps, sending the same follow-up emails, chasing no-shows, juggling tools that don&apos;t talk to each other.</p>
+                <p>Copying contacts between notebooks and apps, sending the same messages by hand, chasing no-shows, and juggling tools that don&apos;t talk to each other.</p>
               </div>
               <div className="leak">
                 <span className="leak-num mono micro">03</span>
@@ -317,8 +317,8 @@ const Landing = () => {
                     <path d="M12 2v20M17 6c-1-2-3-3-5-3-3 0-5 1.5-5 4 0 6 11 4 11 10 0 2.5-2.5 4-5.5 4-2.5 0-4.5-1-5.5-3" />
                   </svg>
                 </div>
-                <h3>Past customers who forget you</h3>
-                <p>No reactivation, no review requests, no reminders. Your best source of revenue goes cold while you chase new leads.</p>
+                <h3>Customers who never come back</h3>
+                <p>With no plan for follow-up, reviews, or reactivation, every customer is a one-and-done. Your best source of future revenue stays cold.</p>
               </div>
             </div>
           </div>
@@ -431,8 +431,8 @@ const Landing = () => {
 
             <div className="audit-cta">
               <div className="audit-cta-copy">
-                <h3>Let&apos;s identify where your business is losing leads</h3>
-                <p>Book a short strategy call. We&apos;ll map how your website, CRM, follow-up, and booking could work together as one system.</p>
+                <h3>Let&apos;s find what to build first</h3>
+                <p>Book a short strategy call. We&apos;ll talk through where your business is &mdash; new, growing, or stuck &mdash; and what to put in place first to start capturing and converting more leads.</p>
               </div>
               <WaitlistForm
                 source="audit"
@@ -561,7 +561,7 @@ const Landing = () => {
                 <span className="path-step-num serif">01</span>
                 <span className="path-step-eyebrow mono micro">STEP 01</span>
                 <h3>Book a strategy call</h3>
-                <p>A free 20-minute conversation. We&apos;ll talk about where leads are coming from, where they&apos;re slipping away, and what&apos;s possible.</p>
+                <p>A free 20-minute conversation about your business, your goals, and what a complete system would look like for you &mdash; whether you&apos;re launching, growing, or rebuilding.</p>
               </li>
               <li className="path-step">
                 <span className="path-step-num serif">02</span>
@@ -589,7 +589,7 @@ const Landing = () => {
                 Stop losing leads. Start building a system that <em>converts them.</em>
               </h2>
               <p className="final-sub">
-                Book a short strategy call. We&apos;ll map how your website, CRM, follow-up, and booking could work together as one system &mdash; and where the biggest wins are hiding right now.
+                Book a short strategy call. We&apos;ll map the fastest path to a complete system &mdash; whether you&apos;re starting from scratch, replacing what isn&apos;t working, or filling in the gaps.
               </p>
               <div className="final-form">
                 <WaitlistForm
@@ -636,9 +636,6 @@ const Landing = () => {
             <div className="footer-bottom mono micro">
               <span>&copy; {new Date().getFullYear()} JOMENDEZ INC</span>
               <span>BUILT IN MIAMI</span>
-            </div>
-            <div className="footer-address" style={{ textAlign: 'center', fontSize: '0.55rem', opacity: 0.5, marginTop: '0.75rem', letterSpacing: '0.03em' }}>
-              13375 SW 42 Ter, Miami, FL 33175 &nbsp;|&nbsp; 786 486 1561
             </div>
           </div>
         </footer>
