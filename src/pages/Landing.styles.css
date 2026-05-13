@@ -167,6 +167,45 @@ img { display: block; max-width: 100%; }
 .btn-outline { background: transparent; color: var(--ink); border: 1px solid var(--line-2); }
 .btn-outline:hover { border-color: var(--ink); }
 
+/* Two-up CTA row: inline buttons that wrap on narrow widths. Used in
+ * the hero, audit-cta, and final sections. Buttons stretch to fill the
+ * row on mobile so they look like a stacked pair. */
+.cta-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.cta-buttons .btn { flex: 0 0 auto; }
+
+/* Dark-section button inversion. .audit-cta and .final both render on
+ * --ink, so the default .btn-primary (dark fill) and .btn-outline
+ * (dark border) would disappear. Invert here. */
+.audit-cta .btn-primary,
+.final .btn-primary {
+  background: var(--bg);
+  color: var(--ink);
+}
+.audit-cta .btn-primary:hover,
+.final .btn-primary:hover {
+  background: var(--accent);
+  color: var(--bg);
+}
+.audit-cta .btn-outline,
+.final .btn-outline {
+  color: var(--bg);
+  border-color: rgba(255, 255, 255, .28);
+}
+.audit-cta .btn-outline:hover,
+.final .btn-outline:hover {
+  border-color: var(--bg);
+  color: var(--bg);
+}
+
+@media (max-width: 640px) {
+  .cta-buttons { flex-direction: column; }
+  .cta-buttons .btn { width: 100%; justify-content: center; }
+}
+
 /* ========== Section utilities ========== */
 section { position: relative; }
 .eyebrow {
