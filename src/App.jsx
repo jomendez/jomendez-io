@@ -11,6 +11,7 @@ import Landing from './pages/Landing'
 // only useful for archive/reference traffic now.
 const OldLanding = lazy(() => import('./pages/OldLanding'))
 const FreeAudit = lazy(() => import('./pages/FreeAudit'))
+const StrategyCall = lazy(() => import('./pages/StrategyCall'))
 const Audit = lazy(() => import('./pages/Audit'))
 const AuditSubmitted = lazy(() => import('./pages/AuditSubmitted'))
 const AuditResults = lazy(() => import('./pages/AuditResults'))
@@ -42,6 +43,10 @@ function App() {
           {/* Dedicated free-audit landing page — hosts the GHL
               Prospecting Widget. Designed for paid traffic. */}
           <Route path="/free-audit" element={<FreeAudit />} />
+
+          {/* Strategy call booking page — hosts the GHL calendar
+              widget. The hero/audit/final CTAs on / point here. */}
+          <Route path="/strategy-call" element={<StrategyCall />} />
 
           {/* The 8-Point Business Audit flow.
               /audit/submitted is registered ahead of /audit/:inviteToken

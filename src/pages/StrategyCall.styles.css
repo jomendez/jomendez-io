@@ -1,0 +1,178 @@
+/* ==========================================================================
+ * /strategy-call — page-specific styles.
+ *
+ * Loaded on top of Landing.styles.css (injected by StrategyCall.jsx), so
+ * all design tokens, typography, nav, footer, and .btn utilities are
+ * already available. Page selectors are prefixed .sc-* to avoid collisions
+ * with Landing's section classes and FreeAudit's .fa-* selectors.
+ *
+ * Mobile-first: defaults size for narrow screens, then breakpoints layer
+ * on tablet/desktop adjustments.
+ * ========================================================================== */
+
+/* ---- Nav back-link variant ---- */
+.sc-nav-back {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--ink-2);
+  text-decoration: none;
+  transition: color .2s ease;
+}
+.sc-nav-back:hover { color: var(--accent); }
+
+/* ============================================================
+ * HERO
+ * ============================================================ */
+.sc-hero {
+  padding: 120px 0 64px;
+  position: relative;
+  overflow: hidden;
+}
+.sc-hero-inner {
+  max-width: 760px;
+  position: relative;
+  z-index: 2;
+}
+.sc-hero-headline {
+  font-family: 'Instrument Serif', serif;
+  font-weight: 400;
+  font-size: clamp(40px, 7.2vw, 76px);
+  line-height: 1.02;
+  letter-spacing: -0.025em;
+  color: var(--ink);
+  margin: 18px 0 20px;
+}
+.sc-hero-headline em {
+  color: var(--accent);
+  font-style: italic;
+}
+.sc-hero-sub {
+  font-size: clamp(16px, 2.2vw, 19px);
+  line-height: 1.55;
+  color: var(--ink-2);
+  max-width: 620px;
+  margin-bottom: 28px;
+}
+
+.sc-hero-bullets {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+  max-width: 640px;
+}
+.sc-hero-bullets li {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 14px;
+  align-items: baseline;
+  padding: 14px 18px;
+  background: var(--bg-2);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  font-size: 15px;
+  line-height: 1.45;
+  color: var(--ink);
+}
+.sc-hero-bullets .mono { color: var(--accent-ink); }
+
+/* ============================================================
+ * CALENDAR
+ * ============================================================ */
+.sc-calendar {
+  padding: 80px 0 96px;
+  background: var(--bg);
+}
+.sc-calendar-head {
+  max-width: 720px;
+  margin: 0 auto 32px;
+  text-align: center;
+}
+.sc-calendar-head h2 {
+  font-family: 'Instrument Serif', serif;
+  font-weight: 400;
+  font-size: clamp(32px, 5vw, 56px);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  margin: 14px 0 12px;
+}
+.sc-calendar-head h2 em { color: var(--accent); font-style: italic; }
+.sc-calendar-head p {
+  font-size: 15px;
+  color: var(--ink-2);
+  line-height: 1.5;
+}
+
+.sc-calendar-host {
+  max-width: 880px;
+  margin: 0 auto;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  padding: 16px;
+  box-shadow:
+    0 1px 0 rgba(14, 34, 64, .04),
+    0 18px 48px -24px rgba(14, 34, 64, .18);
+  overflow: hidden;
+}
+.sc-calendar-host iframe {
+  display: block;
+  width: 100%;
+  /* The GHL embed script resizes the iframe to fit its content, but
+   * before that runs we want a sensible default so the page doesn't
+   * collapse and re-jump. */
+  min-height: 720px;
+  border: 0;
+}
+
+/* ============================================================
+ * AFTER
+ * ============================================================ */
+.sc-after {
+  padding: 96px 0;
+  background: var(--bg-2);
+}
+.sc-after-inner {
+  max-width: 760px;
+  margin: 0 auto;
+  text-align: center;
+}
+.sc-after-inner h2 {
+  font-family: 'Instrument Serif', serif;
+  font-weight: 400;
+  font-size: clamp(32px, 5vw, 56px);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  margin: 14px 0 18px;
+}
+.sc-after-inner h2 em { color: var(--accent); font-style: italic; }
+.sc-after-inner p {
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--ink-2);
+  max-width: 640px;
+  margin: 0 auto;
+}
+.sc-after-cta {
+  margin-top: 28px;
+}
+
+/* ============================================================
+ * Tablet / desktop adjustments
+ * ============================================================ */
+@media (min-width: 720px) {
+  .sc-hero { padding: 160px 0 96px; }
+  .sc-hero-bullets {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .sc-calendar { padding: 120px 0 140px; }
+  .sc-calendar-host { padding: 24px; }
+
+  .sc-after { padding: 140px 0; }
+}
