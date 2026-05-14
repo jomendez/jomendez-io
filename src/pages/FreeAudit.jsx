@@ -31,13 +31,69 @@ const FreeAudit = () => {
     }
   }, [])
 
-  // Tab title — restored on unmount so other routes keep their own titles
+  // Per-route metadata: title, description, OG/Twitter tags, and canonical.
+  // Set imperatively on mount and restored on unmount so other routes
+  // keep their own. Note: this updates what browsers and JS-running
+  // crawlers see (Googlebot does run JS). Social-media preview crawlers
+  // (Facebook, Twitter, LinkedIn) read the raw HTML before any JS runs,
+  // so they will still pick up the index.html defaults until /free-audit
+  // is pre-rendered to a static HTML file at build time.
   useEffect(() => {
-    const prev = document.title
-    document.title =
-      'Free Business Audit — See where you’re losing customers online | Jomendez Inc'
+    const getMeta = (selector) =>
+      document.querySelector(selector)?.getAttribute('content') ?? null
+    const setMeta = (selector, value) => {
+      const el = document.querySelector(selector)
+      if (el && value != null) el.setAttribute('content', value)
+    }
+    const getHref = (selector) =>
+      document.querySelector(selector)?.getAttribute('href') ?? null
+    const setHref = (selector, value) => {
+      const el = document.querySelector(selector)
+      if (el && value != null) el.setAttribute('href', value)
+    }
+
+    const TITLE =
+      'Free Instant Business Audit — See where you’re losing customers online | Jomendez Inc'
+    const DESCRIPTION =
+      'A free, instant audit of your online presence. Listings, reviews, website health, SEO, and Google Business Profile — one short report, in plain English. No call required.'
+    const URL = 'https://jomendez.io/free-audit'
+    const IMAGE_ALT = 'Free instant business audit — Jomendez Inc'
+
+    const prev = {
+      title: document.title,
+      description: getMeta('meta[name="description"]'),
+      ogTitle: getMeta('meta[property="og:title"]'),
+      ogDescription: getMeta('meta[property="og:description"]'),
+      ogUrl: getMeta('meta[property="og:url"]'),
+      ogImageAlt: getMeta('meta[property="og:image:alt"]'),
+      twTitle: getMeta('meta[name="twitter:title"]'),
+      twDescription: getMeta('meta[name="twitter:description"]'),
+      twImageAlt: getMeta('meta[name="twitter:image:alt"]'),
+      canonical: getHref('link[rel="canonical"]'),
+    }
+
+    document.title = TITLE
+    setMeta('meta[name="description"]', DESCRIPTION)
+    setMeta('meta[property="og:title"]', TITLE)
+    setMeta('meta[property="og:description"]', DESCRIPTION)
+    setMeta('meta[property="og:url"]', URL)
+    setMeta('meta[property="og:image:alt"]', IMAGE_ALT)
+    setMeta('meta[name="twitter:title"]', TITLE)
+    setMeta('meta[name="twitter:description"]', DESCRIPTION)
+    setMeta('meta[name="twitter:image:alt"]', IMAGE_ALT)
+    setHref('link[rel="canonical"]', URL)
+
     return () => {
-      document.title = prev
+      document.title = prev.title
+      setMeta('meta[name="description"]', prev.description)
+      setMeta('meta[property="og:title"]', prev.ogTitle)
+      setMeta('meta[property="og:description"]', prev.ogDescription)
+      setMeta('meta[property="og:url"]', prev.ogUrl)
+      setMeta('meta[property="og:image:alt"]', prev.ogImageAlt)
+      setMeta('meta[name="twitter:title"]', prev.twTitle)
+      setMeta('meta[name="twitter:description"]', prev.twDescription)
+      setMeta('meta[name="twitter:image:alt"]', prev.twImageAlt)
+      setHref('link[rel="canonical"]', prev.canonical)
     }
   }, [])
 
@@ -212,7 +268,7 @@ const FreeAudit = () => {
               <article className="fa-next-card">
                 <span className="meta">WHO</span>
                 <h3>Behind the audit</h3>
-                <p>Built by Jose Mendez. 15+ years engineering reliable systems across enterprise and high-growth startup environments, now applied to local businesses that need practical systems, not tech headaches.</p>
+                <p>Built by Jose Mendez. 15+ years building tech at companies like Amazon, now focused on helping local businesses use that same level of rigor &mdash; without the overhead. No tech headaches, just systems that work.</p>
               </article>
               <article className="fa-next-card">
                 <span className="meta">NEXT</span>
@@ -222,7 +278,7 @@ const FreeAudit = () => {
               <article className="fa-next-card">
                 <span className="meta">AFTER</span>
                 <h3>If you want help</h3>
-                <p>If a gap stands out and you&apos;d like help closing it, we can hop on a free strategy call &mdash; that&apos;s also where the deeper 8-Point Business Audit begins. No pressure either way.</p>
+                <p>If a gap stands out and you&apos;d like help closing it, we can hop on a free strategy call. We&apos;ll talk through what to fix first &mdash; no pressure either way.</p>
               </article>
             </div>
 

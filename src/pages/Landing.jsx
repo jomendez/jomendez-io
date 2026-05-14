@@ -5,10 +5,10 @@ import AuditRadar, { AUDIT_DIMENSIONS } from '../components/AuditRadar'
 import { ensureAnonymousAuth } from '../services/auth'
 
 // Two CTA buttons used in the hero, audit-cta, and final sections.
-// "Get free business audit" routes to /free-audit (the dedicated landing
-// page that hosts the GHL Prospecting Widget). "Book a Strategy Call"
-// is still an unwired placeholder — the data-cta / data-source
-// attributes are the hook for that.
+// "Get free business audit" routes to /free-audit (GHL Prospecting
+// Widget). "Book a Strategy Call" routes to /strategy-call (GHL
+// calendar widget). The data-cta / data-source attributes are the
+// hook for analytics tracking.
 const CtaButtons = ({ source }) => (
   <div className="cta-buttons">
     <Link
@@ -19,14 +19,14 @@ const CtaButtons = ({ source }) => (
     >
       Get free business audit
     </Link>
-    <button
-      type="button"
+    <Link
+      to="/strategy-call"
       className="btn btn-outline"
       data-cta="strategy-call"
       data-source={source}
     >
       Book a Strategy Call
-    </button>
+    </Link>
   </div>
 )
 
@@ -162,10 +162,10 @@ const Landing = () => {
             <a href="#audit">How It Works</a>
             <a href="#why">Why It Works</a>
             <a href="#about">About</a>
-            <a href="#join" className="nav-cta">
+            <Link to="/strategy-call" className="nav-cta" data-cta="strategy-call" data-source="nav">
               <span className="pill" aria-hidden="true"></span>
               <span style={{ color: 'rgb(255, 255, 255)' }}>Book a Strategy Call</span>
-            </a>
+            </Link>
           </div>
           <button
             className={`nav-hamburger${menuOpen ? ' is-open' : ''}`}
@@ -184,10 +184,16 @@ const Landing = () => {
           <a href="#audit" onClick={() => setMenuOpen(false)}>How It Works</a>
           <a href="#why" onClick={() => setMenuOpen(false)}>Why It Works</a>
           <a href="#about" onClick={() => setMenuOpen(false)}>About</a>
-          <a href="#join" className="nav-cta" onClick={() => setMenuOpen(false)}>
+          <Link
+            to="/strategy-call"
+            className="nav-cta"
+            data-cta="strategy-call"
+            data-source="mobile-nav"
+            onClick={() => setMenuOpen(false)}
+          >
             <span className="pill" aria-hidden="true"></span>
             <span>Book a Strategy Call</span>
-          </a>
+          </Link>
         </div>
       )}
 
