@@ -601,6 +601,120 @@ const Landing = () => {
         </section>
 
         {/* ============================================================
+            Section 7.5 — PRICING
+            ============================================================ */}
+        <section className="pricing" id="pricing">
+          <div className="wrap">
+            <div className="pricing-head">
+              <span className="eyebrow micro">PRICING</span>
+              <h2>
+                Our flexible <em>pricing</em> options.
+              </h2>
+              <p>Flexible plans tailored to your business needs.</p>
+            </div>
+
+            <div className="pricing-grid">
+              {/* STARTER */}
+              <article className="pricing-card">
+                <header className="pricing-card-head">
+                  <span className="pricing-tier">STARTER</span>
+                  <p className="pricing-tier-sub">For Small Businesses &amp; Startups</p>
+                </header>
+                <div className="pricing-price">
+                  <span className="pricing-price-amount">$1,000 Setup</span>
+                  <span className="pricing-price-plus">+</span>
+                  <span className="pricing-price-recurring">$97/Month</span>
+                </div>
+                <p className="pricing-card-desc">
+                  Get started with a sleek, mobile-friendly website designed to capture leads and improve your online presence.
+                </p>
+                <ul className="pricing-features">
+                  <li>3-Page Website</li>
+                  <li>Desktop and Mobile Friendly Site</li>
+                  <li>On-Page Website SEO</li>
+                  <li>Contact Form</li>
+                  <li>Chat Widget</li>
+                  <li>SMS and Email Automations</li>
+                  <li>1 Website Edit Per Month</li>
+                </ul>
+                <Link
+                  to="/contact"
+                  className="btn btn-primary pricing-cta"
+                  data-cta="signup-starter"
+                  data-source="pricing"
+                >
+                  Sign up now
+                </Link>
+              </article>
+
+              {/* GROWTH — featured */}
+              <article className="pricing-card pricing-card--featured">
+                <header className="pricing-card-head">
+                  <span className="pricing-tier">GROWTH</span>
+                  <p className="pricing-tier-sub">For Scaling Businesses &amp; Entrepreneurs</p>
+                </header>
+                <div className="pricing-price">
+                  <span className="pricing-price-amount">$2,000 Setup</span>
+                  <span className="pricing-price-plus">+</span>
+                  <span className="pricing-price-recurring">$297/Month</span>
+                </div>
+                <p className="pricing-card-desc">
+                  Scale your business with advanced SEO, automation, and lead management tools to maximize conversions.
+                </p>
+                <ul className="pricing-features">
+                  <li>5-Page Website</li>
+                  <li>Everything in Starter, PLUS:</li>
+                  <li>Calendar Booking System</li>
+                  <li>Payment Processing</li>
+                  <li>Google Review Automation/Widget</li>
+                  <li>3 Website Edits Per Month</li>
+                </ul>
+                <Link
+                  to="/contact"
+                  className="btn btn-primary pricing-cta"
+                  data-cta="signup-growth"
+                  data-source="pricing"
+                >
+                  Sign up now
+                </Link>
+              </article>
+
+              {/* PRO */}
+              <article className="pricing-card">
+                <header className="pricing-card-head">
+                  <span className="pricing-tier">PRO</span>
+                  <p className="pricing-tier-sub">For High-Performing Brands &amp; Enterprises</p>
+                </header>
+                <div className="pricing-price">
+                  <span className="pricing-price-amount">$3,000 Setup</span>
+                  <span className="pricing-price-plus">+</span>
+                  <span className="pricing-price-recurring">$697/Month</span>
+                </div>
+                <p className="pricing-card-desc">
+                  Unlock full automation, premium customization, and enterprise-level solutions for high-growth businesses.
+                </p>
+                <ul className="pricing-features">
+                  <li>10+ Page Website</li>
+                  <li>Everything in Growth, PLUS:</li>
+                  <li>On-Going SEO Management</li>
+                  <li>AI Chat Bot</li>
+                  <li>AI Voice Bot</li>
+                  <li>5 Website Edits Per Month</li>
+                </ul>
+                <Link
+                  to="/contact"
+                  className="btn btn-primary pricing-cta"
+                  data-cta="signup-pro"
+                  data-source="pricing"
+                >
+                  Sign up now
+                </Link>
+              </article>
+            </div>
+          </div>
+        </section>
+
+        {/* ============================================================
             Section 8 — FINAL CTA
             ============================================================ */}
         <section className="final blueprint grain" id="join">
