@@ -1271,6 +1271,178 @@ input:focus-visible,
   .final-sub { font-size: 16px; }
 }
 
+/* ============================================================
+ * Section 7.5 — PRICING
+ * Three-tier comparison block. Middle (Growth) tier gets a gold
+ * border + slight elevation to read as featured without resorting
+ * to a louder color treatment.
+ * ============================================================ */
+.pricing {
+  padding: 140px 0;
+  background: var(--bg);
+}
+.pricing-head {
+  max-width: 720px;
+  margin: 0 auto 56px;
+  text-align: center;
+}
+.pricing-head h2 {
+  font-family: 'Instrument Serif', serif;
+  font-weight: 400;
+  font-size: clamp(36px, 5.4vw, 64px);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  margin: 14px 0 12px;
+}
+.pricing-head h2 em { color: var(--accent); font-style: italic; }
+.pricing-head p {
+  font-size: 16px;
+  color: var(--ink-2);
+  line-height: 1.5;
+}
+
+.pricing-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.pricing-card {
+  background: var(--bg-2);
+  border: 1px solid var(--line);
+  border-radius: 22px;
+  padding: 32px 28px;
+  display: flex;
+  flex-direction: column;
+  transition:
+    transform .25s ease,
+    border-color .25s ease,
+    box-shadow .25s ease;
+}
+.pricing-card:hover {
+  transform: translateY(-3px);
+  border-color: var(--accent);
+}
+
+.pricing-card--featured {
+  background: var(--bg);
+  border-color: var(--accent);
+  border-width: 2px;
+  box-shadow:
+    0 1px 0 rgba(184, 136, 74, .12),
+    0 24px 60px -28px rgba(14, 34, 64, .22);
+}
+
+.pricing-card-head { text-align: center; margin-bottom: 24px; }
+.pricing-tier {
+  font-family: 'JetBrains Mono', 'IBM Plex Mono', monospace;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: .16em;
+  color: var(--ink);
+  display: block;
+  margin-bottom: 8px;
+}
+.pricing-card--featured .pricing-tier { color: var(--accent-ink); }
+.pricing-tier-sub {
+  font-size: 13px;
+  color: var(--muted);
+  font-weight: 500;
+  margin: 0;
+}
+
+.pricing-price {
+  text-align: center;
+  background: rgba(14, 34, 64, .04);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 20px 16px;
+  margin-bottom: 22px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+.pricing-card--featured .pricing-price {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: #fff;
+}
+.pricing-price-amount,
+.pricing-price-recurring {
+  font-family: 'Instrument Serif', serif;
+  font-size: clamp(22px, 3vw, 28px);
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  line-height: 1.1;
+}
+.pricing-price-plus {
+  color: var(--muted);
+  font-size: 14px;
+}
+.pricing-card--featured .pricing-price-plus { color: rgba(255,255,255,.6); }
+
+.pricing-card-desc {
+  font-size: 14.5px;
+  line-height: 1.55;
+  color: var(--ink-2);
+  margin: 0 0 22px;
+  text-align: center;
+}
+
+.pricing-features {
+  list-style: none;
+  margin: 0 0 28px;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  flex-grow: 1;
+}
+.pricing-features li {
+  font-size: 14.5px;
+  line-height: 1.45;
+  color: var(--ink-2);
+  padding-left: 22px;
+  position: relative;
+}
+.pricing-features li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 8px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+.pricing-cta {
+  width: 100%;
+  justify-content: center;
+  text-align: center;
+}
+
+@media (min-width: 880px) {
+  .pricing-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 22px;
+    align-items: stretch;
+  }
+  .pricing-card { padding: 36px 28px; }
+  .pricing-card--featured { transform: translateY(-8px); }
+  .pricing-card--featured:hover { transform: translateY(-11px); }
+}
+
+@media (max-width: 720px) {
+  .pricing { padding: 100px 0; }
+  .pricing-head { margin-bottom: 40px; }
+  .pricing-card { padding: 28px 24px; }
+}
+
 /* Respect users who prefer reduced motion */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
