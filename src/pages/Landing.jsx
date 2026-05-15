@@ -711,6 +711,39 @@ const Landing = () => {
                 </Link>
               </article>
             </div>
+
+            {/* CUSTOM tier — full-width banner card below the grid, for
+                the "talk to us" path. Dark surface to distinguish it
+                from the three self-serve tiers above. */}
+            <aside className="pricing-custom">
+              <div className="pricing-custom-content">
+                <span className="pricing-tier">CUSTOM</span>
+                <h3>For businesses with unique requirements.</h3>
+                <p>
+                  Need something the plans above don&apos;t cover? Custom integrations, multi-location operations, bespoke AI workflows, or anything outside the boxes &mdash; let&apos;s design a system that fits exactly what your business needs.
+                </p>
+                <ul className="pricing-custom-features">
+                  <li>Everything in Pro, plus whatever else your business actually needs</li>
+                  <li>Custom integrations with your existing tools and stack</li>
+                  <li>Tailored AI workflows and automations</li>
+                  <li>Multi-location and franchise-ready setups</li>
+                </ul>
+              </div>
+              <div className="pricing-custom-cta">
+                <span className="pricing-custom-price">Let&apos;s talk</span>
+                <p className="pricing-custom-price-sub">
+                  Scope and pricing mapped during a free strategy call.
+                </p>
+                <Link
+                  to="/strategy-call"
+                  className="btn btn-primary pricing-cta"
+                  data-cta="signup-custom"
+                  data-source="pricing"
+                >
+                  Book a Strategy Call
+                </Link>
+              </div>
+            </aside>
           </div>
         </section>
 
