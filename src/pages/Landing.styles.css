@@ -1443,6 +1443,107 @@ input:focus-visible,
   .pricing-card { padding: 28px 24px; }
 }
 
+/* CUSTOM tier — full-width banner below the 3-tier grid, dark surface
+ * so it reads as "talk to us" instead of a 4th self-serve column. */
+.pricing-custom {
+  max-width: 1200px;
+  margin: 28px auto 0;
+  background: var(--ink);
+  color: #fff;
+  border-radius: 22px;
+  padding: 32px 28px;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+}
+.pricing-custom .pricing-tier { color: var(--accent-soft); }
+.pricing-custom h3 {
+  font-family: 'Instrument Serif', serif;
+  font-weight: 400;
+  font-size: clamp(24px, 3.4vw, 32px);
+  line-height: 1.15;
+  letter-spacing: -0.015em;
+  margin: 8px 0 12px;
+}
+.pricing-custom-content p {
+  font-size: 15px;
+  line-height: 1.55;
+  color: rgba(255, 255, 255, .8);
+  margin: 0 0 18px;
+}
+
+.pricing-custom-features {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.pricing-custom-features li {
+  font-size: 14.5px;
+  line-height: 1.45;
+  color: rgba(255, 255, 255, .85);
+  padding-left: 22px;
+  position: relative;
+}
+.pricing-custom-features li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 8px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent-soft);
+}
+
+.pricing-custom-cta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+  padding-top: 20px;
+  border-top: 1px solid rgba(255, 255, 255, .12);
+}
+.pricing-custom-price {
+  font-family: 'Instrument Serif', serif;
+  font-size: clamp(22px, 3vw, 28px);
+  letter-spacing: -0.01em;
+  line-height: 1.1;
+}
+.pricing-custom-price-sub {
+  font-size: 13px;
+  color: rgba(255, 255, 255, .6);
+  margin: 4px 0 16px;
+  line-height: 1.45;
+}
+/* Invert the CTA against the dark surface */
+.pricing-custom .pricing-cta {
+  background: var(--bg);
+  color: var(--ink);
+}
+.pricing-custom .pricing-cta:hover {
+  background: var(--accent);
+  color: var(--bg);
+  transform: translateY(-2px);
+}
+
+@media (min-width: 880px) {
+  .pricing-custom {
+    grid-template-columns: 2fr 1fr;
+    gap: 48px;
+    padding: 44px 40px;
+    align-items: center;
+  }
+  .pricing-custom-cta {
+    padding-top: 0;
+    padding-left: 32px;
+    border-top: 0;
+    border-left: 1px solid rgba(255, 255, 255, .12);
+  }
+}
+
 /* Respect users who prefer reduced motion */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
