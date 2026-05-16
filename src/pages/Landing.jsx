@@ -162,6 +162,7 @@ const Landing = () => {
             <a href="#audit">How It Works</a>
             <a href="#why">Why It Works</a>
             <a href="#about">About</a>
+            <a href="#pricing">Pricing</a>
             <Link to="/strategy-call" className="nav-cta" data-cta="strategy-call" data-source="nav">
               <span className="pill" aria-hidden="true"></span>
               <span style={{ color: 'rgb(255, 255, 255)' }}>Book a Strategy Call</span>
@@ -184,6 +185,7 @@ const Landing = () => {
           <a href="#audit" onClick={() => setMenuOpen(false)}>How It Works</a>
           <a href="#why" onClick={() => setMenuOpen(false)}>Why It Works</a>
           <a href="#about" onClick={() => setMenuOpen(false)}>About</a>
+          <a href="#pricing" onClick={() => setMenuOpen(false)}>Pricing</a>
           <Link
             to="/strategy-call"
             className="nav-cta"
