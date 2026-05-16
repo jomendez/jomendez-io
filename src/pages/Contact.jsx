@@ -40,9 +40,18 @@ const Contact = () => {
   // navigate here with this param so the visitor sees which plan
   // they chose and the GHL form prefills its hidden "selected_plan"
   // field.
+  //
+  // We normalize the incoming value (trim + lowercase) before the
+  // allow-list lookup so a hand-edited URL like ?selected_plan=Growth
+  // or ?selected_plan=%20growth still resolves — and, crucially, the
+  // value we forward to the GHL iframe is always the canonical
+  // lowercase form. That keeps GHL contact records consistent and
+  // easier to segment.
   const [searchParams] = useSearchParams()
   const rawPlan = searchParams.get('selected_plan')
-  const planKey = rawPlan && ALLOWED_PLANS[rawPlan] ? rawPlan : null
+  const normalizedPlan = rawPlan ? rawPlan.trim().toLowerCase() : null
+  const planKey =
+    normalizedPlan && ALLOWED_PLANS[normalizedPlan] ? normalizedPlan : null
   const planLabel = planKey ? ALLOWED_PLANS[planKey] : null
 
   // Iframe src includes the plan param when present. GHL's form
