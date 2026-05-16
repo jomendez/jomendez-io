@@ -640,7 +640,7 @@ const Landing = () => {
                   <li>1 Website Edit Per Month</li>
                 </ul>
                 <Link
-                  to="/contact"
+                  to="/contact?selected_plan=starter"
                   className="btn btn-primary pricing-cta"
                   data-cta="signup-starter"
                   data-source="pricing"
@@ -672,7 +672,7 @@ const Landing = () => {
                   <li>3 Website Edits Per Month</li>
                 </ul>
                 <Link
-                  to="/contact"
+                  to="/contact?selected_plan=growth"
                   className="btn btn-primary pricing-cta"
                   data-cta="signup-growth"
                   data-source="pricing"
@@ -704,7 +704,7 @@ const Landing = () => {
                   <li>5 Website Edits Per Month</li>
                 </ul>
                 <Link
-                  to="/contact"
+                  to="/contact?selected_plan=pro"
                   className="btn btn-primary pricing-cta"
                   data-cta="signup-pro"
                   data-source="pricing"

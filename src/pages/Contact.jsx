@@ -1,7 +1,21 @@
 import { useEffect } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useSearchParams } from 'react-router-dom'
 import baseStylesCss from './Landing.styles.css?raw'
 import pageStylesCss from './Contact.styles.css?raw'
+
+// Plans the pricing CTAs can send us via ?selected_plan=. Anything
+// outside this set is ignored, so a stray/garbage param can't render
+// a misleading banner or get prefilled into the GHL form.
+const ALLOWED_PLANS = {
+  starter: 'Starter',
+  growth: 'Growth',
+  pro: 'Pro',
+}
+
+// GHL form base URL — kept as a constant so the planned-aware src
+// builder below stays readable.
+const GHL_FORM_BASE =
+  'https://brand.jomendez.io/widget/form/rbLM1qamIBtu5HfAiUuZ'
 
 /**
  * /contact — dedicated contact page.
@@ -22,6 +36,31 @@ const FONTS_HREF =
   'https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap'
 
 const Contact = () => {
+  // Read ?selected_plan= from the URL. The pricing CTAs on /
+  // navigate here with this param so the visitor sees which plan
+  // they chose and the GHL form prefills its hidden "selected_plan"
+  // field.
+  //
+  // We normalize the incoming value (trim + lowercase) before the
+  // allow-list lookup so a hand-edited URL like ?selected_plan=Growth
+  // or ?selected_plan=%20growth still resolves — and, crucially, the
+  // value we forward to the GHL iframe is always the canonical
+  // lowercase form. That keeps GHL contact records consistent and
+  // easier to segment.
+  const [searchParams] = useSearchParams()
+  const rawPlan = searchParams.get('selected_plan')
+  const normalizedPlan = rawPlan ? rawPlan.trim().toLowerCase() : null
+  const planKey =
+    normalizedPlan && ALLOWED_PLANS[normalizedPlan] ? normalizedPlan : null
+  const planLabel = planKey ? ALLOWED_PLANS[planKey] : null
+
+  // Iframe src includes the plan param when present. GHL's form
+  // builder picks it up via the field's "URL Parameter" mapping
+  // (configured on the GHL side to read `selected_plan`).
+  const iframeSrc = planKey
+    ? `${GHL_FORM_BASE}?selected_plan=${encodeURIComponent(planKey)}`
+    : GHL_FORM_BASE
+
   // Inject Google Fonts only while this page is mounted
   useEffect(() => {
     const link = document.createElement('link')
@@ -175,13 +214,23 @@ const Contact = () => {
               <p>Fill out the form and we&apos;ll be in touch within one business day.</p>
             </div>
 
+            {/* Selected-plan banner — only renders when the visitor
+                arrived from one of the pricing CTAs. Mirrors the value
+                that the GHL form's hidden field receives, so the
+                visitor sees what's being submitted on their behalf. */}
+            {planLabel && (
+              <div className="ct-plan-banner" role="status" aria-live="polite">
+                You selected the <strong>{planLabel}</strong> plan.
+              </div>
+            )}
+
             {/* GHL contact form. The iframe height starts at the GHL-
                 provided data-height value; form_embed.js then sends
                 postMessage events to adjust the iframe height as the
                 form's content grows or shrinks. */}
             <div className="ct-form-host">
               <iframe
-                src="https://brand.jomendez.io/widget/form/rbLM1qamIBtu5HfAiUuZ"
+                src={iframeSrc}
                 style={{ width: '100%', height: '878px', border: 'none', borderRadius: '3px' }}
                 id="inline-rbLM1qamIBtu5HfAiUuZ"
                 data-layout="{'id':'INLINE'}"
