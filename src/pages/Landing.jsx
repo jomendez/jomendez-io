@@ -3,45 +3,16 @@ import { Link } from 'react-router-dom'
 import stylesCss from './Landing.styles.css?raw'
 import AuditRadar, { AUDIT_DIMENSIONS } from '../components/AuditRadar'
 import { ensureAnonymousAuth } from '../services/auth'
-
-// Two CTA buttons used in the hero, audit-cta, and final sections.
-// "Get free business audit" routes to /free-audit (GHL Prospecting
-// Widget). "Book a Strategy Call" routes to /strategy-call (GHL
-// calendar widget). The data-cta / data-source attributes are the
-// hook for analytics tracking.
-const CtaButtons = ({ source }) => (
-  <div className="cta-buttons">
-    <Link
-      to="/free-audit"
-      className="btn btn-primary"
-      data-cta="free-audit"
-      data-source={source}
-    >
-      Get free business audit
-    </Link>
-    <Link
-      to="/strategy-call"
-      className="btn btn-outline"
-      data-cta="strategy-call"
-      data-source={source}
-    >
-      Book a Strategy Call
-    </Link>
-  </div>
-)
+import { useContent } from '../i18n/LanguageContext'
+import LanguageToggle from '../i18n/LanguageToggle'
+import landingContent from '../i18n/content/landing'
 
 /**
- * The new homepage — single-purpose: get a non-technical small-business
- * owner to join the waitlist for the 8-Point Business Audit.
- *
- * Visual system is shared with the previous landing (now /old-site):
- * Inter + Instrument Serif + JetBrains Mono on the same color tokens.
- * Styles live in Landing.styles.css and are injected as a scoped <style>
- * tag so they only apply while this route is mounted.
- *
- * The form is a single reusable <WaitlistForm /> component used in three
- * places (hero, audit-cta, final-cta). The radar chart in the audit
- * section is the brand's signature graphic — see AuditRadar.jsx.
+ * The homepage (/). Bilingual — all copy comes from the per-language
+ * content module (src/i18n/content/landing.jsx); the active slice is
+ * read with useContent(). The visual system is unchanged: Inter +
+ * Instrument Serif + JetBrains Mono on the same color tokens, styles
+ * injected as a scoped <style> tag from Landing.styles.css.
  *
  * The previous homepage is preserved at /old-site (see App.jsx).
  */
@@ -49,32 +20,85 @@ const CtaButtons = ({ source }) => (
 const FONTS_HREF =
   'https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap'
 
-// 8 dimensions, each with the one-line description from the brief.
-// Order matches AUDIT_DIMENSIONS so the list reads in the same order as
-// the radar chart axes (top-clockwise).
-const AUDIT_DETAIL = [
-  { name: 'Online Visibility', desc: 'Can the right customers actually find you?' },
-  { name: 'Lead Capture', desc: 'Is your website turning visitors into contacts?' },
-  { name: 'Lead Response', desc: 'How fast do new inquiries hear back from you?' },
-  { name: 'Customer Retention', desc: 'Are past customers coming back — and sending referrals?' },
-  { name: 'Operations & Time', desc: 'Where are the manual tasks eating your week?' },
-  { name: 'Marketing Engine', desc: 'Is your content driving leads, or just creating busy work?' },
-  { name: 'Financial Clarity', desc: 'Do you actually see your pipeline and your real numbers?' },
-  { name: 'Tech Stack', desc: 'Are your tools working together, or fighting each other?' },
-]
+// Pricing tier order → /contact plan slug + analytics data-cta value.
+const PLAN_SLUGS = ['starter', 'growth', 'pro']
 
-// Sanity check: keep the radar's labels in lockstep with the detail list.
-// If they ever drift, this fires in dev so we don't ship a mismatch.
+// Sanity check: the translated audit dimension lists must stay the same
+// length as the radar's axes (the radar renders its own English labels).
 if (
-  AUDIT_DIMENSIONS.length !== AUDIT_DETAIL.length ||
-  AUDIT_DIMENSIONS.some((d, i) => d !== AUDIT_DETAIL[i].name)
+  landingContent.en.audit.dimensions.length !== AUDIT_DIMENSIONS.length ||
+  landingContent.es.audit.dimensions.length !== AUDIT_DIMENSIONS.length
 ) {
   console.warn(
-    'AUDIT_DIMENSIONS (radar) and AUDIT_DETAIL (list) are out of sync. Order matters.'
+    'Audit dimension lists are out of sync with the radar axes. Order matters.'
+  )
+}
+
+// Section icons live in the component (they're JSX, not copy) and are
+// zipped with the translated card content by index.
+const LEAK_ICONS = [
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+    <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83" />
+    <circle cx="12" cy="12" r="3" />
+  </svg>,
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+    <circle cx="12" cy="12" r="10" />
+    <path d="M12 6v6l4 2" />
+  </svg>,
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+    <path d="M12 2v20M17 6c-1-2-3-3-5-3-3 0-5 1.5-5 4 0 6 11 4 11 10 0 2.5-2.5 4-5.5 4-2.5 0-4.5-1-5.5-3" />
+  </svg>,
+]
+
+const CAPABILITY_ICONS = [
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+    <circle cx="12" cy="12" r="10" />
+    <path d="M2 12h20M12 2a15.3 15.3 0 0 1 0 20M12 2a15.3 15.3 0 0 0 0 20" />
+  </svg>,
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+    <circle cx="12" cy="12" r="3" />
+    <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09a1.65 1.65 0 0 0-1-1.51 1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09a1.65 1.65 0 0 0 1.51-1 1.65 1.65 0 0 0-.33-1.82l-.06-.06A2 2 0 1 1 7.04 4.96l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z" />
+  </svg>,
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+    <path d="M12 2l2.4 6.6L21 11l-6.6 2.4L12 20l-2.4-6.6L3 11l6.6-2.4L12 2z" />
+    <path d="M19 3v4M21 5h-4M5 17v4M7 19H3" />
+  </svg>,
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+    <path d="M3 3v18h18" />
+    <path d="M7 14l4-4 3 3 5-6" />
+    <path d="M14 7h5v5" />
+  </svg>,
+]
+
+// Two CTA buttons used in the hero, audit-cta, and final sections.
+// "Get free business audit" routes to /free-audit; "Book a Strategy
+// Call" routes to /strategy-call. data-cta / data-source feed analytics.
+const CtaButtons = ({ source }) => {
+  const t = useContent(landingContent)
+  return (
+    <div className="cta-buttons">
+      <Link
+        to="/free-audit"
+        className="btn btn-primary"
+        data-cta="free-audit"
+        data-source={source}
+      >
+        {t.cta.freeAudit}
+      </Link>
+      <Link
+        to="/strategy-call"
+        className="btn btn-outline"
+        data-cta="strategy-call"
+        data-source={source}
+      >
+        {t.cta.bookCall}
+      </Link>
+    </div>
   )
 }
 
 const Landing = () => {
+  const t = useContent(landingContent)
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
   const heroRef = useRef(null)
@@ -98,15 +122,14 @@ const Landing = () => {
     }
   }, [])
 
-  // Tab title — restored on unmount so other routes keep their own titles
+  // Tab title — follows the active language; restored on unmount.
   useEffect(() => {
     const prev = document.title
-    document.title =
-      'Jomendez Inc \u2014 Smart websites & AI-powered sales systems for local businesses.'
+    document.title = t.meta.title
     return () => {
       document.title = prev
     }
-  }, [])
+  }, [t.meta.title])
 
   // Eager anonymous auth so the first form submit doesn't pay the auth
   // cost. Failure is non-fatal — submitWaitlist will retry.
@@ -152,26 +175,44 @@ const Landing = () => {
       />
 
       {/* NAV */}
-      <nav className={`nav${scrolled ? ' scrolled' : ''}`} aria-label="Primary">
+      <nav
+        className={`nav${scrolled ? ' scrolled' : ''}`}
+        aria-label={t.a11y.primaryNav}
+      >
         <div className="nav-inner">
-          <a href="#top" className="nav-logo" aria-label="Jomendez Inc home">
-            <img src="/landing/jm-logo.webp" alt="" className="brand-mark" width="36" height="36" decoding="async" />
+          <a href="#top" className="nav-logo" aria-label={t.a11y.homeLink}>
+            <img
+              src="/landing/jm-logo.webp"
+              alt=""
+              className="brand-mark"
+              width="36"
+              height="36"
+              decoding="async"
+            />
             <span className="mono micro">JOMENDEZ / INC</span>
           </a>
           <div className="nav-links">
-            <a href="#audit">How It Works</a>
-            <a href="#why">Why It Works</a>
-            <a href="#about">About</a>
-            <a href="#pricing">Pricing</a>
-            <Link to="/strategy-call" className="nav-cta" data-cta="strategy-call" data-source="nav">
+            <a href="#audit">{t.nav.howItWorks}</a>
+            <a href="#why">{t.nav.whyItWorks}</a>
+            <a href="#about">{t.nav.about}</a>
+            <a href="#pricing">{t.nav.pricing}</a>
+            <LanguageToggle />
+            <Link
+              to="/strategy-call"
+              className="nav-cta"
+              data-cta="strategy-call"
+              data-source="nav"
+            >
               <span className="pill" aria-hidden="true"></span>
-              <span style={{ color: 'rgb(255, 255, 255)' }}>Book a Strategy Call</span>
+              <span style={{ color: 'rgb(255, 255, 255)' }}>
+                {t.cta.bookCall}
+              </span>
             </Link>
           </div>
           <button
             className={`nav-hamburger${menuOpen ? ' is-open' : ''}`}
             onClick={() => setMenuOpen((v) => !v)}
-            aria-label={menuOpen ? 'Close menu' : 'Open menu'}
+            aria-label={menuOpen ? t.a11y.closeMenu : t.a11y.openMenu}
             aria-expanded={menuOpen}
           >
             <span /><span /><span />
@@ -181,11 +222,20 @@ const Landing = () => {
 
       {/* Mobile menu overlay */}
       {menuOpen && (
-        <div className="mobile-menu" aria-label="Mobile navigation">
-          <a href="#audit" onClick={() => setMenuOpen(false)}>How It Works</a>
-          <a href="#why" onClick={() => setMenuOpen(false)}>Why It Works</a>
-          <a href="#about" onClick={() => setMenuOpen(false)}>About</a>
-          <a href="#pricing" onClick={() => setMenuOpen(false)}>Pricing</a>
+        <div className="mobile-menu" aria-label={t.a11y.mobileNav}>
+          <a href="#audit" onClick={() => setMenuOpen(false)}>
+            {t.nav.howItWorks}
+          </a>
+          <a href="#why" onClick={() => setMenuOpen(false)}>
+            {t.nav.whyItWorks}
+          </a>
+          <a href="#about" onClick={() => setMenuOpen(false)}>
+            {t.nav.about}
+          </a>
+          <a href="#pricing" onClick={() => setMenuOpen(false)}>
+            {t.nav.pricing}
+          </a>
+          <LanguageToggle className="lang-toggle--block" />
           <Link
             to="/strategy-call"
             className="nav-cta"
@@ -194,7 +244,7 @@ const Landing = () => {
             onClick={() => setMenuOpen(false)}
           >
             <span className="pill" aria-hidden="true"></span>
-            <span>Book a Strategy Call</span>
+            <span>{t.cta.bookCall}</span>
           </Link>
         </div>
       )}
@@ -208,27 +258,19 @@ const Landing = () => {
             <div className="hero-grid">
               <div className="hero-content">
                 <div className="hero-eyebrow mono micro">
-                  &mdash; FRACTIONAL CTO / GROWTH SYSTEMS FOR LOCAL BUSINESSES
+                  {t.hero.eyebrow}
                 </div>
-                <h1 className="hero-headline">
-                  Smart <em>websites</em> that help local businesses capture and convert more leads.
-                </h1>
-                <p className="hero-sub">
-                  I build the website, CRM, booking, AI chat, and automated follow-up system that helps you respond faster, stay organized, and turn more inquiries into customers &mdash; without adding more work to your day.
-                </p>
+                <h1 className="hero-headline">{t.hero.headline}</h1>
+                <p className="hero-sub">{t.hero.sub}</p>
                 <div className="hero-cta-stack">
                   <CtaButtons source="hero" />
-                  <p className="hero-cta-fineprint">
-                    Free business audit. No pitch, no obligation.
-                  </p>
+                  <p className="hero-cta-fineprint">{t.hero.fineprint}</p>
                 </div>
               </div>
 
               <div className="hero-portrait">
                 {/* WebP source + PNG fallback so we serve modern formats
-                    where supported and degrade gracefully where not. The
-                    same asset pair is used by /old-site, so the browser
-                    cache is shared between routes. */}
+                    where supported and degrade gracefully where not. */}
                 <picture>
                   <source srcSet="/landing/images/hero_portrait.webp" type="image/webp" />
                   <img
@@ -251,11 +293,7 @@ const Landing = () => {
                 </div>
                 <div className="hero-portrait-meta">
                   <span className="mono micro">JOMENDEZ / INC</span>
-                  <h3>
-                    The system behind
-                    <br />
-                    your website.
-                  </h3>
+                  <h3>{t.hero.portraitTagline}</h3>
                 </div>
               </div>
             </div>
@@ -263,17 +301,10 @@ const Landing = () => {
         </section>
 
         {/* ---- TRUST STRIP ---- */}
-        <section className="trust" aria-label="Engineering experience">
+        <section className="trust" aria-label={t.a11y.trust}>
           <div className="wrap-wide trust-inner">
-            <p className="mono micro trust-label">
-              Disciplined engineering
-              <br />
-              background
-            </p>
+            <p className="mono micro trust-label">{t.trust.label}</p>
             <div className="trust-logos">
-              {/* TODO: drop in real Amazon / VMware / Well Health logo
-                  SVGs at /landing/logos/{amazon,vmware,well-health}.svg
-                  (placeholders are in place). */}
               <span className="trust-logo" aria-label="Amazon">
                 <img src="/landing/logos/amazon.svg" alt="Amazon" />
               </span>
@@ -294,59 +325,29 @@ const Landing = () => {
           <div className="wrap">
             <div className="problem-head">
               <div>
-                <span className="eyebrow micro">THE REAL PROBLEM</span>
-                <h2>
-                  A website alone doesn&apos;t capture and convert leads.
-                  <br />
-                  The <em>system behind it</em> does.
-                </h2>
+                <span className="eyebrow micro">{t.problem.eyebrow}</span>
+                <h2>{t.problem.heading}</h2>
               </div>
               <div className="problem-body">
-                <p>
-                  Whether you already have a website, you&apos;re replacing one that isn&apos;t working, or you&apos;re launching your business from scratch &mdash; the goal is the same: every lead captured, every inquiry followed up with, every appointment booked. Most businesses never get there because nobody built the system underneath.
-                </p>
-                <p>
-                  Inquiries arrive from referrals, social, ads, and walk-ins. They land in different places &mdash; phone, DMs, email, a sticky note &mdash; and the ones that don&apos;t get a fast, organized response quietly disappear.
-                </p>
-                <p>
-                  What&apos;s missing isn&apos;t another pretty page. It&apos;s one place to catch every lead, one clear process for following up, and the automation to keep it running while you focus on the work.
-                </p>
+                {t.problem.body.map((p, i) => (
+                  <p key={i}>{p}</p>
+                ))}
               </div>
             </div>
 
-            <div className="leaks" aria-label="Three places where small businesses lose money">
-              <div className="leak">
-                <span className="leak-num mono micro">01</span>
-                <div className="leak-icon" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-                    <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83" />
-                    <circle cx="12" cy="12" r="3" />
-                  </svg>
+            <div className="leaks" aria-label={t.a11y.leaks}>
+              {t.problem.leaks.map((leak, i) => (
+                <div className="leak" key={i}>
+                  <span className="leak-num mono micro">
+                    {String(i + 1).padStart(2, '0')}
+                  </span>
+                  <div className="leak-icon" aria-hidden="true">
+                    {LEAK_ICONS[i]}
+                  </div>
+                  <h3>{leak.title}</h3>
+                  <p>{leak.desc}</p>
                 </div>
-                <h3>Leads that never get a reply</h3>
-                <p>Inquiries arrive while you&apos;re with a customer, on a job, or asleep. With nothing set up to catch and respond, they quietly go to a competitor.</p>
-              </div>
-              <div className="leak">
-                <span className="leak-num mono micro">02</span>
-                <div className="leak-icon" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-                    <circle cx="12" cy="12" r="10" />
-                    <path d="M12 6v6l4 2" />
-                  </svg>
-                </div>
-                <h3>Hours lost to manual work</h3>
-                <p>Copying contacts between notebooks and apps, sending the same messages by hand, chasing no-shows, and juggling tools that don&apos;t talk to each other.</p>
-              </div>
-              <div className="leak">
-                <span className="leak-num mono micro">03</span>
-                <div className="leak-icon" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-                    <path d="M12 2v20M17 6c-1-2-3-3-5-3-3 0-5 1.5-5 4 0 6 11 4 11 10 0 2.5-2.5 4-5.5 4-2.5 0-4.5-1-5.5-3" />
-                  </svg>
-                </div>
-                <h3>Customers who never come back</h3>
-                <p>With no plan for follow-up, reviews, or reactivation, every customer is a one-and-done. Your best source of future revenue stays cold.</p>
-              </div>
+              ))}
             </div>
           </div>
         </section>
@@ -358,65 +359,27 @@ const Landing = () => {
           <div className="wrap">
             <div className="promise-head">
               <div>
-                <span className="eyebrow micro">THE SYSTEM</span>
-                <h2>
-                  A complete lead conversion system, <em>built around your business.</em>
-                </h2>
+                <span className="eyebrow micro">{t.promise.eyebrow}</span>
+                <h2>{t.promise.heading}</h2>
               </div>
               <div className="promise-body">
-                <p>
-                  Not just a website. Your website, CRM, booking, AI chat, and automated follow-up all working together as one system &mdash; so every lead gets captured, every inquiry gets a fast response, and nothing falls through the cracks.
-                </p>
-                <p>Simple for your team. Powerful behind the scenes. You don&apos;t need to learn any of it &mdash; that&apos;s my job.</p>
+                {t.promise.body.map((p, i) => (
+                  <p key={i}>{p}</p>
+                ))}
               </div>
             </div>
 
-            <div className="capabilities" aria-label="What I build">
-              <article className="capability">
-                <div className="capability-icon" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-                    <circle cx="12" cy="12" r="10" />
-                    <path d="M2 12h20M12 2a15.3 15.3 0 0 1 0 20M12 2a15.3 15.3 0 0 0 0 20" />
-                  </svg>
-                </div>
-                <span className="micro meta">CAPABILITY 01</span>
-                <h3>Smart Business Websites</h3>
-                <p>Fast, professional sites built to capture leads &mdash; not just look good. Designed to turn visitors into booked appointments.</p>
-              </article>
-              <article className="capability">
-                <div className="capability-icon" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-                    <circle cx="12" cy="12" r="3" />
-                    <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09a1.65 1.65 0 0 0-1-1.51 1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09a1.65 1.65 0 0 0 1.51-1 1.65 1.65 0 0 0-.33-1.82l-.06-.06A2 2 0 1 1 7.04 4.96l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z" />
-                  </svg>
-                </div>
-                <span className="micro meta">CAPABILITY 02</span>
-                <h3>CRM &amp; Lead Pipeline</h3>
-                <p>Every lead in one place, with a clear next step for each one. Real visibility into your pipeline &mdash; no spreadsheets, no guessing.</p>
-              </article>
-              <article className="capability">
-                <div className="capability-icon" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-                    <path d="M12 2l2.4 6.6L21 11l-6.6 2.4L12 20l-2.4-6.6L3 11l6.6-2.4L12 2z" />
-                    <path d="M19 3v4M21 5h-4M5 17v4M7 19H3" />
-                  </svg>
-                </div>
-                <span className="micro meta">CAPABILITY 03</span>
-                <h3>AI Chat &amp; Automated Follow-Up</h3>
-                <p>Reply to new leads in seconds. Send reminders and follow-ups automatically. An AI assistant answers common questions 24/7.</p>
-              </article>
-              <article className="capability">
-                <div className="capability-icon" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-                    <path d="M3 3v18h18" />
-                    <path d="M7 14l4-4 3 3 5-6" />
-                    <path d="M14 7h5v5" />
-                  </svg>
-                </div>
-                <span className="micro meta">CAPABILITY 04</span>
-                <h3>Booking &amp; Customer Reactivation</h3>
-                <p>Online booking, review collection, and win-back campaigns that bring quiet customers back &mdash; without you lifting a finger.</p>
-              </article>
+            <div className="capabilities" aria-label={t.a11y.capabilities}>
+              {t.promise.capabilities.map((cap, i) => (
+                <article className="capability" key={i}>
+                  <div className="capability-icon" aria-hidden="true">
+                    {CAPABILITY_ICONS[i]}
+                  </div>
+                  <span className="micro meta">{cap.label}</span>
+                  <h3>{cap.title}</h3>
+                  <p>{cap.desc}</p>
+                </article>
+              ))}
             </div>
           </div>
         </section>
@@ -428,18 +391,13 @@ const Landing = () => {
           <div className="wrap">
             <div className="audit-head">
               <div>
-                <span className="eyebrow micro">WHEN WE WORK TOGETHER</span>
-                <h2>
-                  The 8-Point <em>Business Audit</em>
-                </h2>
+                <span className="eyebrow micro">{t.audit.eyebrow}</span>
+                <h2>{t.audit.heading}</h2>
               </div>
               <div className="audit-body">
-                <p>
-                  When we start working together, the 8-Point Business Audit is the first thing we run. It&apos;s a deep, tailored look at where your business stands across the eight dimensions that drive growth &mdash; the discovery work that shapes every system we build for you, so what you end up with fits your business and not a template.
-                </p>
-                <p>
-                  Different from the free instant audit, this one looks inside the business: operations, follow-up, retention, financial clarity, and the tools you already use &mdash; not just what&apos;s visible on the web.
-                </p>
+                {t.audit.body.map((p, i) => (
+                  <p key={i}>{p}</p>
+                ))}
               </div>
             </div>
 
@@ -448,10 +406,12 @@ const Landing = () => {
                 <AuditRadar />
               </div>
 
-              <ol className="audit-list" aria-label="The 8 audit dimensions">
-                {AUDIT_DETAIL.map((d, i) => (
-                  <li className="audit-dim" key={d.name}>
-                    <span className="audit-dim-num">{String(i + 1).padStart(2, '0')} / {d.name.toUpperCase()}</span>
+              <ol className="audit-list" aria-label={t.a11y.auditDimensions}>
+                {t.audit.dimensions.map((d, i) => (
+                  <li className="audit-dim" key={i}>
+                    <span className="audit-dim-num">
+                      {String(i + 1).padStart(2, '0')} / {d.name.toUpperCase()}
+                    </span>
                     <span className="audit-dim-name">{d.name}</span>
                     <span className="audit-dim-desc">{d.desc}</span>
                   </li>
@@ -461,8 +421,8 @@ const Landing = () => {
 
             <div className="audit-cta">
               <div className="audit-cta-copy">
-                <h3>Ready to find what to build first?</h3>
-                <p>Book a short strategy call. If we&apos;re a fit, the 8-Point Business Audit is the first thing we run together &mdash; and it shapes everything that comes after.</p>
+                <h3>{t.audit.ctaHeading}</h3>
+                <p>{t.audit.ctaBody}</p>
               </div>
               <CtaButtons source="audit" />
             </div>
@@ -476,45 +436,26 @@ const Landing = () => {
           <div className="wrap">
             <div className="why-head">
               <div>
-                <span className="eyebrow micro">WHY THIS WORKS</span>
-                <h2>
-                  Not a basic website.
-                  <br />
-                  Not a <em>generic agency.</em>
-                </h2>
+                <span className="eyebrow micro">{t.why.eyebrow}</span>
+                <h2>{t.why.heading}</h2>
               </div>
               <div className="why-body">
-                <p>
-                  Most agencies stop at the website. The result looks fine, but every lead still depends on you remembering to follow up. I build the operational system behind the website &mdash; capture, CRM, booking, follow-up, AI &mdash; so every inquiry moves through a clear process, automatically.
-                </p>
-                <p>
-                  My background is in professional software engineering, but my focus is simple: helping local businesses use technology to respond faster, stay organized, and close more opportunities. The same disciplined approach used to build reliable systems at scale &mdash; applied to your business at your scale.
-                </p>
+                {t.why.body.map((p, i) => (
+                  <p key={i}>{p}</p>
+                ))}
               </div>
             </div>
 
             <div className="why-stats">
-              <div className="why-stat">
-                <div className="why-stat-num">15+ years</div>
-                <div className="why-stat-label">
-                  Building reliable systems
-                  <span className="why-stat-sub">across enterprise and high-growth startup environments.</span>
+              {t.why.stats.map((stat, i) => (
+                <div className="why-stat" key={i}>
+                  <div className="why-stat-num">{stat.num}</div>
+                  <div className="why-stat-label">
+                    {stat.label}
+                    <span className="why-stat-sub">{stat.sub}</span>
+                  </div>
                 </div>
-              </div>
-              <div className="why-stat">
-                <div className="why-stat-num">Fractional CTO</div>
-                <div className="why-stat-label">
-                  For local businesses
-                  <span className="why-stat-sub">the technical partner most small businesses can&apos;t justify hiring full-time.</span>
-                </div>
-              </div>
-              <div className="why-stat">
-                <div className="why-stat-num">Bilingual</div>
-                <div className="why-stat-label">
-                  US-based
-                  <span className="why-stat-sub">based in Miami, working with clients across the country.</span>
-                </div>
-              </div>
+              ))}
             </div>
           </div>
         </section>
@@ -549,19 +490,12 @@ const Landing = () => {
                 </div>
               </div>
               <div className="about-content">
-                <span className="eyebrow micro">ABOUT</span>
-                <h2>
-                  The technical partner most small businesses <em>never get.</em>
-                </h2>
-                <p>
-                  I started my career as an intern in Cuba, building internal tools for a company that couldn&apos;t afford anyone more experienced. Every job after that &mdash; Ecuador, Costa Rica, Miami, and into senior engineering work in the US &mdash; was the same pattern: walk into a business, find what&apos;s broken, build the system that fixes it.
-                </p>
-                <p>
-                  Somewhere along the way I realized the businesses that need this work the most are the ones run by people who hustled and built something real with their hands. They have the customers. They have the craft. What they&apos;re missing is the system behind it &mdash; the kind of digital operating system larger companies already use to capture, follow up, and convert.
-                </p>
-                <p>
-                  I built <strong>jomendez.io</strong> to bring that system to local businesses.
-                </p>
+                <span className="eyebrow micro">{t.about.eyebrow}</span>
+                <h2>{t.about.heading}</h2>
+                {t.about.body.map((p, i) => (
+                  <p key={i}>{p}</p>
+                ))}
+                <p>{t.about.bodyClosing}</p>
               </div>
             </div>
           </div>
@@ -573,30 +507,22 @@ const Landing = () => {
         <section className="path">
           <div className="wrap">
             <div className="path-head">
-              <span className="eyebrow micro">THE PATH</span>
-              <h2>
-                A clear path. <em>No surprises.</em>
-              </h2>
+              <span className="eyebrow micro">{t.path.eyebrow}</span>
+              <h2>{t.path.heading}</h2>
             </div>
             <ol className="path-steps">
-              <li className="path-step">
-                <span className="path-step-num serif">01</span>
-                <span className="path-step-eyebrow mono micro">STEP 01</span>
-                <h3>Book a strategy call</h3>
-                <p>A free 20-minute conversation about your business, your goals, and what a complete system would look like for you &mdash; whether you&apos;re launching, growing, or rebuilding.</p>
-              </li>
-              <li className="path-step">
-                <span className="path-step-num serif">02</span>
-                <span className="path-step-eyebrow mono micro">STEP 02</span>
-                <h3>Get your audit &amp; plan</h3>
-                <p>We walk through the 8-Point Business Audit together &mdash; a deep, tailored look at where your business stands across the eight dimensions that drive growth. You leave with a clear map of what to fix first.</p>
-              </li>
-              <li className="path-step">
-                <span className="path-step-num serif">03</span>
-                <span className="path-step-eyebrow mono micro">STEP 03</span>
-                <h3>Build your growth system</h3>
-                <p>Pick what matters most. I scope, I build, I hand it off &mdash; or we keep working together long-term. You stay in business mode. I handle the technology.</p>
-              </li>
+              {t.path.steps.map((step, i) => (
+                <li className="path-step" key={i}>
+                  <span className="path-step-num serif">
+                    {String(i + 1).padStart(2, '0')}
+                  </span>
+                  <span className="path-step-eyebrow mono micro">
+                    {step.label}
+                  </span>
+                  <h3>{step.title}</h3>
+                  <p>{step.desc}</p>
+                </li>
+              ))}
             </ol>
           </div>
         </section>
@@ -607,133 +533,66 @@ const Landing = () => {
         <section className="pricing" id="pricing">
           <div className="wrap">
             <div className="pricing-head">
-              <span className="eyebrow micro">PRICING</span>
-              <h2>
-                Our flexible <em>pricing</em> options.
-              </h2>
-              <p>Flexible plans tailored to your business needs.</p>
+              <span className="eyebrow micro">{t.pricing.eyebrow}</span>
+              <h2>{t.pricing.heading}</h2>
+              <p>{t.pricing.sub}</p>
             </div>
 
             <div className="pricing-grid">
-              {/* STARTER */}
-              <article className="pricing-card">
-                <header className="pricing-card-head">
-                  <span className="pricing-tier">STARTER</span>
-                  <p className="pricing-tier-sub">For Small Businesses &amp; Startups</p>
-                </header>
-                <div className="pricing-price">
-                  <span className="pricing-price-amount">$1,000 Setup</span>
-                  <span className="pricing-price-plus">+</span>
-                  <span className="pricing-price-recurring">$97/Month</span>
-                </div>
-                <p className="pricing-card-desc">
-                  Get started with a sleek, mobile-friendly website designed to capture leads and improve your online presence.
-                </p>
-                <ul className="pricing-features">
-                  <li>3-Page Website</li>
-                  <li>Desktop and Mobile Friendly Site</li>
-                  <li>On-Page Website SEO</li>
-                  <li>Contact Form</li>
-                  <li>Chat Widget</li>
-                  <li>SMS and Email Automations</li>
-                  <li>1 Website Edit Per Month</li>
-                </ul>
-                <Link
-                  to="/contact?selected_plan=starter"
-                  className="btn btn-primary pricing-cta"
-                  data-cta="signup-starter"
-                  data-source="pricing"
+              {t.pricing.tiers.map((tier, i) => (
+                <article
+                  className={`pricing-card${i === 1 ? ' pricing-card--featured' : ''}`}
+                  key={i}
                 >
-                  Sign up now
-                </Link>
-              </article>
-
-              {/* GROWTH — featured */}
-              <article className="pricing-card pricing-card--featured">
-                <header className="pricing-card-head">
-                  <span className="pricing-tier">GROWTH</span>
-                  <p className="pricing-tier-sub">For Scaling Businesses &amp; Entrepreneurs</p>
-                </header>
-                <div className="pricing-price">
-                  <span className="pricing-price-amount">$2,000 Setup</span>
-                  <span className="pricing-price-plus">+</span>
-                  <span className="pricing-price-recurring">$297/Month</span>
-                </div>
-                <p className="pricing-card-desc">
-                  Scale your business with advanced SEO, automation, and lead management tools to maximize conversions.
-                </p>
-                <ul className="pricing-features">
-                  <li>5-Page Website</li>
-                  <li>Everything in Starter, PLUS:</li>
-                  <li>Calendar Booking System</li>
-                  <li>Payment Processing</li>
-                  <li>Google Review Automation/Widget</li>
-                  <li>3 Website Edits Per Month</li>
-                </ul>
-                <Link
-                  to="/contact?selected_plan=growth"
-                  className="btn btn-primary pricing-cta"
-                  data-cta="signup-growth"
-                  data-source="pricing"
-                >
-                  Sign up now
-                </Link>
-              </article>
-
-              {/* PRO */}
-              <article className="pricing-card">
-                <header className="pricing-card-head">
-                  <span className="pricing-tier">PRO</span>
-                  <p className="pricing-tier-sub">For High-Performing Brands &amp; Enterprises</p>
-                </header>
-                <div className="pricing-price">
-                  <span className="pricing-price-amount">$3,000 Setup</span>
-                  <span className="pricing-price-plus">+</span>
-                  <span className="pricing-price-recurring">$697/Month</span>
-                </div>
-                <p className="pricing-card-desc">
-                  Unlock full automation, premium customization, and enterprise-level solutions for high-growth businesses.
-                </p>
-                <ul className="pricing-features">
-                  <li>10+ Page Website</li>
-                  <li>Everything in Growth, PLUS:</li>
-                  <li>On-Going SEO Management</li>
-                  <li>AI Chat Bot</li>
-                  <li>AI Voice Bot</li>
-                  <li>5 Website Edits Per Month</li>
-                </ul>
-                <Link
-                  to="/contact?selected_plan=pro"
-                  className="btn btn-primary pricing-cta"
-                  data-cta="signup-pro"
-                  data-source="pricing"
-                >
-                  Sign up now
-                </Link>
-              </article>
+                  <header className="pricing-card-head">
+                    <span className="pricing-tier">{tier.tier}</span>
+                    <p className="pricing-tier-sub">{tier.tierSub}</p>
+                  </header>
+                  <div className="pricing-price">
+                    <span className="pricing-price-amount">
+                      {tier.priceAmount}
+                    </span>
+                    <span className="pricing-price-plus">+</span>
+                    <span className="pricing-price-recurring">
+                      {tier.priceRecurring}
+                    </span>
+                  </div>
+                  <p className="pricing-card-desc">{tier.desc}</p>
+                  <ul className="pricing-features">
+                    {tier.features.map((f, fi) => (
+                      <li key={fi}>{f}</li>
+                    ))}
+                  </ul>
+                  <Link
+                    to={`/contact?selected_plan=${PLAN_SLUGS[i]}`}
+                    className="btn btn-primary pricing-cta"
+                    data-cta={`signup-${PLAN_SLUGS[i]}`}
+                    data-source="pricing"
+                  >
+                    {t.pricing.cta}
+                  </Link>
+                </article>
+              ))}
             </div>
 
-            {/* CUSTOM tier — full-width banner card below the grid, for
-                the "talk to us" path. Dark surface to distinguish it
-                from the three self-serve tiers above. */}
+            {/* CUSTOM tier — full-width banner card below the grid. */}
             <aside className="pricing-custom">
               <div className="pricing-custom-content">
-                <span className="pricing-tier">CUSTOM</span>
-                <h3>For businesses with unique requirements.</h3>
-                <p>
-                  Need something the plans above don&apos;t cover? Custom integrations, multi-location operations, bespoke AI workflows, or anything outside the boxes &mdash; let&apos;s design a system that fits exactly what your business needs.
-                </p>
+                <span className="pricing-tier">{t.pricing.custom.tier}</span>
+                <h3>{t.pricing.custom.heading}</h3>
+                <p>{t.pricing.custom.body}</p>
                 <ul className="pricing-custom-features">
-                  <li>Everything in Pro, plus whatever else your business actually needs</li>
-                  <li>Custom integrations with your existing tools and stack</li>
-                  <li>Tailored AI workflows and automations</li>
-                  <li>Multi-location and franchise-ready setups</li>
+                  {t.pricing.custom.features.map((f, i) => (
+                    <li key={i}>{f}</li>
+                  ))}
                 </ul>
               </div>
               <div className="pricing-custom-cta">
-                <span className="pricing-custom-price">Let&apos;s talk</span>
+                <span className="pricing-custom-price">
+                  {t.pricing.custom.price}
+                </span>
                 <p className="pricing-custom-price-sub">
-                  Scope and pricing mapped during a free strategy call.
+                  {t.pricing.custom.priceSub}
                 </p>
                 <Link
                   to="/strategy-call"
@@ -741,7 +600,7 @@ const Landing = () => {
                   data-cta="signup-custom"
                   data-source="pricing"
                 >
-                  Book a Strategy Call
+                  {t.pricing.custom.cta}
                 </Link>
               </div>
             </aside>
@@ -756,89 +615,19 @@ const Landing = () => {
         <section className="faq" id="faq">
           <div className="wrap">
             <div className="faq-head">
-              <span className="eyebrow micro">FAQ</span>
-              <h2>
-                The questions <em>everyone asks.</em>
-              </h2>
+              <span className="eyebrow micro">{t.faq.eyebrow}</span>
+              <h2>{t.faq.heading}</h2>
             </div>
 
             <div className="faq-list">
-              <details className="faq-item">
-                <summary className="faq-q">
-                  Do I need to understand technology to work with you?
-                </summary>
-                <div className="faq-a">
-                  <p>
-                    No &mdash; and that&apos;s the whole point. You run your business; I handle the technology. You&apos;ll never have to learn how a CRM works, set up an automation, or touch any code. If you can send a text message, you can use everything I build for you.
-                  </p>
-                </div>
-              </details>
-
-              <details className="faq-item">
-                <summary className="faq-q">
-                  What do I actually get? Is it just a website?
-                </summary>
-                <div className="faq-a">
-                  <p>
-                    It&apos;s a lot more than a website. You get a complete system: a professional website, one organized place to track every lead, online booking, automatic text and email follow-ups, and an AI assistant that answers common questions for you. The website is just the front door &mdash; the real value is everything working behind it to turn visitors into paying customers.
-                  </p>
-                </div>
-              </details>
-
-              <details className="faq-item">
-                <summary className="faq-q">
-                  How is this different from hiring a web designer or a marketing agency?
-                </summary>
-                <div className="faq-a">
-                  <p>
-                    A web designer builds you a good-looking website and then they&apos;re done. A marketing agency sends you traffic, but what happens to those leads is still up to you. I build the system that catches every lead, follows up with them right away, and helps turn them into booked appointments &mdash; so opportunities stop slipping through the cracks.
-                  </p>
-                </div>
-              </details>
-
-              <details className="faq-item">
-                <summary className="faq-q">
-                  What if I don&apos;t have a website yet &mdash; or I&apos;m just starting my business?
-                </summary>
-                <div className="faq-a">
-                  <p>
-                    That&apos;s perfectly fine. Whether you&apos;re starting from zero, replacing a website that isn&apos;t working, or building on what you already have, we start from wherever you are. If anything, new businesses have an advantage: you get the right system in place from day one instead of fixing things later.
-                  </p>
-                </div>
-              </details>
-
-              <details className="faq-item">
-                <summary className="faq-q">
-                  How long until everything is up and running?
-                </summary>
-                <div className="faq-a">
-                  <p>
-                    Most projects take a few weeks, depending on how many pages you need and how much we&apos;re putting together. Before we start, you&apos;ll get a clear timeline &mdash; no vague promises and no surprises.
-                  </p>
-                </div>
-              </details>
-
-              <details className="faq-item">
-                <summary className="faq-q">
-                  What happens after my website launches? Am I on my own?
-                </summary>
-                <div className="faq-a">
-                  <p>
-                    Not at all. Every plan includes ongoing support and a set number of website updates each month, so your site keeps up as your business changes. When something needs adjusting, you send a message and it gets handled &mdash; you never have to touch anything technical.
-                  </p>
-                </div>
-              </details>
-
-              <details className="faq-item">
-                <summary className="faq-q">
-                  How much does it cost?
-                </summary>
-                <div className="faq-a">
-                  <p>
-                    Pricing is straightforward: a one-time setup fee to build your system, plus a flat monthly fee to keep it running and supported. You can see the exact numbers in the Pricing section above. If your business has bigger or unusual needs, we&apos;ll map out a custom plan together on a free strategy call.
-                  </p>
-                </div>
-              </details>
+              {t.faq.items.map((item, i) => (
+                <details className="faq-item" key={i}>
+                  <summary className="faq-q">{item.q}</summary>
+                  <div className="faq-a">
+                    <p>{item.a}</p>
+                  </div>
+                </details>
+              ))}
             </div>
           </div>
         </section>
@@ -849,12 +638,8 @@ const Landing = () => {
         <section className="final blueprint grain" id="join">
           <div className="wrap">
             <div className="final-wrap">
-              <h2>
-                Stop losing leads. Start building a system that <em>converts them.</em>
-              </h2>
-              <p className="final-sub">
-                Book a short strategy call. We&apos;ll map the fastest path to a complete system &mdash; whether you&apos;re starting from scratch, replacing what isn&apos;t working, or filling in the gaps.
-              </p>
+              <h2>{t.final.heading}</h2>
+              <p className="final-sub">{t.final.sub}</p>
               <div className="final-form">
                 <CtaButtons source="final" />
               </div>
@@ -869,7 +654,14 @@ const Landing = () => {
           <div className="wrap">
             <div className="footer-inner">
               <div className="footer-brand">
-                <img src="/landing/jm-logo.webp" alt="" className="brand-mark" width="36" height="36" decoding="async" />
+                <img
+                  src="/landing/jm-logo.webp"
+                  alt=""
+                  className="brand-mark"
+                  width="36"
+                  height="36"
+                  decoding="async"
+                />
                 <span className="mono micro">JOMENDEZ / INC</span>
               </div>
               <div className="footer-links">
@@ -892,7 +684,7 @@ const Landing = () => {
             </div>
             <div className="footer-bottom mono micro">
               <span>&copy; {new Date().getFullYear()} JOMENDEZ INC</span>
-              <span>BUILT IN MIAMI</span>
+              <span>{t.footer.builtIn}</span>
             </div>
           </div>
         </footer>

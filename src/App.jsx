@@ -1,6 +1,7 @@
 import { lazy, Suspense } from 'react'
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom'
 import Landing from './pages/Landing'
+import { LanguageProvider } from './i18n/LanguageContext'
 
 // The landing page is the LCP-critical root route, so it ships in the
 // initial bundle. Everything else is split off into its own chunk and
@@ -32,9 +33,10 @@ const RouteFallback = () => <div style={{ minHeight: '100vh' }} aria-busy="true"
 
 function App() {
   return (
-    <Router>
-      <Suspense fallback={<RouteFallback />}>
-        <Routes>
+    <LanguageProvider>
+      <Router>
+        <Suspense fallback={<RouteFallback />}>
+          <Routes>
           {/* Landing page at the root — eager-loaded for fast LCP */}
           <Route path="/" element={<Landing />} />
 
@@ -79,9 +81,10 @@ function App() {
 
           {/* Admin dashboard — gated behind Firebase Auth + Firestore rules */}
           <Route path="/admin" element={<Admin />} />
-        </Routes>
-      </Suspense>
-    </Router>
+          </Routes>
+        </Suspense>
+      </Router>
+    </LanguageProvider>
   )
 }
 
