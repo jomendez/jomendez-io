@@ -526,17 +526,16 @@ const Landing = () => {
           <div className="wrap">
             <div className="about-grid">
               <div className="about-img">
-                {/* WebP source + PNG fallback. Same asset pair is also
-                    used on /old-site. */}
+                {/* WebP source + PNG fallback for the founder portrait. */}
                 <picture>
-                  <source srcSet="/landing/images/about_portrait.webp" type="image/webp" />
+                  <source srcSet="/landing/images/jose.webp" type="image/webp" />
                   <img
-                    src="/landing/images/about_portrait.png"
+                    src="/landing/images/jose.png"
                     alt="Jose Mendez"
                     loading="lazy"
                     decoding="async"
-                    width="1200"
-                    height="1500"
+                    width="1122"
+                    height="1402"
                   />
                 </picture>
                 <div
@@ -546,7 +545,7 @@ const Landing = () => {
                 >
                   Founder photo
                   <br />
-                  /landing/images/about_portrait.png
+                  /landing/images/jose.png
                 </div>
               </div>
               <div className="about-content">
