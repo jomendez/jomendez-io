@@ -128,7 +128,7 @@ const StrategyCall = () => {
       <nav className="nav scrolled" aria-label="Primary">
         <div className="nav-inner">
           <Link to="/" className="nav-logo" aria-label="Jomendez Inc home">
-            <span className="dot" aria-hidden="true"></span>
+            <img src="/landing/jm-logo.webp" alt="" className="brand-mark" width="36" height="36" decoding="async" />
             <span className="mono micro">JOMENDEZ / INC</span>
           </Link>
           <div className="nav-links">
@@ -228,7 +228,7 @@ const StrategyCall = () => {
           <div className="wrap">
             <div className="footer-inner">
               <div className="footer-brand">
-                <span className="dot" aria-hidden="true"></span>
+                <img src="/landing/jm-logo.webp" alt="" className="brand-mark" width="36" height="36" decoding="async" />
                 <span className="mono micro">JOMENDEZ / INC</span>
               </div>
               <div className="footer-links">

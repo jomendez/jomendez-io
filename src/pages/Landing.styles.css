@@ -118,9 +118,11 @@ img { display: block; max-width: 100%; }
   padding: 0 32px;
 }
 .nav-logo { display: flex; align-items: center; gap: 10px; }
-.nav-logo .dot {
-  width: 10px; height: 10px; background: var(--accent);
-  border-radius: 2px;
+/* Circular JM badge used as the logo mark in the nav and footer. */
+.brand-mark {
+  width: 36px;
+  height: 36px;
+  display: block;
 }
 .nav-links { display: flex; align-items: center; gap: 32px; }
 .nav-links a {
@@ -849,9 +851,6 @@ section { position: relative; }
 .footer-brand {
   display: flex; align-items: center; gap: 12px;
   color: var(--ink);
-}
-.footer-brand .dot {
-  width: 10px; height: 10px; background: var(--accent); border-radius: 2px;
 }
 .footer-links {
   display: flex; align-items: center; gap: 24px;

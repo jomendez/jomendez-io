@@ -155,7 +155,7 @@ const Landing = () => {
       <nav className={`nav${scrolled ? ' scrolled' : ''}`} aria-label="Primary">
         <div className="nav-inner">
           <a href="#top" className="nav-logo" aria-label="Jomendez Inc home">
-            <span className="dot" aria-hidden="true"></span>
+            <img src="/landing/jm-logo.webp" alt="" className="brand-mark" width="36" height="36" decoding="async" />
             <span className="mono micro">JOMENDEZ / INC</span>
           </a>
           <div className="nav-links">
@@ -526,17 +526,16 @@ const Landing = () => {
           <div className="wrap">
             <div className="about-grid">
               <div className="about-img">
-                {/* WebP source + PNG fallback. Same asset pair is also
-                    used on /old-site. */}
+                {/* WebP source + PNG fallback for the founder portrait. */}
                 <picture>
-                  <source srcSet="/landing/images/about_portrait.webp" type="image/webp" />
+                  <source srcSet="/landing/images/jose.webp" type="image/webp" />
                   <img
-                    src="/landing/images/about_portrait.png"
+                    src="/landing/images/jose.png"
                     alt="Jose Mendez"
                     loading="lazy"
                     decoding="async"
-                    width="1200"
-                    height="1500"
+                    width="1122"
+                    height="1402"
                   />
                 </picture>
                 <div
@@ -546,7 +545,7 @@ const Landing = () => {
                 >
                   Founder photo
                   <br />
-                  /landing/images/about_portrait.png
+                  /landing/images/jose.png
                 </div>
               </div>
               <div className="about-content">
@@ -870,7 +869,7 @@ const Landing = () => {
           <div className="wrap">
             <div className="footer-inner">
               <div className="footer-brand">
-                <span className="dot" aria-hidden="true"></span>
+                <img src="/landing/jm-logo.webp" alt="" className="brand-mark" width="36" height="36" decoding="async" />
                 <span className="mono micro">JOMENDEZ / INC</span>
               </div>
               <div className="footer-links">
