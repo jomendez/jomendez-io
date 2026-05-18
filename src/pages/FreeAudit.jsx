@@ -2,6 +2,9 @@ import { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import baseStylesCss from './Landing.styles.css?raw'
 import pageStylesCss from './FreeAudit.styles.css?raw'
+import { useContent } from '../i18n/LanguageContext'
+import LanguageToggle from '../i18n/LanguageToggle'
+import freeAuditContent from '../i18n/content/freeAudit'
 
 /**
  * /free-audit — dedicated landing page for paid traffic.
@@ -10,16 +13,18 @@ import pageStylesCss from './FreeAudit.styles.css?raw'
  * sells the relevance, then hosts the embedded GHL Prospecting Widget.
  * Below the widget: brief credibility + what happens next.
  *
- * Visual system is shared with /: we inject Landing.styles.css for
- * tokens, typography, nav, footer, and .btn utilities, then layer this
- * page's section styles on top via FreeAudit.styles.css. Both stylesheets
- * leave with the route since they're injected as scoped <style> tags.
+ * Bilingual: all copy comes from src/i18n/content/freeAudit.jsx via
+ * useContent(). Visual system is shared with /: Landing.styles.css is
+ * injected for tokens/nav/footer/.btn, then FreeAudit.styles.css layers
+ * this page's section styles. Both leave with the route.
  */
 
 const FONTS_HREF =
   'https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap'
 
 const FreeAudit = () => {
+  const t = useContent(freeAuditContent)
+
   // Inject Google Fonts only while this page is mounted
   useEffect(() => {
     const link = document.createElement('link')
@@ -32,11 +37,10 @@ const FreeAudit = () => {
   }, [])
 
   // Per-route metadata: title, description, OG/Twitter tags, and canonical.
-  // Set imperatively on mount and restored on unmount so other routes
-  // keep their own. Note: this updates what browsers and JS-running
-  // crawlers see (Googlebot does run JS). Social-media preview crawlers
-  // (Facebook, Twitter, LinkedIn) read the raw HTML before any JS runs,
-  // so they will still pick up the index.html defaults until /free-audit
+  // Follows the active language; re-runs when it changes. Note: this
+  // updates what browsers and JS-running crawlers see (Googlebot runs
+  // JS). Social-media preview crawlers read the raw HTML before any JS
+  // runs, so they still pick up the index.html defaults until /free-audit
   // is pre-rendered to a static HTML file at build time.
   useEffect(() => {
     const getMeta = (selector) =>
@@ -52,10 +56,8 @@ const FreeAudit = () => {
       if (el && value != null) el.setAttribute('href', value)
     }
 
-    const TITLE =
-      'Free Instant Business Audit — See where you’re losing customers online | Jomendez Inc'
-    const DESCRIPTION =
-      'A free, instant audit of your online presence. Listings, reviews, website health, SEO, and Google Business Profile — one short report, in plain English. No call required.'
+    const TITLE = t.meta.title
+    const DESCRIPTION = t.meta.description
     const URL = 'https://jomendez.io/free-audit'
     const IMAGE_ALT = 'Free instant business audit — Jomendez Inc'
 
@@ -95,7 +97,7 @@ const FreeAudit = () => {
       setMeta('meta[name="twitter:image:alt"]', prev.twImageAlt)
       setHref('link[rel="canonical"]', prev.canonical)
     }
-  }, [])
+  }, [t])
 
   // Scroll to top on mount — react-router preserves scroll position
   // by default, and ad traffic landing here mid-scroll would be jarring.
@@ -129,14 +131,15 @@ const FreeAudit = () => {
       <style>{pageStylesCss}</style>
 
       {/* NAV — minimal: brand + back to home. Ad-page focus. */}
-      <nav className="nav scrolled" aria-label="Primary">
+      <nav className="nav scrolled" aria-label={t.a11y.primaryNav}>
         <div className="nav-inner">
-          <Link to="/" className="nav-logo" aria-label="Jomendez Inc home">
+          <Link to="/" className="nav-logo" aria-label={t.a11y.homeLink}>
             <img src="/landing/jm-logo.webp" alt="" className="brand-mark" width="36" height="36" decoding="async" />
             <span className="mono micro">JOMENDEZ / INC</span>
           </Link>
           <div className="nav-links">
-            <Link to="/" className="fa-nav-back">&larr; Home</Link>
+            <Link to="/" className="fa-nav-back">{t.nav.back}</Link>
+            <LanguageToggle />
           </div>
         </div>
       </nav>
@@ -148,18 +151,14 @@ const FreeAudit = () => {
         <section className="fa-hero blueprint grain">
           <div className="wrap">
             <div className="fa-hero-inner">
-              <span className="eyebrow micro">FREE INSTANT AUDIT</span>
-              <h1 className="fa-hero-headline">
-                See exactly where your business is <em>losing customers online.</em>
-              </h1>
-              <p className="fa-hero-sub">
-                A free, instant report on your online presence. In under 60 seconds, get a clear breakdown of where customers are slipping away &mdash; and what to fix first.
-              </p>
+              <span className="eyebrow micro">{t.hero.eyebrow}</span>
+              <h1 className="fa-hero-headline">{t.hero.headline}</h1>
+              <p className="fa-hero-sub">{t.hero.sub}</p>
               <div className="fa-hero-cta">
                 <a href="#audit-widget" className="btn btn-primary" data-cta="scroll-to-widget">
-                  Run my free audit
+                  {t.hero.ctaScroll}
                 </a>
-                <span className="fa-hero-fineprint">No call required. No obligation.</span>
+                <span className="fa-hero-fineprint">{t.hero.fineprint}</span>
               </div>
             </div>
           </div>
@@ -171,41 +170,19 @@ const FreeAudit = () => {
         <section className="fa-includes">
           <div className="wrap">
             <div className="fa-includes-head">
-              <span className="eyebrow micro">WHAT&apos;S IN YOUR REPORT</span>
-              <h2>
-                Five places where customers <em>decide without you.</em>
-              </h2>
-              <p className="fa-includes-lead">
-                The audit pulls live signals from across the web and stitches them into one short, readable report. No jargon, no fluff &mdash; just the gaps that are quietly costing you customers.
-              </p>
+              <span className="eyebrow micro">{t.includes.eyebrow}</span>
+              <h2>{t.includes.heading}</h2>
+              <p className="fa-includes-lead">{t.includes.lead}</p>
             </div>
 
             <ol className="fa-includes-grid">
-              <li className="fa-include">
-                <span className="meta">01 / LISTINGS</span>
-                <h3>Are you showing up where customers look?</h3>
-                <p>Across Google, Apple Maps, Yelp, Bing, Facebook, and 50+ directories &mdash; we check whether your name, address, phone, and hours match everywhere they should.</p>
-              </li>
-              <li className="fa-include">
-                <span className="meta">02 / REVIEWS</span>
-                <h3>What are customers actually saying?</h3>
-                <p>Review count, average rating, response rate, and how you stack up against the competitors a customer sees right next to you in search.</p>
-              </li>
-              <li className="fa-include">
-                <span className="meta">03 / WEBSITE HEALTH</span>
-                <h3>Is your site fast, mobile-friendly, and secure?</h3>
-                <p>The technical basics that quietly cost you visitors: page speed, mobile usability, HTTPS, and the friction points most owners never see.</p>
-              </li>
-              <li className="fa-include">
-                <span className="meta">04 / SEO SNAPSHOT</span>
-                <h3>Are you findable when customers search?</h3>
-                <p>Whether you show up for the things people in your area are actually typing &mdash; and where you&apos;re being outranked by businesses just like yours.</p>
-              </li>
-              <li className="fa-include">
-                <span className="meta">05 / GOOGLE BUSINESS PROFILE</span>
-                <h3>Is your most important free listing set up to win?</h3>
-                <p>Your Google Business Profile is often the first thing a customer sees. We check whether it&apos;s claimed, complete, and built to win the local results above the map.</p>
-              </li>
+              {t.includes.items.map((item, i) => (
+                <li className="fa-include" key={i}>
+                  <span className="meta">{item.meta}</span>
+                  <h3>{item.q}</h3>
+                  <p>{item.a}</p>
+                </li>
+              ))}
             </ol>
           </div>
         </section>
@@ -216,16 +193,11 @@ const FreeAudit = () => {
         <section className="fa-why blueprint">
           <div className="wrap">
             <div className="fa-why-inner">
-              <span className="eyebrow micro">WHY IT MATTERS</span>
-              <h2>
-                Most customers decide <em>before</em> they ever pick up the phone.
-              </h2>
-              <p>
-                Wrong listings. Sparse reviews. A slow website. An unclaimed Google profile. Each one is a quiet reason the next customer chose someone else &mdash; not because you&apos;re worse, but because you weren&apos;t set up to win that first decision.
-              </p>
-              <p>
-                The audit shows you which of those gaps are costing you the most. Plain English. No pressure. Yours to keep.
-              </p>
+              <span className="eyebrow micro">{t.why.eyebrow}</span>
+              <h2>{t.why.heading}</h2>
+              {t.why.body.map((p, i) => (
+                <p key={i}>{p}</p>
+              ))}
             </div>
           </div>
         </section>
@@ -236,11 +208,9 @@ const FreeAudit = () => {
         <section className="fa-widget" id="audit-widget">
           <div className="wrap">
             <div className="fa-widget-head">
-              <span className="eyebrow micro">RUN YOUR FREE AUDIT</span>
-              <h2>
-                Your report, <em>in under 60 seconds.</em>
-              </h2>
-              <p>Enter your business name and we&apos;ll pull the rest. No login. No credit card.</p>
+              <span className="eyebrow micro">{t.widget.eyebrow}</span>
+              <h2>{t.widget.heading}</h2>
+              <p>{t.widget.sub}</p>
             </div>
 
             {/* GHL Prospecting Widget mounts into the inner div via the
@@ -258,33 +228,23 @@ const FreeAudit = () => {
         <section className="fa-next">
           <div className="wrap">
             <div className="fa-next-head">
-              <span className="eyebrow micro">WHAT HAPPENS NEXT</span>
-              <h2>
-                A report you can act on &mdash; <em>without a sales call.</em>
-              </h2>
+              <span className="eyebrow micro">{t.next.eyebrow}</span>
+              <h2>{t.next.heading}</h2>
             </div>
 
             <div className="fa-next-grid">
-              <article className="fa-next-card">
-                <span className="meta">WHO</span>
-                <h3>Behind the audit</h3>
-                <p>Built by Jose Mendez. 15+ years building tech at companies like Amazon, now focused on helping local businesses use that same level of rigor &mdash; without the overhead. No tech headaches, just systems that work.</p>
-              </article>
-              <article className="fa-next-card">
-                <span className="meta">NEXT</span>
-                <h3>What you get</h3>
-                <p>Your audit lands in your inbox within a minute. No phone call required. No salesperson follow-up. You read the report, you decide what to do with it.</p>
-              </article>
-              <article className="fa-next-card">
-                <span className="meta">AFTER</span>
-                <h3>If you want help</h3>
-                <p>If a gap stands out and you&apos;d like help closing it, we can hop on a free strategy call. We&apos;ll talk through what to fix first &mdash; no pressure either way.</p>
-              </article>
+              {t.next.cards.map((card, i) => (
+                <article className="fa-next-card" key={i}>
+                  <span className="meta">{card.meta}</span>
+                  <h3>{card.title}</h3>
+                  <p>{card.body}</p>
+                </article>
+              ))}
             </div>
 
             <div className="fa-next-cta">
               <Link to="/" className="btn btn-ghost" data-cta="back-to-home">
-                &larr; Back to home
+                {t.next.backToHome}
               </Link>
             </div>
           </div>
@@ -320,7 +280,7 @@ const FreeAudit = () => {
             </div>
             <div className="footer-bottom mono micro">
               <span>&copy; {new Date().getFullYear()} JOMENDEZ INC</span>
-              <span>BUILT IN MIAMI</span>
+              <span>{t.footer.builtIn}</span>
             </div>
           </div>
         </footer>

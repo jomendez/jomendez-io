@@ -2,6 +2,9 @@ import { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import baseStylesCss from './Landing.styles.css?raw'
 import pageStylesCss from './StrategyCall.styles.css?raw'
+import { useContent } from '../i18n/LanguageContext'
+import LanguageToggle from '../i18n/LanguageToggle'
+import strategyCallContent from '../i18n/content/strategyCall'
 
 /**
  * /strategy-call — dedicated booking page.
@@ -9,20 +12,18 @@ import pageStylesCss from './StrategyCall.styles.css?raw'
  * Single job: get a qualified visitor onto the calendar. Hero frames
  * the call, a small "what to expect" beat sets the tone, then the
  * embedded GHL calendar widget. Below the widget: one short
- * reassurance line about what happens after booking. Minimal nav so
- * the page stays focused on conversion.
+ * reassurance line about what happens after booking.
  *
- * Visual system is shared with / and /free-audit: we inject
- * Landing.styles.css for tokens, typography, nav, footer, and .btn
- * utilities, then layer page-specific styles via StrategyCall.styles.css.
- * Both stylesheets leave with the route since they're injected as
- * scoped <style> tags.
+ * Bilingual: all copy comes from src/i18n/content/strategyCall.jsx via
+ * useContent(). Visual system is shared with / and /free-audit.
  */
 
 const FONTS_HREF =
   'https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap'
 
 const StrategyCall = () => {
+  const t = useContent(strategyCallContent)
+
   // Inject Google Fonts only while this page is mounted
   useEffect(() => {
     const link = document.createElement('link')
@@ -35,9 +36,9 @@ const StrategyCall = () => {
   }, [])
 
   // Per-route metadata: title, description, OG/Twitter tags, and canonical.
-  // Same pattern as /free-audit — covers browsers and JS-running crawlers
-  // (Googlebot). Social-media preview crawlers still see index.html
-  // defaults until this route is pre-rendered at build time.
+  // Follows the active language; re-runs when it changes. Same crawler
+  // caveat as /free-audit — JS-rendered metadata covers browsers and
+  // Googlebot, not social-media preview crawlers.
   useEffect(() => {
     const getMeta = (selector) =>
       document.querySelector(selector)?.getAttribute('content') ?? null
@@ -52,10 +53,8 @@ const StrategyCall = () => {
       if (el && value != null) el.setAttribute('href', value)
     }
 
-    const TITLE =
-      'Book a Strategy Call — Free 20-minute consultation | Jomendez Inc'
-    const DESCRIPTION =
-      'Pick a time that works. A free 20-minute conversation about your business, where leads come from (or could come from), and what to fix first. No pitch, no pressure.'
+    const TITLE = t.meta.title
+    const DESCRIPTION = t.meta.description
     const URL = 'https://jomendez.io/strategy-call'
     const IMAGE_ALT = 'Book a strategy call with Jose Mendez — Jomendez Inc'
 
@@ -95,7 +94,7 @@ const StrategyCall = () => {
       setMeta('meta[name="twitter:image:alt"]', prev.twImageAlt)
       setHref('link[rel="canonical"]', prev.canonical)
     }
-  }, [])
+  }, [t])
 
   // Scroll to top on mount — react-router preserves scroll position
   // by default, and someone landing from an ad mid-scroll would be jarring.
@@ -125,14 +124,15 @@ const StrategyCall = () => {
       <style>{pageStylesCss}</style>
 
       {/* NAV — minimal: brand + back to home. */}
-      <nav className="nav scrolled" aria-label="Primary">
+      <nav className="nav scrolled" aria-label={t.a11y.primaryNav}>
         <div className="nav-inner">
-          <Link to="/" className="nav-logo" aria-label="Jomendez Inc home">
+          <Link to="/" className="nav-logo" aria-label={t.a11y.homeLink}>
             <img src="/landing/jm-logo.webp" alt="" className="brand-mark" width="36" height="36" decoding="async" />
             <span className="mono micro">JOMENDEZ / INC</span>
           </Link>
           <div className="nav-links">
-            <Link to="/" className="sc-nav-back">&larr; Home</Link>
+            <Link to="/" className="sc-nav-back">{t.nav.back}</Link>
+            <LanguageToggle />
           </div>
         </div>
       </nav>
@@ -144,27 +144,19 @@ const StrategyCall = () => {
         <section className="sc-hero blueprint grain">
           <div className="wrap">
             <div className="sc-hero-inner">
-              <span className="eyebrow micro">STRATEGY CALL</span>
-              <h1 className="sc-hero-headline">
-                Let&apos;s map your fastest path to <em>capturing more leads.</em>
-              </h1>
-              <p className="sc-hero-sub">
-                A free 20-minute conversation about your business. No pitch, no pressure &mdash; just a clear read on where the biggest wins are and what to put in place first.
-              </p>
+              <span className="eyebrow micro">{t.hero.eyebrow}</span>
+              <h1 className="sc-hero-headline">{t.hero.headline}</h1>
+              <p className="sc-hero-sub">{t.hero.sub}</p>
 
-              <ul className="sc-hero-bullets" aria-label="What we'll cover">
-                <li>
-                  <span className="mono micro">01</span>
-                  <span>Where leads come from today &mdash; or could come from</span>
-                </li>
-                <li>
-                  <span className="mono micro">02</span>
-                  <span>Where they&apos;re slipping away between inquiry and customer</span>
-                </li>
-                <li>
-                  <span className="mono micro">03</span>
-                  <span>What to build first to start converting more of what you already have</span>
-                </li>
+              <ul className="sc-hero-bullets" aria-label={t.a11y.bulletsLabel}>
+                {t.hero.bullets.map((bullet, i) => (
+                  <li key={i}>
+                    <span className="mono micro">
+                      {String(i + 1).padStart(2, '0')}
+                    </span>
+                    <span>{bullet}</span>
+                  </li>
+                ))}
               </ul>
             </div>
           </div>
@@ -176,11 +168,9 @@ const StrategyCall = () => {
         <section className="sc-calendar" id="book">
           <div className="wrap">
             <div className="sc-calendar-head">
-              <span className="eyebrow micro">PICK A TIME</span>
-              <h2>
-                Find a slot that <em>works for you.</em>
-              </h2>
-              <p>20 minutes, by Zoom or phone. You&apos;ll get a confirmation with the call details right after booking.</p>
+              <span className="eyebrow micro">{t.calendar.eyebrow}</span>
+              <h2>{t.calendar.heading}</h2>
+              <p>{t.calendar.sub}</p>
             </div>
 
             {/* GHL booking widget — iframe rendered declaratively; the
@@ -204,17 +194,13 @@ const StrategyCall = () => {
         <section className="sc-after">
           <div className="wrap">
             <div className="sc-after-inner">
-              <span className="eyebrow micro">WHAT HAPPENS NEXT</span>
-              <h2>
-                A short, useful call &mdash; <em>nothing else.</em>
-              </h2>
-              <p>
-                You pick a time. I show up prepared. We talk through your business and what could move the needle fastest. If working together makes sense, we&apos;ll talk about that. If it doesn&apos;t, you still walk away with a clearer picture of where to focus.
-              </p>
+              <span className="eyebrow micro">{t.after.eyebrow}</span>
+              <h2>{t.after.heading}</h2>
+              <p>{t.after.body}</p>
 
               <div className="sc-after-cta">
                 <Link to="/free-audit" className="btn btn-ghost" data-cta="free-audit-from-strategy">
-                  Want a free instant audit first? &rarr;
+                  {t.after.freeAuditCta}
                 </Link>
               </div>
             </div>
@@ -251,7 +237,7 @@ const StrategyCall = () => {
             </div>
             <div className="footer-bottom mono micro">
               <span>&copy; {new Date().getFullYear()} JOMENDEZ INC</span>
-              <span>BUILT IN MIAMI</span>
+              <span>{t.footer.builtIn}</span>
             </div>
           </div>
         </footer>

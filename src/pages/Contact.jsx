@@ -2,61 +2,50 @@ import { useEffect } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
 import baseStylesCss from './Landing.styles.css?raw'
 import pageStylesCss from './Contact.styles.css?raw'
-
-// Plans the pricing CTAs can send us via ?selected_plan=. Anything
-// outside this set is ignored, so a stray/garbage param can't render
-// a misleading banner or get prefilled into the GHL form.
-const ALLOWED_PLANS = {
-  starter: 'Starter',
-  growth: 'Growth',
-  pro: 'Pro',
-}
-
-// GHL form base URL — kept as a constant so the planned-aware src
-// builder below stays readable.
-const GHL_FORM_BASE =
-  'https://brand.jomendez.io/widget/form/rbLM1qamIBtu5HfAiUuZ'
+import { useContent } from '../i18n/LanguageContext'
+import LanguageToggle from '../i18n/LanguageToggle'
+import contactContent from '../i18n/content/contact'
 
 /**
  * /contact — dedicated contact page.
  *
- * Single job: capture interest from the pricing CTAs. Hero frames
- * the page, a host div waits for the GHL contact form embed, and a
- * "prefer to talk first?" block keeps the strategy-call path open
- * for visitors who want a conversation before filling out a form.
+ * Single job: capture interest from the pricing CTAs. Hero frames the
+ * page, the embedded GHL contact form collects the inquiry, and a
+ * "prefer to talk first?" block keeps the strategy-call path open.
  *
- * Visual system is shared with / and the other sub-pages: we inject
- * Landing.styles.css for tokens, typography, nav, footer, and .btn
- * utilities, then layer page-specific styles via Contact.styles.css.
- * Both stylesheets leave with the route since they're injected as
- * scoped <style> tags.
+ * Bilingual: all copy comes from src/i18n/content/contact.jsx via
+ * useContent(). Visual system is shared with / and the other sub-pages.
  */
 
 const FONTS_HREF =
   'https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap'
 
+// Valid plan slugs the pricing CTAs can pass via ?selected_plan=.
+// Language-independent — the localized display label comes from the
+// content module; the slug itself is what the GHL form receives.
+const PLAN_KEYS = ['starter', 'growth', 'pro']
+
+// GHL form base URL — the plan-aware src builder appends ?selected_plan
+// when the visitor arrived from a pricing CTA.
+const GHL_FORM_BASE =
+  'https://brand.jomendez.io/widget/form/rbLM1qamIBtu5HfAiUuZ'
+
 const Contact = () => {
-  // Read ?selected_plan= from the URL. The pricing CTAs on /
-  // navigate here with this param so the visitor sees which plan
-  // they chose and the GHL form prefills its hidden "selected_plan"
-  // field.
-  //
-  // We normalize the incoming value (trim + lowercase) before the
-  // allow-list lookup so a hand-edited URL like ?selected_plan=Growth
-  // or ?selected_plan=%20growth still resolves — and, crucially, the
-  // value we forward to the GHL iframe is always the canonical
-  // lowercase form. That keeps GHL contact records consistent and
-  // easier to segment.
+  const t = useContent(contactContent)
+
+  // Read ?selected_plan= from the URL. The pricing CTAs on / navigate
+  // here with this param. We normalize it (trim + lowercase) before the
+  // allow-list check so a hand-edited URL still resolves, and the value
+  // forwarded to the GHL iframe is always the canonical lowercase slug.
   const [searchParams] = useSearchParams()
   const rawPlan = searchParams.get('selected_plan')
   const normalizedPlan = rawPlan ? rawPlan.trim().toLowerCase() : null
   const planKey =
-    normalizedPlan && ALLOWED_PLANS[normalizedPlan] ? normalizedPlan : null
-  const planLabel = planKey ? ALLOWED_PLANS[planKey] : null
+    normalizedPlan && PLAN_KEYS.includes(normalizedPlan) ? normalizedPlan : null
+  const planLabel = planKey ? t.form.planLabels[planKey] : null
 
-  // Iframe src includes the plan param when present. GHL's form
-  // builder picks it up via the field's "URL Parameter" mapping
-  // (configured on the GHL side to read `selected_plan`).
+  // Iframe src includes the plan param when present. GHL's form builder
+  // picks it up via the field's "URL Parameter" mapping (selected_plan).
   const iframeSrc = planKey
     ? `${GHL_FORM_BASE}?selected_plan=${encodeURIComponent(planKey)}`
     : GHL_FORM_BASE
@@ -72,7 +61,8 @@ const Contact = () => {
     }
   }, [])
 
-  // Per-route metadata. Same pattern used on /free-audit and /strategy-call.
+  // Per-route metadata. Follows the active language; re-runs when it
+  // changes. Same crawler caveat as /free-audit and /strategy-call.
   useEffect(() => {
     const getMeta = (selector) =>
       document.querySelector(selector)?.getAttribute('content') ?? null
@@ -87,9 +77,8 @@ const Contact = () => {
       if (el && value != null) el.setAttribute('href', value)
     }
 
-    const TITLE = 'Contact — Tell us about your business | Jomendez Inc'
-    const DESCRIPTION =
-      'Get in touch with Jomendez Inc. Tell us about your business and we’ll be in touch within one business day, or book a free strategy call.'
+    const TITLE = t.meta.title
+    const DESCRIPTION = t.meta.description
     const URL = 'https://jomendez.io/contact'
     const IMAGE_ALT = 'Contact Jomendez Inc'
 
@@ -129,7 +118,7 @@ const Contact = () => {
       setMeta('meta[name="twitter:image:alt"]', prev.twImageAlt)
       setHref('link[rel="canonical"]', prev.canonical)
     }
-  }, [])
+  }, [t])
 
   // Scroll to top on mount — ad traffic / cross-page nav shouldn't
   // land mid-scroll.
@@ -140,7 +129,6 @@ const Contact = () => {
   // GHL contact form — the iframe is rendered declaratively in JSX so
   // React owns its lifecycle; this effect just loads the embed helper
   // script that wires up postMessage-based auto-resize for the iframe.
-  // Mirrors the pattern used on /strategy-call for the calendar widget.
   useEffect(() => {
     const script = document.createElement('script')
     script.src = 'https://brand.jomendez.io/js/form_embed.js'
@@ -158,14 +146,15 @@ const Contact = () => {
       <style>{pageStylesCss}</style>
 
       {/* NAV — minimal: brand + back to home */}
-      <nav className="nav scrolled" aria-label="Primary">
+      <nav className="nav scrolled" aria-label={t.a11y.primaryNav}>
         <div className="nav-inner">
-          <Link to="/" className="nav-logo" aria-label="Jomendez Inc home">
+          <Link to="/" className="nav-logo" aria-label={t.a11y.homeLink}>
             <img src="/landing/jm-logo.webp" alt="" className="brand-mark" width="36" height="36" decoding="async" />
             <span className="mono micro">JOMENDEZ / INC</span>
           </Link>
           <div className="nav-links">
-            <Link to="/" className="ct-nav-back">&larr; Home</Link>
+            <Link to="/" className="ct-nav-back">{t.nav.back}</Link>
+            <LanguageToggle />
           </div>
         </div>
       </nav>
@@ -177,16 +166,12 @@ const Contact = () => {
         <section className="ct-hero blueprint grain">
           <div className="wrap">
             <div className="ct-hero-inner">
-              <span className="eyebrow micro">CONTACT</span>
-              <h1 className="ct-hero-headline">
-                Let&apos;s start the <em>conversation.</em>
-              </h1>
-              <p className="ct-hero-sub">
-                Tell us a bit about your business and we&apos;ll get back to you within one business day. Prefer to talk first? Book a free strategy call instead.
-              </p>
+              <span className="eyebrow micro">{t.hero.eyebrow}</span>
+              <h1 className="ct-hero-headline">{t.hero.headline}</h1>
+              <p className="ct-hero-sub">{t.hero.sub}</p>
               <div className="ct-hero-cta">
                 <a href="#contact-form" className="btn btn-primary">
-                  Send a message
+                  {t.hero.ctaSend}
                 </a>
                 <Link
                   to="/strategy-call"
@@ -194,7 +179,7 @@ const Contact = () => {
                   data-cta="strategy-call"
                   data-source="contact-hero"
                 >
-                  Book a Strategy Call
+                  {t.hero.ctaBook}
                 </Link>
               </div>
             </div>
@@ -207,20 +192,17 @@ const Contact = () => {
         <section className="ct-form" id="contact-form">
           <div className="wrap">
             <div className="ct-form-head">
-              <span className="eyebrow micro">SEND A MESSAGE</span>
-              <h2>
-                Get in <em>touch.</em>
-              </h2>
-              <p>Fill out the form and we&apos;ll be in touch within one business day.</p>
+              <span className="eyebrow micro">{t.form.eyebrow}</span>
+              <h2>{t.form.heading}</h2>
+              <p>{t.form.sub}</p>
             </div>
 
             {/* Selected-plan banner — only renders when the visitor
                 arrived from one of the pricing CTAs. Mirrors the value
-                that the GHL form's hidden field receives, so the
-                visitor sees what's being submitted on their behalf. */}
+                that the GHL form's hidden field receives. */}
             {planLabel && (
               <div className="ct-plan-banner" role="status" aria-live="polite">
-                You selected the <strong>{planLabel}</strong> plan.
+                {t.form.planBanner(planLabel)}
               </div>
             )}
 
@@ -256,30 +238,28 @@ const Contact = () => {
         <section className="ct-alt">
           <div className="wrap">
             <div className="ct-alt-head">
-              <span className="eyebrow micro">OTHER WAYS TO REACH US</span>
-              <h2>
-                Or skip the form <em>entirely.</em>
-              </h2>
+              <span className="eyebrow micro">{t.alt.eyebrow}</span>
+              <h2>{t.alt.heading}</h2>
             </div>
 
             <div className="ct-alt-grid">
               <article className="ct-alt-card">
-                <span className="meta">PREFER TO TALK</span>
-                <h3>Book a 20-minute strategy call</h3>
-                <p>A free conversation about your business &mdash; where you are, where you want to go, and whether we&apos;re a fit. No pitch, no obligation.</p>
+                <span className="meta">{t.alt.cards[0].meta}</span>
+                <h3>{t.alt.cards[0].title}</h3>
+                <p>{t.alt.cards[0].body}</p>
                 <Link
                   to="/strategy-call"
                   className="btn btn-outline"
                   data-cta="strategy-call"
                   data-source="contact-alt"
                 >
-                  Book a Strategy Call
+                  {t.alt.bookCta}
                 </Link>
               </article>
               <article className="ct-alt-card">
-                <span className="meta">EMAIL DIRECTLY</span>
-                <h3>Send us an email</h3>
-                <p>Prefer to write? Drop us a note and we&apos;ll get back to you within one business day.</p>
+                <span className="meta">{t.alt.cards[1].meta}</span>
+                <h3>{t.alt.cards[1].title}</h3>
+                <p>{t.alt.cards[1].body}</p>
                 <a href="mailto:support@jomendez.io" className="btn btn-ghost">
                   support@jomendez.io
                 </a>
@@ -318,7 +298,7 @@ const Contact = () => {
             </div>
             <div className="footer-bottom mono micro">
               <span>&copy; {new Date().getFullYear()} JOMENDEZ INC</span>
-              <span>BUILT IN MIAMI</span>
+              <span>{t.footer.builtIn}</span>
             </div>
           </div>
         </footer>
