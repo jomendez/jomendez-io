@@ -1544,6 +1544,102 @@ input:focus-visible,
   }
 }
 
+/* ============================================================
+ * Section 7.7 — FAQ
+ * Native <details>/<summary> accordion. --bg-2 surface so it sits
+ * between the Pricing section (--bg) and the dark Final CTA.
+ * ============================================================ */
+.faq {
+  padding: 140px 0;
+  background: var(--bg-2);
+}
+.faq-head {
+  max-width: 720px;
+  margin: 0 auto 48px;
+  text-align: center;
+}
+.faq-head h2 {
+  font-family: 'Instrument Serif', serif;
+  font-weight: 400;
+  font-size: clamp(36px, 5.4vw, 64px);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  margin-top: 14px;
+}
+.faq-head h2 em { color: var(--accent); font-style: italic; }
+
+.faq-list {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.faq-item {
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  margin-bottom: 12px;
+  transition: border-color .2s ease;
+}
+.faq-item:last-child { margin-bottom: 0; }
+.faq-item[open] { border-color: var(--line-2); }
+.faq-item:hover { border-color: var(--accent); }
+
+.faq-q {
+  list-style: none;
+  cursor: pointer;
+  padding: 22px 56px 22px 24px;
+  position: relative;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.4;
+  color: var(--ink);
+}
+/* Remove the default disclosure triangle (Safari + others) */
+.faq-q::-webkit-details-marker { display: none; }
+.faq-q::after {
+  content: "+";
+  position: absolute;
+  right: 22px;
+  top: 50%;
+  width: 24px;
+  height: 24px;
+  margin-top: -12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  font-weight: 400;
+  line-height: 1;
+  color: var(--accent);
+  transition: transform .2s ease;
+}
+.faq-item[open] .faq-q::after {
+  transform: rotate(45deg);
+}
+.faq-q:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: -2px;
+  border-radius: 14px;
+}
+
+.faq-a {
+  padding: 0 24px 22px;
+}
+.faq-a p {
+  font-size: 15px;
+  line-height: 1.65;
+  color: var(--ink-2);
+}
+
+@media (max-width: 720px) {
+  .faq { padding: 100px 0; }
+  .faq-head { margin-bottom: 36px; }
+  .faq-q { padding: 18px 48px 18px 18px; font-size: 15px; }
+  .faq-q::after { right: 16px; }
+  .faq-a { padding: 0 18px 18px; }
+}
+
 /* Respect users who prefer reduced motion */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {

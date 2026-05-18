@@ -750,6 +750,101 @@ const Landing = () => {
         </section>
 
         {/* ============================================================
+            Section 7.7 — FAQ
+            Native <details>/<summary> accordion — no JS, keyboard-
+            accessible out of the box.
+            ============================================================ */}
+        <section className="faq" id="faq">
+          <div className="wrap">
+            <div className="faq-head">
+              <span className="eyebrow micro">FAQ</span>
+              <h2>
+                The questions <em>everyone asks.</em>
+              </h2>
+            </div>
+
+            <div className="faq-list">
+              <details className="faq-item">
+                <summary className="faq-q">
+                  Do I need to understand technology to work with you?
+                </summary>
+                <div className="faq-a">
+                  <p>
+                    No &mdash; and that&apos;s the whole point. You run your business; I handle the technology. You&apos;ll never have to learn how a CRM works, set up an automation, or touch any code. If you can send a text message, you can use everything I build for you.
+                  </p>
+                </div>
+              </details>
+
+              <details className="faq-item">
+                <summary className="faq-q">
+                  What do I actually get? Is it just a website?
+                </summary>
+                <div className="faq-a">
+                  <p>
+                    It&apos;s a lot more than a website. You get a complete system: a professional website, one organized place to track every lead, online booking, automatic text and email follow-ups, and an AI assistant that answers common questions for you. The website is just the front door &mdash; the real value is everything working behind it to turn visitors into paying customers.
+                  </p>
+                </div>
+              </details>
+
+              <details className="faq-item">
+                <summary className="faq-q">
+                  How is this different from hiring a web designer or a marketing agency?
+                </summary>
+                <div className="faq-a">
+                  <p>
+                    A web designer builds you a good-looking website and then they&apos;re done. A marketing agency sends you traffic, but what happens to those leads is still up to you. I build the system that catches every lead, follows up with them right away, and helps turn them into booked appointments &mdash; so opportunities stop slipping through the cracks.
+                  </p>
+                </div>
+              </details>
+
+              <details className="faq-item">
+                <summary className="faq-q">
+                  What if I don&apos;t have a website yet &mdash; or I&apos;m just starting my business?
+                </summary>
+                <div className="faq-a">
+                  <p>
+                    That&apos;s perfectly fine. Whether you&apos;re starting from zero, replacing a website that isn&apos;t working, or building on what you already have, we start from wherever you are. If anything, new businesses have an advantage: you get the right system in place from day one instead of fixing things later.
+                  </p>
+                </div>
+              </details>
+
+              <details className="faq-item">
+                <summary className="faq-q">
+                  How long until everything is up and running?
+                </summary>
+                <div className="faq-a">
+                  <p>
+                    Most projects take a few weeks, depending on how many pages you need and how much we&apos;re putting together. Before we start, you&apos;ll get a clear timeline &mdash; no vague promises and no surprises.
+                  </p>
+                </div>
+              </details>
+
+              <details className="faq-item">
+                <summary className="faq-q">
+                  What happens after my website launches? Am I on my own?
+                </summary>
+                <div className="faq-a">
+                  <p>
+                    Not at all. Every plan includes ongoing support and a set number of website updates each month, so your site keeps up as your business changes. When something needs adjusting, you send a message and it gets handled &mdash; you never have to touch anything technical.
+                  </p>
+                </div>
+              </details>
+
+              <details className="faq-item">
+                <summary className="faq-q">
+                  How much does it cost?
+                </summary>
+                <div className="faq-a">
+                  <p>
+                    Pricing is straightforward: a one-time setup fee to build your system, plus a flat monthly fee to keep it running and supported. You can see the exact numbers in the Pricing section above. If your business has bigger or unusual needs, we&apos;ll map out a custom plan together on a free strategy call.
+                  </p>
+                </div>
+              </details>
+            </div>
+          </div>
+        </section>
+
+        {/* ============================================================
             Section 8 — FINAL CTA
             ============================================================ */}
         <section className="final blueprint grain" id="join">
