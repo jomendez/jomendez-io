@@ -2,6 +2,7 @@ import { lazy, Suspense } from 'react'
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom'
 import Landing from './pages/Landing'
 import { LanguageProvider } from './i18n/LanguageContext'
+import ChatWidget from './i18n/ChatWidget'
 
 // The landing page is the LCP-critical root route, so it ships in the
 // initial bundle. Everything else is split off into its own chunk and
@@ -35,6 +36,7 @@ const RouteFallback = () => <div style={{ minHeight: '100vh' }} aria-busy="true"
 function App() {
   return (
     <LanguageProvider>
+      <ChatWidget />
       <Router>
         <Suspense fallback={<RouteFallback />}>
           <Routes>
