@@ -1,0 +1,43 @@
+/* ==========================================================================
+ * NotFound.styles.css — styles for the 404 page.
+ *
+ * Loaded on top of Landing.styles.css (injected by the NotFound
+ * component), so color tokens, typography, .nav, and .btn utilities are
+ * already available. This file only defines the .nf-* layout.
+ * ========================================================================== */
+
+.nf-main {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg);
+  padding: 120px 0 80px;
+}
+.nf-wrap {
+  text-align: center;
+  max-width: 540px;
+}
+.nf-code {
+  font-family: 'JetBrains Mono', 'IBM Plex Mono', monospace;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  color: var(--accent);
+}
+.nf-heading {
+  font-family: 'Instrument Serif', serif;
+  font-weight: 400;
+  font-size: clamp(36px, 6vw, 60px);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  margin: 14px 0;
+}
+.nf-body {
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--ink-2);
+  margin: 0 auto 28px;
+  max-width: 420px;
+}

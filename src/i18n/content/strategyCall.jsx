@@ -6,10 +6,9 @@
 const strategyCallContent = {
   en: {
     meta: {
-      title:
-        'Book a Strategy Call — Free 20-minute consultation | Jomendez Inc',
+      title: 'Book a Strategy Call | Jomendez Inc',
       description:
-        'Pick a time that works. A free 20-minute conversation about your business, where leads come from (or could come from), and what to fix first. No pitch, no pressure.',
+        'A free 20-minute call about your business — where leads come from and what to fix first. No pitch.',
     },
     a11y: {
       primaryNav: 'Primary',
@@ -59,10 +58,9 @@ const strategyCallContent = {
 
   es: {
     meta: {
-      title:
-        'Agenda una llamada estratégica — Consulta gratuita de 20 minutos | Jomendez Inc',
+      title: 'Agenda una llamada estratégica | Jomendez Inc',
       description:
-        'Elige un horario que te funcione. Una conversación gratuita de 20 minutos sobre tu negocio, de dónde vienen tus clientes (o podrían venir) y qué arreglar primero. Sin presión, sin discurso de ventas.',
+        'Una llamada gratuita de 20 minutos sobre tu negocio: de dónde vienen tus clientes y qué arreglar primero.',
     },
     a11y: {
       primaryNav: 'Principal',

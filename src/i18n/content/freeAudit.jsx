@@ -7,10 +7,9 @@
 const freeAuditContent = {
   en: {
     meta: {
-      title:
-        'Free Instant Business Audit — See where you’re losing customers online | Jomendez Inc',
+      title: 'Free Instant Business Audit | Jomendez Inc',
       description:
-        'A free, instant audit of your online presence. Listings, reviews, website health, SEO, and Google Business Profile — one short report, in plain English. No call required.',
+        'A free, instant audit of your online presence — listings, reviews, website, SEO, and Google Business Profile.',
     },
     a11y: {
       primaryNav: 'Primary',
@@ -121,10 +120,9 @@ const freeAuditContent = {
 
   es: {
     meta: {
-      title:
-        'Auditoría de negocio instantánea y gratis — Descubre dónde pierdes clientes en línea | Jomendez Inc',
+      title: 'Auditoría de negocio gratis | Jomendez Inc',
       description:
-        'Una auditoría gratuita e instantánea de tu presencia en línea. Directorios, reseñas, estado del sitio web, SEO y Perfil de Negocio de Google: un informe corto y claro. Sin necesidad de llamada.',
+        'Auditoría gratuita e instantánea de tu presencia en línea: directorios, reseñas, sitio web, SEO y Google.',
     },
     a11y: {
       primaryNav: 'Principal',
