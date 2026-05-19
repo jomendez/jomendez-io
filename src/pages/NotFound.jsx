@@ -84,7 +84,7 @@ const NotFound = () => {
           <Link to="/" className="nav-logo" aria-label={t.homeLink}>
             <img
               src="/landing/jm-logo.webp"
-              alt=""
+              alt="Jomendez Inc"
               className="brand-mark"
               width="36"
               height="36"

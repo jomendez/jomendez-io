@@ -207,7 +207,7 @@ const Landing = () => {
           <a href="#top" className="nav-logo" aria-label={t.a11y.homeLink}>
             <img
               src="/landing/jm-logo.webp"
-              alt=""
+              alt="Jomendez Inc"
               className="brand-mark"
               width="36"
               height="36"
@@ -228,9 +228,7 @@ const Landing = () => {
               data-source="nav"
             >
               <span className="pill" aria-hidden="true"></span>
-              <span style={{ color: 'rgb(255, 255, 255)' }}>
-                {t.cta.bookCall}
-              </span>
+              <span>{t.cta.bookCall}</span>
             </Link>
           </div>
           <button
@@ -302,15 +300,6 @@ const Landing = () => {
                   width="1200"
                   height="1500"
                 />
-                <div
-                  className="hero-portrait-placeholder"
-                  style={{ display: 'none' }}
-                  aria-hidden="true"
-                >
-                  Founder photo
-                  <br />
-                  /landing/images/jose-hero.jpg
-                </div>
                 <div className="hero-portrait-meta">
                   <span className="mono micro">JOMENDEZ / INC</span>
                   <h3>{t.hero.portraitTagline}</h3>
@@ -496,15 +485,6 @@ const Landing = () => {
                   width="1122"
                   height="1402"
                 />
-                <div
-                  className="about-img-placeholder"
-                  style={{ display: 'none' }}
-                  aria-hidden="true"
-                >
-                  Founder photo
-                  <br />
-                  /landing/images/jose.png
-                </div>
               </div>
               <div className="about-content">
                 <span className="eyebrow micro">{t.about.eyebrow}</span>
@@ -673,7 +653,7 @@ const Landing = () => {
               <div className="footer-brand">
                 <img
                   src="/landing/jm-logo.webp"
-                  alt=""
+                  alt="Jomendez Inc"
                   className="brand-mark"
                   width="36"
                   height="36"
