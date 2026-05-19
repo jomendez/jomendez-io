@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
 import baseStylesCss from './Landing.styles.css?raw'
 import pageStylesCss from './Contact.styles.css?raw'
-import { useContent } from '../i18n/LanguageContext'
+import { useContent, useLanguage } from '../i18n/LanguageContext'
 import LanguageToggle from '../i18n/LanguageToggle'
 import contactContent from '../i18n/content/contact'
 
@@ -32,6 +32,7 @@ const GHL_FORM_BASE =
 
 const Contact = () => {
   const t = useContent(contactContent)
+  const { language } = useLanguage()
 
   // Read ?selected_plan= from the URL. The pricing CTAs on / navigate
   // here with this param. We normalize it (trim + lowercase) before the
@@ -144,6 +145,32 @@ const Contact = () => {
     <>
       <style>{baseStylesCss}</style>
       <style>{pageStylesCss}</style>
+
+      {/* WebPage structured data for this route. */}
+      <script
+        type="application/ld+json"
+        // eslint-disable-next-line react/no-danger
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'WebPage',
+            name: t.meta.title,
+            description: t.meta.description,
+            url: 'https://jomendez.io/contact',
+            inLanguage: language,
+            isPartOf: {
+              '@type': 'WebSite',
+              name: 'Jomendez Inc',
+              url: 'https://jomendez.io',
+            },
+            publisher: {
+              '@type': 'Organization',
+              name: 'Jomendez Inc',
+              url: 'https://jomendez.io',
+            },
+          }),
+        }}
+      />
 
       {/* NAV — minimal: brand + back to home */}
       <nav className="nav scrolled" aria-label={t.a11y.primaryNav}>
