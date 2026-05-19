@@ -51,7 +51,7 @@ function detectInitialLanguage() {
 const LanguageContext = createContext(null)
 
 export const LanguageProvider = ({ children }) => {
-  const [language, setLanguageState] = useState(detectInitialLanguage)
+  const [language] = useState(detectInitialLanguage)
 
   // Keep the document <html lang> attribute in sync — matters for
   // screen readers and search engines.
@@ -59,15 +59,24 @@ export const LanguageProvider = ({ children }) => {
     document.documentElement.lang = language
   }, [language])
 
-  const setLanguage = useCallback((lang) => {
-    if (!SUPPORTED.includes(lang)) return
-    setLanguageState(lang)
-    try {
-      localStorage.setItem(STORAGE_KEY, lang)
-    } catch {
-      /* persistence is best-effort — the in-memory choice still applies */
-    }
-  }, [])
+  // Switching language persists the choice and reloads the page.
+  // The full reload is deliberate: it's the only reliable way to
+  // bring *everything* into the new language — including the
+  // third-party GHL chat widget, which has no in-place swap API.
+  // On reload, detectInitialLanguage() reads the saved choice and the
+  // page comes back fully in the chosen language.
+  const setLanguage = useCallback(
+    (lang) => {
+      if (!SUPPORTED.includes(lang) || lang === language) return
+      try {
+        localStorage.setItem(STORAGE_KEY, lang)
+      } catch {
+        /* persistence is best-effort */
+      }
+      window.location.reload()
+    },
+    [language],
+  )
 
   return (
     <LanguageContext.Provider value={{ language, setLanguage }}>
