@@ -155,8 +155,11 @@ const Landing = () => {
             '@type': 'Organization',
             name: 'Jomendez Inc',
             url: 'https://jomendez.io',
+            logo: 'https://jomendez.io/landing/jm-logo.webp',
+            image: 'https://jomendez.io/landing/images/og.png',
             description:
               'Jomendez Inc builds smart websites and AI-powered sales systems — website, CRM, booking, AI chat, and automated follow-up — that help local businesses capture, follow up with, and convert more leads. Founded by Jose Mendez.',
+            areaServed: 'United States',
             founder: {
               '@type': 'Person',
               name: 'Jose Mendez',
@@ -166,10 +169,40 @@ const Landing = () => {
                 'https://github.com/jomendez',
               ],
             },
+            contactPoint: {
+              '@type': 'ContactPoint',
+              contactType: 'customer support',
+              email: 'support@jomendez.io',
+              telephone: '+1-786-952-5448',
+              areaServed: 'US',
+              availableLanguage: ['English', 'Spanish'],
+            },
             sameAs: [
               'https://www.linkedin.com/in/jomendez/',
               'https://github.com/jomendez',
             ],
+          }),
+        }}
+      />
+
+      {/* FAQPage markup — built from the same FAQ content the section
+          renders, so the structured data always matches what's visible.
+          Follows the active language. */}
+      <script
+        type="application/ld+json"
+        // eslint-disable-next-line react/no-danger
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'FAQPage',
+            mainEntity: t.faq.items.map((item) => ({
+              '@type': 'Question',
+              name: item.q,
+              acceptedAnswer: {
+                '@type': 'Answer',
+                text: item.a,
+              },
+            })),
           }),
         }}
       />
