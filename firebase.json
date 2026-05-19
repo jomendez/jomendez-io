@@ -19,7 +19,7 @@
         "headers": [
           {
             "key": "Content-Security-Policy-Report-Only",
-            "value": "default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'self'; script-src 'self' 'unsafe-inline' https://*.leadconnectorhq.com https://brand.jomendez.io https://*.googleapis.com https://www.gstatic.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: blob: https:; frame-src https://*.leadconnectorhq.com https://brand.jomendez.io; connect-src 'self' https://*.googleapis.com https://*.firebaseio.com wss://*.firebaseio.com https://*.leadconnectorhq.com https://brand.jomendez.io"
+            "value": "default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'self'; script-src 'self' 'unsafe-inline' https://*.leadconnectorhq.com https://brand.jomendez.io https://*.googleapis.com https://www.gstatic.com https://www.googletagmanager.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: blob: https:; frame-src https://*.leadconnectorhq.com https://brand.jomendez.io; connect-src 'self' https://*.googleapis.com https://*.firebaseio.com wss://*.firebaseio.com https://*.leadconnectorhq.com https://brand.jomendez.io https://www.google-analytics.com https://*.google-analytics.com https://www.googletagmanager.com"
           }
         ]
       }
