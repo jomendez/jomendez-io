@@ -11,9 +11,9 @@
 const contactContent = {
   en: {
     meta: {
-      title: 'Contact — Tell us about your business | Jomendez Inc',
+      title: 'Contact | Jomendez Inc',
       description:
-        'Get in touch with Jomendez Inc. Tell us about your business and we’ll be in touch within one business day, or book a free strategy call.',
+        'Tell us about your business and we’ll reply within one business day — or book a free strategy call.',
     },
     a11y: {
       primaryNav: 'Primary',
@@ -76,9 +76,9 @@ const contactContent = {
 
   es: {
     meta: {
-      title: 'Contacto — Cuéntanos sobre tu negocio | Jomendez Inc',
+      title: 'Contacto | Jomendez Inc',
       description:
-        'Ponte en contacto con Jomendez Inc. Cuéntanos sobre tu negocio y te responderemos en un día hábil, o agenda una llamada estratégica gratuita.',
+        'Cuéntanos sobre tu negocio y te responderemos en un día hábil, o agenda una llamada estratégica gratis.',
     },
     a11y: {
       primaryNav: 'Principal',

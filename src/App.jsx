@@ -26,6 +26,7 @@ const STRHostAssistantPrivacyPolicy = lazy(() =>
   import('./pages/STRHostAssistantPrivacyPolicy')
 )
 const Admin = lazy(() => import('./pages/Admin'))
+const NotFound = lazy(() => import('./pages/NotFound'))
 
 // Visually inert fallback — avoids a layout flash while the chunk loads.
 // React will swap it for the real page as soon as the JS arrives.
@@ -81,6 +82,9 @@ function App() {
 
           {/* Admin dashboard — gated behind Firebase Auth + Firestore rules */}
           <Route path="/admin" element={<Admin />} />
+
+          {/* Catch-all — any unmatched URL renders the 404 page */}
+          <Route path="*" element={<NotFound />} />
           </Routes>
         </Suspense>
       </Router>
