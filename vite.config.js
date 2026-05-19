@@ -46,7 +46,7 @@ const ROUTE_META = {
     imageAlt: 'Book a strategy call with Jose Mendez — Jomendez Inc',
   },
   contact: {
-    title: 'Contact | Jomendez Inc',
+    title: 'Contact Jomendez Inc — Websites for Local Businesses',
     description:
       'Tell us about your business and we’ll reply within one business day — or book a free strategy call.',
     imageAlt: 'Contact Jomendez Inc',
