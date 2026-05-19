@@ -2,7 +2,6 @@ import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import stylesCss from './Landing.styles.css?raw'
 import AuditRadar, { AUDIT_DIMENSIONS } from '../components/AuditRadar'
-import { ensureAnonymousAuth } from '../services/auth'
 import { useContent } from '../i18n/LanguageContext'
 import LanguageToggle from '../i18n/LanguageToggle'
 import landingContent from '../i18n/content/landing'
@@ -130,14 +129,6 @@ const Landing = () => {
       document.title = prev
     }
   }, [t.meta.title])
-
-  // Eager anonymous auth so the first form submit doesn't pay the auth
-  // cost. Failure is non-fatal — submitWaitlist will retry.
-  useEffect(() => {
-    ensureAnonymousAuth().catch((err) => {
-      console.warn('Anonymous auth failed (will retry on submit):', err)
-    })
-  }, [])
 
   return (
     <>
@@ -302,19 +293,15 @@ const Landing = () => {
               </div>
 
               <div className="hero-portrait">
-                {/* WebP source + PNG fallback so we serve modern formats
-                    where supported and degrade gracefully where not. */}
-                <picture>
-                  <source srcSet="/landing/images/hero_portrait.webp" type="image/webp" />
-                  <img
-                    src="/landing/images/hero_portrait.png"
-                    alt="Jose Mendez, founder of Jomendez Inc"
-                    fetchpriority="high"
-                    decoding="async"
-                    width="1200"
-                    height="1500"
-                  />
-                </picture>
+                {/* WebP — universally supported; PNG fallback dropped. */}
+                <img
+                  src="/landing/images/hero_portrait.webp"
+                  alt="Jose Mendez, founder of Jomendez Inc"
+                  fetchpriority="high"
+                  decoding="async"
+                  width="1200"
+                  height="1500"
+                />
                 <div
                   className="hero-portrait-placeholder"
                   style={{ display: 'none' }}
@@ -500,18 +487,15 @@ const Landing = () => {
           <div className="wrap">
             <div className="about-grid">
               <div className="about-img">
-                {/* WebP source + PNG fallback for the founder portrait. */}
-                <picture>
-                  <source srcSet="/landing/images/jose.webp" type="image/webp" />
-                  <img
-                    src="/landing/images/jose.png"
-                    alt="Jose Mendez"
-                    loading="lazy"
-                    decoding="async"
-                    width="1122"
-                    height="1402"
-                  />
-                </picture>
+                {/* WebP — universally supported; PNG fallback dropped. */}
+                <img
+                  src="/landing/images/jose.webp"
+                  alt="Jose Mendez"
+                  loading="lazy"
+                  decoding="async"
+                  width="1122"
+                  height="1402"
+                />
                 <div
                   className="about-img-placeholder"
                   style={{ display: 'none' }}
