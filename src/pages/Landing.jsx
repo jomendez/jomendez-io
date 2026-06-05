@@ -215,6 +215,7 @@ const Landing = () => {
           <div className="nav-links">
             <a href="#audit">{t.nav.howItWorks}</a>
             <a href="#why">{t.nav.whyItWorks}</a>
+            <a href="#case-studies">{t.nav.caseStudies}</a>
             <a href="#about">{t.nav.about}</a>
             <LanguageToggle />
             <Link
@@ -246,6 +247,9 @@ const Landing = () => {
           </a>
           <a href="#why" onClick={() => setMenuOpen(false)}>
             {t.nav.whyItWorks}
+          </a>
+          <a href="#case-studies" onClick={() => setMenuOpen(false)}>
+            {t.nav.caseStudies}
           </a>
           <a href="#about" onClick={() => setMenuOpen(false)}>
             {t.nav.about}
@@ -458,6 +462,55 @@ const Landing = () => {
                   </div>
                 </div>
               ))}
+            </div>
+          </div>
+        </section>
+
+        {/* ============================================================
+            Section 5.5 — CASE STUDIES (proof, between Why and About)
+            Industries shown without business names — keeps the social
+            proof concrete without naming any specific client.
+            ============================================================ */}
+        <section
+          className="case-studies"
+          id="case-studies"
+          aria-label={t.a11y.caseStudies}
+        >
+          <div className="wrap">
+            <div className="case-studies-head">
+              <span className="eyebrow micro">{t.caseStudies.eyebrow}</span>
+              <h2>{t.caseStudies.heading}</h2>
+              <p className="case-studies-body">{t.caseStudies.body}</p>
+            </div>
+
+            <ul className="case-studies-grid">
+              {t.caseStudies.items.map((item, i) => (
+                <li className="case-card" key={i}>
+                  <div className="case-card-head">
+                    <p className="case-industry">{item.industry}</p>
+                    <p className="case-timeframe mono micro">
+                      {item.timeframe}
+                    </p>
+                  </div>
+                  <ul className="case-stats">
+                    {item.stats.map((stat, j) => (
+                      <li className="case-stat" key={j}>
+                        <span className="case-stat-value">{stat.value}</span>
+                        <span className="case-stat-label">{stat.label}</span>
+                      </li>
+                    ))}
+                  </ul>
+                  <p className="case-summary">{item.summary}</p>
+                </li>
+              ))}
+            </ul>
+
+            <div className="case-studies-cta">
+              <div className="case-studies-cta-copy">
+                <h3>{t.caseStudies.ctaHeading}</h3>
+                <p>{t.caseStudies.ctaBody}</p>
+              </div>
+              <CtaButtons source="case-studies" />
             </div>
           </div>
         </section>
