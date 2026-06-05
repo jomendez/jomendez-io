@@ -19,9 +19,6 @@ import landingContent from '../i18n/content/landing'
 const FONTS_HREF =
   'https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap'
 
-// Pricing tier order → /contact plan slug + analytics data-cta value.
-const PLAN_SLUGS = ['starter', 'growth', 'pro']
-
 // Sanity check: the translated audit dimension lists must stay the same
 // length as the radar's axes (the radar renders its own English labels).
 if (
@@ -219,7 +216,6 @@ const Landing = () => {
             <a href="#audit">{t.nav.howItWorks}</a>
             <a href="#why">{t.nav.whyItWorks}</a>
             <a href="#about">{t.nav.about}</a>
-            <a href="#pricing">{t.nav.pricing}</a>
             <LanguageToggle />
             <Link
               to="/strategy-call"
@@ -253,9 +249,6 @@ const Landing = () => {
           </a>
           <a href="#about" onClick={() => setMenuOpen(false)}>
             {t.nav.about}
-          </a>
-          <a href="#pricing" onClick={() => setMenuOpen(false)}>
-            {t.nav.pricing}
           </a>
           <LanguageToggle className="lang-toggle--block" />
           <Link
@@ -521,86 +514,6 @@ const Landing = () => {
                 </li>
               ))}
             </ol>
-          </div>
-        </section>
-
-        {/* ============================================================
-            Section 7.5 — PRICING
-            ============================================================ */}
-        <section className="pricing" id="pricing">
-          <div className="wrap">
-            <div className="pricing-head">
-              <span className="eyebrow micro">{t.pricing.eyebrow}</span>
-              <h2>{t.pricing.heading}</h2>
-              <p>{t.pricing.sub}</p>
-            </div>
-
-            <div className="pricing-grid">
-              {t.pricing.tiers.map((tier, i) => (
-                <article
-                  className={`pricing-card${i === 1 ? ' pricing-card--featured' : ''}`}
-                  key={i}
-                >
-                  <header className="pricing-card-head">
-                    <span className="pricing-tier">{tier.tier}</span>
-                    <p className="pricing-tier-sub">{tier.tierSub}</p>
-                  </header>
-                  <div className="pricing-price">
-                    <span className="pricing-price-amount">
-                      {tier.priceAmount}
-                    </span>
-                    <span className="pricing-price-plus">+</span>
-                    <span className="pricing-price-recurring">
-                      {tier.priceRecurring}
-                    </span>
-                  </div>
-                  <p className="pricing-card-desc">{tier.desc}</p>
-                  <ul className="pricing-features">
-                    {tier.features.map((f, fi) => (
-                      <li key={fi}>{f}</li>
-                    ))}
-                  </ul>
-                  <Link
-                    to={`/contact?selected_plan=${PLAN_SLUGS[i]}`}
-                    className="btn btn-primary pricing-cta"
-                    data-cta={`signup-${PLAN_SLUGS[i]}`}
-                    data-source="pricing"
-                  >
-                    {t.pricing.cta}
-                  </Link>
-                </article>
-              ))}
-            </div>
-
-            {/* CUSTOM tier — full-width banner card below the grid. */}
-            <aside className="pricing-custom">
-              <div className="pricing-custom-content">
-                <span className="pricing-tier">{t.pricing.custom.tier}</span>
-                <h3>{t.pricing.custom.heading}</h3>
-                <p>{t.pricing.custom.body}</p>
-                <ul className="pricing-custom-features">
-                  {t.pricing.custom.features.map((f, i) => (
-                    <li key={i}>{f}</li>
-                  ))}
-                </ul>
-              </div>
-              <div className="pricing-custom-cta">
-                <span className="pricing-custom-price">
-                  {t.pricing.custom.price}
-                </span>
-                <p className="pricing-custom-price-sub">
-                  {t.pricing.custom.priceSub}
-                </p>
-                <Link
-                  to="/strategy-call"
-                  className="btn btn-primary pricing-cta"
-                  data-cta="signup-custom"
-                  data-source="pricing"
-                >
-                  {t.pricing.custom.cta}
-                </Link>
-              </div>
-            </aside>
           </div>
         </section>
 

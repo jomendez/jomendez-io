@@ -54,8 +54,7 @@ function App() {
               widget. The hero/audit/final CTAs on / point here. */}
           <Route path="/strategy-call" element={<StrategyCall />} />
 
-          {/* Contact page — hosts the GHL contact form. The pricing
-              "Sign up now" CTAs on / point here. */}
+          {/* Contact page — hosts the GHL contact form. */}
           <Route path="/contact" element={<Contact />} />
 
           {/* The 8-Point Business Audit flow.
