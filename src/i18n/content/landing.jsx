@@ -26,10 +26,12 @@ const landingContent = {
       leaks: 'Three places where small businesses lose money',
       capabilities: 'What I build',
       auditDimensions: 'The 8 audit dimensions',
+      caseStudies: 'Client case studies — results from local businesses',
     },
     nav: {
       howItWorks: 'How It Works',
       whyItWorks: 'Why It Works',
+      caseStudies: 'Case Studies',
       about: 'About',
     },
     cta: {
@@ -183,6 +185,86 @@ const landingContent = {
         },
       ],
     },
+    caseStudies: {
+      eyebrow: 'CASE STUDIES',
+      heading: (
+        <>
+          Real <em>results</em> from real local businesses.
+        </>
+      ),
+      body: 'Different industries, same playbook: smart local SEO automation that turns the website into a steady stream of inquiries. A few snapshots of recent work — industry shown without business names to respect client privacy.',
+      items: [
+        {
+          industry: 'DUI Law Firm',
+          timeframe: '4 weeks',
+          stats: [
+            { value: '100%', label: 'Pins improved' },
+            { value: '17.5↑', label: 'Better avg. local position' },
+            { value: '88%', label: 'Pins in top positions' },
+          ],
+          summary:
+            'Significant lift across every tracked location after deploying automated SEO — and hundreds of hours of manual work eliminated.',
+        },
+        {
+          industry: 'Residential Cleaning Service',
+          timeframe: '4 weeks',
+          stats: [
+            { value: '100%', label: 'Pins ranking' },
+            { value: '13↑', label: 'Better avg. local position' },
+            { value: '46%', label: 'Pins in top positions' },
+          ],
+          summary:
+            'Now ranks across a wide service area without paying for ads — strong inquiry flow at a fraction of the previous cost.',
+        },
+        {
+          industry: 'Auto Glass Repair',
+          timeframe: '30 days',
+          stats: [
+            { value: '+159.74%', label: 'Calls from organic search' },
+            { value: '+126.42%', label: 'Website impressions' },
+            { value: '+69%', label: 'Clicks to the site' },
+          ],
+          summary:
+            'Not just rankings — actual phone calls. Compounding gains across visibility, traffic, and lead volume.',
+        },
+        {
+          industry: 'Dentist Office',
+          timeframe: '20 days',
+          stats: [
+            { value: '82%', label: 'Pins improved' },
+            { value: '+17', label: 'Pins ranking top 10' },
+            { value: '9↑', label: 'Better avg. local position' },
+          ],
+          summary:
+            'Faster path to top rankings across the practice’s service area at a fraction of typical agency cost.',
+        },
+        {
+          industry: 'Lighting & Home Decor',
+          timeframe: '4 weeks',
+          stats: [
+            { value: '100%', label: 'Pins ranking' },
+            { value: '7↑', label: 'Better avg. local position' },
+            { value: '71%', label: 'Pins in top + mid positions' },
+          ],
+          summary:
+            'From basically invisible to consistently showing up in local results — without adding hours to anyone’s week.',
+        },
+        {
+          industry: 'Tree Cutting Service',
+          timeframe: '3 weeks',
+          stats: [
+            { value: '89.74%', label: 'Pins improved' },
+            { value: '+19', label: 'Pins in top positions' },
+            { value: '90%', label: 'Pins ranking top positions' },
+          ],
+          summary:
+            'Automated SEO replaced the manual work — same results, no hours buried in admin.',
+        },
+      ],
+      ctaHeading: 'Want this kind of result for your business?',
+      ctaBody:
+        'Book a strategy call. We’ll walk through what would need to be in place for your business to see the same kind of lift — no obligation.',
+    },
     about: {
       eyebrow: 'ABOUT',
       heading: (
@@ -293,10 +375,12 @@ const landingContent = {
       leaks: 'Tres lugares donde los negocios pequeños pierden dinero',
       capabilities: 'Lo que construyo',
       auditDimensions: 'Las 8 dimensiones de la auditoría',
+      caseStudies: 'Casos de éxito — resultados de negocios locales',
     },
     nav: {
       howItWorks: 'Cómo Funciona',
       whyItWorks: 'Por Qué Funciona',
+      caseStudies: 'Casos de Éxito',
       about: 'Sobre Mí',
     },
     cta: {
@@ -449,6 +533,86 @@ const landingContent = {
           sub: 'con base en Miami, trabajando con clientes en todo el país.',
         },
       ],
+    },
+    caseStudies: {
+      eyebrow: 'CASOS DE ÉXITO',
+      heading: (
+        <>
+          Resultados <em>reales</em> de negocios locales reales.
+        </>
+      ),
+      body: 'Industrias distintas, mismo método: automatización inteligente de SEO local que convierte el sitio web en una fuente constante de consultas. Unos ejemplos de trabajo reciente — industria mostrada sin nombres de empresa para respetar la privacidad del cliente.',
+      items: [
+        {
+          industry: 'Bufete de Abogados (DUI)',
+          timeframe: '4 semanas',
+          stats: [
+            { value: '100%', label: 'Pins mejorados' },
+            { value: '17.5↑', label: 'Mejor posición local promedio' },
+            { value: '88%', label: 'Pins en las mejores posiciones' },
+          ],
+          summary:
+            'Mejora notable en cada ubicación rastreada tras desplegar SEO automatizado — y cientos de horas de trabajo manual eliminadas.',
+        },
+        {
+          industry: 'Servicio de Limpieza Residencial',
+          timeframe: '4 semanas',
+          stats: [
+            { value: '100%', label: 'Pins posicionados' },
+            { value: '13↑', label: 'Mejor posición local promedio' },
+            { value: '46%', label: 'Pins en las mejores posiciones' },
+          ],
+          summary:
+            'Ahora aparece en una zona de servicio amplia sin pagar publicidad — flujo de consultas sólido a una fracción del costo anterior.',
+        },
+        {
+          industry: 'Taller de Auto Glass',
+          timeframe: '30 días',
+          stats: [
+            { value: '+159.74%', label: 'Llamadas desde búsqueda orgánica' },
+            { value: '+126.42%', label: 'Impresiones del sitio web' },
+            { value: '+69%', label: 'Clics al sitio' },
+          ],
+          summary:
+            'No solo posicionamiento — llamadas reales. Mejoras combinadas en visibilidad, tráfico y volumen de leads.',
+        },
+        {
+          industry: 'Consultorio Dental',
+          timeframe: '20 días',
+          stats: [
+            { value: '82%', label: 'Pins mejorados' },
+            { value: '+17', label: 'Pins en el top 10' },
+            { value: '9↑', label: 'Mejor posición local promedio' },
+          ],
+          summary:
+            'Camino más rápido al top de los resultados locales del área del consultorio — a una fracción del costo de una agencia típica.',
+        },
+        {
+          industry: 'Iluminación y Decoración del Hogar',
+          timeframe: '4 semanas',
+          stats: [
+            { value: '100%', label: 'Pins posicionados' },
+            { value: '7↑', label: 'Mejor posición local promedio' },
+            { value: '71%', label: 'Pins en posiciones altas y medias' },
+          ],
+          summary:
+            'De prácticamente invisible a aparecer consistentemente en los resultados locales — sin sumarle horas a la semana de nadie.',
+        },
+        {
+          industry: 'Servicio de Tala de Árboles',
+          timeframe: '3 semanas',
+          stats: [
+            { value: '89.74%', label: 'Pins mejorados' },
+            { value: '+19', label: 'Pins en las mejores posiciones' },
+            { value: '90%', label: 'Pins posicionados en el top' },
+          ],
+          summary:
+            'El SEO automatizado reemplazó el trabajo manual — mismos resultados, sin horas perdidas en tareas administrativas.',
+        },
+      ],
+      ctaHeading: '¿Quieres este tipo de resultados para tu negocio?',
+      ctaBody:
+        'Agenda una llamada estratégica. Repasamos qué tendría que estar en su lugar para que tu negocio vea el mismo tipo de mejora — sin compromiso.',
     },
     about: {
       eyebrow: 'SOBRE MÍ',
