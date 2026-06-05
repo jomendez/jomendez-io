@@ -31,6 +31,10 @@ dist-ssr
 # Design handoff archives (keep out of repo)
 jomendez-handoff.tar.gz
 
+# Source materials for case studies (PDFs, zips, extracted images)
+# The deployed visualizations live under public/landing/case-studies/.
+case_study/
+
 # Local Claude / Cowork settings
 .claude/
 

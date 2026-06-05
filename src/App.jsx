@@ -15,6 +15,7 @@ const OldLanding = lazy(() => import('./pages/OldLanding'))
 const FreeAudit = lazy(() => import('./pages/FreeAudit'))
 const StrategyCall = lazy(() => import('./pages/StrategyCall'))
 const Contact = lazy(() => import('./pages/Contact'))
+const CaseStudies = lazy(() => import('./pages/CaseStudies'))
 const Audit = lazy(() => import('./pages/Audit'))
 const AuditSubmitted = lazy(() => import('./pages/AuditSubmitted'))
 const AuditResults = lazy(() => import('./pages/AuditResults'))
@@ -56,6 +57,11 @@ function App() {
 
           {/* Contact page — hosts the GHL contact form. */}
           <Route path="/contact" element={<Contact />} />
+
+          {/* Full case-studies landing — long-form proof. The homepage
+              "See all case studies →" link and the nav "Case Studies"
+              entry both route here. */}
+          <Route path="/case-studies" element={<CaseStudies />} />
 
           {/* The 8-Point Business Audit flow.
               /audit/submitted is registered ahead of /audit/:inviteToken
