@@ -7,8 +7,7 @@
  * with useContent(landingContent).
  *
  * Spanish register: warm, direct "tú" — matches the founder-to-owner
- * tone of the English. Tier names are localized (Starter → Inicial,
- * etc.) so the pricing section reads naturally in Spanish.
+ * tone of the English.
  */
 
 const landingContent = {
@@ -32,7 +31,6 @@ const landingContent = {
       howItWorks: 'How It Works',
       whyItWorks: 'Why It Works',
       about: 'About',
-      pricing: 'Pricing',
     },
     cta: {
       freeAudit: 'Get free business audit',
@@ -228,78 +226,6 @@ const landingContent = {
         },
       ],
     },
-    pricing: {
-      eyebrow: 'PRICING',
-      heading: (
-        <>
-          Our flexible <em>pricing</em> options.
-        </>
-      ),
-      sub: 'Flexible plans tailored to your business needs.',
-      cta: 'Sign up now',
-      tiers: [
-        {
-          tier: 'STARTER',
-          tierSub: 'For Small Businesses & Startups',
-          priceAmount: '$1,000 Setup',
-          priceRecurring: '$97/Month',
-          desc: 'Get started with a sleek, mobile-friendly website designed to capture leads and improve your online presence.',
-          features: [
-            '3-Page Website',
-            'Desktop and Mobile Friendly Site',
-            'On-Page Website SEO',
-            'Contact Form',
-            'Chat Widget',
-            'SMS and Email Automations',
-            '1 Website Edit Per Month',
-          ],
-        },
-        {
-          tier: 'GROWTH',
-          tierSub: 'For Scaling Businesses & Entrepreneurs',
-          priceAmount: '$2,000 Setup',
-          priceRecurring: '$297/Month',
-          desc: 'Scale your business with advanced SEO, automation, and lead management tools to maximize conversions.',
-          features: [
-            '5-Page Website',
-            'Everything in Starter, PLUS:',
-            'Calendar Booking System',
-            'Payment Processing',
-            'Google Review Automation/Widget',
-            '3 Website Edits Per Month',
-          ],
-        },
-        {
-          tier: 'PRO',
-          tierSub: 'For High-Performing Brands & Enterprises',
-          priceAmount: '$3,000 Setup',
-          priceRecurring: '$697/Month',
-          desc: 'Unlock full automation, premium customization, and enterprise-level solutions for high-growth businesses.',
-          features: [
-            '10+ Page Website',
-            'Everything in Growth, PLUS:',
-            'On-Going SEO Management',
-            'AI Chat Bot',
-            'AI Voice Bot',
-            '5 Website Edits Per Month',
-          ],
-        },
-      ],
-      custom: {
-        tier: 'CUSTOM',
-        heading: 'For businesses with unique requirements.',
-        body: 'Need something the plans above don’t cover? Custom integrations, multi-location operations, bespoke AI workflows, or anything outside the boxes — let’s design a system that fits exactly what your business needs.',
-        features: [
-          'Everything in Pro, plus whatever else your business actually needs',
-          'Custom integrations with your existing tools and stack',
-          'Tailored AI workflows and automations',
-          'Multi-location and franchise-ready setups',
-        ],
-        price: 'Let’s talk',
-        priceSub: 'Scope and pricing mapped during a free strategy call.',
-        cta: 'Book a Strategy Call',
-      },
-    },
     faq: {
       eyebrow: 'FAQ',
       heading: (
@@ -334,7 +260,7 @@ const landingContent = {
         },
         {
           q: 'How much does it cost?',
-          a: 'Pricing is straightforward: a one-time setup fee to build your system, plus a flat monthly fee to keep it running and supported. You can see the exact numbers in the Pricing section above. If your business has bigger or unusual needs, we’ll map out a custom plan together on a free strategy call.',
+          a: 'Pricing depends on what we build for you — typically a one-time setup fee to put the system in place plus a flat monthly fee to keep it running and supported. We map the exact scope and cost together on a free strategy call. No obligation, no pressure — you’ll know the full picture before deciding anything.',
         },
       ],
     },
@@ -372,7 +298,6 @@ const landingContent = {
       howItWorks: 'Cómo Funciona',
       whyItWorks: 'Por Qué Funciona',
       about: 'Sobre Mí',
-      pricing: 'Precios',
     },
     cta: {
       freeAudit: 'Auditoría gratis',
@@ -569,78 +494,6 @@ const landingContent = {
         },
       ],
     },
-    pricing: {
-      eyebrow: 'PRECIOS',
-      heading: (
-        <>
-          Opciones de <em>precios</em> flexibles.
-        </>
-      ),
-      sub: 'Planes flexibles ajustados a las necesidades de tu negocio.',
-      cta: 'Empezar ahora',
-      tiers: [
-        {
-          tier: 'INICIAL',
-          tierSub: 'Para pequeños negocios y emprendimientos',
-          priceAmount: '$1,000 de inicio',
-          priceRecurring: '$97/mes',
-          desc: 'Empieza con un sitio web elegante y adaptado a celulares, diseñado para captar clientes y mejorar tu presencia en línea.',
-          features: [
-            'Sitio web de 3 páginas',
-            'Sitio adaptado a computadora y celular',
-            'SEO en las páginas del sitio',
-            'Formulario de contacto',
-            'Widget de chat',
-            'Automatizaciones por SMS y correo',
-            '1 edición del sitio al mes',
-          ],
-        },
-        {
-          tier: 'CRECIMIENTO',
-          tierSub: 'Para negocios en expansión y emprendedores',
-          priceAmount: '$2,000 de inicio',
-          priceRecurring: '$297/mes',
-          desc: 'Haz crecer tu negocio con SEO avanzado, automatización y herramientas de gestión de clientes para maximizar las conversiones.',
-          features: [
-            'Sitio web de 5 páginas',
-            'Todo lo del plan Inicial, MÁS:',
-            'Sistema de agenda de citas',
-            'Procesamiento de pagos',
-            'Automatización/widget de reseñas de Google',
-            '3 ediciones del sitio al mes',
-          ],
-        },
-        {
-          tier: 'PRO',
-          tierSub: 'Para marcas de alto rendimiento y empresas',
-          priceAmount: '$3,000 de inicio',
-          priceRecurring: '$697/mes',
-          desc: 'Desbloquea automatización total, personalización premium y soluciones de nivel empresarial para negocios de alto crecimiento.',
-          features: [
-            'Sitio web de 10+ páginas',
-            'Todo lo del plan Crecimiento, MÁS:',
-            'Gestión continua de SEO',
-            'Chatbot con IA',
-            'Asistente de voz con IA',
-            '5 ediciones del sitio al mes',
-          ],
-        },
-      ],
-      custom: {
-        tier: 'PERSONALIZADO',
-        heading: 'Para negocios con necesidades únicas.',
-        body: '¿Necesitas algo que los planes anteriores no cubren? Integraciones personalizadas, operaciones en varias ubicaciones, flujos de IA a la medida o cualquier cosa fuera de lo común: diseñemos un sistema que se ajuste exactamente a lo que tu negocio necesita.',
-        features: [
-          'Todo lo del plan Pro, más lo que tu negocio realmente necesite',
-          'Integraciones personalizadas con tus herramientas actuales',
-          'Flujos de IA y automatizaciones a la medida',
-          'Configuraciones para varias ubicaciones y franquicias',
-        ],
-        price: 'Hablemos',
-        priceSub: 'El alcance y el precio se definen en una llamada estratégica gratuita.',
-        cta: 'Agenda una llamada',
-      },
-    },
     faq: {
       eyebrow: 'PREGUNTAS FRECUENTES',
       heading: (
@@ -675,7 +528,7 @@ const landingContent = {
         },
         {
           q: '¿Cuánto cuesta?',
-          a: 'El precio es sencillo: un pago único de inicio para construir tu sistema, más una cuota mensual fija para mantenerlo funcionando y con soporte. Puedes ver los números exactos en la sección de Precios más arriba. Si tu negocio tiene necesidades más grandes o fuera de lo común, definimos juntos un plan personalizado en una llamada estratégica gratuita.',
+          a: 'El precio depende de lo que construyamos para ti: por lo general, un pago único de inicio para poner el sistema en marcha más una cuota mensual fija para mantenerlo funcionando y con soporte. Definimos el alcance y el costo exactos en una llamada estratégica gratuita. Sin compromiso, sin presión: vas a conocer todo el panorama antes de decidir.',
         },
       ],
     },
