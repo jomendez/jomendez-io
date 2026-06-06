@@ -215,7 +215,7 @@ const Landing = () => {
           <div className="nav-links">
             <a href="#audit">{t.nav.howItWorks}</a>
             <a href="#why">{t.nav.whyItWorks}</a>
-            <a href="#case-studies">{t.nav.caseStudies}</a>
+            <Link to="/case-studies">{t.nav.caseStudies}</Link>
             <a href="#about">{t.nav.about}</a>
             <LanguageToggle />
             <Link
@@ -248,9 +248,9 @@ const Landing = () => {
           <a href="#why" onClick={() => setMenuOpen(false)}>
             {t.nav.whyItWorks}
           </a>
-          <a href="#case-studies" onClick={() => setMenuOpen(false)}>
+          <Link to="/case-studies" onClick={() => setMenuOpen(false)}>
             {t.nav.caseStudies}
-          </a>
+          </Link>
           <a href="#about" onClick={() => setMenuOpen(false)}>
             {t.nav.about}
           </a>
@@ -504,6 +504,17 @@ const Landing = () => {
                 </li>
               ))}
             </ul>
+
+            <div className="case-studies-seeall">
+              <Link
+                to="/case-studies"
+                className="case-studies-seeall-link"
+                data-cta="case-studies-page"
+                data-source="case-studies-teaser"
+              >
+                {t.caseStudies.seeAll}
+              </Link>
+            </div>
 
             <div className="case-studies-cta">
               <div className="case-studies-cta-copy">

@@ -261,6 +261,7 @@ const landingContent = {
             'Automated SEO replaced the manual work — same results, no hours buried in admin.',
         },
       ],
+      seeAll: 'See all 9 case studies →',
       ctaHeading: 'Want this kind of result for your business?',
       ctaBody:
         'Book a strategy call. We’ll walk through what would need to be in place for your business to see the same kind of lift — no obligation.',
@@ -610,6 +611,7 @@ const landingContent = {
             'El SEO automatizado reemplazó el trabajo manual — mismos resultados, sin horas perdidas en tareas administrativas.',
         },
       ],
+      seeAll: 'Ver los 9 casos de éxito →',
       ctaHeading: '¿Quieres este tipo de resultados para tu negocio?',
       ctaBody:
         'Agenda una llamada estratégica. Repasamos qué tendría que estar en su lugar para que tu negocio vea el mismo tipo de mejora — sin compromiso.',

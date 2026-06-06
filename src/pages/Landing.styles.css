@@ -810,8 +810,29 @@ section { position: relative; }
   color: var(--ink);
 }
 
+.case-studies-seeall {
+  margin-top: 40px;
+  text-align: center;
+}
+.case-studies-seeall-link {
+  display: inline-block;
+  padding: 10px 20px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  color: var(--ink);
+  text-decoration: none;
+  border-bottom: 1px solid var(--accent);
+  transition: color .2s ease, transform .2s ease;
+}
+.case-studies-seeall-link:hover {
+  color: var(--accent);
+  transform: translateX(2px);
+}
+
 .case-studies-cta {
-  margin-top: 72px;
+  margin-top: 56px;
   padding: 48px 56px;
   background: var(--bg);
   border: 1px solid var(--line);

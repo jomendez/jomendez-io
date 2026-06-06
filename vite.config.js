@@ -51,6 +51,14 @@ const ROUTE_META = {
       'Tell us about your business and we’ll reply within one business day — or book a free strategy call.',
     imageAlt: 'Contact Jomendez Inc',
   },
+  'case-studies': {
+    title:
+      'Case Studies — Real Local-SEO Results in Days, Not Quarters | Jomendez Inc',
+    description:
+      'How the SEO AI Agent I deploy moved local businesses from invisible to top-ranking in 20–30 days. Heatmaps, before/after rankings, real numbers across 9 industries.',
+    imageAlt:
+      'Jomendez Inc client case studies — local SEO heatmap results across nine industries',
+  },
 }
 
 function perRouteStaticHead() {
