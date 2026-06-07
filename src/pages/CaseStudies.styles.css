@@ -235,20 +235,19 @@
 }
 
 /* ============================================================
- * RESULTS section — image + bullets side-by-side on desktop
+ * RESULTS section — single column. Image strip on top, bullets
+ * below. Each visualization is its own image inside the strip
+ * (BEFORE / AFTER cards, or 3-step progression for dental), so
+ * there's no risk of the PDF's container layout clipping any
+ * card's content.
  * ============================================================ */
 .cs-case-results {
   margin-top: 12px;
-  display: grid;
-  grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
-  gap: clamp(28px, 4vw, 48px);
-  align-items: start;
   padding-top: 36px;
   border-top: 1px solid var(--line);
 }
 .cs-case-results-head {
-  grid-column: 1 / -1;
-  margin-bottom: 8px;
+  margin-bottom: 28px;
 }
 .cs-case-results-head h3 {
   font-family: 'Instrument Serif', serif;
@@ -260,57 +259,87 @@
   margin: 0;
 }
 
-/* ---- Image presentation ---- */
+/* ---- Image strip — labeled BEFORE/AFTER cards side-by-side ---- */
 .cs-case-image {
-  margin: 0;
+  margin: 0 0 36px;
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: 16px;
 }
 .cs-case-image-eyebrow {
   color: var(--accent);
   letter-spacing: 0.08em;
   margin: 0;
 }
-.cs-case-image-frame {
-  position: relative;
+.cs-case-image-strip {
+  display: grid;
+  gap: clamp(12px, 1.5vw, 20px);
+}
+.cs-case-image-strip--1 {
+  grid-template-columns: 1fr;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+.cs-case-image-strip--2 {
+  grid-template-columns: repeat(2, 1fr);
+}
+.cs-case-image-strip--3 {
+  grid-template-columns: repeat(3, 1fr);
+}
+.cs-case-image-card {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.cs-case-image-card-label {
+  color: var(--accent);
+  letter-spacing: 0.07em;
+  margin: 0;
+  text-align: center;
+}
+.cs-case-image-card-frame {
   background: var(--bg-2);
   border: 1px solid var(--line);
-  border-radius: 14px;
-  padding: 20px;
+  border-radius: 12px;
+  padding: clamp(10px, 1.2vw, 16px);
   display: flex;
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  /* Reserves vertical space and stops a tall (square-ish) crop from
-     pushing the rest of the layout around. The image inside uses
-     object-fit: contain to respect its own aspect ratio. */
-  min-height: 280px;
-  max-height: 480px;
+  /* Keep cards in the same row a uniform height so the strip
+     reads as one cohesive comparison. min-height keeps short
+     visualizations from collapsing; max-height caps tall ones. */
+  min-height: 260px;
+  max-height: 560px;
 }
-.cs-case-image-frame img {
+.cs-case-image-card-frame img {
   display: block;
   width: 100%;
   max-width: 100%;
-  height: 100%;
-  max-height: 440px;
+  height: auto;
+  max-height: 520px;
   object-fit: contain;
-  border-radius: 6px;
+  border-radius: 4px;
 }
 .cs-case-image-caption {
-  margin: 0;
+  margin: 4px 0 0;
   color: var(--muted);
   font-size: 13px;
   line-height: 1.55;
   font-style: italic;
+  text-align: center;
+  max-width: 760px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
-/* ---- Results bullets ---- */
+/* ---- Results bullets — 2-col grid on desktop for compact reading ---- */
 .cs-case-bullets {
   list-style: none;
   padding: 0;
   margin: 0;
   display: grid;
+  grid-template-columns: repeat(2, 1fr);
   gap: 12px;
   align-self: start;
 }
@@ -481,15 +510,13 @@
  * RESPONSIVE
  * ============================================================ */
 @media (max-width: 1040px) {
-  .cs-case-results {
-    grid-template-columns: 1fr;
-  }
-  .cs-case-image-frame {
-    max-height: 520px;
+  .cs-case-image-card-frame {
+    max-height: 480px;
   }
 }
 @media (max-width: 880px) {
   .cs-case-benefits { grid-template-columns: 1fr; gap: 12px; }
+  .cs-case-bullets { grid-template-columns: 1fr; }
 }
 @media (max-width: 720px) {
   .cs-hero { padding: 96px 0 56px; }
@@ -518,10 +545,14 @@
   .cs-case-strategy { padding: 22px 22px; }
   .cs-case-results {
     padding-top: 28px;
-    gap: 24px;
   }
-  .cs-case-image-frame {
-    padding: 14px;
+  /* Stack the strip on mobile — cards stay full-width, easier to read. */
+  .cs-case-image-strip--2,
+  .cs-case-image-strip--3 {
+    grid-template-columns: 1fr;
+  }
+  .cs-case-image-card-frame {
+    padding: 12px;
     min-height: 220px;
   }
 
