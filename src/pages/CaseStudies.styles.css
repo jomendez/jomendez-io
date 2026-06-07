@@ -6,6 +6,11 @@
  * available. Page selectors are prefixed .cs-* to avoid collisions with
  * Landing's section classes and StrategyCall's .sc-* selectors.
  *
+ * Design intent: each detailed case study reads as a self-contained
+ * "spread" — a cream card sitting inside the deeper-cream section, with
+ * generous padding and a soft shadow that gives every case the same
+ * presentation weight regardless of how big its supporting image is.
+ *
  * Mobile-first: defaults size for narrow screens, then breakpoints layer on
  * tablet/desktop adjustments.
  * ========================================================================== */
@@ -24,7 +29,7 @@
  * HERO
  * ============================================================ */
 .cs-hero {
-  padding: 120px 0 72px;
+  padding: 120px 0 80px;
   position: relative;
   overflow: hidden;
 }
@@ -57,81 +62,106 @@
   color: var(--muted);
   max-width: 720px;
   letter-spacing: 0.06em;
-  text-transform: none;
   font-size: 11px;
   line-height: 1.5;
   opacity: 0.85;
 }
 
 /* ============================================================
- * DETAILED CASES — long-form articles
+ * DETAILED CASES — section + card container
  * ============================================================ */
 .cs-cases {
   padding: 80px 0 40px;
   background: var(--bg-2);
 }
-.cs-case {
-  padding: 64px 0;
-  border-bottom: 1px solid var(--line);
-}
-.cs-case:last-child { border-bottom: 0; }
-.cs-case:first-child { padding-top: 24px; }
+.cs-cases .wrap { max-width: 1140px; }
 
-.cs-case-head { margin-bottom: 28px; }
+.cs-case {
+  position: relative;
+  padding: clamp(40px, 5vw, 72px);
+  margin-bottom: 32px;
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: 24px;
+  box-shadow:
+    0 1px 0 rgba(14, 34, 64, 0.04),
+    0 18px 48px -28px rgba(14, 34, 64, 0.16);
+}
+.cs-case:last-child { margin-bottom: 0; }
+
+/* Chapter index — large serif gold mark in the top-left,
+   sets visual rhythm between sequential cases. */
+.cs-case-head {
+  margin-bottom: 36px;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  column-gap: clamp(24px, 4vw, 48px);
+  row-gap: 0;
+  align-items: start;
+}
 .cs-case-index {
+  font-family: 'Instrument Serif', serif;
+  font-size: clamp(44px, 6vw, 68px);
+  line-height: 0.9;
+  letter-spacing: -0.02em;
   color: var(--accent);
-  margin: 0 0 12px;
+  margin: 0;
+  grid-row: span 2;
+  align-self: start;
+  padding-top: 6px;
 }
 .cs-case-title {
   font-family: 'Instrument Serif', serif;
   font-weight: 400;
-  font-size: clamp(32px, 4.4vw, 52px);
+  font-size: clamp(28px, 4vw, 44px);
   line-height: 1.05;
   letter-spacing: -0.02em;
   color: var(--ink);
-  margin: 0 0 10px;
+  margin: 0 0 12px;
 }
 .cs-case-meta {
   margin: 0;
-  font-size: 14px;
+  font-size: 13.5px;
   color: var(--muted);
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
+  gap: 10px;
   align-items: center;
 }
 .cs-case-timeframe {
   color: var(--ink);
   font-weight: 500;
-  background: var(--bg);
-  padding: 4px 10px;
+  background: var(--bg-2);
+  padding: 5px 12px;
   border-radius: 999px;
   border: 1px solid var(--line);
+  letter-spacing: -0.005em;
 }
-.cs-case-divider { opacity: 0.5; }
+.cs-case-divider { opacity: 0.4; }
+.cs-case-location { letter-spacing: -0.005em; }
 
+/* ---- Stat trio: individual padded cards on bg-2 ---- */
 .cs-case-stats {
   list-style: none;
-  padding: 28px 0;
-  margin: 24px 0 32px;
+  padding: 0;
+  margin: 0 0 36px;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 0;
-  border-top: 1px solid var(--line);
-  border-bottom: 1px solid var(--line);
+  gap: 12px;
 }
 .cs-case-stat {
-  padding: 0 24px;
-  border-right: 1px solid var(--line);
+  padding: 28px 22px;
+  background: var(--bg-2);
+  border: 1px solid var(--line);
+  border-radius: 14px;
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 10px;
+  text-align: left;
 }
-.cs-case-stat:first-child { padding-left: 0; }
-.cs-case-stat:last-child { border-right: 0; padding-right: 0; }
 .cs-case-stat-value {
   font-family: 'Instrument Serif', serif;
-  font-size: clamp(28px, 3.4vw, 44px);
+  font-size: clamp(32px, 4vw, 44px);
   line-height: 1;
   letter-spacing: -0.025em;
   color: var(--accent);
@@ -140,27 +170,31 @@
   font-size: 13px;
   line-height: 1.4;
   color: var(--muted);
+  letter-spacing: -0.005em;
 }
 
+/* ---- Intro paragraph ---- */
 .cs-case-intro {
   font-size: 17px;
   line-height: 1.7;
   color: var(--ink);
   max-width: 760px;
-  margin: 0 0 36px;
+  margin: 0 0 32px;
 }
 
+/* ---- Strategy block ---- */
 .cs-case-strategy {
-  background: var(--bg);
+  position: relative;
+  background: var(--bg-2);
   border: 1px solid var(--line);
   border-radius: 14px;
-  padding: 28px 32px;
+  padding: 26px 30px 28px;
   margin-bottom: 32px;
 }
 .cs-case-strategy h3 {
   font-family: 'Instrument Serif', serif;
   font-weight: 400;
-  font-size: 24px;
+  font-size: 22px;
   line-height: 1.2;
   letter-spacing: -0.015em;
   color: var(--ink);
@@ -168,78 +202,125 @@
 }
 .cs-case-strategy p {
   margin: 0;
-  font-size: 16px;
+  font-size: 15.5px;
   line-height: 1.65;
   color: var(--muted);
 }
 
+/* ---- Key benefits: 3-up compact cards ---- */
 .cs-case-benefits {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
+  gap: 16px;
   margin-bottom: 48px;
 }
 .cs-case-benefit {
-  background: var(--bg);
+  background: transparent;
   border: 1px solid var(--line);
   border-radius: 12px;
   padding: 22px 22px 24px;
 }
 .cs-case-benefit-title {
   margin: 0 0 8px;
-  font-size: 15px;
+  font-size: 14.5px;
   font-weight: 600;
   color: var(--ink);
   letter-spacing: -0.005em;
 }
 .cs-case-benefit-body {
   margin: 0;
-  font-size: 14px;
+  font-size: 13.5px;
   line-height: 1.55;
   color: var(--muted);
 }
 
-.cs-case-results h3 {
+/* ============================================================
+ * RESULTS section — image + bullets side-by-side on desktop
+ * ============================================================ */
+.cs-case-results {
+  margin-top: 12px;
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+  gap: clamp(28px, 4vw, 48px);
+  align-items: start;
+  padding-top: 36px;
+  border-top: 1px solid var(--line);
+}
+.cs-case-results-head {
+  grid-column: 1 / -1;
+  margin-bottom: 8px;
+}
+.cs-case-results-head h3 {
   font-family: 'Instrument Serif', serif;
   font-weight: 400;
-  font-size: clamp(24px, 2.6vw, 32px);
+  font-size: clamp(22px, 2.8vw, 30px);
   line-height: 1.15;
   letter-spacing: -0.018em;
   color: var(--ink);
-  margin: 0 0 24px;
+  margin: 0;
 }
+
+/* ---- Image presentation ---- */
 .cs-case-image {
-  margin: 0 0 28px;
-  padding: 24px;
-  background: var(--bg);
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.cs-case-image-eyebrow {
+  color: var(--accent);
+  letter-spacing: 0.08em;
+  margin: 0;
+}
+.cs-case-image-frame {
+  position: relative;
+  background: var(--bg-2);
   border: 1px solid var(--line);
   border-radius: 14px;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  /* Reserves vertical space and stops a tall (square-ish) crop from
+     pushing the rest of the layout around. The image inside uses
+     object-fit: contain to respect its own aspect ratio. */
+  min-height: 280px;
+  max-height: 480px;
 }
-.cs-case-image img {
+.cs-case-image-frame img {
   display: block;
   width: 100%;
-  height: auto;
-  border-radius: 8px;
+  max-width: 100%;
+  height: 100%;
+  max-height: 440px;
+  object-fit: contain;
+  border-radius: 6px;
 }
-.cs-case-image figcaption {
-  margin-top: 14px;
+.cs-case-image-caption {
+  margin: 0;
   color: var(--muted);
-  text-align: center;
+  font-size: 13px;
+  line-height: 1.55;
+  font-style: italic;
 }
+
+/* ---- Results bullets ---- */
 .cs-case-bullets {
   list-style: none;
   padding: 0;
   margin: 0;
   display: grid;
-  gap: 14px;
+  gap: 12px;
+  align-self: start;
 }
 .cs-case-bullets li {
   position: relative;
   padding: 16px 20px 16px 44px;
-  background: var(--bg);
+  background: var(--bg-2);
   border: 1px solid var(--line);
-  border-radius: 10px;
-  font-size: 15px;
+  border-radius: 12px;
+  font-size: 14.5px;
   line-height: 1.55;
   color: var(--ink);
 }
@@ -258,7 +339,7 @@
  * BRIEF CASES — 4 stat-card extras
  * ============================================================ */
 .cs-brief {
-  padding: 100px 0 120px;
+  padding: 120px 0 120px;
   background: var(--bg);
 }
 .cs-brief-head {
@@ -369,9 +450,7 @@
   position: relative;
   z-index: 2;
 }
-.cs-final-inner .eyebrow {
-  color: var(--accent);
-}
+.cs-final-inner .eyebrow { color: var(--accent); }
 .cs-final-inner h2 {
   font-family: 'Instrument Serif', serif;
   font-weight: 400;
@@ -401,32 +480,52 @@
 /* ============================================================
  * RESPONSIVE
  * ============================================================ */
-@media (max-width: 980px) {
-  .cs-case-benefits { grid-template-columns: 1fr; gap: 14px; }
+@media (max-width: 1040px) {
+  .cs-case-results {
+    grid-template-columns: 1fr;
+  }
+  .cs-case-image-frame {
+    max-height: 520px;
+  }
+}
+@media (max-width: 880px) {
+  .cs-case-benefits { grid-template-columns: 1fr; gap: 12px; }
 }
 @media (max-width: 720px) {
   .cs-hero { padding: 96px 0 56px; }
   .cs-cases { padding: 56px 0 24px; }
-  .cs-case { padding: 48px 0; }
-
+  .cs-case {
+    padding: 32px 24px;
+    margin-bottom: 20px;
+    border-radius: 18px;
+  }
+  .cs-case-head {
+    grid-template-columns: 1fr;
+    gap: 14px;
+    margin-bottom: 28px;
+  }
+  .cs-case-index {
+    grid-row: auto;
+    font-size: 36px;
+    padding-top: 0;
+  }
   .cs-case-stats {
     grid-template-columns: 1fr;
-    padding: 20px 0;
+    gap: 10px;
+    margin-bottom: 28px;
   }
-  .cs-case-stat {
-    padding: 16px 0;
-    border-right: 0;
-    border-bottom: 1px solid var(--line);
+  .cs-case-stat { padding: 22px 20px; }
+  .cs-case-strategy { padding: 22px 22px; }
+  .cs-case-results {
+    padding-top: 28px;
+    gap: 24px;
   }
-  .cs-case-stat:first-child { padding-top: 0; }
-  .cs-case-stat:last-child {
-    padding-bottom: 0;
-    border-bottom: 0;
+  .cs-case-image-frame {
+    padding: 14px;
+    min-height: 220px;
   }
-  .cs-case-strategy { padding: 22px 24px; }
-  .cs-case-image { padding: 16px; }
 
-  .cs-brief { padding: 72px 0 96px; }
+  .cs-brief { padding: 80px 0 96px; }
   .cs-brief-head { margin-bottom: 40px; }
   .cs-brief-grid { grid-template-columns: 1fr; }
   .cs-brief-stats { padding: 18px 16px; gap: 6px; }

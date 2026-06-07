@@ -242,15 +242,22 @@ const CaseStudies = () => {
                 </div>
 
                 <div className="cs-case-results">
-                  <h3>{c.resultsHeading}</h3>
+                  <header className="cs-case-results-head">
+                    <h3>{c.resultsHeading}</h3>
+                  </header>
                   <figure className="cs-case-image">
-                    <img
-                      src={c.image}
-                      alt={c.imageAlt}
-                      loading="lazy"
-                      decoding="async"
-                    />
-                    <figcaption className="mono micro">
+                    <p className="cs-case-image-eyebrow mono micro">
+                      {c.imageEyebrow}
+                    </p>
+                    <div className="cs-case-image-frame">
+                      <img
+                        src={c.image}
+                        alt={c.imageAlt}
+                        loading="lazy"
+                        decoding="async"
+                      />
+                    </div>
+                    <figcaption className="cs-case-image-caption">
                       {c.imageCaption}
                     </figcaption>
                   </figure>
