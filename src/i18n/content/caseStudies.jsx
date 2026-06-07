@@ -82,11 +82,26 @@ const caseStudiesContent = {
           'Before the rollout, 82% of pins weren’t ranking at all. After: 84% were ranking.',
           'Pins in the top 3 positions jumped from 1 to 7. Pins in the top 10 jumped from 2 to 13.',
         ],
-        image: '/landing/case-studies/dental.webp',
-        imageAlt:
-          'Before-and-after local SEO heatmap for the dental practice, with the percentage of pins ranking shown as a donut chart.',
+        imageEyebrow: 'RANKING HEATMAP · 20 DAYS',
+        images: [
+          {
+            src: '/landing/case-studies/dental_1.webp',
+            alt: 'Local SEO heatmap for the dental practice at day 1: most pins are red (not ranking).',
+            label: 'DAY 1',
+          },
+          {
+            src: '/landing/case-studies/dental_2.webp',
+            alt: 'Local SEO heatmap for the dental practice at day 10: a mix of red, orange, and green pins as rankings improve.',
+            label: 'DAY 10',
+          },
+          {
+            src: '/landing/case-studies/dental_3.webp',
+            alt: 'Local SEO heatmap for the dental practice at day 20: green and orange pins dominate, signalling top rankings.',
+            label: 'DAY 20',
+          },
+        ],
         imageCaption:
-          'Local-SEO heatmap progression — pins ranking shown by color and the share of ranked pins shown in the donut.',
+          'Each pin is one tracked location across the service area. The donut shows the share of pins ranking in each tier — green for top positions, orange for mid, red for unranked.',
       },
 
       // 2 — Chiropractic center
@@ -125,11 +140,21 @@ const caseStudiesContent = {
           'Before, the business wasn’t ranking for 85% of the pins. After: 97% of the pins were ranking.',
           'Pins in the top 10 positions jumped from 4 to 24, with 18 of those landing in the top 3.',
         ],
-        image: '/landing/case-studies/chiropractic.webp',
-        imageAlt:
-          'Before-and-after local SEO heatmap for the chiropractic center across 3 weeks, with pins ranking shown by color.',
+        imageEyebrow: 'RANKING HEATMAP · 3 WEEKS',
+        images: [
+          {
+            src: '/landing/case-studies/chiropractic_before.webp',
+            alt: 'Local SEO heatmap before optimization: most pins are red (not ranking).',
+            label: 'BEFORE',
+          },
+          {
+            src: '/landing/case-studies/chiropractic_after.webp',
+            alt: 'Local SEO heatmap after 3 weeks: green and orange pins dominate, with the donut showing 46% ranking in top positions.',
+            label: 'AFTER · 3 WEEKS',
+          },
+        ],
         imageCaption:
-          'Before / after heatmap — pin ranking by color, with the share of ranked pins as a donut chart.',
+          'Each pin is one tracked location across the service area. The donut shows the share of pins in each ranking tier — green for top positions, orange for mid, red for unranked.',
       },
 
       // 3 — Tree cutting service
@@ -168,11 +193,21 @@ const caseStudiesContent = {
           'Before, the business wasn’t ranking for 71% of pins. After: 79% of pins were ranking.',
           'On the second keyword: top-3 pin share jumped from 41% to 90%, with most of those landing at rank 1.',
         ],
-        image: '/landing/case-studies/treecutting.webp',
-        imageAlt:
-          'Before-and-after local SEO heatmap for the tree-cutting service across 3 weeks of optimization.',
+        imageEyebrow: 'RANKING HEATMAP · 3 WEEKS',
+        images: [
+          {
+            src: '/landing/case-studies/treecutting_before.webp',
+            alt: 'Local SEO heatmap before optimization on the secondary keyword: mixed orange and green pins, with the donut showing 41% in top positions.',
+            label: 'BEFORE',
+          },
+          {
+            src: '/landing/case-studies/treecutting_after.webp',
+            alt: 'Local SEO heatmap after 3 weeks: green pins dominate, with the donut showing 90% ranking in top positions.',
+            label: 'AFTER · 3 WEEKS',
+          },
+        ],
         imageCaption:
-          'Before / after heatmap on the primary keyword — pin ranking by color, with the share of ranked pins as a donut chart.',
+          'Each pin is one tracked location across the service area. The donut shows the share of pins ranking in each tier — green for top positions, orange for mid, red for unranked.',
       },
 
       // 4 — Lighting & home decor
@@ -211,11 +246,21 @@ const caseStudiesContent = {
           'Before, the business wasn’t ranking (or ranked badly) for 49% of pins. After: 100% of pins were ranking.',
           'Pins ranking in the top 10 jumped from 16 to 29, with 8 of those landing in the top 3.',
         ],
-        image: '/landing/case-studies/lightingdecor.webp',
-        imageAlt:
-          'Before-and-after local SEO heatmap for the lighting and home-decor showroom across 4 weeks.',
+        imageEyebrow: 'RANKING HEATMAP · 4 WEEKS',
+        images: [
+          {
+            src: '/landing/case-studies/lightingdecor_before.webp',
+            alt: 'Local SEO heatmap before optimization on the primary keyword: mixed pins with the donut showing 49% unranked.',
+            label: 'BEFORE',
+          },
+          {
+            src: '/landing/case-studies/lightingdecor_after.webp',
+            alt: 'Local SEO heatmap after 4 weeks: green and orange pins dominate with the donut showing 53% in top positions.',
+            label: 'AFTER · 4 WEEKS',
+          },
+        ],
         imageCaption:
-          'Before / after heatmap on the primary keyword — pin ranking by color, with the share of ranked pins as a donut chart.',
+          'Each pin is one tracked location across the service area. The donut shows the share of pins ranking in each tier — green for top positions, orange for mid, red for unranked.',
       },
 
       // 5 — Auto glass repair
@@ -255,11 +300,16 @@ const caseStudiesContent = {
           'Clicks rose from 143 to 242, impressions from 10.6k to 13.4k, CTR from 1.3% to 1.8%, and average keyword position from 22.9 to 19.6.',
           'A 10% month-over-month increase in GBP call volume.',
         ],
-        image: '/landing/case-studies/autoglass.webp',
-        imageAlt:
-          'Google Search Console dashboard showing the increase in clicks, impressions, CTR, and average ranking position across the 30-day measurement window.',
+        imageEyebrow: 'SEARCH CONSOLE · 30-DAY WINDOW',
+        images: [
+          {
+            src: '/landing/case-studies/autoglass.webp',
+            alt: 'Google Search Console dashboard showing the increase in clicks, impressions, CTR, and average ranking position across the 30-day measurement window.',
+            label: null,
+          },
+        ],
         imageCaption:
-          'Search Console dashboard — clicks, impressions, average CTR, and average ranking position over the 30-day window.',
+          'Search Console comparison view — clicks, impressions, average CTR, and average ranking position over the 30-day window vs the prior period.',
       },
     ],
     briefSection: {
@@ -393,11 +443,26 @@ const caseStudiesContent = {
           'Antes del despliegue, el 82% de los pins no posicionaba. Después: el 84% posicionaba.',
           'Los pins en las primeras 3 posiciones subieron de 1 a 7. Los pins en el top 10 subieron de 2 a 13.',
         ],
-        image: '/landing/case-studies/dental.webp',
-        imageAlt:
-          'Mapa de calor de SEO local antes y después para el consultorio dental, con el porcentaje de pins posicionados en un gráfico de dona.',
+        imageEyebrow: 'MAPA DE CALOR · 20 DÍAS',
+        images: [
+          {
+            src: '/landing/case-studies/dental_1.webp',
+            alt: 'Mapa de calor de SEO local para el consultorio dental en el día 1: la mayoría de los pins están rojos (sin posicionar).',
+            label: 'DÍA 1',
+          },
+          {
+            src: '/landing/case-studies/dental_2.webp',
+            alt: 'Mapa de calor en el día 10: mezcla de pins rojos, naranjas y verdes a medida que mejoran las posiciones.',
+            label: 'DÍA 10',
+          },
+          {
+            src: '/landing/case-studies/dental_3.webp',
+            alt: 'Mapa de calor en el día 20: predominan los pins verdes y naranjas, indicando posiciones top.',
+            label: 'DÍA 20',
+          },
+        ],
         imageCaption:
-          'Progresión del mapa de calor de SEO local — el color del pin muestra el ranking y la dona muestra el porcentaje de pins posicionados.',
+          'Cada pin es una ubicación rastreada en el área de servicio. La dona muestra el porcentaje de pins por nivel — verde para posiciones top, naranja para medias, rojo para sin posicionar.',
       },
 
       // 2 — Centro quiropráctico
@@ -436,11 +501,21 @@ const caseStudiesContent = {
           'Antes, el negocio no posicionaba para el 85% de los pins. Después: el 97% de los pins posicionaba.',
           'Los pins en el top 10 saltaron de 4 a 24, con 18 de ellos llegando al top 3.',
         ],
-        image: '/landing/case-studies/chiropractic.webp',
-        imageAlt:
-          'Mapa de calor de SEO local antes y después para el centro quiropráctico en 3 semanas, con los pins coloreados por su ranking.',
+        imageEyebrow: 'MAPA DE CALOR · 3 SEMANAS',
+        images: [
+          {
+            src: '/landing/case-studies/chiropractic_before.webp',
+            alt: 'Mapa de calor antes de la optimización: la mayoría de los pins están rojos (sin posicionar).',
+            label: 'ANTES',
+          },
+          {
+            src: '/landing/case-studies/chiropractic_after.webp',
+            alt: 'Mapa de calor después de 3 semanas: predominan los pins verdes y naranjas, con la dona mostrando 46% en las mejores posiciones.',
+            label: 'DESPUÉS · 3 SEMANAS',
+          },
+        ],
         imageCaption:
-          'Mapa de calor antes / después — ranking del pin por color, con el porcentaje de pins posicionados en una dona.',
+          'Cada pin es una ubicación rastreada en el área de servicio. La dona muestra el porcentaje de pins por nivel — verde para posiciones top, naranja para medias, rojo para sin posicionar.',
       },
 
       // 3 — Servicio de tala de árboles
@@ -479,11 +554,21 @@ const caseStudiesContent = {
           'Antes, el negocio no posicionaba para el 71% de los pins. Después: el 79% de los pins posicionaba.',
           'En la segunda keyword: la participación de pins en el top 3 saltó del 41% al 90%, la mayoría en el puesto 1.',
         ],
-        image: '/landing/case-studies/treecutting.webp',
-        imageAlt:
-          'Mapa de calor de SEO local antes y después para el servicio de tala de árboles en 3 semanas de optimización.',
+        imageEyebrow: 'MAPA DE CALOR · 3 SEMANAS',
+        images: [
+          {
+            src: '/landing/case-studies/treecutting_before.webp',
+            alt: 'Mapa de calor antes de la optimización en la keyword secundaria: pins naranjas y verdes mezclados, dona mostrando 41% en posiciones top.',
+            label: 'ANTES',
+          },
+          {
+            src: '/landing/case-studies/treecutting_after.webp',
+            alt: 'Mapa de calor después de 3 semanas: dominan los pins verdes con la dona mostrando 90% en las mejores posiciones.',
+            label: 'DESPUÉS · 3 SEMANAS',
+          },
+        ],
         imageCaption:
-          'Mapa de calor antes / después en la keyword principal — color del pin por ranking, dona con el porcentaje de pins posicionados.',
+          'Cada pin es una ubicación rastreada en el área de servicio. La dona muestra el porcentaje de pins por nivel — verde para posiciones top, naranja para medias, rojo para sin posicionar.',
       },
 
       // 4 — Iluminación y decoración del hogar
@@ -522,11 +607,21 @@ const caseStudiesContent = {
           'Antes, el negocio no posicionaba (o posicionaba mal) en el 49% de los pins. Después: el 100% de los pins posicionaba.',
           'Los pins en el top 10 saltaron de 16 a 29, con 8 de ellos llegando al top 3.',
         ],
-        image: '/landing/case-studies/lightingdecor.webp',
-        imageAlt:
-          'Mapa de calor de SEO local antes y después para el showroom de iluminación y decoración en 4 semanas.',
+        imageEyebrow: 'MAPA DE CALOR · 4 SEMANAS',
+        images: [
+          {
+            src: '/landing/case-studies/lightingdecor_before.webp',
+            alt: 'Mapa de calor antes de la optimización en la keyword principal: pins mezclados con la dona mostrando 49% sin posicionar.',
+            label: 'ANTES',
+          },
+          {
+            src: '/landing/case-studies/lightingdecor_after.webp',
+            alt: 'Mapa de calor después de 4 semanas: dominan los pins verdes y naranjas con la dona mostrando 53% en las mejores posiciones.',
+            label: 'DESPUÉS · 4 SEMANAS',
+          },
+        ],
         imageCaption:
-          'Mapa de calor antes / después en la keyword principal — color del pin por ranking, dona con el porcentaje de pins posicionados.',
+          'Cada pin es una ubicación rastreada en el área de servicio. La dona muestra el porcentaje de pins por nivel — verde para posiciones top, naranja para medias, rojo para sin posicionar.',
       },
 
       // 5 — Taller de auto glass
@@ -566,11 +661,16 @@ const caseStudiesContent = {
           'Los clics subieron de 143 a 242, las impresiones de 10.6k a 13.4k, el CTR de 1.3% a 1.8% y la posición promedio de 22.9 a 19.6.',
           'Un aumento del 10% mes a mes en el volumen de llamadas vía GBP.',
         ],
-        image: '/landing/case-studies/autoglass.webp',
-        imageAlt:
-          'Panel de Google Search Console mostrando el aumento en clics, impresiones, CTR y posición promedio en el periodo de medición de 30 días.',
+        imageEyebrow: 'SEARCH CONSOLE · VENTANA DE 30 DÍAS',
+        images: [
+          {
+            src: '/landing/case-studies/autoglass.webp',
+            alt: 'Panel de Google Search Console mostrando el aumento en clics, impresiones, CTR y posición promedio en el periodo de medición de 30 días.',
+            label: null,
+          },
+        ],
         imageCaption:
-          'Panel de Search Console — clics, impresiones, CTR promedio y posición promedio durante el periodo de 30 días.',
+          'Vista comparativa de Search Console — clics, impresiones, CTR promedio y posición promedio durante los 30 días vs el periodo previo.',
       },
     ],
     briefSection: {

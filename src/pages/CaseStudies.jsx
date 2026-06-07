@@ -242,15 +242,35 @@ const CaseStudies = () => {
                 </div>
 
                 <div className="cs-case-results">
-                  <h3>{c.resultsHeading}</h3>
+                  <header className="cs-case-results-head">
+                    <h3>{c.resultsHeading}</h3>
+                  </header>
                   <figure className="cs-case-image">
-                    <img
-                      src={c.image}
-                      alt={c.imageAlt}
-                      loading="lazy"
-                      decoding="async"
-                    />
-                    <figcaption className="mono micro">
+                    <p className="cs-case-image-eyebrow mono micro">
+                      {c.imageEyebrow}
+                    </p>
+                    <div
+                      className={`cs-case-image-strip cs-case-image-strip--${c.images.length}`}
+                    >
+                      {c.images.map((img, j) => (
+                        <div key={j} className="cs-case-image-card">
+                          {img.label && (
+                            <p className="cs-case-image-card-label mono micro">
+                              {img.label}
+                            </p>
+                          )}
+                          <div className="cs-case-image-card-frame">
+                            <img
+                              src={img.src}
+                              alt={img.alt}
+                              loading="lazy"
+                              decoding="async"
+                            />
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                    <figcaption className="cs-case-image-caption">
                       {c.imageCaption}
                     </figcaption>
                   </figure>
