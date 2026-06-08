@@ -34,6 +34,16 @@ const caseStudiesContent = {
     nav: {
       back: '← Home',
     },
+    cardLabels: {
+      scoreLabel: 'Keyword Ranking Score',
+      tiers: {
+        good: 'Good',
+        medium: 'Medium',
+        bad: 'Bad',
+        unranked: 'Not ranking',
+      },
+      pins: (n) => (n === 1 ? '1 pin' : `${n} pins`),
+    },
     hero: {
       eyebrow: 'CLIENT CASE STUDIES',
       headline: (
@@ -85,23 +95,47 @@ const caseStudiesContent = {
         imageEyebrow: 'RANKING HEATMAP · 20 DAYS',
         images: [
           {
-            src: '/landing/case-studies/dental_1.webp',
+            map: '/landing/case-studies/maps/dental_1.webp',
             alt: 'Local SEO heatmap for the dental practice at day 1: most pins are red (not ranking).',
             label: 'DAY 1',
+            keyword: 'dentist near me',
+            score: '18.8',
+            legend: [
+              { tier: 'good', pins: 1, percent: 3 },
+              { tier: 'medium', pins: 2, percent: 5 },
+              { tier: 'bad', pins: 4, percent: 10 },
+              { tier: 'unranked', pins: 32, percent: 82 },
+            ],
           },
           {
-            src: '/landing/case-studies/dental_2.webp',
+            map: '/landing/case-studies/maps/dental_2.webp',
             alt: 'Local SEO heatmap for the dental practice at day 10: a mix of red, orange, and green pins as rankings improve.',
             label: 'DAY 10',
+            keyword: 'dentist near me',
+            score: '14.3',
+            legend: [
+              { tier: 'good', pins: 4, percent: 10 },
+              { tier: 'medium', pins: 7, percent: 18 },
+              { tier: 'bad', pins: 14, percent: 36 },
+              { tier: 'unranked', pins: 14, percent: 36 },
+            ],
           },
           {
-            src: '/landing/case-studies/dental_3.webp',
+            map: '/landing/case-studies/maps/dental_3.webp',
             alt: 'Local SEO heatmap for the dental practice at day 20: green and orange pins dominate, signalling top rankings.',
             label: 'DAY 20',
+            keyword: 'dentist near me',
+            score: '9.5',
+            legend: [
+              { tier: 'good', pins: 7, percent: 18 },
+              { tier: 'medium', pins: 13, percent: 33 },
+              { tier: 'bad', pins: 13, percent: 33 },
+              { tier: 'unranked', pins: 6, percent: 15 },
+            ],
           },
         ],
         imageCaption:
-          'Each pin is one tracked location across the service area. The donut shows the share of pins ranking in each tier — green for top positions, orange for mid, red for unranked.',
+          'Each pin is one tracked location across the service area. The donut shows the share of pins in each ranking tier — green for top positions, orange for mid, light red for low, dark red for unranked.',
       },
 
       // 2 — Chiropractic center
@@ -143,18 +177,34 @@ const caseStudiesContent = {
         imageEyebrow: 'RANKING HEATMAP · 3 WEEKS',
         images: [
           {
-            src: '/landing/case-studies/chiropractic_before.webp',
+            map: '/landing/case-studies/maps/chiropractic_before.webp',
             alt: 'Local SEO heatmap before optimization: most pins are red (not ranking).',
             label: 'BEFORE',
+            keyword: 'chiropractic center',
+            score: '18.7',
+            legend: [
+              { tier: 'good', pins: 2, percent: 5 },
+              { tier: 'medium', pins: 2, percent: 5 },
+              { tier: 'bad', pins: 2, percent: 5 },
+              { tier: 'unranked', pins: 33, percent: 85 },
+            ],
           },
           {
-            src: '/landing/case-studies/chiropractic_after.webp',
+            map: '/landing/case-studies/maps/chiropractic_after.webp',
             alt: 'Local SEO heatmap after 3 weeks: green and orange pins dominate, with the donut showing 46% ranking in top positions.',
             label: 'AFTER · 3 WEEKS',
+            keyword: 'chiropractic center',
+            score: '6.3',
+            legend: [
+              { tier: 'good', pins: 18, percent: 46 },
+              { tier: 'medium', pins: 6, percent: 15 },
+              { tier: 'bad', pins: 14, percent: 36 },
+              { tier: 'unranked', pins: 1, percent: 3 },
+            ],
           },
         ],
         imageCaption:
-          'Each pin is one tracked location across the service area. The donut shows the share of pins in each ranking tier — green for top positions, orange for mid, red for unranked.',
+          'Each pin is one tracked location across the service area. The donut shows the share of pins in each ranking tier — green for top positions, orange for mid, light red for low, dark red for unranked.',
       },
 
       // 3 — Tree cutting service
@@ -196,18 +246,34 @@ const caseStudiesContent = {
         imageEyebrow: 'RANKING HEATMAP · 3 WEEKS',
         images: [
           {
-            src: '/landing/case-studies/treecutting_before.webp',
+            map: '/landing/case-studies/maps/treecutting_before.webp',
             alt: 'Local SEO heatmap before optimization on the secondary keyword: mixed orange and green pins, with the donut showing 41% in top positions.',
             label: 'BEFORE',
+            keyword: 'bronx tree service',
+            score: '4',
+            legend: [
+              { tier: 'good', pins: 16, percent: 41 },
+              { tier: 'medium', pins: 21, percent: 54 },
+              { tier: 'bad', pins: 2, percent: 5 },
+              { tier: 'unranked', pins: 0, percent: 0 },
+            ],
           },
           {
-            src: '/landing/case-studies/treecutting_after.webp',
+            map: '/landing/case-studies/maps/treecutting_after.webp',
             alt: 'Local SEO heatmap after 3 weeks: green pins dominate, with the donut showing 90% ranking in top positions.',
             label: 'AFTER · 3 WEEKS',
+            keyword: 'bronx tree service',
+            score: '1.7',
+            legend: [
+              { tier: 'good', pins: 35, percent: 90 },
+              { tier: 'medium', pins: 4, percent: 10 },
+              { tier: 'bad', pins: 0, percent: 0 },
+              { tier: 'unranked', pins: 0, percent: 0 },
+            ],
           },
         ],
         imageCaption:
-          'Each pin is one tracked location across the service area. The donut shows the share of pins ranking in each tier — green for top positions, orange for mid, red for unranked.',
+          'Each pin is one tracked location across the service area. The donut shows the share of pins in each ranking tier — green for top positions, orange for mid, light red for low, dark red for unranked.',
       },
 
       // 4 — Lighting & home decor
@@ -249,18 +315,34 @@ const caseStudiesContent = {
         imageEyebrow: 'RANKING HEATMAP · 4 WEEKS',
         images: [
           {
-            src: '/landing/case-studies/lightingdecor_before.webp',
+            map: '/landing/case-studies/maps/lightingdecor_before.webp',
             alt: 'Local SEO heatmap before optimization on the primary keyword: mixed pins with the donut showing 49% unranked.',
             label: 'BEFORE',
+            keyword: 'fans',
+            score: '13.1',
+            legend: [
+              { tier: 'good', pins: 8, percent: 21 },
+              { tier: 'medium', pins: 8, percent: 21 },
+              { tier: 'bad', pins: 4, percent: 10 },
+              { tier: 'unranked', pins: 19, percent: 49 },
+            ],
           },
           {
-            src: '/landing/case-studies/lightingdecor_after.webp',
-            alt: 'Local SEO heatmap after 4 weeks: green and orange pins dominate with the donut showing 53% in top positions.',
+            map: '/landing/case-studies/maps/lightingdecor_after.webp',
+            alt: 'Local SEO heatmap after 4 weeks: green and orange pins dominate.',
             label: 'AFTER · 4 WEEKS',
+            keyword: 'fans',
+            score: '6.8',
+            legend: [
+              { tier: 'good', pins: 8, percent: 21 },
+              { tier: 'medium', pins: 21, percent: 54 },
+              { tier: 'bad', pins: 10, percent: 26 },
+              { tier: 'unranked', pins: 0, percent: 0 },
+            ],
           },
         ],
         imageCaption:
-          'Each pin is one tracked location across the service area. The donut shows the share of pins ranking in each tier — green for top positions, orange for mid, red for unranked.',
+          'Each pin is one tracked location across the service area. The donut shows the share of pins in each ranking tier — green for top positions, orange for mid, light red for low, dark red for unranked.',
       },
 
       // 5 — Auto glass repair
@@ -303,7 +385,7 @@ const caseStudiesContent = {
         imageEyebrow: 'SEARCH CONSOLE · 30-DAY WINDOW',
         images: [
           {
-            src: '/landing/case-studies/autoglass.webp',
+            fullImage: '/landing/case-studies/autoglass.webp',
             alt: 'Google Search Console dashboard showing the increase in clicks, impressions, CTR, and average ranking position across the 30-day measurement window.',
             label: null,
           },
@@ -395,6 +477,16 @@ const caseStudiesContent = {
     nav: {
       back: '← Inicio',
     },
+    cardLabels: {
+      scoreLabel: 'Puntaje de Posicionamiento',
+      tiers: {
+        good: 'Top',
+        medium: 'Medio',
+        bad: 'Bajo',
+        unranked: 'Sin posicionar',
+      },
+      pins: (n) => (n === 1 ? '1 pin' : `${n} pins`),
+    },
     hero: {
       eyebrow: 'CASOS DE ÉXITO DE CLIENTES',
       headline: (
@@ -446,19 +538,43 @@ const caseStudiesContent = {
         imageEyebrow: 'MAPA DE CALOR · 20 DÍAS',
         images: [
           {
-            src: '/landing/case-studies/dental_1.webp',
+            map: '/landing/case-studies/maps/dental_1.webp',
             alt: 'Mapa de calor de SEO local para el consultorio dental en el día 1: la mayoría de los pins están rojos (sin posicionar).',
             label: 'DÍA 1',
+            keyword: 'dentist near me',
+            score: '18.8',
+            legend: [
+              { tier: 'good', pins: 1, percent: 3 },
+              { tier: 'medium', pins: 2, percent: 5 },
+              { tier: 'bad', pins: 4, percent: 10 },
+              { tier: 'unranked', pins: 32, percent: 82 },
+            ],
           },
           {
-            src: '/landing/case-studies/dental_2.webp',
+            map: '/landing/case-studies/maps/dental_2.webp',
             alt: 'Mapa de calor en el día 10: mezcla de pins rojos, naranjas y verdes a medida que mejoran las posiciones.',
             label: 'DÍA 10',
+            keyword: 'dentist near me',
+            score: '14.3',
+            legend: [
+              { tier: 'good', pins: 4, percent: 10 },
+              { tier: 'medium', pins: 7, percent: 18 },
+              { tier: 'bad', pins: 14, percent: 36 },
+              { tier: 'unranked', pins: 14, percent: 36 },
+            ],
           },
           {
-            src: '/landing/case-studies/dental_3.webp',
+            map: '/landing/case-studies/maps/dental_3.webp',
             alt: 'Mapa de calor en el día 20: predominan los pins verdes y naranjas, indicando posiciones top.',
             label: 'DÍA 20',
+            keyword: 'dentist near me',
+            score: '9.5',
+            legend: [
+              { tier: 'good', pins: 7, percent: 18 },
+              { tier: 'medium', pins: 13, percent: 33 },
+              { tier: 'bad', pins: 13, percent: 33 },
+              { tier: 'unranked', pins: 6, percent: 15 },
+            ],
           },
         ],
         imageCaption:
@@ -504,14 +620,30 @@ const caseStudiesContent = {
         imageEyebrow: 'MAPA DE CALOR · 3 SEMANAS',
         images: [
           {
-            src: '/landing/case-studies/chiropractic_before.webp',
+            map: '/landing/case-studies/maps/chiropractic_before.webp',
             alt: 'Mapa de calor antes de la optimización: la mayoría de los pins están rojos (sin posicionar).',
             label: 'ANTES',
+            keyword: 'chiropractic center',
+            score: '18.7',
+            legend: [
+              { tier: 'good', pins: 2, percent: 5 },
+              { tier: 'medium', pins: 2, percent: 5 },
+              { tier: 'bad', pins: 2, percent: 5 },
+              { tier: 'unranked', pins: 33, percent: 85 },
+            ],
           },
           {
-            src: '/landing/case-studies/chiropractic_after.webp',
+            map: '/landing/case-studies/maps/chiropractic_after.webp',
             alt: 'Mapa de calor después de 3 semanas: predominan los pins verdes y naranjas, con la dona mostrando 46% en las mejores posiciones.',
             label: 'DESPUÉS · 3 SEMANAS',
+            keyword: 'chiropractic center',
+            score: '6.3',
+            legend: [
+              { tier: 'good', pins: 18, percent: 46 },
+              { tier: 'medium', pins: 6, percent: 15 },
+              { tier: 'bad', pins: 14, percent: 36 },
+              { tier: 'unranked', pins: 1, percent: 3 },
+            ],
           },
         ],
         imageCaption:
@@ -557,14 +689,30 @@ const caseStudiesContent = {
         imageEyebrow: 'MAPA DE CALOR · 3 SEMANAS',
         images: [
           {
-            src: '/landing/case-studies/treecutting_before.webp',
+            map: '/landing/case-studies/maps/treecutting_before.webp',
             alt: 'Mapa de calor antes de la optimización en la keyword secundaria: pins naranjas y verdes mezclados, dona mostrando 41% en posiciones top.',
             label: 'ANTES',
+            keyword: 'bronx tree service',
+            score: '4',
+            legend: [
+              { tier: 'good', pins: 16, percent: 41 },
+              { tier: 'medium', pins: 21, percent: 54 },
+              { tier: 'bad', pins: 2, percent: 5 },
+              { tier: 'unranked', pins: 0, percent: 0 },
+            ],
           },
           {
-            src: '/landing/case-studies/treecutting_after.webp',
+            map: '/landing/case-studies/maps/treecutting_after.webp',
             alt: 'Mapa de calor después de 3 semanas: dominan los pins verdes con la dona mostrando 90% en las mejores posiciones.',
             label: 'DESPUÉS · 3 SEMANAS',
+            keyword: 'bronx tree service',
+            score: '1.7',
+            legend: [
+              { tier: 'good', pins: 35, percent: 90 },
+              { tier: 'medium', pins: 4, percent: 10 },
+              { tier: 'bad', pins: 0, percent: 0 },
+              { tier: 'unranked', pins: 0, percent: 0 },
+            ],
           },
         ],
         imageCaption:
@@ -610,14 +758,30 @@ const caseStudiesContent = {
         imageEyebrow: 'MAPA DE CALOR · 4 SEMANAS',
         images: [
           {
-            src: '/landing/case-studies/lightingdecor_before.webp',
+            map: '/landing/case-studies/maps/lightingdecor_before.webp',
             alt: 'Mapa de calor antes de la optimización en la keyword principal: pins mezclados con la dona mostrando 49% sin posicionar.',
             label: 'ANTES',
+            keyword: 'fans',
+            score: '13.1',
+            legend: [
+              { tier: 'good', pins: 8, percent: 21 },
+              { tier: 'medium', pins: 8, percent: 21 },
+              { tier: 'bad', pins: 4, percent: 10 },
+              { tier: 'unranked', pins: 19, percent: 49 },
+            ],
           },
           {
-            src: '/landing/case-studies/lightingdecor_after.webp',
-            alt: 'Mapa de calor después de 4 semanas: dominan los pins verdes y naranjas con la dona mostrando 53% en las mejores posiciones.',
+            map: '/landing/case-studies/maps/lightingdecor_after.webp',
+            alt: 'Mapa de calor después de 4 semanas: dominan los pins verdes y naranjas.',
             label: 'DESPUÉS · 4 SEMANAS',
+            keyword: 'fans',
+            score: '6.8',
+            legend: [
+              { tier: 'good', pins: 8, percent: 21 },
+              { tier: 'medium', pins: 21, percent: 54 },
+              { tier: 'bad', pins: 10, percent: 26 },
+              { tier: 'unranked', pins: 0, percent: 0 },
+            ],
           },
         ],
         imageCaption:
@@ -664,7 +828,7 @@ const caseStudiesContent = {
         imageEyebrow: 'SEARCH CONSOLE · VENTANA DE 30 DÍAS',
         images: [
           {
-            src: '/landing/case-studies/autoglass.webp',
+            fullImage: '/landing/case-studies/autoglass.webp',
             alt: 'Panel de Google Search Console mostrando el aumento en clics, impresiones, CTR y posición promedio en el periodo de medición de 30 días.',
             label: null,
           },
