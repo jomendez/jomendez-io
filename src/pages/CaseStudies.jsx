@@ -7,6 +7,58 @@ import LanguageToggle from '../i18n/LanguageToggle'
 import caseStudiesContent from '../i18n/content/caseStudies'
 
 /**
+ * SVG donut chart driven by the legend percentages. Each tier gets a
+ * stroke-dasharray segment around a circle so the result is a clean
+ * 4-segment ring with no canvas / library overhead. The colors live in
+ * CSS (var(--cs-tier-*)) so the visualization theme follows tokens.
+ */
+const TIER_COLOR_VAR = {
+  good: 'var(--cs-tier-good)',
+  medium: 'var(--cs-tier-medium)',
+  bad: 'var(--cs-tier-bad)',
+  unranked: 'var(--cs-tier-unranked)',
+}
+
+const Donut = ({ legend, size = 88, stroke = 14 }) => {
+  const r = (size - stroke) / 2
+  const c = 2 * Math.PI * r
+  // Build segments in order. Start angle is -90° (12 o'clock).
+  let offset = 0
+  const segments = legend
+    .filter((s) => s.percent > 0)
+    .map((s, i) => {
+      const len = (c * s.percent) / 100
+      const node = (
+        <circle
+          key={i}
+          cx={size / 2}
+          cy={size / 2}
+          r={r}
+          fill="none"
+          stroke={TIER_COLOR_VAR[s.tier]}
+          strokeWidth={stroke}
+          strokeDasharray={`${len} ${c - len}`}
+          strokeDashoffset={-offset}
+        />
+      )
+      offset += len
+      return node
+    })
+  return (
+    <svg
+      className="cs-card-donut-svg"
+      width={size}
+      height={size}
+      viewBox={`0 0 ${size} ${size}`}
+      role="img"
+      aria-hidden="true"
+    >
+      <g transform={`rotate(-90 ${size / 2} ${size / 2})`}>{segments}</g>
+    </svg>
+  )
+}
+
+/**
  * /case-studies — full case-studies landing.
  *
  * Long-form proof page. Renders five detailed client stories with the
@@ -259,14 +311,79 @@ const CaseStudies = () => {
                               {img.label}
                             </p>
                           )}
-                          <div className="cs-case-image-card-frame">
-                            <img
-                              src={img.src}
-                              alt={img.alt}
-                              loading="lazy"
-                              decoding="async"
-                            />
-                          </div>
+                          {img.fullImage ? (
+                            /* Single-image card (e.g. AutoGlass Search
+                               Console dashboard) — no chrome to recreate. */
+                            <div className="cs-case-image-card-frame">
+                              <img
+                                src={img.fullImage}
+                                alt={img.alt}
+                                loading="lazy"
+                                decoding="async"
+                              />
+                            </div>
+                          ) : (
+                            /* Map card — heatmap image on top, then the
+                               recreated SearchAtlas-style chrome below:
+                               keyword pill, ranking score, donut + 4-row
+                               tier legend. Everything except the map is
+                               native HTML so the data is searchable,
+                               accessible, and themeable. */
+                            <div className="cs-card-rich">
+                              <div className="cs-card-map">
+                                <img
+                                  src={img.map}
+                                  alt={img.alt}
+                                  loading="lazy"
+                                  decoding="async"
+                                />
+                              </div>
+                              <div className="cs-card-meta">
+                                <div className="cs-card-keyword">
+                                  <span>{img.keyword}</span>
+                                  <span
+                                    className="cs-card-keyword-caret"
+                                    aria-hidden="true"
+                                  >
+                                    ▾
+                                  </span>
+                                </div>
+                                <p className="cs-card-score-label">
+                                  {t.cardLabels.scoreLabel}
+                                </p>
+                                <p
+                                  className={`cs-card-score cs-card-score--${
+                                    parseFloat(img.score) < 7 ? 'good' : 'bad'
+                                  }`}
+                                >
+                                  {img.score}
+                                </p>
+                                <div className="cs-card-donut-row">
+                                  <Donut legend={img.legend} />
+                                  <ul className="cs-card-legend">
+                                    {img.legend.map((s, k) => (
+                                      <li
+                                        key={k}
+                                        className={`cs-card-legend-row cs-card-legend-row--${s.tier}`}
+                                      >
+                                        <span
+                                          className="cs-card-legend-dot"
+                                          aria-hidden="true"
+                                        />
+                                        <span className="cs-card-legend-label">
+                                          {t.cardLabels.tiers[s.tier]}
+                                        </span>
+                                        <span className="cs-card-legend-value">
+                                          {t.cardLabels.pins(s.pins)} (
+                                          {s.percent}%)
+                                        </span>
+                                      </li>
+                                    ))}
+                                  </ul>
+                                </div>
+                              </div>
+                            </div>
+                          )}
                         </div>
                       ))}
                     </div>

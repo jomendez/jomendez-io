@@ -1,4 +1,16 @@
 /* ==========================================================================
+ * Donut tier colors — used by both the SVG donut and the legend dots.
+ * Tuned to read close to the SearchAtlas dashboard tier palette while
+ * sitting cleanly on the site's cream surface.
+ * ========================================================================== */
+:root {
+  --cs-tier-good: #2EB872;      /* top positions */
+  --cs-tier-medium: #F19324;    /* mid positions */
+  --cs-tier-bad: #E25555;       /* low positions */
+  --cs-tier-unranked: #962323;  /* not ranking */
+}
+
+/* ==========================================================================
  * /case-studies — page-specific styles.
  *
  * Loaded on top of Landing.styles.css (injected by CaseStudies.jsx), so all
@@ -320,6 +332,135 @@
   max-height: 520px;
   object-fit: contain;
   border-radius: 4px;
+}
+
+/* ---- Rich card — heatmap image on top, recreated UI chrome below.
+   The heatmap is the only raster element; the keyword pill, ranking
+   score, donut, and legend are all native HTML/SVG so they stay
+   crisp, themeable, accessible, and translatable. ---- */
+.cs-card-rich {
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: clamp(12px, 1.4vw, 18px);
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.cs-card-map {
+  position: relative;
+  background: var(--bg-2);
+  border-radius: 10px;
+  overflow: hidden;
+  aspect-ratio: 1 / 1;
+}
+.cs-card-map img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.cs-card-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* Keyword pill — mimics the SearchAtlas dropdown look. */
+.cs-card-keyword {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  align-self: flex-start;
+  padding: 6px 12px;
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  font-size: 13px;
+  color: var(--ink);
+  font-weight: 500;
+  letter-spacing: -0.005em;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.cs-card-keyword-caret {
+  color: var(--muted);
+  font-size: 9px;
+  line-height: 1;
+}
+
+.cs-card-score-label {
+  margin: 6px 0 0;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--muted);
+  letter-spacing: -0.005em;
+}
+.cs-card-score {
+  margin: 0;
+  font-family: 'Instrument Serif', serif;
+  font-size: clamp(32px, 4vw, 42px);
+  line-height: 1;
+  letter-spacing: -0.025em;
+  font-weight: 400;
+}
+/* SearchAtlas color semantics: low score = better ranking = green;
+   higher score = worse ranking = red. Threshold ~7 matches the dash. */
+.cs-card-score--good { color: var(--cs-tier-good); }
+.cs-card-score--bad { color: var(--cs-tier-unranked); }
+
+.cs-card-donut-row {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 14px;
+  align-items: center;
+  margin-top: 4px;
+}
+.cs-card-donut-svg {
+  display: block;
+  flex-shrink: 0;
+}
+
+.cs-card-legend {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+.cs-card-legend-row {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 8px;
+  align-items: baseline;
+  font-size: 11.5px;
+  line-height: 1.4;
+  color: var(--ink);
+  letter-spacing: -0.005em;
+}
+.cs-card-legend-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 999px;
+  align-self: center;
+  flex-shrink: 0;
+}
+.cs-card-legend-row--good .cs-card-legend-dot { background: var(--cs-tier-good); }
+.cs-card-legend-row--medium .cs-card-legend-dot { background: var(--cs-tier-medium); }
+.cs-card-legend-row--bad .cs-card-legend-dot { background: var(--cs-tier-bad); }
+.cs-card-legend-row--unranked .cs-card-legend-dot { background: var(--cs-tier-unranked); }
+.cs-card-legend-label {
+  color: var(--ink);
+  font-weight: 500;
+}
+.cs-card-legend-value {
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+  font-size: 11px;
 }
 .cs-case-image-caption {
   margin: 4px 0 0;
