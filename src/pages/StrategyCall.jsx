@@ -7,12 +7,14 @@ import LanguageToggle from '../i18n/LanguageToggle'
 import strategyCallContent from '../i18n/content/strategyCall'
 
 /**
- * /strategy-call — dedicated booking page.
+ * /strategy-call — dedicated intake page.
  *
- * Single job: get a qualified visitor onto the calendar. Hero frames
- * the call, a small "what to expect" beat sets the tone, then the
- * embedded GHL calendar widget. Below the widget: one short
- * reassurance line about what happens after booking.
+ * Single job: get a qualified visitor to fill out the intake survey,
+ * which is the first step toward booking a call. The lead section is a
+ * two-column layout: compact supporting copy on the left, the GHL survey
+ * form card on the right. At mobile width the form sandwiches between a
+ * compact headline (above) and the bullets (below), so the form sits
+ * above the fold at every viewport.
  *
  * Bilingual: all copy comes from src/i18n/content/strategyCall.jsx via
  * useContent(). Visual system is shared with / and /free-audit.
@@ -103,13 +105,13 @@ const StrategyCall = () => {
     window.scrollTo(0, 0)
   }, [])
 
-  // GHL calendar embed helper script — handles postMessage from the
-  // iframe to auto-resize its height. The iframe itself is rendered
-  // declaratively below; this just adds the resize controller. Cleanup
-  // removes the script so client-side re-navigation doesn't stack copies.
+  // GHL form embed helper script — auto-resizes the survey iframe via
+  // postMessage. Was embed.js (booking widget); now form_embed.js
+  // (survey widget). Same lifecycle: append on mount, remove on
+  // unmount so client-side re-navigation doesn't stack copies.
   useEffect(() => {
     const script = document.createElement('script')
-    script.src = 'https://brand.jomendez.io/js/embed.js'
+    script.src = 'https://brand.jomendez.io/js/form_embed.js'
     script.type = 'text/javascript'
     script.async = true
     document.body.appendChild(script)
@@ -166,16 +168,66 @@ const StrategyCall = () => {
 
       <main id="top">
         {/* ============================================================
-            HERO
+            LEAD — form-dominant hero with sidebar copy.
+            Replaces the old hero + calendar pair so the survey form
+            sits above the fold at every viewport. id="book" is kept on
+            this section so deep links to /strategy-call#book still
+            land here.
             ============================================================ */}
-        <section className="sc-hero blueprint grain">
+        <section className="sc-lead blueprint grain" id="book">
           <div className="wrap">
-            <div className="sc-hero-inner">
-              <span className="eyebrow micro">{t.hero.eyebrow}</span>
-              <h1 className="sc-hero-headline">{t.hero.headline}</h1>
-              <p className="sc-hero-sub">{t.hero.sub}</p>
+            <div className="sc-lead-grid">
 
-              <ul className="sc-hero-bullets" aria-label={t.a11y.bulletsLabel}>
+              {/* Title block (eyebrow + headline). DOM order is
+                  intentional: title comes first, then the form, then
+                  the supporting copy. This way the DOM/reading order
+                  matches the visual order on mobile (title → form →
+                  bullets) and screen-reader users hit the form right
+                  after the headline — the same beat that converts
+                  sighted visitors. At tablet+ the grid-template-areas
+                  in CSS places the form in the right column and the
+                  copy items stack down the left. */}
+              <div className="sc-lead-copy-top">
+                <span className="eyebrow micro">{t.hero.eyebrow}</span>
+                <h1 className="sc-lead-headline">{t.hero.headline}</h1>
+              </div>
+
+              {/* GHL survey form card.
+                  form_embed.js (loaded in the useEffect above) listens
+                  for postMessage from the iframe by its widget UUID id
+                  and writes inline height once the survey renders. The
+                  iframe id MUST stay 12siFqglf2lq494zIAfC.
+                  Uses <section> (not <aside>) because this is the
+                  page's primary content, not complementary. Labelled
+                  via aria-labelledby pointing at the form-card h2. */}
+              <section
+                className="sc-lead-form"
+                aria-labelledby="sc-form-title"
+              >
+                <div className="sc-form-head">
+                  <span className="eyebrow micro">{t.form.eyebrow}</span>
+                  <h2 id="sc-form-title" className="sc-form-heading">
+                    {t.form.heading}
+                  </h2>
+                </div>
+                <div className="sc-form-host">
+                  <iframe
+                    src="https://brand.jomendez.io/widget/survey/12siFqglf2lq494zIAfC"
+                    id="12siFqglf2lq494zIAfC"
+                    title={t.a11y.formIframeTitle}
+                    scrolling="no"
+                    style={{ border: 'none', width: '100%' }}
+                  />
+                </div>
+                <p className="sc-form-microcopy">{t.form.microcopy}</p>
+                <p className="sc-form-reassure mono micro">{t.form.reassure}</p>
+              </section>
+
+              {/* Supporting copy (sub + bullets) below the form on
+                  mobile, in the left column at tablet+. */}
+              <p className="sc-lead-sub">{t.hero.sub}</p>
+
+              <ul className="sc-lead-bullets" aria-label={t.a11y.bulletsLabel}>
                 {t.hero.bullets.map((bullet, i) => (
                   <li key={i}>
                     <span className="mono micro">
@@ -185,32 +237,7 @@ const StrategyCall = () => {
                   </li>
                 ))}
               </ul>
-            </div>
-          </div>
-        </section>
 
-        {/* ============================================================
-            CALENDAR
-            ============================================================ */}
-        <section className="sc-calendar" id="book">
-          <div className="wrap">
-            <div className="sc-calendar-head">
-              <span className="eyebrow micro">{t.calendar.eyebrow}</span>
-              <h2>{t.calendar.heading}</h2>
-              <p>{t.calendar.sub}</p>
-            </div>
-
-            {/* GHL booking widget — iframe rendered declaratively; the
-                embed.js script (loaded in the useEffect above) listens
-                for postMessage from the iframe to auto-resize it. */}
-            <div className="sc-calendar-host">
-              <iframe
-                src="https://brand.jomendez.io/widget/booking/hIhkz2DcgP9x0VnjPM84"
-                title="Book a strategy call with Jose Mendez"
-                style={{ width: '100%', border: 'none', overflow: 'hidden' }}
-                scrolling="no"
-                id="msgsndr-calendar"
-              />
             </div>
           </div>
         </section>

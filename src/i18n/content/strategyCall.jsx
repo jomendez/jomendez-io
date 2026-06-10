@@ -1,6 +1,11 @@
 /**
  * /strategy-call copy, in English and Spanish. See landing.jsx for the
  * conventions.
+ *
+ * Layout: form-dominant two-column lead — compact copy sidebar + GHL
+ * survey form card. The form sits above the fold at every viewport,
+ * so the headline / sub / bullets stay short and the new `form` block
+ * supplies the bridging "what filling out this form does" beat.
  */
 
 const strategyCallContent = {
@@ -14,6 +19,7 @@ const strategyCallContent = {
       primaryNav: 'Primary',
       homeLink: 'Jomendez Inc home',
       bulletsLabel: 'What we’ll cover',
+      formIframeTitle: 'Strategy call intake survey',
     },
     nav: {
       back: '← Home',
@@ -22,24 +28,26 @@ const strategyCallContent = {
       eyebrow: 'STRATEGY CALL',
       headline: (
         <>
-          Let’s map your fastest path to <em>capturing more leads.</em>
+          Map your fastest path to <em>more leads.</em>
         </>
       ),
-      sub: 'A free 20-minute conversation about your business. No pitch, no pressure — just a clear read on where the biggest wins are and what to put in place first.',
+      sub: 'A free 20-minute conversation. No pitch, no pressure — just a clear read on where the biggest wins are.',
       bullets: [
-        'Where leads come from today — or could come from',
-        'Where they’re slipping away between inquiry and customer',
-        'What to build first to start converting more of what you already have',
+        'Where your leads come from — or could come from',
+        'Where they slip away before they convert',
+        'What to build first to fix it',
       ],
     },
-    calendar: {
-      eyebrow: 'PICK A TIME',
+    form: {
+      eyebrow: 'TELL ME ABOUT YOUR BUSINESS',
       heading: (
         <>
-          Find a slot that <em>works for you.</em>
+          Two minutes — <em>then we talk.</em>
         </>
       ),
-      sub: '20 minutes, by Zoom or phone. You’ll get a confirmation with the call details right after booking.',
+      microcopy:
+        'Your answers stay private. I’ll review them before our call so we can skip the small talk.',
+      reassure: '~2 MIN · NO SPAM · I REPLY PERSONALLY',
     },
     after: {
       eyebrow: 'WHAT HAPPENS NEXT',
@@ -66,6 +74,7 @@ const strategyCallContent = {
       primaryNav: 'Principal',
       homeLink: 'Inicio de Jomendez Inc',
       bulletsLabel: 'Lo que cubriremos',
+      formIframeTitle: 'Cuestionario para la llamada estratégica',
     },
     nav: {
       back: '← Inicio',
@@ -74,25 +83,26 @@ const strategyCallContent = {
       eyebrow: 'LLAMADA ESTRATÉGICA',
       headline: (
         <>
-          Tracemos tu camino más rápido para{' '}
-          <em>captar más clientes.</em>
+          Traza tu camino más rápido a <em>más clientes.</em>
         </>
       ),
-      sub: 'Una conversación gratuita de 20 minutos sobre tu negocio. Sin discurso de ventas, sin presión: solo una lectura clara de dónde están las mayores oportunidades y qué poner en marcha primero.',
+      sub: 'Una conversación gratuita de 20 minutos. Sin discurso de ventas — solo una lectura clara de dónde están las mayores oportunidades.',
       bullets: [
-        'De dónde vienen tus clientes hoy, o de dónde podrían venir',
-        'Dónde se te escapan entre la consulta y la venta',
-        'Qué construir primero para empezar a convertir más de lo que ya tienes',
+        'De dónde vienen tus clientes — o de dónde podrían venir',
+        'Dónde se escapan antes de convertir',
+        'Qué construir primero para arreglarlo',
       ],
     },
-    calendar: {
-      eyebrow: 'ELIGE UN HORARIO',
+    form: {
+      eyebrow: 'CUÉNTAME SOBRE TU NEGOCIO',
       heading: (
         <>
-          Encuentra un espacio que <em>te funcione.</em>
+          Dos minutos — <em>y luego hablamos.</em>
         </>
       ),
-      sub: '20 minutos, por Zoom o por teléfono. Recibirás una confirmación con los detalles de la llamada justo después de agendar.',
+      microcopy:
+        'Tus respuestas son privadas. Las reviso antes de la llamada para ir directo al grano.',
+      reassure: '~2 MIN · SIN SPAM · TE RESPONDO YO',
     },
     after: {
       eyebrow: 'QUÉ SIGUE DESPUÉS',

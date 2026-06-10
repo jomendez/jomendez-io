@@ -6,8 +6,10 @@
  * already available. Page selectors are prefixed .sc-* to avoid collisions
  * with Landing's section classes and FreeAudit's .fa-* selectors.
  *
- * Mobile-first: defaults size for narrow screens, then breakpoints layer
- * on tablet/desktop adjustments.
+ * Mobile-first. New layout: a single .sc-lead section (former hero +
+ * calendar collapsed) with a two-column grid on tablet+ and a single-
+ * column form-sandwich on mobile so the GHL survey form lands above the
+ * fold at every viewport.
  * ========================================================================== */
 
 /* ---- Nav back-link variant ---- */
@@ -21,118 +23,214 @@
 .sc-nav-back:hover { color: var(--accent); }
 
 /* ============================================================
- * HERO
+ * LEAD — form-dominant hero (replaces the old hero + calendar pair)
+ *
+ * DOM order mirrors visual order:
+ *   1. .sc-lead-copy-top  (eyebrow + headline)
+ *   2. .sc-lead-form      (the survey card)
+ *   3. .sc-lead-sub       (hidden on mobile; visible at tablet+)
+ *   4. .sc-lead-bullets
+ *
+ * Mobile: single column, stacked in DOM order. The sub is display:none
+ * to keep the form above the fold.
+ *
+ * Tablet+: grid-template-areas places copy/sub/bullets stacked down the
+ * left column and the form spans all rows on the right. No `order:`
+ * tricks needed — DOM order, visual order, and screen-reader order all
+ * agree (WCAG 1.3.2 Meaningful Sequence).
  * ============================================================ */
-.sc-hero {
-  padding: 120px 0 64px;
+.sc-lead {
+  padding: 80px 0 64px;
   position: relative;
   overflow: hidden;
 }
-.sc-hero-inner {
-  max-width: 760px;
-  position: relative;
-  z-index: 2;
+
+.sc-lead-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+  align-items: start;
 }
-.sc-hero-headline {
+
+.sc-lead-copy-top .eyebrow {
+  display: block;
+  margin: 0 0 10px;
+}
+
+.sc-lead-sub { display: none; }   /* mobile only */
+
+.sc-lead-headline {
   font-family: 'Instrument Serif', serif;
   font-weight: 400;
-  font-size: clamp(40px, 7.2vw, 76px);
-  line-height: 1.02;
-  letter-spacing: -0.025em;
+  font-size: clamp(28px, 7vw, 34px);
+  line-height: 1.08;
+  letter-spacing: -0.02em;
   color: var(--ink);
-  margin: 18px 0 20px;
+  margin: 0 0 20px;
+  max-width: 22ch;
 }
-.sc-hero-headline em {
+.sc-lead-headline em {
   color: var(--accent);
   font-style: italic;
 }
-.sc-hero-sub {
-  font-size: clamp(16px, 2.2vw, 19px);
+
+.sc-lead-sub {
+  font-size: 15px;
   line-height: 1.55;
   color: var(--ink-2);
-  max-width: 620px;
-  margin-bottom: 28px;
+  max-width: 56ch;
+  margin: 24px 0 18px;
 }
 
-.sc-hero-bullets {
+.sc-lead-bullets {
   list-style: none;
   padding: 0;
   margin: 0;
   display: grid;
   grid-template-columns: 1fr;
-  gap: 12px;
-  max-width: 640px;
+  gap: 10px;
 }
-.sc-hero-bullets li {
+.sc-lead-bullets li {
   display: grid;
   grid-template-columns: auto 1fr;
-  gap: 14px;
+  gap: 12px;
   align-items: baseline;
-  padding: 14px 18px;
+  padding: 12px 14px;
   background: var(--bg-2);
   border: 1px solid var(--line);
-  border-radius: 14px;
-  font-size: 15px;
-  line-height: 1.45;
+  border-radius: 12px;
+  font-size: 14px;
+  line-height: 1.4;
   color: var(--ink);
 }
-.sc-hero-bullets .mono { color: var(--accent-ink); }
+.sc-lead-bullets .mono { color: var(--accent-ink); }
 
-/* ============================================================
- * CALENDAR
- * ============================================================ */
-.sc-calendar {
-  padding: 80px 0 96px;
-  background: var(--bg);
+/* ---- Form card ---- */
+.sc-form-head {
+  margin: 0 0 14px;
 }
-.sc-calendar-head {
-  max-width: 720px;
-  margin: 0 auto 32px;
-  text-align: center;
+.sc-form-head .eyebrow {
+  display: inline-block;
+  margin-bottom: 8px;
 }
-.sc-calendar-head h2 {
+.sc-form-heading {
   font-family: 'Instrument Serif', serif;
   font-weight: 400;
-  font-size: clamp(32px, 5vw, 56px);
-  line-height: 1.05;
-  letter-spacing: -0.02em;
+  font-size: clamp(22px, 2.6vw, 28px);
+  line-height: 1.15;
+  letter-spacing: -0.015em;
   color: var(--ink);
-  margin: 14px 0 12px;
+  margin: 0;
 }
-.sc-calendar-head h2 em { color: var(--accent); font-style: italic; }
-.sc-calendar-head p {
-  font-size: 15px;
-  color: var(--ink-2);
-  line-height: 1.5;
+.sc-form-heading em {
+  color: var(--accent);
+  font-style: italic;
 }
 
-.sc-calendar-host {
-  max-width: 880px;
-  margin: 0 auto;
+.sc-form-host {
   background: #fff;
   border: 1px solid var(--line);
-  border-radius: 20px;
-  padding: 16px;
+  border-radius: 18px;
+  padding: 12px;
   box-shadow:
     0 1px 0 rgba(14, 34, 64, .04),
     0 18px 48px -24px rgba(14, 34, 64, .18);
   overflow: hidden;
 }
-.sc-calendar-host iframe {
+.sc-form-host iframe {
   display: block;
   width: 100%;
-  /* The GHL embed script resizes the iframe to fit its content, but
-   * before that runs we want a sensible default so the page doesn't
-   * collapse and re-jump. */
-  min-height: 720px;
+  /* Pre-resize floor. form_embed.js will set height inline once the
+     survey reports its actual content size. 460px keeps the first
+     question + Next button above the mobile fold (375x812). */
+  min-height: 460px;
   border: 0;
 }
 
+.sc-form-microcopy {
+  margin: 12px 4px 0;
+  font-size: 12.5px;
+  line-height: 1.5;
+  color: var(--muted);
+}
+.sc-form-reassure {
+  margin: 8px 4px 0;
+  color: var(--accent-ink);
+  letter-spacing: 0.08em;
+}
+
 /* ============================================================
- * AFTER
+ * Tablet — two-column grid kicks in via grid-template-areas.
+ * Sidebar is 36% (not 42%) so the form column gets ~420-470px at
+ * 720-768 widths — wide enough for GHL side-by-side input fields
+ * (e.g. first/last name) without forced wrap.
+ * ============================================================ */
+@media (min-width: 720px) {
+  .sc-lead { padding: 96px 0 80px; }
+
+  .sc-lead-grid {
+    grid-template-columns: 36% 1fr;
+    grid-template-areas:
+      "copy-top  form"
+      "sub       form"
+      "bullets   form";
+    column-gap: 32px;
+    row-gap: 18px;
+    align-items: start;
+  }
+  .sc-lead-copy-top { grid-area: copy-top; }
+  .sc-lead-sub      { grid-area: sub; }
+  .sc-lead-bullets  { grid-area: bullets; }
+  .sc-lead-form     { grid-area: form; }
+
+  .sc-lead-copy-top .eyebrow { margin: 0; }
+
+  .sc-lead-headline {
+    font-size: clamp(32px, 4.4vw, 40px);
+    margin: 14px 0 0;
+    max-width: none;
+  }
+  .sc-lead-sub {
+    display: block;            /* sub reappears at tablet+ */
+    margin: 0;
+    max-width: none;
+  }
+  .sc-lead-bullets {
+    gap: 10px;
+    margin: 0;
+  }
+  .sc-lead-bullets li { padding: 11px 14px; font-size: 14px; }
+
+  .sc-form-host { padding: 14px; }
+  .sc-form-host iframe { min-height: 520px; }
+}
+
+/* ============================================================
+ * Desktop — more breathing room, larger headline, slightly
+ * thinner sidebar (38%) so the form gets visual dominance.
+ * grid-template-areas inherits from the tablet block.
+ * ============================================================ */
+@media (min-width: 960px) {
+  .sc-lead { padding: 104px 0 96px; }
+
+  .sc-lead-grid {
+    grid-template-columns: 38% 1fr;
+    column-gap: 40px;
+    row-gap: 22px;
+  }
+
+  .sc-lead-headline {
+    font-size: clamp(36px, 3.4vw, 46px);
+  }
+  .sc-form-host { padding: 16px; }
+  .sc-form-host iframe { min-height: 560px; }
+}
+
+/* ============================================================
+ * AFTER — tightened now that the calendar slot is gone
  * ============================================================ */
 .sc-after {
-  padding: 96px 0;
+  padding: 80px 0;
   background: var(--bg-2);
 }
 .sc-after-inner {
@@ -161,18 +259,6 @@
   margin-top: 28px;
 }
 
-/* ============================================================
- * Tablet / desktop adjustments
- * ============================================================ */
 @media (min-width: 720px) {
-  .sc-hero { padding: 160px 0 96px; }
-  .sc-hero-bullets {
-    grid-template-columns: 1fr;
-    gap: 14px;
-  }
-
-  .sc-calendar { padding: 120px 0 140px; }
-  .sc-calendar-host { padding: 24px; }
-
-  .sc-after { padding: 140px 0; }
+  .sc-after { padding: 112px 0; }
 }
