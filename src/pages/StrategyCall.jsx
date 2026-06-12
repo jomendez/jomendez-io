@@ -123,9 +123,11 @@ const StrategyCall = () => {
   }, [])
 
   // GHL form embed helper script — auto-resizes the survey iframe via
-  // postMessage. Was embed.js (booking widget); now form_embed.js
-  // (survey widget). Same lifecycle: append on mount, remove on
-  // unmount so client-side re-navigation doesn't stack copies.
+  // postMessage. We re-load it whenever `surveyId` changes so the
+  // script's fresh execution scans the DOM and binds to the *current*
+  // iframe id (form_embed.js targets the iframe by its widget UUID id;
+  // a stale-bound copy would miss the swap if React reused the iframe
+  // element instead of replacing it).
   useEffect(() => {
     const script = document.createElement('script')
     script.src = 'https://brand.jomendez.io/js/form_embed.js'
@@ -136,7 +138,7 @@ const StrategyCall = () => {
     return () => {
       if (script.parentNode) script.parentNode.removeChild(script)
     }
-  }, [])
+  }, [surveyId])
 
   return (
     <>
@@ -230,7 +232,19 @@ const StrategyCall = () => {
                   </h2>
                 </div>
                 <div className="sc-form-host">
+                  {/* key={surveyId} forces React to unmount the old
+                      iframe element and mount a fresh one whenever the
+                      survey changes (i.e. on language toggle). Without
+                      the key, React would diff and reuse the same
+                      <iframe> DOM node by just updating its src/id
+                      attributes — and browsers do not always navigate
+                      the iframe document cleanly on an id swap, so the
+                      GHL embed could end up displaying stale survey
+                      content. The reload pattern from the language
+                      toggle should also handle this, but the key makes
+                      the swap bulletproof. */}
                   <iframe
+                    key={surveyId}
                     src={surveySrc}
                     id={surveyId}
                     title={t.a11y.formIframeTitle}
