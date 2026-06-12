@@ -23,9 +23,26 @@ import strategyCallContent from '../i18n/content/strategyCall'
 const FONTS_HREF =
   'https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap'
 
+// GHL survey widgets — one per language. The iframe id must match
+// the widget UUID exactly so form_embed.js's postMessage handler can
+// target it for inline height updates. We swap the whole widget per
+// language (not just the iframe src) because the GHL survey itself
+// is translated at the widget level. The language toggle reloads the
+// page (see src/i18n/LanguageContext.jsx), so picking the widget at
+// render time is sufficient — no script re-binding required.
+const SURVEY_WIDGET_IDS = {
+  en: '12siFqglf2lq494zIAfC',
+  es: 'FabHw5IuFnMKn8LPsLWx',
+}
+
 const StrategyCall = () => {
   const t = useContent(strategyCallContent)
   const { language } = useLanguage()
+
+  // Pick the right survey for the active language. Fall back to EN if
+  // language somehow resolves to anything else.
+  const surveyId = SURVEY_WIDGET_IDS[language] || SURVEY_WIDGET_IDS.en
+  const surveySrc = `https://brand.jomendez.io/widget/survey/${surveyId}`
 
   // Inject Google Fonts only while this page is mounted
   useEffect(() => {
@@ -196,7 +213,9 @@ const StrategyCall = () => {
                   form_embed.js (loaded in the useEffect above) listens
                   for postMessage from the iframe by its widget UUID id
                   and writes inline height once the survey renders. The
-                  iframe id MUST stay 12siFqglf2lq494zIAfC.
+                  iframe id MUST equal the widget UUID — we swap both
+                  src and id per language via SURVEY_WIDGET_IDS so the
+                  Spanish visitor lands on the Spanish survey.
                   Uses <section> (not <aside>) because this is the
                   page's primary content, not complementary. Labelled
                   via aria-labelledby pointing at the form-card h2. */}
@@ -212,8 +231,8 @@ const StrategyCall = () => {
                 </div>
                 <div className="sc-form-host">
                   <iframe
-                    src="https://brand.jomendez.io/widget/survey/12siFqglf2lq494zIAfC"
-                    id="12siFqglf2lq494zIAfC"
+                    src={surveySrc}
+                    id={surveyId}
                     title={t.a11y.formIframeTitle}
                     scrolling="no"
                     style={{ border: 'none', width: '100%' }}
